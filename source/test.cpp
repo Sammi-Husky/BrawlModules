@@ -1,4 +1,4 @@
-#include "brawl/gf/gfTask.h"
+#include "gf/gfTask.h"
 
 namespace stFinal {
 

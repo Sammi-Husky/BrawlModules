@@ -1,21 +1,22 @@
 #include <stddef.h>
-#include <NMWException.h>
 
+typedef struct DestructorChain
+{
+    struct DestructorChain *next;
+    void *destructor;
+    void *object;
+} DestructorChain;
 
-#ifndef _MSL_CDECL
-#define _MSL_CDECL
-#endif
 
 DestructorChain *__global_destructor_chain;
 
-extern void *__register_global_object(void *object,void *destructor,void *regmem)
+extern void *__register_global_object(void *object, void *destructor, DestructorChain *chain)
 {
-	((DestructorChain *)regmem)->next=__global_destructor_chain;
-	((DestructorChain *)regmem)->destructor=destructor;
-	((DestructorChain *)regmem)->object=object;
-	__global_destructor_chain=(DestructorChain *)regmem;
-
-	return object;
+    chain->next = __global_destructor_chain;
+    chain->destructor = destructor;
+    chain->object = object;
+    __global_destructor_chain = chain;
+    return object;
 }
 
 void __destroy_global_chain(void)

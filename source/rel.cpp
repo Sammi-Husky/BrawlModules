@@ -1,5 +1,3 @@
-#include "brawl/gf/gfTask.h"
-
 namespace stFinal {
     
 extern "C" {
