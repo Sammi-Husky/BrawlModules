@@ -2,6 +2,7 @@
 
 #include "types.h"
 #include "gf/gfTask.h"
+#include "gf/gfArchive.h"
 
 class Stage : gfTask {
     public:
@@ -19,11 +20,11 @@ class Stage : gfTask {
         virtual void createObj();
         virtual void createObjPokeTrainer(int unk1, int unk2, int unk3, int unk4, int unk5);
         virtual int getPokeTrainerPointNum();
-        virtual void getPokeTrainerPointData(); // TODO
+        virtual void getPokeTrainerPointData(int* unk1, int unk2);
         virtual int getPokeTrainerPositionZ();
         virtual int getPokeTrainerDrawLayer();
         virtual bool isAdventureStage();
-        virtual void getItemPac(); // TODO
+        virtual void getItemPac(gfArchive* archive1, gfArchive* archive2, int itemID,int variantID);
         virtual void getItemGenPac(); // TODO
         virtual void getItemPacEnemyFigure(); // TODO
         virtual void getEnemyPac(); // TODO
