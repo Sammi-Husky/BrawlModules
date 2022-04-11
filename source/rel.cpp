@@ -10,8 +10,6 @@ extern "C" {
     void _unresolved();
 }
 
-extern void main();
-
 void _prolog() {
     // Run global constructors
     PFN_voidfunc *ctor;
@@ -19,9 +17,6 @@ void _prolog() {
     {
         (*ctor)();
     }
-    
-
-    stFinal::main();
 }
 
 void _epilog() {

@@ -30,7 +30,7 @@ LD 			:= $(TOPDIR)/tools/MWCC4_2/mwldeppc.exe
 ELF2REL		:= $(TOPDIR)/tools/elf2rel.exe
 
 
-CCFLAGS		:= -Cpp_exceptions off -c -proc gekko -nostdinc -O4,p -inline auto -fp hard -u _prolog -u _epilog -u _unresolved -enum int -sdata 0 -sdata2 0 $(INCLUDE)
+CCFLAGS		:= -Cpp_exceptions off -c -proc gekko -nostdinc -O4,p -inline auto -fp hard -u _prolog -u _epilog -u _unresolved -enum int -sdata 0 -sdata2 0
 CXXFLAGS	:= -lang=c++ $(CCFLAGS)
 LDFLAGS		:= -lcf $(LCF) -r1 -fp hard -nodefaults -nostdlib -m _prolog -g -unused
 
@@ -125,13 +125,13 @@ $(OFILES_SOURCES) : $(HFILES)
 #---------------------------------------------------------------------------------
 %.o: %.cpp
 	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CXX) $(CXXFLAGS) -MMD $< -o $(DEPSDIR)/$*.d
-	$(SILENTCMD)$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(SILENTCMD)$(CXX) $(CXXFLAGS) -MMD $< $(INCLUDE) -o $(DEPSDIR)/$*.d
+	$(SILENTCMD)$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) -o $@
 
 %.o: %.c
 	$(SILENTMSG) $(notdir $<)
-	$(SILENTCMD)$(CC) $(CCFLAGS) -MMD $< -o $(DEPSDIR)/$*.d
-	$(SILENTCMD)$(CC) $(CCFLAGS) -c $< -o $@
+	$(SILENTCMD)$(CC) $(CCFLAGS) -MMD $< $(INCLUDE) -o $(DEPSDIR)/$*.d
+	$(SILENTCMD)$(CC) $(CCFLAGS) -c $< $(INCLUDE) -o $@
 
 -include $(DEPENDS)
 
