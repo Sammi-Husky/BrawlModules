@@ -3,6 +3,8 @@
 
 class stFinal : stMelee {
     public:
-        stFinal(char* name, int unk1) : stMelee(name, unk1) {};
+        stFinal(char* name, int stageID) : stMelee(name, stageID) {};
         stFinal* create();
+        virtual bool loading();
+        virtual void update();
 };

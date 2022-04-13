@@ -1,3 +1,6 @@
+#include "gf/gfTask.h"
+#include "memory.h"
+
 namespace stFinal {
     
 extern "C" {

@@ -5,6 +5,9 @@
 
 class stCommonGimmick : Stage {
     public:
+        gfArchive* fileData;
+        char _spacer[0x10];
+        
         stCommonGimmick(char* name, int unk1);
         virtual ~stCommonGimmick();
     

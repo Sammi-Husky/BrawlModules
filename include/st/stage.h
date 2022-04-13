@@ -6,15 +6,24 @@
 
 class Stage : gfTask {
     public:
-        Stage(char* name, int unk1);      
-        void processBegin();
-        void processAnim();
-        void processUpdate();
-        void processMapCorrection();
-        void processFixCamera();
-        void processEnd();
-        void renderPre();
-        void renderDebug();
+        char _spacer[0x04];
+        int stageID;
+        char _spacer1[0x20];
+        char aiRange[0x18];
+        char cameraParam[0x78];
+        char collisionAttrs[0xC];
+        gfArchive archive;
+        char _spacer2[0x1c];
+    
+        Stage(char* name, int stageID);      
+        virtual void processBegin();
+        virtual void processAnim();
+        virtual void processUpdate();
+        virtual void processMapCorrection();
+        virtual void processFixCamera();
+        virtual void processEnd();
+        virtual void renderPre();
+        virtual void renderDebug();
         virtual ~Stage();
         
         virtual void createObj();
@@ -32,7 +41,7 @@ class Stage : gfTask {
         virtual void initializeStage(); // TODO
         virtual void closeStage();
         virtual void renderDebugPositions();
-        virtual int loading();
+        virtual bool loading();
         virtual void process();
         virtual void updateStagePositions();
         virtual void debugCollision();

@@ -2,7 +2,7 @@
 
 #include "types.h"
 #include "gf/gfFileIOHandle.h"
-#include "enums/HeapType.h"
+#include "memory.h"
 
 class gfArchive {
     public:
@@ -11,11 +11,11 @@ class gfArchive {
         // 4
         gfArchive* nextArchive;
         // 8
-        char _spacer[20 - 4 - sizeof(nextArchive)];
+        char _spacer[0xC];
         // 20
         void* Heap;
         // 24
-        char _spacer1[40 - 20 - sizeof(Heap)];
+        char _spacer1[0x10];
         // 40
         char archiveFilePath[64];
         // 104
@@ -25,12 +25,16 @@ class gfArchive {
         // 112
         int returnStatus;
         // 116
-        char _spacer2[120 - 112 - sizeof(returnStatus)];
+        char _spacer2[4];
 
         // 120
         gfArchive();
         gfArchive(HeapType heap, int* unk1);
         virtual void notify(int unk1, gfFileIORequest* unk2);
+        //void* getData(ARCNodeType nodeType, int fileIndex,uint endian);
+        //void* getData(int groupID, ARCNodeType nodeType,int fileIndex,uint endian);
+        //void* getData(ARCNodeType nodeType,int fileIndex,int *nodeSize,uint endian)
+        //void* getData(int groupID,ARCNodeType nodeType,int fileIndex,int *nodeSize, uint endian);
         ~gfArchive();
 
         // 124
