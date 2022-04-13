@@ -1,7 +1,8 @@
 #pragma once
 
+#include <stddef.h>
 
-enum HeapType : int {
+enum HeapType {
     SystemFW = 0x1,
     System = 0x2,
     Effect = 0x3,
@@ -53,5 +54,8 @@ enum HeapType : int {
     OverlayFighter3 = 0x37,
     OverlayFighter4 = 0x38,
     Thread = 0x3a
-
 };
+
+void* operator new(size_t size);
+void* operator new(size_t size, HeapType heap);
+void* operator new[](size_t size, HeapType heap);
