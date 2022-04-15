@@ -29,6 +29,7 @@ class gfTask {
         virtual void processFixPosition();
         virtual void processPreCollision();
         virtual void processCollision();
+        virtual void processCatch();
         virtual void processHit();
         virtual void processCamera();
         virtual void processFixCamera();

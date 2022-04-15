@@ -10,5 +10,4 @@ class stCommonGimmick : Stage {
         
         stCommonGimmick(char* name, int unk1);
         virtual ~stCommonGimmick();
-    
 };
