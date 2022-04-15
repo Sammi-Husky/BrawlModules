@@ -13,4 +13,5 @@ class stMelee : stCommonGimmick {
         virtual void checkChangeScene(); // TODO
         virtual void resetChangeScene(); // TODO
         virtual void setChangeSceneNumber(); // TODO
+        ~stMelee();
 };

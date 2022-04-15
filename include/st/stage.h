@@ -24,7 +24,7 @@ class Stage : gfTask {
         virtual void processEnd();
         virtual void renderPre();
         virtual void renderDebug();
-        virtual ~Stage();
+        ~Stage();
         
         virtual void createObj();
         virtual void createObjPokeTrainer(int unk1, int unk2, int unk3, int unk4, int unk5);
@@ -73,7 +73,7 @@ class Stage : gfTask {
         virtual float getEnemyDeadEffectSizeRate();
         virtual float getEnableZ();
         virtual int getBgmID(); // TODO
-        //virtual int getBgmID(); // TODO, overloaded
+        virtual int getBgmIDOverload(); // TODO, overloaded
         virtual int getNowStepBgmID();
         virtual int getBgmOptionID();
         virtual bool isBgmChange();
