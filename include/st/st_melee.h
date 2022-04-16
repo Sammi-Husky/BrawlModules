@@ -4,8 +4,9 @@
 #include "st/st_common_gimmick.h"
 
 class stMelee : stCommonGimmick {
-    public:
+    private:
         char _spacer[0x24];
+    public:
         stMelee(char* name, int stageID);
         virtual void update();
         virtual void setCameraLimitRange(float unk1, float unk2, float unk3, float unk4); // TODO

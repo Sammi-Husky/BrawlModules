@@ -1,7 +1,6 @@
 #pragma once
 
 #include "types.h"
-#include "gf/gfFileIO.h"
 
 struct gfFileIORequest {
     public:
