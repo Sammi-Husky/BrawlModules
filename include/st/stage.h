@@ -1,11 +1,11 @@
 #pragma once
 
 #include "types.h"
-#include "gf/gfTask.h"
-#include "gf/gfArchive.h"
+#include "gf/gf_task.h"
+#include "gf/gf_archive.h"
 
 class Stage : gfTask {
-    public:
+    private:
         char _spacer[0x04];
         int stageID;
         char _spacer1[0x20];
@@ -15,6 +15,7 @@ class Stage : gfTask {
         gfArchive archive;
         char _spacer2[0x1c];
     
+    public:
         Stage(char* name, int stageID);      
         virtual void processBegin();
         virtual void processAnim();
