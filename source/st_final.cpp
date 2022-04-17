@@ -17,3 +17,8 @@ int stFinal::getFinalTechniqColor(){
 bool stFinal::isBamperVector(){
    return true;
 }
+
+void stFinal::createObj() {
+   Stage::testStageParamInit(fileData, 0xA);
+   Stage::testStageParamInit(fileData, 0x14);
+}

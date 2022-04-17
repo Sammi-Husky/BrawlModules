@@ -143,7 +143,8 @@
 27,1,00222520:processEnd__5StageFv
 27,1,00222574:renderPre__5StageFv
 27,1,00222aa8:renderDebug__5StageFv
-27,1,00221d48::__dt__5StageFv
+27,1,00221d48:__dt__5StageFv
+27,1,00223140:testStageParamInit__5StageFP9gfArchivei
 
 // stMelee
 27,1,00238bdc:__ct__7stMeleeFPci
