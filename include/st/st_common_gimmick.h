@@ -3,8 +3,8 @@
 #include "types.h"
 #include "st/stage.h"
 
-class stCommonGimmick : Stage {
-    private:
+class stCommonGimmick : public Stage {
+    protected:
         gfArchive* fileData;
         char _spacer[0x10];
     public:

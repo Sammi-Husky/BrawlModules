@@ -4,8 +4,8 @@
 #include "gf/gf_task.h"
 #include "gf/gf_archive.h"
 
-class Stage : gfTask {
-    private:
+class Stage : public gfTask {
+    protected:
         char _spacer[0x04];
         int stageID;
         char _spacer1[0x20];
@@ -131,4 +131,6 @@ class Stage : gfTask {
         virtual int getWind2ndOnlyData(); // TODO
         virtual void updateWind2ndOnly(); // TODO
         virtual void setVision(); // TODO
+
+        void testStageParamInit(gfArchive* archive, int unk);
 };

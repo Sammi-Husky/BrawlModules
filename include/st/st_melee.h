@@ -3,8 +3,8 @@
 #include "types.h"
 #include "st/st_common_gimmick.h"
 
-class stMelee : stCommonGimmick {
-    private:
+class stMelee : public stCommonGimmick {
+    protected:
         char _spacer[0x24];
     public:
         stMelee(char* name, int stageID);
