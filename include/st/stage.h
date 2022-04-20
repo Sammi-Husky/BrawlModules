@@ -3,28 +3,43 @@
 #include "types.h"
 #include "gf/gf_task.h"
 #include "gf/gf_archive.h"
+#include "gr/ground.h"
 
 class Stage : public gfTask {
     protected:
+        // 0
         char _spacer[0x04];
+        // 4
         int stageID;
+        // 8
         char _spacer1[0x20];
+        // 28
         char aiRange[0x18];
-        char cameraParam[0x78];
+        // 40
+        char cameraParam[0x1c];
+        // 5C
+        char stageData[0x5C];
+        // B8
         char collisionAttrs[0xC];
+        // C4
         gfArchive archive;
+        // 144
         char _spacer2[0x1c];
+        // TOTAL_SIZE == 0x160
     
     public:
-        Stage(char* name, int stageID);      
-        virtual void processBegin();
-        virtual void processAnim();
-        virtual void processUpdate();
-        virtual void processMapCorrection();
-        virtual void processFixCamera();
-        virtual void processEnd();
-        virtual void renderPre();
-        virtual void renderDebug();
+        void testStageParamInit(gfArchive *archive, int unk);
+        void addGround(Ground* Ground);
+
+        Stage(char* name, int stageID);
+        void processBegin();
+        void processAnim();
+        void processUpdate();
+        void processMapCorrection();
+        void processFixCamera();
+        void processEnd();
+        void renderPre();
+        void renderDebug();
         ~Stage();
         
         virtual void createObj();
@@ -130,7 +145,5 @@ class Stage : public gfTask {
         virtual int createWind2ndOnly(); // TODO
         virtual int getWind2ndOnlyData(); // TODO
         virtual void updateWind2ndOnly(); // TODO
-        virtual void setVision(); // TODO
-
-        void testStageParamInit(gfArchive* archive, int unk);
+        virtual void setVision(); // TODO      
 };
