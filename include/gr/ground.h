@@ -2,10 +2,36 @@
 
 #include "gf/gf_task.h"
 #include "gf/gf_archive.h"
+#include "nw4r/g3d/g3d_scnmdl.h"
+#include "gf/gf_model.h"
+#include "memory.h"
+#include "gr/gr_calc_world_callback.h"
 
 class Ground : public gfTask {
     protected:
-        char spacer[0xC4]; // TODO
+        char _spacer[4];
+
+        ScnMdl** sceneModel;
+        gfModelAnimation* modelAnim;
+
+        char _spacer2[16];
+
+        u16 mdlIndex;
+
+        char _spacer3[2];
+
+        float* stageData;
+
+        char _spacer4[12];
+
+        HeapType heapType;
+
+        char _spacer5[92];
+
+        grCalcWorldCallBack calcWorldCallBack;
+
+        char _spacer6[36];
+
 
     public:
         Ground(char* taskName);
@@ -71,3 +97,5 @@ class Ground : public gfTask {
         virtual void invalidatedByCameraClipping(); // TODO
         virtual void setTransparencyFlag(); // TODO
 };
+
+// Size: 196
