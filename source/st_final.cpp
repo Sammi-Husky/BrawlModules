@@ -26,7 +26,7 @@ void stFinal::createObj() {
    if(ground != NULL){
       this->addGround(ground);
       ground->startup(this->fileData,0,0);
-      ground->setStageData((u32)&this->stageData);
+      ground->setStageData(this->stageData);
       ground->setType(0);
       ground->setDontMoveGround();
    }
