@@ -18,13 +18,15 @@ class Stage : public gfTask {
         // 40
         char cameraParam[0x1c];
         // 5C
-        char stageData[0x5C];
+        float* stageData;
+        // 60
+        char _spacer2[0x58];
         // B8
         char collisionAttrs[0xC];
         // C4
         gfArchive archive;
         // 144
-        char _spacer2[0x1c];
+        char _spacer3[0x1c];
         // TOTAL_SIZE == 0x160
     
     public:

@@ -51,17 +51,17 @@ class Ground : public gfTask {
         virtual void setVisibilityByClipping(u32 unk1);
         virtual void setVisibilityAttachedEffect(u32 unk1);
         virtual void receiveCollMsg(u32 unk1,u32 unk2,u32 unk3);
-        virtual void receiveCollMsg_Landing(); // TODO
-        virtual void receiveCollMsg_Heading(); // TODO
-        virtual void receiveCollMsg_Wall(); // TODO
-        virtual void receiveCollMsg_Attack(); // TODO
-        virtual void unloadData(); // TODO
+        virtual void receiveCollMsg_Landing(int unk1, int* unk2, int unk3);
+        virtual void receiveCollMsg_Heading(int unk1, int* unk2, int unk3);
+        virtual void receiveCollMsg_Wall(int unk1, int* unk2, int unk3);
+        virtual void receiveCollMsg_Attack(int unk1, int* unk2, int unk3); // TODO
+        virtual void unloadData();
         virtual int getModelCount();
         virtual void startup(gfArchive data, u32 unk1, u32 unk2);
-        virtual int setNode(); // TODO
-        virtual u32 getStageData(u32 unk1); // TODO
-        virtual void setStageData(u32 unk1); // TODO
-        virtual void initStageData(); // TODO
+        virtual int setNode();
+        virtual float* getStageData();
+        virtual void setStageData(float* stageData);
+        virtual void initStageData();
         virtual void setMdlIndex(int index); // TODO
         virtual int getMdlIndex(); // TODO
         virtual bool isEnableCalcCollision(); // TODO
