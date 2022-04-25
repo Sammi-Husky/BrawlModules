@@ -5,6 +5,7 @@
 #include "nw4r/g3d/g3d_scnmdl.h"
 #include "gf/gf_model.h"
 #include "memory.h"
+#include "containers.h"
 #include "gr/gr_calc_world_callback.h"
 
 class Ground : public gfTask {
@@ -35,12 +36,11 @@ class Ground : public gfTask {
 
     public:
         Ground(char* taskName);
-        void processAnim();
-        void processUpdate();
-        void processGameProc();
-        void renderPre();
-        void renderDebug();
-        void setDontMoveGround();
+        virtual void processAnim();
+        virtual void processUpdate();
+        virtual void processGameProc();
+        virtual void renderPre();
+        virtual void renderDebug();
         ~Ground();
 
         virtual void update(float unk);
@@ -54,7 +54,7 @@ class Ground : public gfTask {
         virtual void receiveCollMsg_Landing(int unk1, int* unk2, int unk3);
         virtual void receiveCollMsg_Heading(int unk1, int* unk2, int unk3);
         virtual void receiveCollMsg_Wall(int unk1, int* unk2, int unk3);
-        virtual void receiveCollMsg_Attack(int unk1, int* unk2, int unk3); // TODO
+        virtual void receiveCollMsg_Attack(int unk1, int* unk2, int unk3); // TODO, only implemented in grGimmickBlock which is SSE but don't know how to actually trigger it
         virtual void unloadData();
         virtual int getModelCount();
         virtual void startup(gfArchive data, u32 unk1, u32 unk2);
@@ -62,40 +62,43 @@ class Ground : public gfTask {
         virtual float* getStageData();
         virtual void setStageData(float* stageData);
         virtual void initStageData();
-        virtual void setMdlIndex(int index); // TODO
-        virtual int getMdlIndex(); // TODO
-        virtual bool isEnableCalcCollision(); // TODO
-        virtual void enableCalcCollision(); // TODO
-        virtual void disableCalcCollision(); // TODO
-        virtual int getNodeIndex(u32 unk1, u32 unk2);
-        virtual int getNodePosition(u32 nodePos, u32 unk1, u32 unk2);
-        virtual int getNodePosition_overload(u32 nodePos, u32 unk1, u32 unk2); // TODO overloaded?
-        virtual int getNodeMatrix(u32 nodeMtx, u32 unk2, u32 unk3); 
-        virtual int getNodeMatrix_overload(u32 nodeMtx, u32 unk2, u32 unk3); // TODO overloaded?
-        virtual int setNodeVisibility(int unk1,int unk2,u32 unk3,int unk4,int unk5);
-        virtual int setNodeVisibility_overload(int unk1,int unk2,u32 unk3,int unk4,int unk5); // TODO overloaded?
-        virtual int setNodeVisibilityAll(u32 unk1, u32 unk2);
-        virtual bool isNodeVisible(u32 unk1, u32 unk2);
-        virtual int setNodeCollision(u32 unk1, u32 unk2, u32 unk3, u32 unk4);
-        virtual int setNodeCollision_overload(u32 unk1, u32 unk2, u32 unk3, u32 unk4); // TODO overloaded?
-        virtual int getNodeScale(u32 unk1, u32 unk2, u32 unk3); // TODO
-        virtual int getNodeScale_overload(u32 unk1, u32 unk2, u32 unk3); // TODO overloaded?
+        virtual void setMdlIndex(u16 mdlIndex);
+        virtual u16 getMdlIndex();
+        virtual bool isEnableCalcCollision();
+        virtual void enableCalcCollision();
+        virtual void disableCalcCollision();
+        virtual u32 getNodeIndex(u32 sceneModelIndex, char* nodeName);
+        virtual bool getNodePosition(Vec3f* nodePos, u32 sceneModelIndex, u32 nodeIndex);
+        virtual bool getNodePosition(Vec3f* nodePos, u32 sceneModelIndex, char* nodeName);
+        virtual bool getNodeMatrix(u32 nodeMtx, u32 sceneModelIndex, u32 nodeIndex);
+        virtual bool getNodeMatrix(u32 nodeMtx, u32 sceneModelIndex, char* nodeName);
+        virtual bool setNodeVisibility(bool unk1,u32 sceneModelIndex,u32 nodeIndex,bool unk4,bool unk5);
+        virtual bool setNodeVisibility(bool unk1,u32 sceneModelIndex,char* nodeName,bool unk4,bool unk5);
+        virtual bool setNodeVisibilityAll(bool unk1, u32 sceneModelIndex);
+        virtual bool isNodeVisible(u32 sceneModelIndex, u32 nodeIndex);
+        virtual bool setNodeCollision(bool unk1, u32 sceneModelIndex, u32 nodeIndex, bool unk4);
+        virtual bool setNodeCollision(bool unk1, u32 sceneModelIndex, char* nodeName, bool unk4);
+        virtual bool getNodeScale(Vec3f* nodePos, u32 sceneModelIndex, u32 nodeIndex);
+        virtual bool getNodeScale(Vec3f* nodePos, u32 sceneModelIndex, char* nodeName);
         virtual void setValid(u32 unk1);
         virtual void setValidAttachedEffect(u32 unk1);
-        virtual void setInitializeFlag(); // TODO
-        virtual void setInitializeInfo(); // TODO
-        virtual int getInitializeInfo(); // TODO
-        virtual void setMotionRatio(float ratio); // TODO
-        virtual void setMotionFrame(float frame, u32 unk1); // TODO
-        virtual float getMotionFrame(u32 unk1); // TODO
-        virtual void setMotionLoop(u32 anim, bool shouldLoop); // TODO
-        virtual void setMatAlphaMul(u32 unk1, u32 unk2); // TODO
-        virtual void setMatAlpha(u32 unk1, u32 unk2); // TODO
-        virtual void updateG3dProcCalcWorld(); // TODO
-        virtual void preExit(); // TODO
-        virtual int adventureEventGetItem(); // TODO
-        virtual void invalidatedByCameraClipping(); // TODO
-        virtual void setTransparencyFlag(); // TODO
+        virtual void setInitializeFlag();
+        virtual void setInitializeInfo(int initializeInfo);
+        virtual bool getInitializeInfo(int initializeInfo);
+        virtual void setMotionRatio(float ratio);
+        virtual void setMotionFrame(float frame, u32 anim);
+        virtual float getMotionFrame(u32 anim);
+        virtual void setMotionLoop(bool shouldLoop, u32 anim);
+        virtual void setMatAlphaMul(u32 unk1, u32 sceneModelIndex); // TODO
+        virtual void setMatAlpha(u32 unk1, u32 sceneModelIndex); // TODO
+        virtual void updateG3dProcCalcWorld();
+        virtual void preExit();
+        virtual bool adventureEventGetItem(int unk1, int* unk2);
+        virtual void invalidatedByCameraClipping();
+        virtual void setTransparencyFlag(char transparencyFlag);
+
+        bool getNodeIndex(u32* nodeIndex, u32 sceneModelIndex, char* nodeName);
+        void setDontMoveGround();
 };
 
 // Size: 196
