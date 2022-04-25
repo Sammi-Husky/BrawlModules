@@ -78,8 +78,8 @@ class Ground : public gfTask {
         virtual bool isNodeVisible(u32 sceneModelIndex, u32 nodeIndex);
         virtual bool setNodeCollision(bool unk1, u32 sceneModelIndex, u32 nodeIndex, bool unk4);
         virtual bool setNodeCollision(bool unk1, u32 sceneModelIndex, char* nodeName, bool unk4);
-        virtual bool getNodeScale(Vec3f* nodePos, u32 sceneModelIndex, u32 nodeIndex);
-        virtual bool getNodeScale(Vec3f* nodePos, u32 sceneModelIndex, char* nodeName);
+        virtual bool getNodeScale(Vec3f* nodeScale, u32 sceneModelIndex, u32 nodeIndex);
+        virtual bool getNodeScale(Vec3f* nodeScale, u32 sceneModelIndex, char* nodeName);
         virtual void setValid(u32 unk1);
         virtual void setValidAttachedEffect(u32 unk1);
         virtual void setInitializeFlag();
@@ -95,10 +95,19 @@ class Ground : public gfTask {
         virtual void preExit();
         virtual bool adventureEventGetItem(int unk1, int* unk2);
         virtual void invalidatedByCameraClipping();
-        virtual void setTransparencyFlag(char transparencyFlag);
+        virtual void setTransparencyFlag(char flag);
 
         bool getNodeIndex(u32* nodeIndex, u32 sceneModelIndex, char* nodeName);
+        void addSceneRoot(ScnMdl* sceneModel, int unk2);
+        bool isCollisionStatusOwnerTask(int* unk1, int* unk2);
+        bool searchNode(char* unk1, char *nodeName, int* unk3, u32* nodeIndex);
+        void setBlendColorDisable();
+        void setBlendColorEnable();
         void setDontMoveGround();
+        void setEnableCollisionStatus(bool enableColl);
+        void setEnableCollisionStatusByClipping(bool enableColl);
+        void setVisibilityByClipping(int unk1, u32 sceneModelIndex);
+        void updateG3dProcCalcWorldForce();
 };
 
 // Size: 196
