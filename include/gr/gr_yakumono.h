@@ -7,18 +7,18 @@ class grYakumono : public grGimmick
         void* yakumono;
     public:
         grYakumono(char* taskName);
-        void processUpdate();
-        void startup(gfArchive* data, int unk1, int unk2);
-        void setValid(u32 unk1);
-        void setValidAttachedEffect(u32 unk1);
-        void preExit();
-        void setTransparency(u32 unk1, u32 unk2);
-        ~grYakumono();
+        virtual void processUpdate();
+        virtual void startup(gfArchive* data, int unk1, int unk2);
+        virtual void setValid(u32 unk1);
+        virtual void setValidAttachedEffect(u32 unk1);
+        virtual void preExit();
+        virtual void setTransparency(u32 unk1, u32 unk2);
+        virtual ~grYakumono();
 
-        virtual void onDamage(); // TODO
-        virtual void onInflict(); // TODO
-        virtual void onInflictEach(); // TODO
-        virtual void onGimmickEvent(); // TODO
+        virtual void onDamage(u32 unk1, u32* unk2, u32* unk3);
+        virtual void onInflict(int* unk1, u32 unk2); // TODO
+        virtual void onInflictEach(int* unk1, float unk2); // TODO
+        virtual void onGimmickEvent(int* unk1, int* taskId);
         virtual bool enableYakumono(u32 unk1);
         virtual bool disableYakumono(u32 unk1, u32 unk2);
         virtual bool enableHit(u32 unk1, u32 unk2);
