@@ -17,7 +17,7 @@ class grGimmick : public Ground {
         virtual void setMotionRatio(float ratio);
         virtual void invalidatedByCameraClipping();
         virtual void setTransparencyFlag(char flag);
-        ~grGimmick();
+        virtual ~grGimmick();
         
         virtual void updateCallback(u32 unk1);
         virtual void fixedPosition(float unk1);

@@ -41,7 +41,7 @@ class Ground : public gfTask {
         virtual void processGameProc();
         virtual void renderPre();
         virtual void renderDebug();
-        ~Ground();
+        virtual ~Ground();
 
         virtual void update(float unk);
         virtual void loadGroundData(u32 unk1, u32 unk2, u32 unk3);
