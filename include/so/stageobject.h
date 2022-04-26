@@ -11,15 +11,15 @@ class soActivatable {
 };
 
 class soAnimCmdEventObserver {
-    virtual void addObserver(int unk1, int unk2); // TODO
-    virtual void isObserv64(); // TODO
-    virtual void notifyEventAnimCmd72(); // TODO
+    virtual void addObserver(int unk1, char unk2);
+    virtual u32 isObserv(char unk1);
+    virtual bool notifyEventAnimCmd(int* unk1);
     char _spacer1[8];
 };
 
 class soLinkEventObserver {
-    virtual void addObserver(int unk1, int unk2); // TODO
-    virtual void notifyEventLink(); // TODO
+    virtual void addObserver(int unk1, char unk2);
+    virtual void notifyEventLink(int* unk1, int unk2, int unk3, int unk4);
 
     char _spacer1[8];
 };
@@ -45,7 +45,27 @@ class StageObject : public gfTask, public soActivatable, public soAnimCmdEventOb
         virtual void renderDebug();
         virtual ~StageObject();
 
-        // TODO
+        // TODO: Verify params?
+        virtual void updatePosture(u32 unk1);
+        virtual void processFixPositionPreAnimCmd();
+        virtual int* getInput(uint unk1);
+        virtual double getCollisionLr(int* unk1);
+        virtual int soGetKind();
+        virtual int soGetSubKind();
+        virtual bool isActive();
+        virtual bool checkTransitionStatus(int unk1);
+        virtual void updateNodeSRT();
+        virtual void adjustParentGroundCollision(int unk1, float* unk2);
+        virtual u32 isTreadPassive(int unk1);
+        virtual void notifyLostGround(int* unk1); // TODO
+
+        virtual u32 isObserv(char unk1);
+        virtual bool notifyEventAnimCmd(int* unk1);
+        virtual void notifyEventLink(int* unk1, int unk2, int unk3, int unk4);
+
+        virtual void notifyArticleEventRemove(int unk1, int* unk2);
+        virtual void notifyArticleEventEject(int unk1, int unk2, int* unk3, int* unk4);
+        virtual void updateRoughPos();
 
 };
 
