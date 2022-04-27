@@ -1,5 +1,6 @@
 #pragma once
 
+#include "memory.h"
 #include "so/stageobject.h"
 #include "so/so_model_module_simple.h"
 #include "so/so_event_presenter"
@@ -10,15 +11,15 @@ class soModelEventObserver : public soEventObserver<soModelEventObserver>  {
     virtual void notifyEventConstructInstance(); //TODO
     virtual void notifyEventDestructInstance(); //TODO
 
-    // TODO: fields
+    char _spacer1[2];
 };
 
 class soModelModuleImpl : public soModelModuleSimple, public soAnimCmdEventObserver, public soEventPresenter<soModelEventObserver>  {
-    // TODO verify of offsets are correct with virtual base class
+    // TODO: verify of offsets are correct with virtual base class
 
-    // TODO: fields
+    char _spacer1[160];
 
-    // TODO Verify Params
+    // TODO: Verify Params
     virtual void setUpMtx(u32 unk2);
     virtual void setUpMtx(u32* unk2, int unk3);
     virtual void setUpMtxFinal();
