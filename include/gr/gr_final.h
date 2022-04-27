@@ -14,7 +14,7 @@ class grFinal : public grYakumono
         u16 padding;
     public:
         grFinal(char* taskName);
-        void update();
+        virtual void update();
         ~grFinal();
 
         virtual void updateEff();
