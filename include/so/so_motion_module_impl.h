@@ -7,12 +7,18 @@
 #include "so/so_event_presenter"
 #include "so/stageobject.h"
 #include "so/so_anim_chr.h"
+#include "containers.h"
+#include "so/so_module_accesser.h"
 
 class soMotionEventObserver : public soEventObserver<soMotionEventObserver>  {
     virtual void addObserver(int unk1, int unk2);
     virtual void notifyEventChangeMotion() // TODO
 
     char _spacer1[2];
+};
+
+class soMotionChangeParam {
+    char _spacer[16];
 };
 
 class soMotionModule {
@@ -127,23 +133,39 @@ class soMotionModule {
 };
 
 class soMotionModuleImpl : public soMotionModule, public soStatusEventObserver, public soAnimCmdEventObserver, public soModelEventObserver, public soEventPresenter<soMotionEventObserver> {
+
+    // 52
     char _spacer1[8];
 
+    // 60
     soAnimChr mainAnimationData;
 
+    // 88
     int subAction;
 
+    // 92
     char _spacer2[16];
 
+    // 108
     soAnimChr unkAnimParams;
 
+    // 136
     char _spacer3[104];
 
+    // 240
     void* transitionModuleEntity;
 
-    // TODO
+    // 244
+    soArrayVector<soMotionChangeParam, 4> motionChangeParamArray;
 
-    //char _spacer9[316];
+    // 320
+    char _spacer4[40];
+
+    // 360
+    soModuleAccesser* soModuleAccesser;
+
+    // 364
+    char _spacer5[4];
 
     // TODO: verify params
     virtual ~soMotionModuleImpl();
