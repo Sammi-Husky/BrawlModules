@@ -81,8 +81,12 @@ class soArrayVectorAbstract : public soArray<T>, public soArrayVectorCalcInterfa
     virtual void setSize();
 };
 
-template<class T, int A>
+template<class T, int C>
 class soArrayVector : public soArrayVectorAbstract<T> {
+    int* unk1;
+
+    T array[C];
+
     // TODO: Verify params
     virtual void size();
     virtual ~soArrayVector();
