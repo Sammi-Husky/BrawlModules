@@ -3,7 +3,7 @@
 #include "so/stageobject.h"
 
 class soModelModule : virtual public soNullable {
-    // TODO Verify Params
+    // TODO: Verify Params
     virtual void setUpMtx(u32 unk2);
     virtual void setUpMtx(u32* unk2, int unk3);
     virtual void setUpMtxFinal();
@@ -88,14 +88,14 @@ class soModelModule : virtual public soNullable {
 };
 
 class soModelModuleSimple : public soModelModule {
-    // TODO verify of offsets are correct with virtual base class
+    // TODO: verify of offsets are correct with virtual base class
     // 0xC
     int unk1;
 
     // 0x10
     int unk2;
 
-    // TODO Verify Params
+    // TODO: Verify Params
     virtual void setUpMtx(u32 unk2);
     virtual void setUpMtx(u32* unk2, int unk3);
     virtual void setUpMtxFinal();

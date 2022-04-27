@@ -1,5 +1,18 @@
 #pragma once
 
+struct CHR0 {
+    //char* getString() {
+    //    auto thisINT = reinterpret_cast<unsigned int>(this);
+    //    return (char*) (thisINT + this->stringOffset);
+    //}
+
+    char _spacer[0x14];
+    unsigned int stringOffset;
+    char _spacer2[0x1C - 0x14 - 4];
+    unsigned short animLength;
+
+};
+
 class AnmObjChrRes {
 public:
     virtual u32 IsDerivedFrom(int* unk1);
@@ -28,7 +41,7 @@ public:
 
     char _spacer[40];
 
-    int* anmChrFile;
+    CHR0* anmChrFile;
 
     char _spacer2[4];
 };
