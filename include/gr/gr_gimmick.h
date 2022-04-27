@@ -7,18 +7,19 @@ class grGimmick : public Ground {
         char spacer[0x48];
     public:
         grGimmick(char* taskName);
+        
         virtual void processUpdate();
         virtual void renderDebug();
-        virtual void update(float unk);
+        virtual void update();
         virtual void bindData(gfArchive* data);
         virtual void setVisibility(u32 unk1);
-        virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
         virtual int setNode();
         virtual void setMotionRatio(float ratio);
+        virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
+        virtual ~grGimmick();
+
         virtual void invalidatedByCameraClipping();
         virtual void setTransparencyFlag(char flag);
-        virtual ~grGimmick();
-        
         virtual void updateCallback(u32 unk1);
         virtual void fixedPosition(float unk1);
         virtual void setTgtNode(char* unk1);

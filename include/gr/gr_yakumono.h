@@ -8,7 +8,7 @@ class grYakumono : public grGimmick
     public:
         grYakumono(char* taskName);
         virtual void processUpdate();
-        virtual void startup(gfArchive* data, int unk1, int unk2);
+        virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
         virtual void setValid(u32 unk1);
         virtual void setValidAttachedEffect(u32 unk1);
         virtual void preExit();
