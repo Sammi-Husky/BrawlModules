@@ -43,7 +43,7 @@ class Ground : public gfTask {
         virtual void renderDebug();
         virtual ~Ground();
 
-        virtual void update(float unk);
+        virtual void update();
         virtual void loadGroundData(u32 unk1, u32 unk2, u32 unk3);
         virtual void bindData(gfArchive* data);
         virtual void setupMelee();
@@ -57,10 +57,10 @@ class Ground : public gfTask {
         virtual void receiveCollMsg_Attack(int unk1, int* unk2, int unk3); // TODO, only implemented in grGimmickBlock which is SSE but don't know how to actually trigger it
         virtual void unloadData();
         virtual int getModelCount();
-        virtual void startup(gfArchive data, u32 unk1, u32 unk2);
+        virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
         virtual int setNode();
-        virtual float* getStageData();
         virtual void setStageData(float* stageData);
+        virtual float* getStageData();
         virtual void initStageData();
         virtual void setMdlIndex(u16 mdlIndex);
         virtual u16 getMdlIndex();
