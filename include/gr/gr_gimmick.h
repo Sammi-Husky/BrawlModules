@@ -12,7 +12,7 @@ class grGimmick : public Ground {
         virtual void update(float unk);
         virtual void bindData(gfArchive* data);
         virtual void setVisibility(u32 unk1);
-        virtual void startup(gfArchive data, u32 unk1, u32 unk2);
+        virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
         virtual int setNode();
         virtual void setMotionRatio(float ratio);
         virtual void invalidatedByCameraClipping();
@@ -70,10 +70,6 @@ class grGimmick : public Ground {
         void updataGimmickEffect(float unk1);
         void updataGimmickSE(float unk1);
         void updateProduction(float unk1);
-
-
-
-
 };
 
 void getPos(Vec3f* pos, grGimmick* ground);
