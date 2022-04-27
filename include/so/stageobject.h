@@ -4,24 +4,33 @@
 #include "so/so_module_accesser.h"
 #include "memory.h"
 #include "containers.h"
+#include "so/so_event_observer"
+
+class soNullable {
+    virtual bool isNull();
+
+    bool null;
+    char _spacer[3];
+};
 
 class soActivatable {
     virtual ~soActivatable();
     u32 isActive;
 };
 
-class soAnimCmdEventObserver {
+class soAnimCmdEventObserver : public soEventObserver<soAnimCmdEventObserver> {
     virtual void addObserver(int unk1, char unk2);
     virtual u32 isObserv(char unk1);
-    virtual bool notifyEventAnimCmd(int* unk1);
-    char _spacer1[8];
+    virtual bool notifyEventAnimCmd(int* unk1, int unk2, int unk3);
+
+    char _spacer1[2];
 };
 
-class soLinkEventObserver {
+class soLinkEventObserver : public soEventObserver<soLinkEventObserver> {
     virtual void addObserver(int unk1, char unk2);
     virtual void notifyEventLink(int* unk1, int unk2, int unk3, int unk4);
 
-    char _spacer1[8];
+    char _spacer1[2];
 };
 
 class StageObject : public gfTask, public soActivatable, public soAnimCmdEventObserver, public soLinkEventObserver {
@@ -48,7 +57,7 @@ class StageObject : public gfTask, public soActivatable, public soAnimCmdEventOb
         // TODO: Verify params?
         virtual void updatePosture(u32 unk1);
         virtual void processFixPositionPreAnimCmd();
-        virtual int* getInput(uint unk1);
+        virtual int* getInput();
         virtual double getCollisionLr(int* unk1);
         virtual int soGetKind();
         virtual int soGetSubKind();
