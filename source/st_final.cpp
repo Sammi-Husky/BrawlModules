@@ -20,29 +20,46 @@ bool stFinal::isBamperVector(){
    return true;
 }
 
+struct stgPosWrapper
+{
+   void* data;
+};
+
+
 void stFinal::createObj() {
-   this->testStageParamInit(fileData, 0xA);
-   this->testStageParamInit(fileData, 0x14);
+   testStageParamInit(fileData, 0xA);
+   testStageParamInit(fileData, 0x14);
    grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
    if(ground != NULL){
-      this->addGround(ground);
-      ground->startup(this->fileData,0,0);
-      ground->setStageData(this->stageData);
+      addGround(ground);
+      ground->startup(fileData,0,0);
+      ground->setStageData(stageData);
       ground->setType(0);
       ground->setDontMoveGround();
    }
    ground = grFinal::create(2, "", "grFinalStage");
    if(ground != NULL){
-      this->addGround(ground);
-      ground->startup(this->fileData,0,0);
-      ground->setStageData(this->stageData);
+      addGround(ground);
+      ground->startup(fileData,0,0);
+      ground->setStageData(stageData);
       ground->setType(1);
       ground->setDontMoveGround();
    }
-   this->createCollision(this->fileData, 2, 0);
-   this->initCameraParam();
-   void* data = this->fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
-   if(data != NULL){
-
+   createCollision(fileData, 2, 0);
+   initCameraParam();
+   void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+   if(posData == NULL){
+      // if no stgPos model in pac, use defaults
+      createStagePositions();
+   } 
+   else {
+      stgPosWrapper stgPos = {posData}; // creates wrapper on the stack
+      createStagePositions(&stgPos);
    }
+   createWind2ndOnly();
+   loadStageAttrParam(fileData, 0x1E);
+   void* scnData = fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
+   registSceneAnim(scnData, 0);
+   initPosPokeTrainer(1, 0);
+   createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
 }
