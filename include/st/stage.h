@@ -21,19 +21,28 @@ class Stage : public gfTask {
         // 5C
         float* stageData;
         // 60
-        char _spacer2[0x58];
+        char _spacer3[0x1C];
+        // 7C
+        u32 unk;
+        // 80
+        char _spacer2[0x38];
         // B8
         char collisionAttrs[0xC];
         // C4
         gfArchive archive;
         // 144
-        char _spacer3[0x1c];
+        char _spacer4[0x1c];
         // TOTAL_SIZE == 0x160
     
     public:
         void testStageParamInit(gfArchive *archive, int unk);
         void addGround(Ground* Ground);
         grCollision* createCollision(gfArchive* archive, int unk, int unk2);
+        void createStagePositions();
+        void createStagePositions(void* stgPosMdl);
+        void loadStageAttrParam(gfArchive* filedata, int unk1);
+        void registSceneAnim(void* scnData, int unk1);
+        void initPosPokeTrainer(int unk1, int unk2);
 
         Stage(char* name, int stageID);
         void processBegin();
@@ -47,7 +56,7 @@ class Stage : public gfTask {
         ~Stage();
         
         virtual void createObj();
-        virtual void createObjPokeTrainer(int unk1, int unk2, int unk3, int unk4, int unk5);
+        virtual void createObjPokeTrainer(gfArchive* filedata, int fileindex, const char * name, int unk1, int unk2);
         virtual int getPokeTrainerPointNum();
         virtual void getPokeTrainerPointData(int* unk1, int unk2);
         virtual int getPokeTrainerPositionZ();
