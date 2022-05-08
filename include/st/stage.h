@@ -4,6 +4,7 @@
 #include "gf/gf_task.h"
 #include "gf/gf_archive.h"
 #include "gr/ground.h"
+#include "gr/gr_collision.h"
 
 class Stage : public gfTask {
     protected:
@@ -32,6 +33,7 @@ class Stage : public gfTask {
     public:
         void testStageParamInit(gfArchive *archive, int unk);
         void addGround(Ground* Ground);
+        grCollision* createCollision(gfArchive* archive, int unk, int unk2);
 
         Stage(char* name, int stageID);
         void processBegin();
