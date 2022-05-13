@@ -2,7 +2,7 @@
 
 #include "gr/gr_yakumono.h"
 
-const float eff_something = 0.0f;
+const float EFF_SOMETHING = 0.0f;
 
 class grFinal : public grYakumono
 {
@@ -10,10 +10,15 @@ class grFinal : public grYakumono
         u32 unk1;
         float unk_float;
         char type;
-        char unk2;
+        char step;
         u16 padding;
     public:
-        grFinal(char* taskName);
+        grFinal(char* taskName) : grYakumono(taskName) {
+            unk1 = 0;
+            unk_float = EFF_SOMETHING;
+            type = 0;
+            step = 0;
+        };
         virtual void update();
         virtual ~grFinal() { };
 
@@ -21,4 +26,17 @@ class grFinal : public grYakumono
         virtual void setType(int type);
 
         static grFinal* create(int mdlIndex, char* tgtNodeName, char* taskName);
+        int adventureEventGetItem();
+        int getInitializeInfo();
+        void setInitializeInfo();
+        void setInitializeFlag();
+        void disableCalcCollision();
+        void enableCalcCollision();
+        bool isEnableCalcCollision();
+        int getMdlIndex();
+        void initStageData();
+        float* getStageData();
+        char getTransparencyFlag();
+        u32 getGimmickData();
+        void setGimmickData(u32 data);
 };

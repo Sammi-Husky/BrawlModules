@@ -3,9 +3,17 @@
 #include "gr/gr_final.h"
 #include "gr/gr_collision.h"
 #include "st/st_melee.h"
+#include "st/st_class_info.h"
+
+struct stgPosWrapper
+{
+   void* data;
+};
+
+static stClassInfoImpl<2, stFinal> classInfo = stClassInfoImpl<2, stFinal>();
 
 stFinal* stFinal::create() {
-    stFinal* stage = new(StageInstance) stFinal("stFinal", 0x2);
+    stFinal* stage = new(StageInstance) stFinal(0x2);
     return stage;
 }
 bool stFinal::loading(){
@@ -14,10 +22,6 @@ bool stFinal::loading(){
 void stFinal::update(){
    return;
 }
-struct stgPosWrapper
-{
-   void* data;
-};
 
 void stFinal::createObj() {
    testStageParamInit(fileData, 0xA);
@@ -160,4 +164,21 @@ bool stFinal::isBamperVector() {
 }
 int stFinal::getFinalTechniqColor() {
    return 0x14000496;
+}
+
+
+template<int I, typename T>
+T* stClassInfoImpl<I, T>::create(){
+    T* stage = new(StageInstance) T(I);
+    return stage;
+}
+
+template<int I, typename T>
+stClassInfoImpl<I, T>::~stClassInfoImpl() {
+
+}
+
+template<int I, typename T>
+void stClassInfoImpl<I, T>::preload() {
+   return;
 }

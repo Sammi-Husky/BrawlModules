@@ -33,7 +33,7 @@ class grGimmick : public Ground {
         virtual void setSimpleEffectVisibleProduction(); // TODO
         virtual void dbDispInvalidatedByCameraClippingSphere(); // TODO
         virtual void setTransparency(u32 unk1, u32 unk2);
-        virtual int getTransparencyFlag();
+        virtual char getTransparencyFlag();
 
         void changeMatColAnim(u32 unk1, u32 unk2);
         void changeShapeAnim(u32 unk1, u32 unk2);

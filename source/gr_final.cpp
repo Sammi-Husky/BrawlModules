@@ -1,10 +1,6 @@
 #include "gr/gr_final.h"
 #include "memory.h"
 
-grFinal::grFinal(char* taskName) : grYakumono(taskName) {
-    this->unk_float = eff_something;
-}
-
 grFinal* grFinal::create(int mdlIndex, char* tgtNodeName, char* taskName){
     grFinal* ground = new(StageInstance) grFinal(taskName);
     ground->setupMelee();

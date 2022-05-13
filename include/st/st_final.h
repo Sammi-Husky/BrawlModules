@@ -8,8 +8,8 @@ const float POKETRAINER_Z = 0.0f;
 
 class stFinal : public stMelee {
     public:
-        stFinal(char* name, int stageID) : stMelee(name, stageID) {};
-        stFinal* create();
+        stFinal(int stageID) : stMelee("stFinal", stageID) {};
+        static stFinal* create();
         int getWind2ndOnlyData();
         bool isReStartSamePoint();
         int getPokeTrainerPointNum();
