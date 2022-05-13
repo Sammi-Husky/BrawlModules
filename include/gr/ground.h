@@ -23,8 +23,10 @@ class Ground : public gfTask {
 
         float* stageData;
 
-        char _spacer4[12];
+        char _spacer4[8];
 
+        u32 calcCollisionEnable;
+        
         HeapType heapType;
 
         char _spacer5[92];
@@ -62,8 +64,8 @@ class Ground : public gfTask {
         virtual void setStageData(float* stageData);
         virtual float* getStageData();
         virtual void initStageData();
-        virtual void setMdlIndex(u16 mdlIndex);
-        virtual u16 getMdlIndex();
+        virtual void setMdlIndex(int mdlIndex);
+        virtual int getMdlIndex();
         virtual bool isEnableCalcCollision();
         virtual void enableCalcCollision();
         virtual void disableCalcCollision();
