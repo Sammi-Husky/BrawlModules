@@ -175,7 +175,7 @@ T* stClassInfoImpl<I, T>::create(){
 
 template<int I, typename T>
 stClassInfoImpl<I, T>::~stClassInfoImpl() {
-
+   setClassInfo(I,0);
 }
 
 template<int I, typename T>
