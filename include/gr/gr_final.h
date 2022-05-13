@@ -15,7 +15,7 @@ class grFinal : public grYakumono
     public:
         grFinal(char* taskName);
         virtual void update();
-        ~grFinal();
+        virtual ~grFinal() { };
 
         virtual void updateEff();
         virtual void setType(int type);

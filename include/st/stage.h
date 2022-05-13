@@ -31,7 +31,17 @@ class Stage : public gfTask {
         // C4
         gfArchive archive;
         // 144
-        char _spacer4[0x1c];
+        bool unk2;
+        // 145
+        char _spacer5[3];
+        // 148
+        u32 unk3;
+        // 14C
+        float unk4;
+        // 150
+        float frameRuleTime;
+        // 154
+        char _spacer6[0xC];
         // TOTAL_SIZE == 0x160
     
     public:
@@ -59,7 +69,7 @@ class Stage : public gfTask {
         virtual void createObjPokeTrainer(gfArchive* filedata, int fileindex, const char * name, int unk1, int unk2);
         virtual int getPokeTrainerPointNum();
         virtual void getPokeTrainerPointData(int* unk1, int unk2);
-        virtual int getPokeTrainerPositionZ();
+        virtual float getPokeTrainerPositionZ();
         virtual int getPokeTrainerDrawLayer();
         virtual bool isAdventureStage();
         virtual void getItemPac(gfArchive* archive1, gfArchive* archive2, int itemID,int variantID);
@@ -74,10 +84,10 @@ class Stage : public gfTask {
         virtual void process();
         virtual void updateStagePositions();
         virtual void debugCollision();
-        virtual void getAIRange(); // TODO
+        virtual int getAIRange(); // TODO
         virtual int getDefaultLightSetIndex();
         virtual int getZoneLightSetIndex();
-        virtual float getScrollDir(int unk1);
+        virtual int getScrollDir(u32 unk1);
         virtual void clearCameraParam();
         virtual void initCameraParam();
         virtual void startLoadLocalData();
@@ -106,8 +116,8 @@ class Stage : public gfTask {
         virtual int getNowStepBgmID();
         virtual int getBgmOptionID();
         virtual bool isBgmChange();
-        virtual int getBgmChangeID(int unk1, int unk2); // TODO
-        virtual void setBgmChange(float unk1, int unk2, int unk3); // TODO
+        virtual void getBgmChangeID(u32 unk1, float unk2); // TODO
+        virtual void setBgmChange(float unk1, u32 unk2, u32 unk3); // TODO
         virtual float getBgmVolume();
         virtual float getBgmPlayOffsetFrame();
         virtual bool isNextStepBgmEqualNowStepBgmFromFlag(); // TODO
