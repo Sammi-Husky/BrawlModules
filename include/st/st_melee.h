@@ -5,7 +5,10 @@
 
 class stMelee : public stCommonGimmick {
     protected:
-        char _spacer[0x24];
+        // 0
+        char _spacer[0x14];
+        // 0x14
+        char wndOnlyData2[0x10];
     public:
         stMelee(char* name, int stageID);
         virtual void update();
