@@ -1,8 +1,16 @@
+// global variables
+805a0148: g_ecMgr
+
 // System
 8000c8ac:__nw__FUl
 8000c8b8:__nw__FUl8HeapType
 8000c8c8:__dl__FPv
 8000c8dc:__dla__FPv
+
+// ecMgr
+8005f774:setDrawPrio__5ecMgrFi
+8005f7a4:setEffect__5ecMgrFUi
+8005fc5c:setParent__5ecMgrFUiP6ScnMdlPci
 
 // gfTask
 8002d8b8:__ct__6gfTaskFPciiii
@@ -30,14 +38,24 @@
 8002ddc4:init__6gfTaskFv
 8002da1c:__dt__6gfTaskFv
 
+// gfArchive
+80015ddc:getData__9gfArchiveF11ARCNodeTypeiUi
+
 // Stage
 27,1,002225A8:createObj__5StageFv
 27,1,0022269C:createObjPokeTrainer__5StageFiiiii
+27,1,002227b0:addGround__5StageFP6Ground
+27,1,00222904:registSceneAnim__5StageFPvi
+27,1,00222ab0:createCollision__5StageFP9gfArchiveii
+27,1,00224574:createStagePositions__5StageFv
+27,1,00224524:createStagePositions__5StageFPv
+27,1,002237D0:loadStageAttrParam__5StageFP9gfArchivei
 27,1,002257B4:getPokeTrainerPointNum__5StageFv
 27,1,002257B0:getPokeTrainerPointData__5StageFPii
 27,1,002257A4:getPokeTrainerPositionZ__5StageFv
 27,1,0022579C:getPokeTrainerDrawLayer__5StageFv
 27,1,00225794:isAdventureStage__5StageFv
+27,1,002225ac:initPosPokeTrainer__5StageFii
 27,1,00224AF4:getItemPac__5StageFP9gfArchiveP9gfArchiveii
 27,1,00224AF8:getItemGenPac__5StageFv
 27,1,00224AFC:getItemPacEnemyFigure__5StageFv
@@ -146,6 +164,11 @@
 27,1,00221d48:__dt__5StageFv
 27,1,00223140:testStageParamInit__5StageFP9gfArchivei
 
+// stClassInfo
+27,1,002257bc:__ct__11stClassInfoFv
+27,1,002258fc:setClassInfo__11stClassInfoFiP11stClassInfo
+17,1,002258a8:__dt__11stClassInfoFv
+
 // stMelee
 27,1,00238bdc:__ct__7stMeleeFPci
 27,1,00239660:update__7stMeleeFv
@@ -156,5 +179,19 @@
 27,1,00239af0:setChangeSceneNumber__7stMeleeFv
 27,1,00238dec:__dt__7stMeleeFv
 
+// Ground
+27,1,00261b50:setDontMoveGround__6GroundFv
+27,1,0025f524:bindData__9grGimmickFP9gfArchive
+27,1,0025f64c:loadGroundData__6GroundFUiUiUi
+27,1,0025fbcc:setupMelee__6GroundFv
+27,1,0025fbe8:processAnim__6GroundFv
+27,1,00260834:processGameProc__6GroundFv
+27,1,00261d70:renderPre__6GroundFv
+27,1,00260920:renderDebug__9grGimmickFv
+
+
+
 // grYakumono
 27,1,00264c80:__ct__10grYakumonoFPc
+27,1,00264cc4:__dt__10grYakumonoFv
+27,1,00264d1c:processUpdate__10grYakumonoFv
