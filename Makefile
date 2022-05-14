@@ -91,7 +91,6 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
-	py -3 ./convertMap.py $(TARGET).map 81160fdc $(TARGET)-dolphin.map
 
 #---------------------------------------------------------------------------------
 clean:

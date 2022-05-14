@@ -2,7 +2,7 @@
 
 class grCalcWorldCallBack {
 protected:
-    char _spacer[16];
+    char _spacer[0x0C];
 public:
     virtual ~grCalcWorldCallBack();
     virtual void ExecCallbackA(int* unk1, int unk2, int* unk3);
