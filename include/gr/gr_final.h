@@ -3,7 +3,8 @@
 #include "gr/gr_yakumono.h"
 
 const float EFF_SOMETHING = 0.0f;
-
+const float EFF_FRAME_MAX1 = 2540.0f;
+const float EFF_FRAME_MAX2 = 6100.0f;
 class grFinal : public grYakumono
 {
     protected:

@@ -12,7 +12,7 @@ class Ground : public gfTask {
     protected:
         char _spacer[4];
 
-        ScnMdl** sceneModel;
+        ScnMdl* sceneModel;
         gfModelAnimation* modelAnim;
 
         char _spacer2[16];
