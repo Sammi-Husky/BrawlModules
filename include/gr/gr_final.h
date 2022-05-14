@@ -34,10 +34,11 @@ class grFinal : public grYakumono
         void disableCalcCollision();
         void enableCalcCollision();
         bool isEnableCalcCollision();
-        int getMdlIndex();
+        short getMdlIndex();
         void initStageData();
         float* getStageData();
         char getTransparencyFlag();
         u32 getGimmickData();
         void setGimmickData(u32 data);
+        int getModelCount();
 };

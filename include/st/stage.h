@@ -46,6 +46,7 @@ class Stage : public gfTask {
     
     public:
         void testStageParamInit(gfArchive *archive, int unk);
+        void testStageDataInit(gfArchive *archive, int unk, int unk2);
         void addGround(Ground* Ground);
         grCollision* createCollision(gfArchive* archive, int unk, int unk2);
         void createStagePositions();

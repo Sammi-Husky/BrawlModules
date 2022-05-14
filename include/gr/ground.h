@@ -3,6 +3,7 @@
 #include "gf/gf_task.h"
 #include "gf/gf_archive.h"
 #include "nw4r/g3d/g3d_scnmdl.h"
+#include "nw4r/g3d/g3d_resfile.h"
 #include "gf/gf_model.h"
 #include "memory.h"
 #include "containers.h"
@@ -10,32 +11,45 @@
 
 class Ground : public gfTask {
     protected:
-        char _spacer[4];
-
+        // 0
+        nw4r::g3d::ResFile* resFile;
+        // 4
         ScnMdl* sceneModel;
+        // 8
         gfModelAnimation* modelAnim;
-
-        char _spacer2[16];
-
+        // C
+        char _spacer2[0x10];
+        // 1C
         u16 mdlIndex;
-
+        // 1E
         char _spacer3[2];
-
+        // 20
         float* stageData;
-
+        // 28
         char _spacer4[8];
-
-        u32 calcCollisionEnable;
-        
+        // 2C
+        char calcCollisionEnable;
+        // 2D
+        char _align[3];
+        // 30     
         HeapType heapType;
-
-        char _spacer5[92];
-
+        // 34
+        char _spacer5[0x48];
+        // 7C
+        u32 gimmickData;
+        // 80
+        char _spacer6[0x10];
+        // 90
         grCalcWorldCallBack calcWorldCallBack;
+        // A0
+        char unk1;
+        // A1
+        char transparencyFlag;
+        // A2
+        char _spacer7[34];
+        // C4
 
-        char _spacer6[36];
-
-
+        // SIZE == C4
     public:
         Ground(char* taskName);
         virtual void processAnim();
@@ -65,7 +79,7 @@ class Ground : public gfTask {
         virtual float* getStageData();
         virtual void initStageData();
         virtual void setMdlIndex(int mdlIndex);
-        virtual int getMdlIndex();
+        virtual short getMdlIndex();
         virtual bool isEnableCalcCollision();
         virtual void enableCalcCollision();
         virtual void disableCalcCollision();

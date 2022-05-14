@@ -7,6 +7,9 @@
 8000c8c8:__dl__FPv
 8000c8dc:__dla__FPv
 
+// NW4R
+8018d2a4:GetResMdlNumEntries__Q24nw4r3g3dFPPQ34nw4r3g3d7ResFile
+
 // ecMgr
 8005f774:setDrawPrio__5ecMgrFi
 8005f7a4:setEffect__5ecMgrFUi
@@ -163,6 +166,7 @@
 27,1,00222aa8:renderDebug__5StageFv
 27,1,00221d48:__dt__5StageFv
 27,1,00223140:testStageParamInit__5StageFP9gfArchivei
+27,1,00223398:testStageDataInit__5StageFP9gfArchiveii
 
 // stClassInfo
 27,1,002257bc:__ct__11stClassInfoFv
@@ -188,10 +192,27 @@
 27,1,00260834:processGameProc__6GroundFv
 27,1,00261d70:renderPre__6GroundFv
 27,1,00260920:renderDebug__9grGimmickFv
+27,1,00260534:setVisibilityByClipping__6GroundFUi
+27,1,002606a0:setVisibilityAttachedEffect__6GroundFUi
+27,1,00260838:receiveCollMsg__6GroundFUiUiUi
+27,1,00260910:receiveCollMsg_Landing__6GroundFiPii
+27,1,00260914:receiveCollMsg_Heading__6GroundFiPii
+27,1,00260918:receiveCollMsg_Wall__6GroundFiPii
+27,1,0026091c:receiveCollMsg_Attack__6GroundFiPii
+27,1,00228dd8:getModelCount__6GroundFv
+27,1,0025fa34:unloadData__6GroundFv
+27,1,00230728:setMdlIndex__6GroundFi
+27,1,00260bdc:getNodeIndex__6GroundFUiPc
+27,1,00260c84:getNodePosition__6GroundFP5Vec3fUiUi
+27,1,00260d78:getNodePosition__6GroundFP5Vec3fUiPc
 
-
+// grGimmick
+27,1,0026daf4:setVisibility__9grGimmickFUi
+27,1,0026b25c:setNode__9grGimmickFv
+27,1,0026b1c0:setTgtNode__9grGimmickFPc
 
 // grYakumono
 27,1,00264c80:__ct__10grYakumonoFPc
 27,1,00264cc4:__dt__10grYakumonoFv
 27,1,00264d1c:processUpdate__10grYakumonoFv
+27,1,00264f58:startup__10grYakumonoFP9gfArchiveUiUi
