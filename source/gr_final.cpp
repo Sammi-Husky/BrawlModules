@@ -17,6 +17,60 @@ void grFinal::setType(int type){
     this->type = type;
 }
 
+int grFinal::adventureEventGetItem(){
+    return 0;
+}
+int grFinal::getInitializeInfo(){
+    return 0;
+}
+// NEEDS PARAMS
+// not needed for stFinal though.
+void grFinal::setInitializeInfo() {
+    return;
+}
+// NEEDS PARAMS
+// not needed for stFinal though.
+void grFinal::setInitializeFlag(){
+    return;
+}
+void grFinal::disableCalcCollision(){
+    this->calcCollisionEnable &= 0xf7;
+}
+void grFinal::enableCalcCollision() {
+    this->calcCollisionEnable |= 8;
+}
+bool grFinal::isEnableCalcCollision() {
+    return this->calcCollisionEnable >> 3 & 1;
+}
+short grFinal::getMdlIndex() {
+    return this->mdlIndex;
+}
+// TODO
+// possibly has params. unused in stFinal though.
+void grFinal::initStageData(){
+    return;
+}
+float* grFinal::getStageData() {
+    return this->stageData;
+}
+int grFinal::getModelCount(){
+    if(this->resFile != NULL){
+       return nw4r::g3d::GetResMdlNumEntries(&this->resFile);
+    }
+    return 0;
+}
+
+char grFinal::getTransparencyFlag(){
+    return this->transparencyFlag;
+}
+
+u32 grFinal::getGimmickData() {
+    return this->gimmickData;
+}
+void grFinal::setGimmickData(u32 data) {
+    this->gimmickData = data;
+}
+
 extern ecMgr* g_ecMgr;
 void grFinal::updateEff(){
     if(this->type == 0){
@@ -34,7 +88,7 @@ void grFinal::updateEff(){
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330002);
                 g_ecMgr->setDrawPrio(0xffffffff);
-                g_ecMgr->setParent(unk, this->sceneModel,"spaceB",0);
+                g_ecMgr->setParent(unk, &this->sceneModel,"spaceB",0);
                 step++;
             }
             break;
@@ -43,7 +97,7 @@ void grFinal::updateEff(){
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330003);
                 g_ecMgr->setDrawPrio(0xffffffff);
-                g_ecMgr->setParent(unk, this->sceneModel,"spaceF",0);
+                g_ecMgr->setParent(unk, &this->sceneModel,"spaceF",0);
                 step++;
             }
             break;

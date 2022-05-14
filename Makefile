@@ -15,7 +15,7 @@ include $(DEVKITPPC)/wii_rules
 # SOURCES is a list of directories containing source code
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
-TARGET		:=	$(notdir $(CURDIR))
+TARGET		:=	"st_final"
 BUILD		:=	build
 SOURCES		:=	source $(wildcard source/*) lib/PowerPC_EABI_Support/Runtime/Src
 INCLUDES	:=	include
@@ -91,6 +91,7 @@ export OUTPUT	:=	$(CURDIR)/$(TARGET)
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	py -3 ./convertMap.py $(TARGET).map 81160fdc $(TARGET)-dolphin.map
 
 #---------------------------------------------------------------------------------
 clean:

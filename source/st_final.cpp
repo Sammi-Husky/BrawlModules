@@ -25,7 +25,7 @@ void stFinal::update(){
 
 void stFinal::createObj() {
    testStageParamInit(fileData, 0xA);
-   testStageParamInit(fileData, 0x14);
+   testStageDataInit(fileData, 0x14, 1);
    grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
    if(ground != NULL){
       addGround(ground);
