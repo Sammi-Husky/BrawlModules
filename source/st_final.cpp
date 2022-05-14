@@ -1,9 +1,9 @@
-#include "memory.h"
-#include "st/st_final.h"
-#include "gr/gr_final.h"
-#include "gr/gr_collision.h"
-#include "st/st_melee.h"
-#include "st/st_class_info.h"
+#include <memory.h>
+#include <gr/gr_collision.h>
+#include <st/st_class_info.h>
+#include <st/st_melee.h>
+#include "st_final.h"
+#include "gr_final.h"
 
 struct stgPosWrapper
 {
