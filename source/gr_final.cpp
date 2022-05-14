@@ -1,6 +1,6 @@
-#include "gr/gr_final.h"
-#include "ec_mgr.h"
-#include "memory.h"
+#include <memory.h>
+#include <ec_mgr.h>
+#include "gr_final.h"
 
 grFinal* grFinal::create(int mdlIndex, char* tgtNodeName, char* taskName){
     grFinal* ground = new(StageInstance) grFinal(taskName);

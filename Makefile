@@ -16,6 +16,7 @@ include $(DEVKITPPC)/wii_rules
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
 TARGET		:=	"st_final"
+RELID		:=  45
 BUILD		:=	build
 SOURCES		:=	source $(wildcard source/*) lib/PowerPC_EABI_Support/Runtime/Src
 INCLUDES	:=	include
@@ -78,7 +79,11 @@ export LCF			:= $(TOPDIR)/rel.lcf
 # build a list of include paths
 #---------------------------------------------------------------------------------
 export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
-			-I$(CURDIR)/$(BUILD) -I- -I$(CURDIR)/include -I$(CURDIR)/lib/PowerPC_EABI_Support/Runtime/Inc
+			-I$(CURDIR)/$(BUILD) -I- \
+			-I$(CURDIR)/lib/PowerPC_EABI_Support/Runtime/Inc \
+			-I$(CURDIR)/lib/Brawl/Include \
+			-I$(CURDIR)/lib/nw4r/include \
+			-I$(CURDIR)/lib/rvl/include
 
 #---------------------------------------------------------------------------------
 # build a list of library paths
@@ -113,7 +118,7 @@ $(OFILES_SOURCES) : $(HFILES)
 # REL linking
 %.rel: %.elf
 	@echo output ... $(notdir $@)
-	$(SILENTCMD)$(ELF2REL) $< -s $(MAPFILE)
+	$(SILENTCMD)$(ELF2REL) $< -s $(MAPFILE) --rel-id $(RELID)
 	
 %.elf:
 	@echo linking ... $(notdir $@)
