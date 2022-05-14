@@ -14,6 +14,7 @@
 8005f774:setDrawPrio__5ecMgrFi
 8005f7a4:setEffect__5ecMgrFUi
 8005fc5c:setParent__5ecMgrFUiP6ScnMdlPci
+8005fc5c:setParent__5ecMgrFUiPP6ScnMdlPci
 
 // gfTask
 8002d8b8:__ct__6gfTaskFPciiii
@@ -167,6 +168,7 @@
 27,1,00221d48:__dt__5StageFv
 27,1,00223140:testStageParamInit__5StageFP9gfArchivei
 27,1,00223398:testStageDataInit__5StageFP9gfArchiveii
+27,1,0022269c:createObjPokeTrainer__5StageFP9gfArchiveiPCcii
 
 // stClassInfo
 27,1,002257bc:__ct__11stClassInfoFv
@@ -205,14 +207,75 @@
 27,1,00260bdc:getNodeIndex__6GroundFUiPc
 27,1,00260c84:getNodePosition__6GroundFP5Vec3fUiUi
 27,1,00260d78:getNodePosition__6GroundFP5Vec3fUiPc
+27,1,00260e88:getNodeMatrix__6GroundFUiUiUi
+27,1,00260f48:getNodeMatrix__6GroundFUiUiPc
+27,1,0026102c:setNodeVisibility__6GroundFbUiUibb
+27,1,002611dc:setNodeVisibility__6GroundFbUiPcbb
+27,1,002612ac:setNodeVisibilityAll__6GroundFbUi
+27,1,002613ac:isNodeVisible__6GroundFUiUi
+27,1,00261434:setNodeCollision__6GroundFbUiUib
+27,1,002615ec:setNodeCollision__6GroundFbUiPcb
+27,1,00261718:getNodeScale__6GroundFP5Vec3fUiUi
+27,1,002617d8:getNodeScale__6GroundFP5Vec3fUiPc
+27,1,00231b80:setInitializeInfo__6GroundFi
+27,1,00231b78:getInitializeInfo__6GroundFi
+27,1,0025fd1c:setMotionFrame__6GroundFfUi
+27,1,0025fd38:getMotionFrame__6GroundFUi
+27,1,0025fd60:setMotionLoop__6GroundFbUi
+27,1,0025fd7c:setMatAlphaMul__6GroundFUiUi
+27,1,0025feec:setMatAlpha__6GroundFUiUi
+27,1,0025ffe0:updateG3dProcCalcWorld__6GroundFv
+27,1,00231b70:adventureEventGetItem__6GroundFiPi
 
 // grGimmick
 27,1,0026daf4:setVisibility__9grGimmickFUi
 27,1,0026b25c:setNode__9grGimmickFv
 27,1,0026b1c0:setTgtNode__9grGimmickFPc
+27,1,0026c2f8:setMotionRatio__9grGimmickFf
+27,1,0026d940:invalidatedByCameraClipping__9grGimmickFv
+27,1,0026d938:setTransparencyFlag__9grGimmickFc
+27,1,0026b0f8:updateCallback__9grGimmickFUi
+27,1,0026b17c:fixedPosition__9grGimmickFf
+27,1,0026b254:getTgtNode__9grGimmickFv
+27,1,00231bcc:getGimmickData__9grGimmickFUi
+27,1,0026bcc0:changeNodeAnim__9grGimmickFUiUi
+27,1,0026a5e8:createFadeVisibleProduction__9grGimmickFf
+27,1,0026a664:createSoundEffectVisibleProductionForExcel__9grGimmickFUiUiUi
+27,1,0026a6b8:createEffectVisibleProductionForExcel__9grGimmickFUiUiUi
+27,1,0026a708:setSimpleEffectVisibleProduction__9grGimmickFv
+27,1,0026daf0:dbDispInvalidatedByCameraClippingSphere__9grGimmickFv
+
+
+
 
 // grYakumono
 27,1,00264c80:__ct__10grYakumonoFPc
 27,1,00264cc4:__dt__10grYakumonoFv
 27,1,00264d1c:processUpdate__10grYakumonoFv
 27,1,00264f58:startup__10grYakumonoFP9gfArchiveUiUi
+27,1,00264f5c:setValid__10grYakumonoFUi
+27,1,0026501c:setValidAttachedEffect__10grYakumonoFUi
+27,1,00267ab8:preExit__10grYakumonoFv
+27,1,00267a10:setTransparency__10grYakumonoFUiUi
+27,1,00264dd4:onDamage__10grYakumonoFUiPUiPUi
+27,1,00264DE4:onInflict__10grYakumonoFPiUi
+27,1,00264DE8:onInflictEach__10grYakumonoFPif
+27,1,00264DEC:onGimmickEvent__10grYakumonoFPiPi
+27,1,002650DC:enableYakumono__10grYakumonoFUi
+27,1,00265160:disableYakumono__10grYakumonoFUiUi
+27,1,002651D4:enableHit__10grYakumonoFUiUi
+27,1,00265214:disableHit__10grYakumonoFUiUi
+27,1,00265254:disableAttack__10grYakumonoFUi
+27,1,002652BC:enableArea__10grYakumonoFv
+27,1,00265300:disableArea__10grYakumonoFv
+27,1,00265344:setSleepArea__10grYakumonoFv
+27,1,00265390:setTeamYakumonoOwnerId__10grYakumonoFUi
+27,1,002653C8:setTeamYakumono__10grYakumonoFUiUi
+27,1,00265424:getTeamYakumono__10grYakumonoFUi
+27,1,0026546C:setOffsetAttack__10grYakumonoFUiUi
+27,1,00265480:setAreaGimmick__10grYakumonoFUiUiUiUi
+27,1,00267548:setAttackGimmick__10grYakumonoFUiUiUiUiUi
+27,1,002675E0:setSoCollisionAttackData__10grYakumonoFUiUiUi
+27,1,002677AC:setAttackGimmickDetails__10grYakumonoFffffUiUiUiUiUiUiUiiUiUiUiUiUiiUiUiUiUiUiUiUiUiiUiUiUiUiUiUiUiUiUiUii
+27,1,00267924:isEnableAttackPersonAttacked__10grYakumonoFUiUiUi
+27,1,002679E8:isEnableAttackAttribute__10grYakumonoFUiUi

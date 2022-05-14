@@ -3,8 +3,8 @@
 
 class grYakumono : public grGimmick
 {
-    private:
-        void* yakumono;
+    protected:
+        u32 yakumono;
     public:
         grYakumono(char* taskName);
         virtual void processUpdate();

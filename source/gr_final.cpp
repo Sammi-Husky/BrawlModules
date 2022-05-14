@@ -84,20 +84,20 @@ void grFinal::updateEff(){
             step++;
             break;
         case 1:
-            if(this->getMotionFrame(0) < EFF_FRAME_MAX1){
+            if(this->getMotionFrame(0) <= EFF_FRAME_MAX1){
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330002);
                 g_ecMgr->setDrawPrio(0xffffffff);
-                g_ecMgr->setParent(unk, &this->sceneModel,"spaceB",0);
+                g_ecMgr->setParent(unk, this->sceneModel[0],"spaceB",0); // sceneModel is actually supposed to be a wrapper of some kind
                 step++;
             }
             break;
         case 2:
-            if(this->getMotionFrame(0) < EFF_FRAME_MAX2){
+            if(this->getMotionFrame(0) <= EFF_FRAME_MAX2){
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330003);
                 g_ecMgr->setDrawPrio(0xffffffff);
-                g_ecMgr->setParent(unk, &this->sceneModel,"spaceF",0);
+                g_ecMgr->setParent(unk, this->sceneModel[0],"spaceF",0); // sceneModel is actually supposed to be a wrapper of some kind
                 step++;
             }
             break;

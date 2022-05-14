@@ -14,7 +14,7 @@ class Ground : public gfTask {
         // 0
         nw4r::g3d::ResFile* resFile;
         // 4
-        ScnMdl* sceneModel;
+        ScnMdl** sceneModel;
         // 8
         gfModelAnimation* modelAnim;
         // C
@@ -25,7 +25,7 @@ class Ground : public gfTask {
         char _spacer3[2];
         // 20
         float* stageData;
-        // 28
+        // 24
         char _spacer4[8];
         // 2C
         char calcCollisionEnable;
