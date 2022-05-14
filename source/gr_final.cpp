@@ -84,7 +84,7 @@ void grFinal::updateEff(){
             step++;
             break;
         case 1:
-            if(this->getMotionFrame(0) <= EFF_FRAME_MAX1){
+            if(this->getMotionFrame(0) >= EFF_FRAME_MAX1){
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330002);
                 g_ecMgr->setDrawPrio(0xffffffff);
@@ -93,7 +93,7 @@ void grFinal::updateEff(){
             }
             break;
         case 2:
-            if(this->getMotionFrame(0) <= EFF_FRAME_MAX2){
+            if(this->getMotionFrame(0) >= EFF_FRAME_MAX2){
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330003);
                 g_ecMgr->setDrawPrio(0xffffffff);
@@ -102,7 +102,7 @@ void grFinal::updateEff(){
             }
             break;
         case 3:
-            if(this->getMotionFrame(0) <= this->unk_float){
+            if(this->getMotionFrame(0) >= this->unk_float){
                 this->unk_float = this->getMotionFrame(0);
             } else {
                 step = 0;
