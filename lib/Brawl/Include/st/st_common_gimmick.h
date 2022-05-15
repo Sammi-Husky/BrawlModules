@@ -9,4 +9,6 @@ class stCommonGimmick : public Stage {
         char _spacer[0x10];
     public:
         stCommonGimmick(char* name, int unk1);
+        void releaseArchive();
+        virtual ~stCommonGimmick();
 };

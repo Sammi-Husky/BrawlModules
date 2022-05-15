@@ -6,6 +6,7 @@
 8000c8b8:__nw__FUl8HeapType
 8000c8c8:__dl__FPv
 8000c8dc:__dla__FPv
+801d8600:OSReport
 
 // NW4R
 8018d2a4:GetResMdlNumEntries__Q24nw4r3g3dFPPQ34nw4r3g3d7ResFile
@@ -170,6 +171,9 @@
 27,1,00223398:testStageDataInit__5StageFP9gfArchiveii
 27,1,0022269c:createObjPokeTrainer__5StageFP9gfArchiveiPCcii
 
+// stCommonGimmick
+27,1,002380b0:releaseArchive__15stCommonGimmickFv
+
 // stClassInfo
 27,1,002257bc:__ct__11stClassInfoFv
 27,1,002258fc:setClassInfo__11stClassInfoFiP11stClassInfo
@@ -177,6 +181,7 @@
 
 // stMelee
 27,1,00238bdc:__ct__7stMeleeFPci
+27,1,002395bc:processBegin__7stMeleeFv
 27,1,00239660:update__7stMeleeFv
 27,1,002394cc:setCameraLimitRange__7stMeleeFffff
 27,1,00239534:resetCameraLimitRange__7stMeleeFv

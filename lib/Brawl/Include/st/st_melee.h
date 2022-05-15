@@ -11,6 +11,7 @@ class stMelee : public stCommonGimmick {
         char wndOnlyData2[0x10];
     public:
         stMelee(char* name, int stageID);
+        virtual void processBegin();
         virtual void update();
         virtual void setCameraLimitRange(float unk1, float unk2, float unk3, float unk4); // TODO
         virtual void resetCameraLimitRange(); // TODO

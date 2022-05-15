@@ -48,5 +48,5 @@ class stFinal : public stMelee {
         virtual void update();
         virtual int getFinalTechniqColor();
         virtual bool isBamperVector();
-        virtual ~stFinal() { };
+        virtual ~stFinal() {this->releaseArchive(); };
 };

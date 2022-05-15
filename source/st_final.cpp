@@ -4,6 +4,7 @@
 #include <st/st_melee.h>
 #include "st_final.h"
 #include "gr_final.h"
+#include <OSError.h>
 
 struct stgPosWrapper
 {
@@ -165,7 +166,6 @@ bool stFinal::isBamperVector() {
 int stFinal::getFinalTechniqColor() {
    return 0x14000496;
 }
-
 
 template<int I, typename T>
 T* stClassInfoImpl<I, T>::create(){
