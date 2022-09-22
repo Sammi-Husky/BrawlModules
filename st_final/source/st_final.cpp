@@ -6,11 +6,6 @@
 #include "gr_final.h"
 #include <OSError.h>
 
-struct stgPosWrapper
-{
-   void* data;
-};
-
 static stClassInfoImpl<2, stFinal> classInfo = stClassInfoImpl<2, stFinal>();
 
 stFinal* stFinal::create() {
@@ -51,8 +46,8 @@ void stFinal::createObj() {
       createStagePositions();
    } 
    else {
-      stgPosWrapper stgPos = {posData}; // creates wrapper on the stack
-      createStagePositions(&stgPos);
+      //stgPosWrapper stgPos = {posData}; // creates wrapper on the stack
+      createStagePositions(&posData);
    }
    createWind2ndOnly();
    loadStageAttrParam(fileData, 0x1E);
