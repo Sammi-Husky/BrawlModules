@@ -81,9 +81,9 @@ export LCF			:= $(TOPDIR)/rel.lcf
 export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 			-I$(CURDIR)/$(BUILD) -I- \
 			-I$(CURDIR)/lib/PowerPC_EABI_Support/Runtime/Inc \
-			-I$(CURDIR)/lib/Brawl/Include \
-			-I$(CURDIR)/lib/nw4r/include \
-			-I$(CURDIR)/lib/rvl/Include
+			-I$(CURDIR)/lib/BrawlHeaders/Brawl/Include \
+			-I$(CURDIR)/lib/BrawlHeaders/nw4r/include \
+			-I$(CURDIR)/lib/BrawlHeaders/rvl/Include
 
 #---------------------------------------------------------------------------------
 # build a list of library paths
