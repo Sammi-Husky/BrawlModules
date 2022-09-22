@@ -83,7 +83,7 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 			-I$(CURDIR)/lib/PowerPC_EABI_Support/Runtime/Inc \
 			-I$(CURDIR)/lib/Brawl/Include \
 			-I$(CURDIR)/lib/nw4r/include \
-			-I$(CURDIR)/lib/rvl/include
+			-I$(CURDIR)/lib/rvl/Include
 
 #---------------------------------------------------------------------------------
 # build a list of library paths
