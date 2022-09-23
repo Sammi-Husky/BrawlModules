@@ -38,7 +38,7 @@ void stFinal::createObj() {
       ground->setType(1);
       ground->setDontMoveGround();
    }
-   createCollision(fileData, 2, 0);
+   createCollision(fileData, 2, NULL);
    initCameraParam();
    void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
    if(posData == NULL){
