@@ -51,7 +51,7 @@
 27,1,0022269C:createObjPokeTrainer__5StageFiiiii
 27,1,002227b0:addGround__5StageFP6Ground
 27,1,00222904:registSceneAnim__5StageFPvi
-27,1,00222ab0:createCollision__5StageFP9gfArchiveii
+27,1,00222ab0:createCollision__5StageFP9gfArchiveiP6Ground
 27,1,00224574:createStagePositions__5StageFv
 27,1,00224524:createStagePositions__5StageFPv
 27,1,002237D0:loadStageAttrParam__5StageFP9gfArchivei
