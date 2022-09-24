@@ -8,10 +8,13 @@ const float BGM_VOLUME = 1.0f;
 const float SCROLL_DIR = 0.0f;
 const float POKETRAINER_Z = 0.0f;
 
-class stFinal : public stMelee {
+class stVillage : public stMelee {
+    protected:
+        char unk1;
+        char unk2;
     public:
-        stFinal(int stageID) : stMelee("stFinal", stageID) {};
-        static stFinal* create();
+        stVillage(int stageID) : stMelee("stVillage", stageID) {};
+        static stVillage* create();
         int getWind2ndOnlyData();
         bool isReStartSamePoint();
         int getPokeTrainerPointNum();
@@ -48,5 +51,22 @@ class stFinal : public stMelee {
         virtual void update(float unk1);
         virtual int getFinalTechniqColor();
         virtual bool isBamperVector();
-        virtual ~stFinal() {this->releaseArchive(); };
+        virtual void createObjBg(int index);
+        virtual void createObjSky(int index);
+        virtual void createObjAshiba(int index);
+        virtual void createObjGuest();
+        virtual void createObjGuest(u32 unk1, u32 unk2);
+        virtual void createObjGuestPathMove(int index);
+        virtual void createObjLiveDeco(int index);
+        virtual void createObjClock(int index);
+        virtual void createObjBalloon(int index);
+        virtual void updatePerio(float unk1);
+        virtual void updateTaxi(float unk1);
+        virtual void updateUFO(float unk1);
+        virtual void initStageDataTbl();
+        virtual void selectScene();
+        virtual void setLive(u32 unk1);
+        virtual void setScene(u32 unk1);
+        virtual ~stVillage() {this->releaseArchive(); };
+
 };
