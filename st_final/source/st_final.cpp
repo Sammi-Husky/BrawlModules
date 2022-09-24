@@ -15,7 +15,7 @@ stFinal* stFinal::create() {
 bool stFinal::loading(){
    return true;
 }
-void stFinal::update(){
+void stFinal::update(float unk1){
    return;
 }
 
