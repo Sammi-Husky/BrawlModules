@@ -16,7 +16,7 @@ stVillage* stVillage::create() {
 bool stVillage::loading(){
    return true;
 }
-void stVillage::update(float unk1){
+void stVillage::update(float frameDiff){
    this->updatePerio(unk1);
    this->updateTaxi(unk1);
    this->updateUFO(unk1);

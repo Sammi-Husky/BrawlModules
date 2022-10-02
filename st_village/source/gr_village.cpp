@@ -31,7 +31,7 @@ bool grVillage::isSceneBit(){
 
     return sceneWork > 0;
 }
-void grVillage::update(float unk1){
+void grVillage::update(float frameDiff){
     if(this->unk3){
         this->updateVisible(unk1);
     }

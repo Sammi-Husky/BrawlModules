@@ -11,7 +11,7 @@ grFinal* grFinal::create(int mdlIndex, char* tgtNodeName, char* taskName){
     return ground;
 }
 
-void grFinal::update(){
+void grFinal::update(float frameDiff){
     this->updateEff();
 }
 void grFinal::setType(int type){
