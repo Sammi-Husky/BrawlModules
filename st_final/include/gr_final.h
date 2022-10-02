@@ -20,7 +20,7 @@ class grFinal : public grYakumono
             type = 0;
             step = 0;
         };
-        virtual void update();
+        virtual void update(float frameDiff);
         virtual ~grFinal() { };
 
         virtual void updateEff();

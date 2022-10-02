@@ -13,7 +13,7 @@ stFinal* stFinal::create() {
 bool stFinal::loading(){
    return true;
 }
-void stFinal::update(float unk1){
+void stFinal::update(float frameDiff){
    return;
 }
 

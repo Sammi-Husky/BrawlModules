@@ -20,8 +20,8 @@ class grVillage : public grYakumono
             stateWork = 0;
             posGuestWork = 0;
         };
-        virtual void update(float unk1);
-        virtual void updateVisible(float unk1);
+        virtual void update(float frameDiff);
+        virtual void updateVisible(float frameDiff);
         virtual void setSceneWork(u32 sceneWork);
         virtual void setSceneBit(u32 sceneBit);
         virtual void setStateWork(u32 stateWork);
