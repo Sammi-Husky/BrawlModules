@@ -17,24 +17,51 @@ void stDemo::update(float frameDiff){
 }
 
 void stDemo::createObj() {
-   testStageParamInit(fileData, 0xA);
-   testStageDataInit(fileData, 0x14, 1);
-   grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
-   if(ground != NULL){
+    this->doorData.motionPathData.motionRatio = 1.0;
+    this->doorData.motionPathData.index = 0;
+    this->doorData.motionPathData.field_0x5 = 1;
+    this->doorData.motionPathData.mdlIndex = 0xFF;
+    this->doorData.motionPathData._pad = 0x0;
+    this->doorData._spacer[7] = 0x12;
+    this->doorData.field_0x20 = 0;
+    this->doorData.field_0x24 = 10.0;
+    this->doorData.field_0x28 = 20.0;
+    this->doorData.field_0x2c = 20.0;
+    this->doorData.levelId = 0x04;
+    this->doorData.levelSequenceId = 0x0;
+    this->doorData.levelSegmentId = 0x1;
+    this->doorData.doorIndex = 0x1;
+    this->doorData.field_0x34 = 0x0;
+    this->doorData._spacer2 = 0x1;
+    this->doorData.mdlIndex = 0x66;
+    this->doorData._spacer3 = 0x1;
+    this->doorData.xPos = 0.0;
+    this->doorData.yPos = 0.0;
+    this->doorData.openDoorTriggerData = (TriggerData){0, 1, 0};
+    this->doorData.field_0x44 = 0;
+    this->doorData.field_0x48 = -1;
+    this->doorData.motionPathTriggerData = (TriggerData){0, 1, 0};
+    this->doorData.isValidTriggerData = (TriggerData){0, 1, 0};
+
+    testStageParamInit(fileData, 0xA);
+    testStageDataInit(fileData, 0x14, 1);
+    grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
+    if(ground != NULL){
       addGround(ground);
       ground->startup(fileData,0,0);
       ground->setStageData(stageData);
       ground->setType(0);
       ground->setDontMoveGround();
-   }
-   ground = grFinal::create(2, "", "grFinalStage");
-   if(ground != NULL){
+    }
+    ground = grFinal::create(2, "", "grFinalStage");
+    if(ground != NULL){
       addGround(ground);
       ground->startup(fileData,0,0);
       ground->setStageData(stageData);
       ground->setType(1);
       ground->setDontMoveGround();
-   }
+    }
+
     grAdventureDoor* door = grAdventureDoor::create(102, 0x28000204, "grAdventureDoor");
     if(door != NULL){
         addGround(door);
@@ -42,23 +69,23 @@ void stDemo::createObj() {
         door->startup(fileData,0,0);
     }
 
-   createCollision(fileData, 2, NULL);
-   initCameraParam();
-   void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
-   if(posData == NULL){
+    createCollision(fileData, 2, NULL);
+    initCameraParam();
+    void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    if(posData == NULL){
       // if no stgPos model in pac, use defaults
       createStagePositions();
-   } 
-   else {
+    }
+    else {
       //stgPosWrapper stgPos = {posData}; // creates wrapper on the stack
       createStagePositions(&posData);
-   }
-   createWind2ndOnly();
-   loadStageAttrParam(fileData, 0x1E);
-   void* scnData = fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
-   registSceneAnim(scnData, 0);
-   initPosPokeTrainer(1, 0);
-   createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
+    }
+    createWind2ndOnly();
+    loadStageAttrParam(fileData, 0x1E);
+    void* scnData = fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
+    registSceneAnim(scnData, 0);
+    initPosPokeTrainer(1, 0);
+    createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
 }
 
 void Ground::setStageData(float* stageData) {
