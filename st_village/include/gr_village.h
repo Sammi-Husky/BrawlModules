@@ -41,8 +41,8 @@ class grVillage : public grYakumono
         void initStageData();
         float* getStageData();
         char getTransparencyFlag();
-        u32 getGimmickData();
-        void setGimmickData(u32 data);
+        void* getGimmickData();
+        void setGimmickData(void* gimmickData);
         int getModelCount();
 
 };

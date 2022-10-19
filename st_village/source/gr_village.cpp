@@ -96,9 +96,9 @@ char grVillage::getTransparencyFlag(){
     return this->transparencyFlag;
 }
 
-u32 grVillage::getGimmickData() {
+void* grVillage::getGimmickData() {
     return this->gimmickData;
 }
-void grVillage::setGimmickData(u32 data) {
+void grVillage::setGimmickData(void* data) {
     this->gimmickData = data;
 }
