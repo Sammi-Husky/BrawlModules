@@ -5,7 +5,7 @@
 
 struct DoorData {
     grGimmickMotionPathData motionPathData;
-    char _spacer[21];
+    char _spacer[20];
     float field_0x20;
     float field_0x24;
     float field_0x28;
@@ -15,13 +15,14 @@ struct DoorData {
     char levelSegmentId;
     char doorIndex;
     char field_0x34;
-    char _spacer2[1];
+    char _spacer2;
     char mdlIndex;
-    char _spacer3[1];
+    char _spacer3;
     float xPos;
     float yPos;
     TriggerData openDoorTriggerData;
-    char _spacer4[8];
+    int field_0x44;
+    int field_0x48;
     TriggerData motionPathTriggerData;
     TriggerData isValidTriggerData;
     float difficultyMotionRatios[15];

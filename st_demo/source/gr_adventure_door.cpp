@@ -1,6 +1,7 @@
 #include <memory.h>
 #include <ec_mgr.h>
 #include <st/st_trigger.h>
+#include <gr/gr_visible_production_effect.h>
 #include "gr_adventure_door.h"
 #include <OSError.h>
 
@@ -13,6 +14,7 @@ grAdventureDoor* grAdventureDoor::create(int mdlIndex, u32 jumpData, char* taskN
 
 void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grYakumono::startup(archive, unk1, unk2);
+    this->doorData = (DoorData*)this->gimmickData;
     switch(this->doorData->field_0x34) {
         case 1:
             this->utArchiveType = 0x29;
@@ -36,7 +38,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
         this->calcWorldCallBack.nodeCallbackDataArray->scale.y = 1.1;
         this->calcWorldCallBack.nodeCallbackDataArray->scale.z = 1.0;
     }
-    this->areaData = (grYakumonoAreaData){0x15, 0, 0, 0, 0, 0, this->doorData->field_0x20,
+    this->areaData = (grYakumonoAreaData){0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20,
                                           this->doorData->field_0x24,
                                           this->doorData->field_0x28,
                                           this->doorData->field_0x2c};
@@ -49,7 +51,9 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->setRot(0, 0, 0);
     grGimmickSimpleEffectData simpleEffectData;
     this->createSimpleEffectData(&simpleEffectData, 0x103001d, "effect_locator");
-    //this->createEffectVisibleProductionForExcel(&simpleEffectData)
+    u32 visProdIndex = 4;
+    this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->visibleProductions);
+    this->createIsValidTrigger(&this->doorData->isValidTriggerData);
 
 
 
