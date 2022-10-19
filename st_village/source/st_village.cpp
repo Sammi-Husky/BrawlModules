@@ -1,6 +1,6 @@
 #include <memory.h>
 #include <OSError.h>
-#include <snd/sndSystem.h>
+#include <snd/snd_system.h>
 #include <gr/gr_collision.h>
 #include <st/st_class_info.h>
 #include <st/st_melee.h>
