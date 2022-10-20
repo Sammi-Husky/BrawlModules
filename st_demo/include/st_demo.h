@@ -12,7 +12,7 @@ const float POKETRAINER_Z = 0.0f;
 
 class stDemo : public stMelee {
     public:
-        DoorData doorData;
+        grGimmickDoorData doorData;
 
         stDemo(int stageID) : stMelee("stDemo", stageID) {};
         static stDemo* create();
