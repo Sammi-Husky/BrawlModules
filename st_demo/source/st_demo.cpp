@@ -21,7 +21,7 @@ void stDemo::createObj() {
     this->doorData.motionPathData.index = 0;
     this->doorData.motionPathData.field_0x5 = 1;
     this->doorData.motionPathData.mdlIndex = 0xFF;
-    this->doorData.motionPathData._pad = 0x0;
+    this->doorData.motionPathData._padding = 0x0;
     this->doorData._spacer[7] = 0x12;
     this->doorData.field_0x20 = 0;
     this->doorData.field_0x24 = 10.0;
@@ -31,17 +31,17 @@ void stDemo::createObj() {
     this->doorData.levelSequenceId = 0x0;
     this->doorData.levelSegmentId = 0x1;
     this->doorData.doorIndex = 0x1;
-    this->doorData.field_0x34 = 0x0;
+    this->doorData.doorType = 0x0;
     this->doorData._spacer2 = 0x1;
     this->doorData.mdlIndex = 0x66;
     this->doorData._spacer3 = 0x1;
     this->doorData.xPos = 0.0;
     this->doorData.yPos = 0.0;
-    this->doorData.openDoorTriggerData = (TriggerData){0, 1, 0};
+    this->doorData.openDoorTriggerData = (stTriggerData){0, 1, 0};
     this->doorData.field_0x44 = 0;
     this->doorData.field_0x48 = -1;
-    this->doorData.motionPathTriggerData = (TriggerData){0, 1, 0};
-    this->doorData.isValidTriggerData = (TriggerData){0, 1, 0};
+    this->doorData.motionPathTriggerData = (stTriggerData){0, 1, 0};
+    this->doorData.isValidTriggerData = (stTriggerData){0, 1, 0};
 
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 1);
@@ -67,9 +67,10 @@ void stDemo::createObj() {
         addGround(door);
         door->setGimmickData(&this->doorData);
         door->startup(fileData,0,0);
+        createCollision(fileData, 2, door);
     }
 
-    createCollision(fileData, 2, NULL);
+    //createCollision(fileData, 2, NULL);
     initCameraParam();
     void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
     if(posData == NULL){

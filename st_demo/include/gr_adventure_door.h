@@ -1,9 +1,10 @@
 #pragma once
 
 #include <gr/gr_yakumono.h>
+#include <gr/gr_gimmick_motion_path.h>
 #include <st/st_trigger.h>
 
-struct DoorData {
+struct grGimmickDoorData {
     grGimmickMotionPathData motionPathData;
     char _spacer[20];
     float field_0x20;
@@ -14,19 +15,26 @@ struct DoorData {
     char levelSequenceId;
     char levelSegmentId;
     char doorIndex;
-    char field_0x34;
+    char doorType;
     char _spacer2;
     char mdlIndex;
     char _spacer3;
     float xPos;
     float yPos;
-    TriggerData openDoorTriggerData;
+    stTriggerData openDoorTriggerData;
     int field_0x44;
     int field_0x48;
-    TriggerData motionPathTriggerData;
-    TriggerData isValidTriggerData;
+    stTriggerData motionPathTriggerData;
+    stTriggerData isValidTriggerData;
     float difficultyMotionRatios[15];
 };
+
+struct grGimmickEventDoorInfo : grGimmickEventInfo {
+    int unk1;
+    Vec3f pos;
+    bool unk2;
+};
+
 
 class grAdventureDoor : public grYakumono
 {
@@ -35,9 +43,9 @@ protected:
     float field_0x114;
     float field_0x118;
     float field_0x11c;
-    DoorData* doorData;
+    grGimmickDoorData* doorData;
     unsigned int jumpData;
-    int utArchiveType;
+    GimmickKind gimmickKind;
     grYakumonoAreaData areaData;
     grYakumonoAreaInit areaInit;
     grYakumonoAreaInfo areaInfo;
@@ -49,13 +57,13 @@ public:
         field_0x11c = 50.0;
         doorData = NULL;
         jumpData = 0;
-        utArchiveType = 0x28;
+        gimmickKind = Gimmick_Kind_DoorOpen;
         areaInfo.field_0x0 = 0;
         areaInfo.field_0x4 = 0;
     };
     virtual void update(float frameDiff);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
-    virtual void onGimmickEvent(int* unk1, int* taskId);
+    virtual void onGimmickEvent(grGimmickEventInfo* eventInfo, int* taskId);
     virtual ~grAdventureDoor() { };
     virtual void setJumpData(u32 jumpData);
     virtual void setInitializeFlag();
