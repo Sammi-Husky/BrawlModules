@@ -40,7 +40,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
         this->calcWorldCallBack.nodeCallbackDataArray->scale.y = 1.1;
         this->calcWorldCallBack.nodeCallbackDataArray->scale.z = 1.0;
     }
-    this->areaData = (grYakumonoAreaData){0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20,   // 0, 0x15, 0, 0, 0, 0
+    this->areaData = (soAreaData){0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20,   // 0, 0x15, 0, 0, 0, 0
                                           this->doorData->field_0x24,
                                           this->doorData->field_0x28,
                                           this->doorData->field_0x2c};
@@ -72,6 +72,8 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 void grAdventureDoor::update(float frameDiff){
 
 }
+
+// TODO: Figure out letting other players enter
 
 void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId) {
     grGimmickEventDoorInfo* doorEventInfo = (grGimmickEventDoorInfo*)eventInfo;
@@ -135,7 +137,6 @@ void grAdventureDoor::openTheDoor() {
 void grAdventureDoor::EachDoorTypeEffect() {
 
 }
-
 
 
 
