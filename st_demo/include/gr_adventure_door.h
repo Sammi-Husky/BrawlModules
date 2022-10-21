@@ -47,9 +47,9 @@ protected:
     grGimmickDoorData* doorData;
     unsigned int jumpData;
     GimmickKind gimmickKind;
-    grYakumonoAreaData areaData;
-    grYakumonoAreaInit areaInit;
-    grYakumonoAreaInfo areaInfo;
+    soAreaData areaData;
+    soAreaInit areaInit;
+    YakumonoAreaInfo areaInfo;
 public:
     grAdventureDoor(char* taskName) : grYakumono(taskName) {
         isOpened = false;
