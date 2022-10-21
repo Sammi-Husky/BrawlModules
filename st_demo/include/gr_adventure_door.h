@@ -39,10 +39,11 @@ struct grGimmickEventDoorInfo : grGimmickEventInfo {
 class grAdventureDoor : public grYakumono
 {
 protected:
-    int field_0x110;
+    bool isOpened;
+    char _padding[3];
     float field_0x114;
     float field_0x118;
-    float field_0x11c;
+    float screenFadeFrames;
     grGimmickDoorData* doorData;
     unsigned int jumpData;
     GimmickKind gimmickKind;
@@ -51,10 +52,10 @@ protected:
     grYakumonoAreaInfo areaInfo;
 public:
     grAdventureDoor(char* taskName) : grYakumono(taskName) {
-        field_0x110 = 0.0;
+        isOpened = false;
         field_0x114 = 0.0;
         field_0x118 = 0.0;
-        field_0x11c = 50.0;
+        screenFadeFrames = 50.0;
         doorData = NULL;
         jumpData = 0;
         gimmickKind = Gimmick_Kind_DoorOpen;
