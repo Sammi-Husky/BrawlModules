@@ -91,6 +91,7 @@ void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId)
         // stAdventure2::notifyEntryDoor(g_stAdventure2);
         // stAreaManager::eraseAll(g_stAreaManager)
         g_stTriggerMng->createTrigger(Gimmick_Kind_DoorOpen, &this->doorData->openDoorTriggerData);
+        g_stTriggerMng->setTriggerFlag(&this->doorData->openDoorTriggerData);
 
     }
 }
