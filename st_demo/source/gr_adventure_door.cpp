@@ -2,6 +2,7 @@
 #include <ec_mgr.h>
 #include <st/st_trigger.h>
 #include <gr/gr_visible_production_effect.h>
+#include <ef/ef_screen.h>
 #include "gr_adventure_door.h"
 #include <OSError.h>
 
@@ -55,7 +56,17 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     u32 visProdIndex = 4;
     this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->visibleProductions);
     this->createIsValidTrigger(&this->doorData->isValidTriggerData);
-
+    if (this->doorData->field_0x44 == 0x5) {
+        this->createEffectWork(1);
+        this->effects->field_0xc = 0x103000c;
+        this->effects->field_0x10 = 0;
+        this->effects->nodeIndex = this->getNodeIndex(0, "effect_locator");
+        this->effects->field_0x14 = 0;
+        this->effects->field_0x1c = 0.0;
+        this->effects->field_0x20 = 0.0;
+        this->effects->field_0x24 = 1.0;
+        this->screenFadeFrames = 100.0;
+    }
 }
 
 void grAdventureDoor::update(float frameDiff){
@@ -77,8 +88,7 @@ void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId)
         this->getPos(&doorEventInfo->pos, this);
         if (this->doorData->field_0x44 == 5) {
             doorEventInfo->unk2 = true;
-        }
-        else {
+        } else {
             doorEventInfo->unk2 = false;
         }
         if (this->doorData->doorType == 1) {
@@ -92,8 +102,20 @@ void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId)
         // stAreaManager::eraseAll(g_stAreaManager)
         g_stTriggerMng->createTrigger(Gimmick_Kind_DoorOpen, &this->doorData->openDoorTriggerData);
         g_stTriggerMng->setTriggerFlag(&this->doorData->openDoorTriggerData);
-
+        this->motionRatio = 1.0;
+        if (this->doorData->field_0x44 == 0x1 || this->doorData->field_0x44 == 0x10) {
+            Color fillColor = {0xff, 0xff, 0xff, 0xff};
+            g_efScreen->requestFill(this->screenFadeFrames, 7, 0, &fillColor);
+        } else {
+            Color fillColor = {0x0, 0x0, 0x0, 0xff};
+            g_efScreen->requestFill(this->screenFadeFrames, 7, 0, &fillColor);
+        }
+        /* if (g_curStage != NULL) {
+            g_curStage->setStageOutEffectInit)(1);
+        } */
+        this->isOpened = true;
     }
+
 }
 
 void grAdventureDoor::setInitializeFlag() {
@@ -105,7 +127,9 @@ void grAdventureDoor::setJumpData(u32 jumpData) {
 }
 
 void grAdventureDoor::openTheDoor() {
-
+    if (nw4r::g3d::GetResAnmChrNumEntries(*this->modelAnim) > 0) {
+        this->changeNodeAnim(0,0);
+    }
 }
 
 void grAdventureDoor::EachDoorTypeEffect() {
