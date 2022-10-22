@@ -103,17 +103,5 @@ public:
     virtual void EachDoorTypeEffect();
 
     static grAdventureDoor* create(int mdlIndex, u32 jumpData, char* taskName);
-    int adventureEventGetItem();
-    int getInitializeInfo();
-    void setInitializeInfo();
-    void disableCalcCollision();
-    void enableCalcCollision();
-    bool isEnableCalcCollision();
-    short getMdlIndex();
-    void initStageData();
-    float* getStageData();
-    char getTransparencyFlag();
-    void* getGimmickData();
-    void setGimmickData(void* gimmickData);
-    int getModelCount();
+
 };

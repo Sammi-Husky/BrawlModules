@@ -143,7 +143,14 @@ void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId)
 }
 
 void grAdventureDoor::setInitializeFlag() {
-
+    if (g_stTriggerMng->getTriggerFlag(&this->doorData->isValidTriggerData, true)) {
+        if (this->doorData->isValidTriggerData.isValidFlag) {
+            this->setValid(false);
+        }
+    }
+    else if (!this->doorData->isValidTriggerData.isValidFlag) {
+        this->setValid(false);
+    }
 }
 
 void grAdventureDoor::setJumpData(u32 jumpData) {
@@ -191,56 +198,3 @@ void grAdventureDoor::EachDoorTypeEffect() {
         this->startGimmickEffect(0);
     }
 }
-
-
-
-int grAdventureDoor::adventureEventGetItem(){
-    return 0;
-}
-int grAdventureDoor::getInitializeInfo(){
-    return 0;
-}
-// NEEDS PARAMS
-// not needed for stFinal though.
-void grAdventureDoor::setInitializeInfo() {
-    return;
-}
-
-void grAdventureDoor::disableCalcCollision(){
-    this->calcCollisionEnable &= 0xf7;
-}
-void grAdventureDoor::enableCalcCollision() {
-    this->calcCollisionEnable |= 8;
-}
-bool grAdventureDoor::isEnableCalcCollision() {
-    return this->calcCollisionEnable >> 3 & 1;
-}
-short grAdventureDoor::getMdlIndex() {
-    return this->mdlIndex;
-}
-// TODO
-// possibly has params. unused in stFinal though.
-void grAdventureDoor::initStageData(){
-    return;
-}
-float* grAdventureDoor::getStageData() {
-    return this->stageData;
-}
-int grAdventureDoor::getModelCount(){
-    if(this->resFile != NULL){
-       return nw4r::g3d::GetResMdlNumEntries(&this->resFile);
-    }
-    return 0;
-}
-
-char grAdventureDoor::getTransparencyFlag(){
-    return this->transparencyFlag;
-}
-
-void* grAdventureDoor::getGimmickData() {
-    return this->gimmickData;
-}
-void grAdventureDoor::setGimmickData(void* gimmickData) {
-    this->gimmickData = gimmickData;
-}
-
