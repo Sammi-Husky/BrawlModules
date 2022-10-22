@@ -1,6 +1,5 @@
 #include <memory.h>
 #include <ec_mgr.h>
-#include <st/st_trigger.h>
 #include <gr/gr_visible_production_effect.h>
 #include <ef/ef_screen.h>
 #include "gr_adventure_door.h"
@@ -58,7 +57,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->createIsValidTrigger(&this->doorData->isValidTriggerData);
     if (this->doorData->doorType == Effect_Door) {
         this->createEffectWork(1);
-        this->effects->field_0xc = 0x103000c;
+        this->effects->id = 0x103000c;
         this->effects->field_0x10 = 0;
         this->effects->nodeIndex = this->getNodeIndex(0, "effect_locator");
         this->effects->field_0x14 = 0;
@@ -97,10 +96,9 @@ void grAdventureDoor::update(float frameDiff){
 
 // TODO: Figure out letting other players enter
 
-void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId) {
+void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int *taskId) {
     grGimmickEventDoorInfo* doorEventInfo = (grGimmickEventDoorInfo*)eventInfo;
 
-    OSReport("ENTER \n");
     //grYakumono::onGimmickEvent(state, taskId);
 
     if (this->doorData->doorGimmickKind == Door_GimmickKind_Unk) {

@@ -61,8 +61,7 @@ struct grGimmickDoorData {
     float difficultyMotionRatios[15];
 };
 
-struct grGimmickEventDoorInfo : grGimmickEventInfo {
-    int unk1;
+struct grGimmickEventDoorInfo : soGimmickEventInfo {
     Vec3f pos;
     bool unk2;
 };
@@ -76,7 +75,17 @@ protected:
     float field_0x118;
     float screenFadeFrames;
     grGimmickDoorData* doorData;
-    unsigned int jumpData;
+    union {
+        struct {
+            char levelId;
+            char levelSequenceId;
+            char levelSegmentId;
+            char doorIndex;
+        };
+        struct {
+            unsigned int jumpData;
+        };
+    };
     GimmickKind gimmickKind;
     soAreaData areaData;
     soAreaInit areaInit;
@@ -95,7 +104,7 @@ public:
     };
     virtual void update(float frameDiff);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
-    virtual void onGimmickEvent(grGimmickEventInfo* eventInfo, int* taskId);
+    virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
     virtual ~grAdventureDoor() { };
     virtual void setJumpData(u32 jumpData);
     virtual void setInitializeFlag();
