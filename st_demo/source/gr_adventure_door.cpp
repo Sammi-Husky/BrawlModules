@@ -16,15 +16,15 @@ grAdventureDoor* grAdventureDoor::create(int mdlIndex, u32 jumpData, char* taskN
 void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grYakumono::startup(archive, unk1, unk2);
     this->doorData = (grGimmickDoorData*)this->gimmickData;
-    switch(this->doorData->doorType) {
-        case 1:
-            this->gimmickKind = Gimmick_Kind_DoorEnterGround;
+    switch(this->doorData->doorGimmickKind) {
+        case Door_GimmickKind_Air:
+            this->gimmickKind = Gimmick_Kind_DoorAir;
             break;
-        case 2:
-            this->gimmickKind = Gimmick_Kind_DoorEnterAir;
+        case Door_GimmickKind_GroundAuto:
+            this->gimmickKind = Gimmick_Kind_DoorGroundAuto;
             break;
-        case 3:
-            this->gimmickKind = Gimmick_Kind_DoorEnterUnk;
+        case Door_GimmickKind_Unk:
+            this->gimmickKind = Gimmick_Kind_DoorUnk;
             break;
         default:
             break;
@@ -35,7 +35,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     }
     this->makeCalcuCallback(1, StageInstance);
     this->setCalcuCallbackRoot(7);
-    if (this->doorData->doorType != 3) {
+    if (this->doorData->doorGimmickKind != Door_GimmickKind_Unk) {
         this->calcWorldCallBack.nodeCallbackDataArray->scale.x = 1.1;
         this->calcWorldCallBack.nodeCallbackDataArray->scale.y = 1.1;
         this->calcWorldCallBack.nodeCallbackDataArray->scale.z = 1.0;
@@ -56,7 +56,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     u32 visProdIndex = 4;
     this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->visibleProductions);
     this->createIsValidTrigger(&this->doorData->isValidTriggerData);
-    if (this->doorData->field_0x44 == 0x5) {
+    if (this->doorData->doorType == Effect_Door) {
         this->createEffectWork(1);
         this->effects->field_0xc = 0x103000c;
         this->effects->field_0x10 = 0;
@@ -70,7 +70,29 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 }
 
 void grAdventureDoor::update(float frameDiff){
+    grGimmick::update(frameDiff);
+    switch(this->state) {
+        case Door_State_Closed:
+            this->framesSinceOpened = 0.0;
+            break;
+        case Door_State_Opened:
+            if (this->screenFadeFrames < this->framesSinceOpened) {
+                this->state = Door_State_Entered;
+            }
+            if (this->doorData->doorType != Effect_Door) {
+                // cmAdventureController stuff
+            }
+            break;
+        case Door_State_Entered:
+            // stAdventure2::requestStepJump(g_stAdventure2,(this->_).jumpData)
+            this->disableArea();
+            this->state = Door_State_Closed;
+            break;
+        default:
+            break;
 
+    }
+    this->updateCallback(0);
 }
 
 // TODO: Figure out letting other players enter
@@ -81,19 +103,19 @@ void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId)
     OSReport("ENTER \n");
     //grYakumono::onGimmickEvent(state, taskId);
 
-    if (this->doorData->doorType == 3) {
+    if (this->doorData->doorGimmickKind == Door_GimmickKind_Unk) {
         if (doorEventInfo->state == 0x32) {
             // stAdventure2::requestStepJump(g_stAdventure2,(this->_).jumpData)
         }
     }
     else if (doorEventInfo->state == 0x11) {
         this->getPos(&doorEventInfo->pos, this);
-        if (this->doorData->field_0x44 == 5) {
+        if (this->doorData->doorType == Effect_Door) {
             doorEventInfo->unk2 = true;
         } else {
             doorEventInfo->unk2 = false;
         }
-        if (this->doorData->doorType == 1) {
+        if (this->doorData->doorGimmickKind == Door_GimmickKind_Ground) {
             doorEventInfo->pos.y += 6.5;
         }
         if (this->gimmickMotionPath != NULL) {
@@ -102,10 +124,10 @@ void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId)
         this->openTheDoor();
         // stAdventure2::notifyEntryDoor(g_stAdventure2);
         // stAreaManager::eraseAll(g_stAreaManager)
-        g_stTriggerMng->createTrigger(Gimmick_Kind_DoorOpen, &this->doorData->openDoorTriggerData);
+        g_stTriggerMng->createTrigger(Gimmick_Kind_DoorGround, &this->doorData->openDoorTriggerData);
         g_stTriggerMng->setTriggerFlag(&this->doorData->openDoorTriggerData);
         this->motionRatio = 1.0;
-        if (this->doorData->field_0x44 == 0x1 || this->doorData->field_0x44 == 0x10) {
+        if (this->doorData->doorType == Yellow_Door || this->doorData->doorType == Unk_Door) {
             Color fillColor = {0xff, 0xff, 0xff, 0xff};
             g_efScreen->requestFill(this->screenFadeFrames, 7, 0, &fillColor);
         } else {
@@ -115,7 +137,7 @@ void grAdventureDoor::onGimmickEvent(grGimmickEventInfo* eventInfo, int *taskId)
         /* if (g_curStage != NULL) {
             g_curStage->setStageOutEffectInit)(1);
         } */
-        this->isOpened = true;
+        this->state = Door_State_Opened;
     }
 
 }
@@ -125,17 +147,49 @@ void grAdventureDoor::setInitializeFlag() {
 }
 
 void grAdventureDoor::setJumpData(u32 jumpData) {
-
+    this->jumpData = jumpData;
 }
 
 void grAdventureDoor::openTheDoor() {
     if (nw4r::g3d::GetResAnmChrNumEntries(*this->modelAnim) > 0) {
         this->changeNodeAnim(0,0);
     }
+
+    if (this->doorData->field_0x37 != 0) {
+        this->EachDoorTypeEffect();
+    }
 }
 
 void grAdventureDoor::EachDoorTypeEffect() {
-
+    if (this->doorData->field_0x37 != 0) {
+        if (this->doorData->sndID < 1) {
+            switch(this->doorData->doorType) {
+                case Normal_Door:
+                    g_sndSystem->playSE(snd_se_ADVstage_common_09,-1,0,0,-1);
+                    break;
+                case Yellow_Door:
+                    g_sndSystem->playSE(snd_se_ADVstage_common_YELLOW_DOOR,-1,0,0,-1);
+                    break;
+                case Ura_Omote_Door:
+                    g_sndSystem->playSE(snd_se_ADVstage_common_URA_OMOTE_DOOR,-1,0,0,-1);
+                    break;
+                case Moya_Door:
+                    g_sndSystem->playSE(snd_se_ADVstage_common_MOYA_DOOR,-1,0,0,-1);
+                    break;
+                case Save_Door:
+                    g_sndSystem->playSE(snd_se_ADVstage_common_SAVE_DOOR,-1,0,0,-1);
+                    break;
+                default:
+                    break;
+            }
+        }
+        else {
+            g_sndSystem->playSE(this->doorData->sndID,-1,0,0,-1);
+        }
+    }
+    if (this->doorData->doorType == Effect_Door) {
+        this->startGimmickEffect(0);
+    }
 }
 
 

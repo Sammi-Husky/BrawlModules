@@ -31,15 +31,15 @@ void stDemo::createObj() {
     this->doorData.levelSequenceId = 0x0;
     this->doorData.levelSegmentId = 0x1;
     this->doorData.doorIndex = 0x1;
-    this->doorData.doorType = 0x0;
+    this->doorData.doorGimmickKind = Door_GimmickKind_Ground;
     this->doorData._spacer2 = 0x1;
     this->doorData.mdlIndex = 0x66;
-    this->doorData._spacer3 = 0x1;
+    this->doorData.field_0x37 = 0x1;
     this->doorData.xPos = 0.0;
     this->doorData.yPos = 0.0;
     this->doorData.openDoorTriggerData = (stTriggerData){0, 1, 0};
-    this->doorData.field_0x44 = 0;
-    this->doorData.field_0x48 = -1;
+    this->doorData.doorType = Normal_Door;
+    this->doorData.sndID = snd_se_AllStar_Heal_Warp; //snd_se_invalid;
     this->doorData.motionPathTriggerData = (stTriggerData){0, 1, 0};
     this->doorData.isValidTriggerData = (stTriggerData){0, 1, 0};
 
