@@ -19,11 +19,11 @@ bool stVillage::loading()
 {
    return true;
 }
-void stVillage::update(float frameDelta)
+void stVillage::update(float deltaFrame)
 {
-   this->updatePerio(frameDelta);
-   this->updateTaxi(frameDelta);
-   this->updateUFO(frameDelta);
+   this->updatePerio(deltaFrame);
+   this->updateTaxi(deltaFrame);
+   this->updateUFO(deltaFrame);
    return;
 }
 
