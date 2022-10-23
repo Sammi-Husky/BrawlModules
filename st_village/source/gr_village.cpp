@@ -39,7 +39,7 @@ bool grVillage::isSceneBit()
 
     return *m_sceneWork > 0;
 }
-void grVillage::update(float frameDiff)
+void grVillage::update(float deltaFrame)
 {
     if (this->unk3)
     {

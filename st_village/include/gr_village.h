@@ -23,8 +23,8 @@ public:
         m_unk1 = 0;
         m_unkFloat = UNK_FLOAT;
     };
-    virtual void update(float frameDiff);
-    virtual void updateVisible(float frameDiff);
+    virtual void update(float deltaFrame);
+    virtual void updateVisible(float deltaFrame);
     virtual void setSceneWork(u32 *sceneWork);
     virtual void setSceneBit(char sceneBit);
     virtual void setStateWork(u32 *stateWork);
