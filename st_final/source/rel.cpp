@@ -18,7 +18,8 @@ namespace stFinal {
     {
         // Run global constructors
         PFN_voidfunc* ctor;
-        for (ctor = _ctors; *ctor; ctor++) {
+        for (ctor = _ctors; *ctor; ctor++)
+        {
             (*ctor)();
         }
     }
@@ -27,7 +28,8 @@ namespace stFinal {
     {
         // run the global destructors
         PFN_voidfunc* dtor;
-        for (dtor = _dtors; *dtor; dtor++) {
+        for (dtor = _dtors; *dtor; dtor++)
+        {
             (*dtor)();
         }
     }

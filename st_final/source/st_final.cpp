@@ -25,7 +25,8 @@ void stFinal::createObj()
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 1);
     grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
-    if (ground != NULL) {
+    if (ground != NULL)
+    {
         addGround(ground);
         ground->startup(fileData, 0, 0);
         ground->setStageData(stageData);
@@ -33,7 +34,8 @@ void stFinal::createObj()
         ground->setDontMoveGround();
     }
     ground = grFinal::create(2, "", "grFinalStage");
-    if (ground != NULL) {
+    if (ground != NULL)
+    {
         addGround(ground);
         ground->startup(fileData, 0, 0);
         ground->setStageData(stageData);
@@ -43,10 +45,13 @@ void stFinal::createObj()
     createCollision(fileData, 2, NULL);
     initCameraParam();
     void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
-    if (posData == NULL) {
+    if (posData == NULL)
+    {
         // if no stgPos model in pac, use defaults
         createStagePositions();
-    } else {
+    }
+    else
+    {
         // stgPosWrapper stgPos = {posData}; // creates wrapper on the stack
         createStagePositions(&posData);
     }

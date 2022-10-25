@@ -28,10 +28,12 @@ void grVillage::setPosGuestWork(u32* posGuestWork)
 }
 bool grVillage::isSceneBit()
 {
-    if (m_sceneWork == NULL) {
+    if (m_sceneWork == NULL)
+    {
         return false;
     }
-    if (m_sceneBit == 0) {
+    if (m_sceneBit == 0)
+    {
         return true;
     }
 
@@ -39,7 +41,8 @@ bool grVillage::isSceneBit()
 }
 void grVillage::update(float deltaFrame)
 {
-    if (this->unk3) {
+    if (this->unk3)
+    {
         this->updateVisible(unk1);
     }
 }
@@ -50,7 +53,8 @@ void grVillage::updateVisible(float unk1)
     if (m_sceneBit == 0)
         return;
 
-    if ((*m_sceneWork * 2) & m_sceneBit) {
+    if ((*m_sceneWork * 2) & m_sceneBit)
+    {
         this->setVisibility(1);
         return;
     }
@@ -106,7 +110,8 @@ float* grVillage::getStageData()
 }
 int grVillage::getModelCount()
 {
-    if (this->resFile != NULL) {
+    if (this->resFile != NULL)
+    {
         return nw4r::g3d::GetResMdlNumEntries(&this->resFile);
     }
     return 0;

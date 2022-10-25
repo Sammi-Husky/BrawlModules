@@ -55,10 +55,13 @@ void stVillage::createObj()
     this->initCameraParam();
 
     void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
-    if (posData == NULL) {
+    if (posData == NULL)
+    {
         // if no stgPos model in pac, use defaults
         createStagePositions();
-    } else {
+    }
+    else
+    {
         createStagePositions(&posData);
     }
 
@@ -71,17 +74,18 @@ void stVillage::createObj()
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
 
-    switch (this->scene) {
+    switch (this->scene)
+    {
     case 0:
-        g_sndSystem->playSE((SndID) 0x1cf5, 0x0, 0x0, 0x0, 0xffffffff);
+        g_sndSystem->playSE((SndID)0x1cf5, 0x0, 0x0, 0x0, 0xffffffff);
         break;
     case 3:
-        g_sndSystem->playSE((SndID) 0x1cf6, 0x0, 0x0, 0x0, 0xffffffff);
+        g_sndSystem->playSE((SndID)0x1cf6, 0x0, 0x0, 0x0, 0xffffffff);
         break;
     case 1:
     case 2:
     case 4:
-        g_sndSystem->playSE((SndID) 0x1cf7, 0x0, 0x0, 0x0, 0xffffffff);
+        g_sndSystem->playSE((SndID)0x1cf7, 0x0, 0x0, 0x0, 0xffffffff);
         break;
     }
 }
@@ -89,7 +93,8 @@ void stVillage::createObjBg(int index)
 {
     int sceneBit = 0;
     grVillage* bg = NULL;
-    switch (index) {
+    switch (index)
+    {
     case 0:
         bg = grVillage::create(0, "yStgVillageChikeAll", "grVillageMainBg");
         break;
@@ -112,19 +117,21 @@ void stVillage::createObjBg(int index)
         break;
     }
 
-    if (bg != NULL) {
+    if (bg != NULL)
+    {
         this->addGround(bg);
         bg->startup(fileData, 0, 0);
         bg->setStageData(stageData);
-        bg->setSceneWork((u32*) &this->scene);
+        bg->setSceneWork((u32*)&this->scene);
         bg->setSceneBit(sceneBit);
-        bg->setStateWork((u32*) &this->state);
-        bg->setPosGuestWork((u32*) &this->posGuest);
+        bg->setStateWork((u32*)&this->state);
+        bg->setPosGuestWork((u32*)&this->posGuest);
     }
 }
 void stVillage::createObjSky(int index)
 {
-    if (index == 5) {
+    if (index == 5)
+    {
         grVillageSky* sky = grVillageSky::create(0x11, "aStgVillageSky01", "grVillageSky");
         if (sky == NULL)
             return;
@@ -132,13 +139,14 @@ void stVillage::createObjSky(int index)
         this->addGround(sky);
         sky->startup(fileData, 0, 0);
         sky->setStageData(stageData);
-        sky->setSceneWork((u32*) &this->scene);
-        sky->setStateWork((u32*) &this->state);
+        sky->setSceneWork((u32*)&this->scene);
+        sky->setStateWork((u32*)&this->state);
     }
 }
 void stVillage::createObjBalloon(int index)
 {
-    if (index == 0xE) {
+    if (index == 0xE)
+    {
         // grVillageBalloon* balloon = grVillageBalloon::create(0xb,"StgVillageBalloon","grVillageBalloon");
     }
 }

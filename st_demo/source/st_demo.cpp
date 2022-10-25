@@ -50,7 +50,8 @@ void stDemo::createObj()
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 1);
     grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
-    if (ground != NULL) {
+    if (ground != NULL)
+    {
         addGround(ground);
         ground->startup(fileData, 0, 0);
         ground->setStageData(stageData);
@@ -58,7 +59,8 @@ void stDemo::createObj()
         ground->setDontMoveGround();
     }
     ground = grFinal::create(2, "", "grFinalStage");
-    if (ground != NULL) {
+    if (ground != NULL)
+    {
         addGround(ground);
         ground->startup(fileData, 0, 0);
         ground->setStageData(stageData);
@@ -67,7 +69,8 @@ void stDemo::createObj()
     }
 
     grAdventureDoor* door = grAdventureDoor::create(102, 0x28000204, "grAdventureDoor");
-    if (door != NULL) {
+    if (door != NULL)
+    {
         addGround(door);
         door->setGimmickData(&this->doorData);
         door->startup(fileData, 0, 0);
@@ -77,10 +80,13 @@ void stDemo::createObj()
     // createCollision(fileData, 2, NULL);
     initCameraParam();
     void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
-    if (posData == NULL) {
+    if (posData == NULL)
+    {
         // if no stgPos model in pac, use defaults
         createStagePositions();
-    } else {
+    }
+    else
+    {
         // stgPosWrapper stgPos = {posData}; // creates wrapper on the stack
         createStagePositions(&posData);
     }
