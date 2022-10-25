@@ -1,11 +1,11 @@
-#include <memory.h>
-#include <ec_mgr.h>
 #include "gr_final.h"
 #include <OSError.h>
+#include <ec_mgr.h>
+#include <memory.h>
 
-grFinal *grFinal::create(int mdlIndex, char *tgtNodeName, char *taskName)
+grFinal* grFinal::create(int mdlIndex, char* tgtNodeName, char* taskName)
 {
-    grFinal *ground = new (StageInstance) grFinal(taskName);
+    grFinal* ground = new (StageInstance) grFinal(taskName);
     ground->setupMelee();
     ground->setMdlIndex(mdlIndex);
     ground->setTgtNode(tgtNodeName);
@@ -63,14 +63,13 @@ void grFinal::initStageData()
 {
     return;
 }
-float *grFinal::getStageData()
+float* grFinal::getStageData()
 {
     return this->stageData;
 }
 int grFinal::getModelCount()
 {
-    if (this->resFile != NULL)
-    {
+    if (this->resFile != NULL) {
         return nw4r::g3d::GetResMdlNumEntries(&this->resFile);
     }
     return 0;
@@ -81,22 +80,20 @@ char grFinal::getTransparencyFlag()
     return this->transparencyFlag;
 }
 
-void *grFinal::getGimmickData()
+void* grFinal::getGimmickData()
 {
     return this->gimmickData;
 }
-void grFinal::setGimmickData(void *gimmickData)
+void grFinal::setGimmickData(void* gimmickData)
 {
     this->gimmickData = gimmickData;
 }
 
-extern ecMgr *g_ecMgr;
+extern ecMgr* g_ecMgr;
 void grFinal::updateEff()
 {
-    if (this->type == 0)
-    {
-        switch (this->step)
-        {
+    if (this->type == 0) {
+        switch (this->step) {
         case 0:
             g_ecMgr->setDrawPrio(1);
             g_ecMgr->setEffect(0x330001);
@@ -105,8 +102,7 @@ void grFinal::updateEff()
             step++;
             break;
         case 1:
-            if (this->getMotionFrame(0) >= EFF_FRAME_MAX1)
-            {
+            if (this->getMotionFrame(0) >= EFF_FRAME_MAX1) {
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330002);
                 g_ecMgr->setDrawPrio(0xffffffff);
@@ -115,8 +111,7 @@ void grFinal::updateEff()
             }
             break;
         case 2:
-            if (this->getMotionFrame(0) >= EFF_FRAME_MAX2)
-            {
+            if (this->getMotionFrame(0) >= EFF_FRAME_MAX2) {
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330003);
                 g_ecMgr->setDrawPrio(0xffffffff);
@@ -125,12 +120,9 @@ void grFinal::updateEff()
             }
             break;
         case 3:
-            if (this->getMotionFrame(0) >= this->unk_float)
-            {
+            if (this->getMotionFrame(0) >= this->unk_float) {
                 this->unk_float = this->getMotionFrame(0);
-            }
-            else
-            {
+            } else {
                 step = 0;
             }
             break;

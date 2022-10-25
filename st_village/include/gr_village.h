@@ -2,19 +2,18 @@
 
 #include <gr/gr_yakumono.h>
 const float UNK_FLOAT = 0.0f;
-class grVillage : public grYakumono
-{
+class grVillage : public grYakumono {
 protected:
     u32 m_unk1;
     float m_unkFloat;
-    u32 *m_sceneWork;
+    u32* m_sceneWork;
     unsigned char m_sceneBit;
     char padding[3];
-    u32 *m_stateWork;
-    u32 *m_posGuestWork;
+    u32* m_stateWork;
+    u32* m_posGuestWork;
 
 public:
-    grVillage(char *taskName) : grYakumono(taskName)
+    grVillage(char* taskName) : grYakumono(taskName)
     {
         m_sceneWork = 0;
         m_stateWork = 0;
@@ -25,16 +24,16 @@ public:
     };
     virtual void update(float deltaFrame);
     virtual void updateVisible(float deltaFrame);
-    virtual void setSceneWork(u32 *sceneWork);
+    virtual void setSceneWork(u32* sceneWork);
     virtual void setSceneBit(char sceneBit);
-    virtual void setStateWork(u32 *stateWork);
-    virtual void setPosGuestWork(u32 *posGuestWork);
+    virtual void setStateWork(u32* stateWork);
+    virtual void setPosGuestWork(u32* posGuestWork);
     virtual bool isSceneBit();
     virtual ~grVillage(){
         // TODO
     };
 
-    static grVillage *create(int mdlIndex, char *tgtNodeName, char *taskName);
+    static grVillage* create(int mdlIndex, char* tgtNodeName, char* taskName);
     int adventureEventGetItem();
     int getInitializeInfo();
     void setInitializeInfo();
@@ -44,9 +43,9 @@ public:
     bool isEnableCalcCollision();
     short getMdlIndex();
     void initStageData();
-    float *getStageData();
+    float* getStageData();
     char getTransparencyFlag();
-    void *getGimmickData();
-    void setGimmickData(void *data);
+    void* getGimmickData();
+    void setGimmickData(void* data);
     int getModelCount();
 };

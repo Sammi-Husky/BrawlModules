@@ -1,22 +1,21 @@
 #pragma once
 
-#include <types.h>
-#include <st/st_melee.h>
-#include "gr_final.h"
 #include "gr_adventure_door.h"
+#include "gr_final.h"
+#include <st/st_melee.h>
+#include <types.h>
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
 const float SCROLL_DIR = 0.0f;
 const float POKETRAINER_Z = 0.0f;
 
-class stDemo : public stMelee
-{
+class stDemo : public stMelee {
 public:
     grGimmickDoorData doorData;
 
     stDemo(int stageID) : stMelee("stDemo", stageID){};
-    static stDemo *create();
+    static stDemo* create();
     int getWind2ndOnlyData();
     bool isReStartSamePoint();
     int getPokeTrainerPointNum();
@@ -46,7 +45,7 @@ public:
     bool isAdventureStage();
     int getPokeTrainerDrawLayer();
     float getPokeTrainerPositionZ();
-    void getPokeTrainerPointData(int *unk, int unk2);
+    void getPokeTrainerPointData(int* unk, int unk2);
 
     virtual void createObj();
     virtual bool loading();
