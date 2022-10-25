@@ -1,27 +1,24 @@
 #pragma once
 
-#include <gr/gr_yakumono.h>
 #include <gr/gr_gimmick_motion_path.h>
-#include <st/st_trigger.h>
+#include <gr/gr_yakumono.h>
 #include <snd/snd_system.h>
+#include <st/st_trigger.h>
 
-enum DoorState
-{
+enum DoorState {
     Door_State_Closed = 0x0,
     Door_State_Opened = 0x1,
     Door_State_Entered = 0x2,
 };
 
-enum DoorGimmickKind
-{
+enum DoorGimmickKind {
     Door_GimmickKind_Ground = 0x0,
     Door_GimmickKind_Air = 0x1,
     Door_GimmickKind_GroundAuto = 0x2,
     Door_GimmickKind_Unk = 0x3,
 };
 
-enum DoorType
-{
+enum DoorType {
     Normal_Door = 0x0,
     Yellow_Door = 0x1,
     Ura_Omote_Door = 0x2,
@@ -31,16 +28,14 @@ enum DoorType
     Unk_Door = 0x7,
 };
 
-struct grGimmickDoorData
-{
+struct grGimmickDoorData {
     grGimmickMotionPathData motionPathData;
     char _spacer[20];
     float field_0x20;
     float field_0x24;
     float field_0x28;
     float field_0x2c;
-    union
-    {
+    union {
         struct
         {
             char levelId;
@@ -68,23 +63,20 @@ struct grGimmickDoorData
     float difficultyMotionRatios[15];
 };
 
-struct grGimmickEventDoorInfo : soGimmickEventInfo
-{
+struct grGimmickEventDoorInfo : soGimmickEventInfo {
     Vec3f pos;
     bool unk2;
 };
 
-class grAdventureDoor : public grYakumono
-{
+class grAdventureDoor : public grYakumono {
 protected:
     DoorState state : 8;
     char _padding[3];
     float framesSinceOpened;
     float field_0x118;
     float screenFadeFrames;
-    grGimmickDoorData *doorData;
-    union
-    {
+    grGimmickDoorData* doorData;
+    union {
         struct
         {
             char levelId;
@@ -103,7 +95,7 @@ protected:
     YakumonoAreaInfo areaInfo;
 
 public:
-    grAdventureDoor(char *taskName) : grYakumono(taskName)
+    grAdventureDoor(char* taskName) : grYakumono(taskName)
     {
         state = Door_State_Closed;
         framesSinceOpened = 0.0;
@@ -116,13 +108,13 @@ public:
         areaInfo.field_0x4 = 0;
     };
     virtual void update(float deltaFrame);
-    virtual void startup(gfArchive *data, u32 unk1, u32 unk2);
-    virtual void onGimmickEvent(soGimmickEventInfo *eventInfo, int *taskId);
+    virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
+    virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
     virtual ~grAdventureDoor(){};
     virtual void setJumpData(u32 jumpData);
     virtual void setInitializeFlag();
     virtual void openTheDoor();
     virtual void EachDoorTypeEffect();
 
-    static grAdventureDoor *create(int mdlIndex, u32 jumpData, char *taskName);
+    static grAdventureDoor* create(int mdlIndex, u32 jumpData, char* taskName);
 };

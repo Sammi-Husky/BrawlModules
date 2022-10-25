@@ -1,16 +1,16 @@
-#include <memory.h>
 #include "gr_village.h"
 #include <OSError.h>
+#include <memory.h>
 
-grVillage *grVillage::create(int mdlIndex, char *tgtNodeName, char *taskName)
+grVillage* grVillage::create(int mdlIndex, char* tgtNodeName, char* taskName)
 {
-    grVillage *ground = new (StageInstance) grVillage(taskName);
+    grVillage* ground = new (StageInstance) grVillage(taskName);
     ground->setupMelee();
     ground->setMdlIndex(mdlIndex);
     ground->setTgtNode(tgtNodeName);
     return ground;
 }
-void grVillage::setSceneWork(u32 *sceneWork)
+void grVillage::setSceneWork(u32* sceneWork)
 {
     m_sceneWork = sceneWork;
 }
@@ -18,22 +18,20 @@ void grVillage::setSceneBit(char sceneBit)
 {
     m_sceneBit = sceneBit;
 }
-void grVillage::setStateWork(u32 *stateWork)
+void grVillage::setStateWork(u32* stateWork)
 {
     m_stateWork = stateWork;
 }
-void grVillage::setPosGuestWork(u32 *posGuestWork)
+void grVillage::setPosGuestWork(u32* posGuestWork)
 {
     m_posGuestWork = posGuestWork;
 }
 bool grVillage::isSceneBit()
 {
-    if (m_sceneWork == NULL)
-    {
+    if (m_sceneWork == NULL) {
         return false;
     }
-    if (m_sceneBit == 0)
-    {
+    if (m_sceneBit == 0) {
         return true;
     }
 
@@ -41,8 +39,7 @@ bool grVillage::isSceneBit()
 }
 void grVillage::update(float deltaFrame)
 {
-    if (this->unk3)
-    {
+    if (this->unk3) {
         this->updateVisible(unk1);
     }
 }
@@ -53,8 +50,7 @@ void grVillage::updateVisible(float unk1)
     if (m_sceneBit == 0)
         return;
 
-    if ((*m_sceneWork * 2) & m_sceneBit)
-    {
+    if ((*m_sceneWork * 2) & m_sceneBit) {
         this->setVisibility(1);
         return;
     }
@@ -104,14 +100,13 @@ void grVillage::initStageData()
 {
     return;
 }
-float *grVillage::getStageData()
+float* grVillage::getStageData()
 {
     return this->stageData;
 }
 int grVillage::getModelCount()
 {
-    if (this->resFile != NULL)
-    {
+    if (this->resFile != NULL) {
         return nw4r::g3d::GetResMdlNumEntries(&this->resFile);
     }
     return 0;
@@ -122,11 +117,11 @@ char grVillage::getTransparencyFlag()
     return this->transparencyFlag;
 }
 
-void *grVillage::getGimmickData()
+void* grVillage::getGimmickData()
 {
     return this->gimmickData;
 }
-void grVillage::setGimmickData(void *data)
+void grVillage::setGimmickData(void* data)
 {
     this->gimmickData = data;
 }
