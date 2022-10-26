@@ -32,9 +32,9 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
         break;
     }
 
-    if (this->modelAnim != NULL)
+    if (this->modelAnims != NULL)
     {
-        (*this->modelAnim)->unbindNodeAnim(*this->sceneModel);
+        (*this->modelAnims)->unbindNodeAnim(*this->sceneModels);
     }
     this->makeCalcuCallback(1, StageInstance);
     this->setCalcuCallbackRoot(7);
@@ -182,7 +182,7 @@ void grAdventureDoor::setJumpData(u32 jumpData)
 
 void grAdventureDoor::openTheDoor()
 {
-    if (nw4r::g3d::GetResAnmChrNumEntries(*this->modelAnim) > 0)
+    if (nw4r::g3d::GetResAnmChrNumEntries(*this->modelAnims) > 0)
     {
         this->changeNodeAnim(0, 0);
     }
