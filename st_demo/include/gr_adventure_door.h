@@ -50,8 +50,7 @@ struct grGimmickDoorData {
     char _spacer2;
     char mdlIndex;
     char field_0x37;
-    float xPos;
-    float yPos;
+    Vec2f pos;
     stTriggerData openDoorTriggerData;
     DoorType doorType : 8;
     char _spacer3[3];

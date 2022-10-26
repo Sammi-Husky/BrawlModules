@@ -48,7 +48,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->createAttachMotionPath(&motionPathInfo, &this->doorData->motionPathTriggerData, "path_locator");
     stTrigger* trigger = g_stTriggerMng->createTrigger(this->gimmickKind, -1);
     trigger->setObserveYakumono(this->yakumono);
-    this->setPos(this->doorData->xPos, this->doorData->yPos, 0);
+    this->setPos(this->doorData->pos.x, this->doorData->pos.y, 0);
     this->setRot(0, 0, 0);
     grGimmickSimpleEffectData simpleEffectData;
     this->createSimpleEffectData(&simpleEffectData, 0x103001d, "effect_locator");
