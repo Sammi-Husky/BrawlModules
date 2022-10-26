@@ -4,6 +4,7 @@
 #include <st/st_melee.h>
 #include "gr_final.h"
 #include "gr_adventure_door.h"
+#include "gr_adventure_barrel_cannon.h"
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
@@ -13,6 +14,7 @@ const float POKETRAINER_Z = 0.0f;
 class stDemo : public stMelee {
     public:
         grGimmickDoorData doorData;
+        grGimmickBarrelCannnonStaticData cannonData;
 
         stDemo(int stageID) : stMelee("stDemo", stageID) {};
         static stDemo* create();
