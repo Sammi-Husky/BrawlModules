@@ -1,9 +1,9 @@
 #pragma once
 
-#include <gr/gr_yakumono.h>
 #include <gr/gr_gimmick_motion_path.h>
-#include <st/st_trigger.h>
+#include <gr/gr_yakumono.h>
 #include <snd/snd_system.h>
+#include <st/st_trigger.h>
 
 enum DoorState {
     Door_State_Closed = 0x0,
@@ -36,13 +36,15 @@ struct grGimmickDoorData {
     float field_0x28;
     float field_0x2c;
     union {
-        struct {
+        struct
+        {
             char levelId;
             char levelSequenceId;
             char levelSegmentId;
             char doorIndex;
         };
-        struct {
+        struct
+        {
             unsigned int jumpData;
         };
     };
@@ -65,8 +67,7 @@ struct grGimmickEventDoorInfo : soGimmickEventInfo {
     bool unk2;
 };
 
-class grAdventureDoor : public grYakumono
-{
+class grAdventureDoor : public grYakumono {
 protected:
     DoorState state : 8;
     char _padding[3];
@@ -75,13 +76,15 @@ protected:
     float screenFadeFrames;
     grGimmickDoorData* doorData;
     union {
-        struct {
+        struct
+        {
             char levelId;
             char levelSequenceId;
             char levelSegmentId;
             char doorIndex;
         };
-        struct {
+        struct
+        {
             unsigned int jumpData;
         };
     };
@@ -89,8 +92,10 @@ protected:
     soAreaData areaData;
     soAreaInit areaInit;
     YakumonoAreaInfo areaInfo;
+
 public:
-    grAdventureDoor(char* taskName) : grYakumono(taskName) {
+    grAdventureDoor(char* taskName) : grYakumono(taskName)
+    {
         state = Door_State_Closed;
         framesSinceOpened = 0.0;
         field_0x118 = 0.0;
@@ -101,15 +106,14 @@ public:
         areaInfo.field_0x0 = 0;
         areaInfo.field_0x4 = 0;
     };
-    virtual void update(float frameDiff);
+    virtual void update(float deltaFrame);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
     virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
-    virtual ~grAdventureDoor() { };
+    virtual ~grAdventureDoor(){};
     virtual void setJumpData(u32 jumpData);
     virtual void setInitializeFlag();
     virtual void openTheDoor();
     virtual void EachDoorTypeEffect();
 
     static grAdventureDoor* create(int mdlIndex, u32 jumpData, char* taskName);
-
 };
