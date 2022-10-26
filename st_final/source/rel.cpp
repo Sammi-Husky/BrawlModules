@@ -1,10 +1,10 @@
-#include <memory.h>
 #include <gf/gf_file_io.h>
 #include <gf/gf_task.h>
+#include <memory.h>
 
 namespace stFinal {
-    
-extern "C" {
+
+    extern "C" {
     typedef void (*PFN_voidfunc)();
     __declspec(section ".init") extern PFN_voidfunc _ctors[];
     __declspec(section ".init") extern PFN_voidfunc _dtors[];
@@ -12,28 +12,30 @@ extern "C" {
     void _prolog();
     void _epilog();
     void _unresolved();
-}
-
-void _prolog() {
-    // Run global constructors
-    PFN_voidfunc *ctor;
-    for (ctor = _ctors; *ctor; ctor++)
-    {
-        (*ctor)();
     }
-}
 
-void _epilog() {
-    // run the global destructors
-    PFN_voidfunc *dtor;
-    for (dtor = _dtors; *dtor; dtor++)
+    void _prolog()
     {
-        (*dtor)();
+        // Run global constructors
+        PFN_voidfunc* ctor;
+        for (ctor = _ctors; *ctor; ctor++)
+        {
+            (*ctor)();
+        }
     }
-}
 
-void _unresolved(void) {
-    
-}
+    void _epilog()
+    {
+        // run the global destructors
+        PFN_voidfunc* dtor;
+        for (dtor = _dtors; *dtor; dtor++)
+        {
+            (*dtor)();
+        }
+    }
+
+    void _unresolved(void)
+    {
+    }
 
 }
