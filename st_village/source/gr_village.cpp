@@ -1,5 +1,5 @@
 #include "gr_village.h"
-#include <OSError.h>
+#include <OS/OSError.h>
 #include <memory.h>
 
 grVillage* grVillage::create(int mdlIndex, char* tgtNodeName, char* taskName)

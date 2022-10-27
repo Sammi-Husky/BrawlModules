@@ -2,7 +2,7 @@
 #include <ec_mgr.h>
 #include "gr_adventure_barrel_cannon.h"
 #include <gr/gr_visible_production_effect.h>
-#include <OSError.h>
+#include <OS/OSError.h>
 
 grAdventureBarrelCannon* grAdventureBarrelCannon::create(int mdlIndex, char cannonKind, char* taskName){
     grAdventureBarrelCannon* cannon = new(StageInstance) grAdventureBarrelCannon(taskName);
