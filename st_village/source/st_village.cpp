@@ -1,7 +1,7 @@
 #include "st_village.h"
 #include "gr_village.h"
 #include "gr_village_sky.h"
-#include <OSError.h>
+#include <OS/OSError.h>
 #include <gr/gr_collision.h>
 #include <memory.h>
 #include <snd/snd_system.h>
