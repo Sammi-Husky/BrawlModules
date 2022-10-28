@@ -1,7 +1,7 @@
 #include <memory.h>
 #include <st/st_class_info.h>
 #include "st_demo.h"
-#include <OSError.h>
+#include <OS/OSError.h>
 
 static stClassInfoImpl<2, stDemo> classInfo = stClassInfoImpl<2, stDemo>();
 
