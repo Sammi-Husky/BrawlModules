@@ -182,7 +182,7 @@ void grAdventureDoor::setJumpData(u32 jumpData)
 
 void grAdventureDoor::openTheDoor()
 {
-    if (nw4r::g3d::GetResAnmChrNumEntries(*this->modelAnims) > 0)
+    if (this->modelAnims[0]->resFile.GetResAnmChrNumEntries() > 0)
     {
         this->changeNodeAnim(0, 0);
     }
