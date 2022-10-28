@@ -1,5 +1,5 @@
 #include "gr_adventure_door.h"
-#include <OSError.h>
+#include <OS/OSError.h>
 #include <ec_mgr.h>
 #include <ef/ef_screen.h>
 #include <gr/gr_visible_production_effect.h>
@@ -120,7 +120,7 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
     }
     else if (doorEventInfo->state == 0x11)
     {
-        this->getPos(&doorEventInfo->pos, this);
+        doorEventInfo->pos = this->getPos();
         if (this->doorData->doorType == Effect_Door)
         {
             doorEventInfo->unk2 = true;
@@ -145,12 +145,12 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
         this->motionRatio = 1.0;
         if (this->doorData->doorType == Yellow_Door || this->doorData->doorType == Unk_Door)
         {
-            Color fillColor = { 0xff, 0xff, 0xff, 0xff };
+            GXColor fillColor = { 0xff, 0xff, 0xff, 0xff };
             g_efScreen->requestFill(this->screenFadeFrames, 7, 0, &fillColor);
         }
         else
         {
-            Color fillColor = { 0x0, 0x0, 0x0, 0xff };
+            GXColor fillColor = { 0x0, 0x0, 0x0, 0xff };
             g_efScreen->requestFill(this->screenFadeFrames, 7, 0, &fillColor);
         }
         /* if (g_curStage != NULL) {
