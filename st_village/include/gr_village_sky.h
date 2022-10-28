@@ -10,4 +10,5 @@ public:
     grVillageSky(char* taskName) : grVillage(taskName) { unk1 = 5; };
 
     static grVillageSky* create(int mdlIndex, char* tgtNodeName, char* taskName);
+    virtual void changeColor();
 };

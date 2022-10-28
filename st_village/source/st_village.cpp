@@ -1,7 +1,6 @@
 #include "st_village.h"
 #include "gr_village.h"
 #include "gr_village_sky.h"
-#include <OSError.h>
 #include <gr/gr_collision.h>
 #include <memory.h>
 #include <snd/snd_system.h>
@@ -77,15 +76,15 @@ void stVillage::createObj()
     switch (this->scene)
     {
     case 0:
-        g_sndSystem->playSE((SndID)0x1cf5, 0x0, 0x0, 0x0, 0xffffffff);
+        g_sndSystem->playSE(snd_se_stage_Village_morning, 0x0, 0x0, 0x0, 0xffffffff);
         break;
     case 3:
-        g_sndSystem->playSE((SndID)0x1cf6, 0x0, 0x0, 0x0, 0xffffffff);
+        g_sndSystem->playSE(snd_se_stage_Village_night, 0x0, 0x0, 0x0, 0xffffffff);
         break;
     case 1:
     case 2:
     case 4:
-        g_sndSystem->playSE((SndID)0x1cf7, 0x0, 0x0, 0x0, 0xffffffff);
+        g_sndSystem->playSE(snd_se_stage_Village_midnight, 0x0, 0x0, 0x0, 0xffffffff);
         break;
     }
 }
