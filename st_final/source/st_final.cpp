@@ -1,6 +1,5 @@
 #include "st_final.h"
 #include "gr_final.h"
-#include <OSError.h>
 #include <memory.h>
 #include <st/st_class_info.h>
 
