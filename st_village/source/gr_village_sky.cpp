@@ -4,6 +4,8 @@
 #include <nw4r/g3d/g3d_resmdl.h>
 #include <nw4r/g3d/g3d_scnmdl.h>
 
+using namespace nw4r::g3d;
+
 grVillageSky* grVillageSky::create(int mdlIndex, char* tgtNodeName, char* taskName)
 {
     grVillageSky* sky = new (StageInstance) grVillageSky(taskName);
@@ -16,22 +18,92 @@ void grVillageSky::changeColor()
 {
     if (this->unk1 != *this->m_sceneWork)
     {
-        nw4r::g3d::ResMat skyMat;
-        nw4r::g3d::ResMat cloudMat;
-        GXColor skyColor;
-        GXColor cloudColor;
+        ResMat skyMat;
+        ResMat cloudMat;
+        ResMatTevColor skyColor;
+        ResMatTevColor cloudColor;
 
         nw4r::g3d::ScnMdl* model = *this->sceneModels;
         if (model != NULL)
         {
-            skyMat = model->resMdl->GetResMat("enkeiSky");
-            cloudMat = model->resMdl->GetResMat("enkeiCloud");
+            skyMat = model->resMdl.GetResMat("enkeiSky");
+            cloudMat = model->resMdl.GetResMat("enkeiCloud");
         }
 
         if (skyMat.IsValid() && cloudMat.IsValid())
         {
-            // nw4r::g3d::ScnMdl::CopiedMatAccess skyAccessor(model, skyMat->0x0C);
-            // nw4r::g3d::ScnMdl::CopiedMatAccess cloudAccessor(model, cloudMat->0x0C);
+            ScnMdl::CopiedMatAccess skyAccessor(model, skyMat.ref().m_id);
+            ScnMdl::CopiedMatAccess cloudAccessor(model, cloudMat.ref().m_id);
+            ResMatTevColor skyColor = skyAccessor.GetResMatTevColor(false);
+            ResMatTevColor cloudColor = cloudAccessor.GetResMatTevColor(false);
+
+            if (!skyColor.IsValid())
+            {
+                return;
+            }
+            if (!cloudColor.IsValid())
+            {
+                return;
+            }
+
+            this->unk1 = *this->m_sceneWork;
+            if (this->unk1 == 0)
+            {
+                GXColor sky1 = { 0x30, 0x36, 0x66, 0xFF };
+                GXColor sky2 = { 0x00, 0x00, 0x32, 0xFF };
+                GXColor cloud1 = { 0x00, 0x3C, 0x73, 0xFF };
+                GXColor cloud2 = { 0x80, 0x80, 0x80, 0xFF }; // medium grey
+                skyColor.GXSetTevColor(1, sky1);
+                skyColor.GXSetTevColor(2, sky2);
+                cloudColor.GXSetTevColor(1, cloud1);
+                cloudColor.GXSetTevColor(2, cloud2);
+            }
+            else if (this->unk1 == 1)
+            {
+                GXColor sky1 = { 0x00, 0x00, 0x78, 0xFF };
+                GXColor sky2 = { 0x00, 0x00, 0x1E, 0xFF };
+                GXColor cloud1 = { 0x00, 0x32, 0x80, 0xFF };
+                GXColor cloud2 = { 0x80, 0x80, 0x80, 0xFF }; // medium grey
+                skyColor.GXSetTevColor(1, sky1);
+                skyColor.GXSetTevColor(2, sky2);
+                cloudColor.GXSetTevColor(1, cloud1);
+                cloudColor.GXSetTevColor(2, cloud2);
+            }
+            else if (this->unk1 == 2)
+            {
+                GXColor sky1 = { 0x7D, 0x2D, 0x4F, 0xFF };   // purple-red
+                GXColor sky2 = { 0x14, 0x32, 0x6A, 0xFF };   // medium blue
+                GXColor cloud1 = { 0x1A, 0x1D, 0x4F, 0xFF }; // darker blue
+                GXColor cloud2 = { 0x74, 0x6E, 0x5A, 0xFF }; // sandy beige
+                skyColor.GXSetTevColor(1, sky1);
+                skyColor.GXSetTevColor(2, sky2);
+                cloudColor.GXSetTevColor(1, cloud1);
+                cloudColor.GXSetTevColor(2, cloud2);
+            }
+            else if (this->unk1 == 3)
+            {
+                GXColor sky1 = { 0x00, 0x1E, 0x41, 0xFF };
+                GXColor sky2 = { 0x00, 0x00, 0x0F, 0xFF };
+                GXColor cloud1 = { 0x00, 0x1E, 0x55, 0xFF };
+                GXColor cloud2 = { 0x46, 0x50, 0x78, 0xFF };
+                skyColor.GXSetTevColor(1, sky1);
+                skyColor.GXSetTevColor(2, sky2);
+                cloudColor.GXSetTevColor(1, cloud1);
+                cloudColor.GXSetTevColor(2, cloud2);
+            }
+            else if (this->unk1 == 4)
+            {
+                GXColor sky1 = { 0x00, 0x17, 0x32, 0xFF };
+                GXColor sky2 = { 0x00, 0x00, 0x0F, 0xFF };
+                GXColor cloud1 = { 0x00, 0x1E, 0x55, 0xFF };
+                GXColor cloud2 = { 0x46, 0x50, 0x78, 0xFF };
+                skyColor.GXSetTevColor(1, sky1);
+                skyColor.GXSetTevColor(2, sky2);
+                cloudColor.GXSetTevColor(1, cloud1);
+                cloudColor.GXSetTevColor(2, cloud2);
+            }
+            skyMat.DCStore(false);
+            cloudMat.DCStore(false);
         }
     }
 }
