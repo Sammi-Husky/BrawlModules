@@ -1,5 +1,6 @@
 #pragma once
 
+#include <StaticAssert.h>
 #include <st/st_melee.h>
 #include <types.h>
 
@@ -50,3 +51,10 @@ public:
     virtual bool isBamperVector();
     virtual ~stFinal() { this->releaseArchive(); };
 };
+
+namespace static_checks {
+    void StaticChecks()
+    {
+        STATIC_CHECK(sizeof(stFinal) == 0x1D8);
+    }
+}

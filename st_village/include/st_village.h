@@ -1,5 +1,6 @@
 #pragma once
 
+#include <StaticAssert.h>
 #include <st/st_melee.h>
 #include <types.h>
 
@@ -12,7 +13,9 @@ class stVillage : public stMelee {
 protected:
     char scene;
     char state;
-    char posGuest[0x84];
+    char _padding[6];
+    void* posGuest;
+    char spacer[0xB4];
 
 public:
     stVillage(int stageID) : stMelee("stVillage", stageID)
@@ -80,3 +83,10 @@ public:
         this->releaseArchive();
     };
 };
+
+namespace static_checks {
+    inline void StaticChecks()
+    {
+        STATIC_CHECK(sizeof(stVillage) == 0x298);
+    }
+}
