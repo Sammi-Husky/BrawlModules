@@ -31,24 +31,24 @@ void stVillage::createObj()
 {
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 0x48);
-    this->initStageDataTbl();
-    this->selectScene();
+    // this->initStageDataTbl();
+    // this->selectScene();
     this->createObjBg(0x0);
     this->createObjBg(0x1);
     this->createObjBg(0x2);
     this->createObjBg(0x3);
     this->createObjBg(0x4);
     this->createObjSky(0x5);
-    this->createObjAshiba(0x6);        // TODO
-    this->createObjAshiba(0x7);        // TODO
-    this->createObjGuestPathMove(0x8); // TODO
-    this->createObjGuestPathMove(0x9); // TODO
-    this->createObjGuestPathMove(0xA); // TODO
-    this->createObjGuestPathMove(0xB); // TODO
-    this->createObjLiveDeco(0xC);      // TODO
-    this->createObjClock(0xD);         // TODO
-    this->createObjBalloon(0xE);       // TODO
-    this->createObjGuest();            // TODO
+    // this->createObjAshiba(0x6);        // TODO
+    // this->createObjAshiba(0x7);        // TODO
+    // this->createObjGuestPathMove(0x8); // TODO
+    // this->createObjGuestPathMove(0x9); // TODO
+    // this->createObjGuestPathMove(0xA); // TODO
+    // this->createObjGuestPathMove(0xB); // TODO
+    // this->createObjLiveDeco(0xC);      // TODO
+    // this->createObjClock(0xD);         // TODO
+    // this->createObjBalloon(0xE);       // TODO
+    // this->createObjGuest();            // TODO
 
     createCollision(this->fileData, 2, 0);
     this->initCameraParam();
@@ -147,6 +147,16 @@ void stVillage::createObjBalloon(int index)
     if (index == 0xE)
     {
         // grVillageBalloon* balloon = grVillageBalloon::create(0xb,"StgVillageBalloon","grVillageBalloon");
+    }
+}
+void stVillage::initStageDataTbl()
+{
+    if (fileData != NULL)
+    {
+        void* data = fileData->getData(DATA_TYPE_MISC, 0x15, 0xfffe);
+        if (data != NULL)
+        {
+        }
     }
 }
 void Ground::setStageData(float* stageData)
