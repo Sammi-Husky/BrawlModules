@@ -8,21 +8,75 @@ const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
 const float SCROLL_DIR = 0.0f;
 const float POKETRAINER_Z = 0.0f;
+const float UNK_FLOAT1 = 0.0f;
 
 class stVillage : public stMelee {
 protected:
-    char scene;
-    char state;
-    char _padding[6];
-    void* posGuest;
-    char spacer[0xB4];
+    char scene;            // 0x00
+    char state;            // 0x01
+    char _0[4];            // 0x02
+    u8 live;               // 0x06
+    u8 posGuestWork[0x84]; // 0x08
+    char _0x8C;            // 0x8C
+    char _0x8D;            // 0x8D
+    char _0x8E;            // 0x8E
+    char _0x8F;            // 0x8F
+    float unkFloat1;       // 0x90
+    char _0x91;            // 0x91
+    char _0x92;            // 0x92
+    char _0x93;            // 0x93
+    char _0x94;            // 0x94
+    float unkFloat2;       // 0x98
+    char _0x9C;            // 0x9C
+    char _0x9D;            // 0x9D
+    char _0x9E;            // 0x9E
+    char _0x9F;            // 0x9F
+    float unkFloat3;       // 0xA0
+    char _0xA4;            // 0xA4
+    char _0xA5;            // 0xA5
+    char _0xA6;            // 0xA6
+    char _0xA7;            // 0xA7
+    char _0xA8;            // 0xA8
+    char _0xA9;            // 0xA9
+    char _0xAA;            // 0xAA
+    char _0xAB;            // 0xAB
+    char _0xAC;            // 0xAC
+    char _0xAD;            // 0xAD
+    char _0xAE;            // 0xAE
+    char _0xAF;            // 0xAF
+    u32 _0xB0;             // 0xB0
+    void* dataTbl1;        // 0xb4
+    void* dataTbl2;        // 0xb8
+    char _2[0x04];         // 0xbc
 
 public:
-    stVillage(int stageID) : stMelee("stVillage", stageID)
+    stVillage() : stMelee("stVillage", 0x21)
     {
+        _0xB0 = 0;
         scene = 5;
         state = 6;
-        // TODO
+        _0x8D = 0;
+        _0x91 = 6;
+        unkFloat1 = UNK_FLOAT1;
+        _0x92 = 0;
+        unkFloat2 = UNK_FLOAT1;
+        _0x9C = 6;
+        _0x9D = 0;
+        unkFloat3 = UNK_FLOAT1;
+        _0xA4 = 6;
+        _0xA5 = 6;
+        _0xA6 = 6;
+        _0xA7 = 6;
+        _0xA8 = 6;
+        _0xA9 = 6;
+        _0xAA = 6;
+        _0xAB = 6;
+        _0xAC = 6;
+        _0xAD = 6;
+        _0xAE = 6;
+        _0xAF = 6;
+        dataTbl1 = NULL;
+        dataTbl2 = NULL;
     };
     static stVillage* create();
     int getWind2ndOnlyData();
@@ -73,20 +127,17 @@ public:
     virtual void updatePerio(float unk1);
     virtual void updateTaxi(float unk1);
     virtual void updateUFO(float unk1);
+
     virtual void initStageDataTbl();
     virtual void selectScene();
     virtual void setLive(u32 unk1);
     virtual void setScene(u32 unk1);
+
     virtual ~stVillage()
     {
         // TODO
         this->releaseArchive();
     };
-};
 
-namespace static_checks {
-    inline void StaticChecks()
-    {
-        STATIC_CHECK(sizeof(stVillage) == 0x298);
-    }
-}
+    STATIC_CHECK(sizeof(stVillage) == 0x298)
+};

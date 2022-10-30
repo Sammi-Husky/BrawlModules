@@ -3,7 +3,7 @@
 
 grVillage* grVillage::create(int mdlIndex, char* tgtNodeName, char* taskName)
 {
-    grVillage* ground = new (StageInstance) grVillage(taskName);
+    grVillage* ground = new (Heaps::StageInstance) grVillage(taskName);
     ground->setupMelee();
     ground->setMdlIndex(mdlIndex);
     ground->setTgtNode(tgtNodeName);
