@@ -7,7 +7,7 @@ static stClassInfoImpl<2, stFinal> classInfo = stClassInfoImpl<2, stFinal>();
 
 stFinal* stFinal::create()
 {
-    stFinal* stage = new (StageInstance) stFinal(0x2);
+    stFinal* stage = new (Heaps::StageInstance) stFinal();
     return stage;
 }
 bool stFinal::loading()
@@ -200,21 +200,4 @@ int stFinal::getFinalTechniqColor()
     return 0x14000496;
 }
 
-template <int I, typename T>
-T* stClassInfoImpl<I, T>::create()
-{
-    T* stage = new (StageInstance) T(I);
-    return stage;
-}
-
-template <int I, typename T>
-stClassInfoImpl<I, T>::~stClassInfoImpl()
-{
-    setClassInfo(I, 0);
-}
-
-template <int I, typename T>
-void stClassInfoImpl<I, T>::preload()
-{
-    return;
-}
+ST_CLASS_INFO;

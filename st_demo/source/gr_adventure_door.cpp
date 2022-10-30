@@ -7,7 +7,7 @@
 
 grAdventureDoor* grAdventureDoor::create(int mdlIndex, u32 jumpData, char* taskName)
 {
-    grAdventureDoor* door = new (StageInstance) grAdventureDoor(taskName);
+    grAdventureDoor* door = new (Heaps::StageInstance) grAdventureDoor(taskName);
     door->setJumpData(jumpData);
     door->setMdlIndex(mdlIndex);
     return door;
@@ -36,7 +36,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     {
         (*this->modelAnims)->unbindNodeAnim(*this->sceneModels);
     }
-    this->makeCalcuCallback(1, StageInstance);
+    this->makeCalcuCallback(1, Heaps::StageInstance);
     this->setCalcuCallbackRoot(7);
     if (this->doorData->doorGimmickKind != Door_GimmickKind_Unk)
     {

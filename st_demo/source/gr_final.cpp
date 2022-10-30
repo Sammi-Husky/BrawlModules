@@ -5,7 +5,7 @@
 
 grFinal* grFinal::create(int mdlIndex, char* tgtNodeName, char* taskName)
 {
-    grFinal* ground = new (StageInstance) grFinal(taskName);
+    grFinal* ground = new (Heaps::StageInstance) grFinal(taskName);
     ground->setupMelee();
     ground->setMdlIndex(mdlIndex);
     ground->setTgtNode(tgtNodeName);

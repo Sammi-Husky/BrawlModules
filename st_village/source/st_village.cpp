@@ -1,6 +1,7 @@
 #include "st_village.h"
 #include "gr_village.h"
 #include "gr_village_sky.h"
+#include <GameGlobal.h>
 #include <gr/gr_collision.h>
 #include <memory.h>
 #include <snd/snd_system.h>
@@ -11,7 +12,7 @@ static stClassInfoImpl<0x21, stVillage> classInfo = stClassInfoImpl<0x21, stVill
 
 stVillage* stVillage::create()
 {
-    stVillage* stage = new (StageInstance) stVillage(0x21);
+    stVillage* stage = new (Heaps::StageInstance) stVillage();
     return stage;
 }
 bool stVillage::loading()
@@ -20,9 +21,9 @@ bool stVillage::loading()
 }
 void stVillage::update(float deltaFrame)
 {
-    this->updatePerio(deltaFrame);
-    this->updateTaxi(deltaFrame);
-    this->updateUFO(deltaFrame);
+    // this->updatePerio(deltaFrame);
+    // this->updateTaxi(deltaFrame);
+    // this->updateUFO(deltaFrame);
     return;
 }
 
@@ -32,7 +33,7 @@ void stVillage::createObj()
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 0x48);
     // this->initStageDataTbl();
-    // this->selectScene();
+    this->selectScene();
     this->createObjBg(0x0);
     this->createObjBg(0x1);
     this->createObjBg(0x2);
@@ -103,6 +104,7 @@ void stVillage::createObjBg(int index)
         break;
     case 2:
         bg = grVillage::create(2, "StgVillageMainStage", "grVillageMainStage");
+        break;
     case 3:
         bg = grVillage::create(3, "zStgVillageHikari", "grVillageMainStageLight");
         sceneBit = 0x1C;
@@ -124,7 +126,7 @@ void stVillage::createObjBg(int index)
         bg->setSceneWork((u32*)&this->scene);
         bg->setSceneBit(sceneBit);
         bg->setStateWork((u32*)&this->state);
-        bg->setPosGuestWork((u32*)&this->posGuest);
+        bg->setPosGuestWork((u32*)&this->posGuestWork);
     }
 }
 void stVillage::createObjSky(int index)
@@ -158,6 +160,46 @@ void stVillage::initStageDataTbl()
         {
         }
     }
+}
+
+extern GameGlobal* g_gameGlobal;
+void stVillage::selectScene()
+{
+    gmGlobalModeMelee* globalMode = g_gameGlobal->m_globalMode;
+    if (globalMode == NULL)
+    {
+        return;
+    }
+    switch (globalMode->m_meleeInitData.m_subStageID)
+    {
+    case 0:
+        this->scene = 0;
+        break;
+    case 1:
+        this->scene = 1;
+        break;
+    case 2:
+        this->scene = 2;
+        break;
+    case 3:
+    case 4:
+        this->scene = 3;
+        this->state = 0;
+    case 5:
+        this->scene = 3;
+        this->state = 1;
+        break;
+    case 6:
+        this->scene = 4;
+    case 7:
+        this->scene = 4;
+        this->state = 1;
+        break;
+    }
+}
+void stVillage::setScene(u32 scene)
+{
+    this->scene = scene;
 }
 void Ground::setStageData(float* stageData)
 {
@@ -297,21 +339,4 @@ int stVillage::getFinalTechniqColor()
     return 0x14000496;
 }
 
-template <int I, typename T>
-T* stClassInfoImpl<I, T>::create()
-{
-    T* stage = new (StageInstance) T(I);
-    return stage;
-}
-
-template <int I, typename T>
-stClassInfoImpl<I, T>::~stClassInfoImpl()
-{
-    setClassInfo(I, 0);
-}
-
-template <int I, typename T>
-void stClassInfoImpl<I, T>::preload()
-{
-    return;
-}
+ST_CLASS_INFO;
