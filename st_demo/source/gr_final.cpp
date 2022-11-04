@@ -63,7 +63,7 @@ void grFinal::initStageData()
 {
     return;
 }
-float* grFinal::getStageData()
+void* grFinal::getStageData()
 {
     return this->stageData;
 }
