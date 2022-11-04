@@ -62,7 +62,7 @@ void stFinal::createObj()
     createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
 }
 
-void Ground::setStageData(float* stageData)
+void Ground::setStageData(void* stageData)
 {
     this->stageData = stageData;
 }

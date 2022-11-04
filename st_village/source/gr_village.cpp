@@ -103,7 +103,7 @@ void grVillage::initStageData()
 {
     return;
 }
-float* grVillage::getStageData()
+void* grVillage::getStageData()
 {
     return this->stageData;
 }
