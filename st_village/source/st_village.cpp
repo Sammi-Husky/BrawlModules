@@ -201,7 +201,7 @@ void stVillage::setScene(u32 scene)
 {
     this->scene = scene;
 }
-void Ground::setStageData(float* stageData)
+void Ground::setStageData(void* stageData)
 {
     this->stageData = stageData;
 }

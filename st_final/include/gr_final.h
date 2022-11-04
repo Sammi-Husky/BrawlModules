@@ -37,7 +37,7 @@ public:
     bool isEnableCalcCollision();
     short getMdlIndex();
     void initStageData();
-    float* getStageData();
+    void* getStageData();
     char getTransparencyFlag();
     void* getGimmickData();
     void setGimmickData(void* gimmickData);
