@@ -40,6 +40,8 @@ bool grVillage::isSceneBit()
 }
 void grVillage::update(float deltaFrame)
 {
+    grGimmick::update(deltaFrame);
+
     if (this->unk3)
     {
         this->updateVisible(unk1);

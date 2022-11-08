@@ -1,7 +1,9 @@
 #include "st_village.h"
 #include "gr_village.h"
+#include "gr_village_guest_path_move.h"
 #include "gr_village_sky.h"
-#include <GameGlobal.h>
+
+#include <gm/game_global.h>
 #include <gr/gr_collision.h>
 #include <memory.h>
 #include <snd/snd_system.h>
@@ -32,7 +34,7 @@ void stVillage::createObj()
 {
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 0x48);
-    // this->initStageDataTbl();
+    this->initStageDataTbl();
     this->selectScene();
     this->createObjBg(0x0);
     this->createObjBg(0x1);
@@ -42,13 +44,13 @@ void stVillage::createObj()
     this->createObjSky(0x5);
     // this->createObjAshiba(0x6);        // TODO
     // this->createObjAshiba(0x7);        // TODO
-    // this->createObjGuestPathMove(0x8); // TODO
-    // this->createObjGuestPathMove(0x9); // TODO
-    // this->createObjGuestPathMove(0xA); // TODO
-    // this->createObjGuestPathMove(0xB); // TODO
+    this->createObjGuestPathMove(0x8); // TODO
+    this->createObjGuestPathMove(0x9); // TODO
+    this->createObjGuestPathMove(0xA); // TODO
+    this->createObjGuestPathMove(0xB); // TODO
     // this->createObjLiveDeco(0xC);      // TODO
     // this->createObjClock(0xD);         // TODO
-    // this->createObjBalloon(0xE);       // TODO
+    this->createObjBalloon(0xE); // TODO
     // this->createObjGuest();            // TODO
 
     createCollision(this->fileData, 2, 0);
@@ -144,6 +146,55 @@ void stVillage::createObjSky(int index)
         sky->setStateWork((u32*)&this->state);
     }
 }
+void stVillage::createObjGuestPathMove(int index)
+{
+    void* data = this->stageData;
+    if (data == NULL)
+        return;
+
+    float motionRatio = 1.0;
+    int sceneBit = 0;
+    u32* stateWork = NULL;
+    int type = 0;
+    grVillageGuestPathMove* guestPath = NULL;
+    switch (index)
+    {
+    case 8:
+        guestPath = grVillageGuestPathMove::create(0x6, "perio1", "grVillagePerio");
+        sceneBit = 0xf;
+        stateWork = (u32*)&this->m_perioState;
+        type = 0;
+        break;
+    case 9:
+        guestPath = grVillageGuestPathMove::create(0xf, "taransTaxi", "grVillageTaxi");
+        stateWork = (u32*)&this->m_taxiState;
+        type = 1;
+        break;
+    case 0xA:
+        guestPath = grVillageGuestPathMove::create(0x10, "taransTaxi", "grVillageTaxiLight");
+        sceneBit = 0x18;
+        stateWork = (u32*)&this->m_taxiState;
+        type = 2;
+        break;
+    case 0xB:
+        guestPath = grVillageGuestPathMove::create(0xc, "StgVillageUFO", "grVilageUFO");
+        motionRatio = *(float*)((float*)data) + 0x10; // TODO: HACKY
+        stateWork = (u32*)&this->m_ufoState;
+        type = 3;
+        break;
+    }
+
+    if (guestPath != NULL)
+    {
+        this->addGround(guestPath);
+        guestPath->startup(this->fileData, 0, 0);
+        guestPath->setStageData(this->stageData);
+        guestPath->setSceneWork((u32*)&this->scene);
+        guestPath->setStateWork(stateWork);
+        guestPath->setType(type);
+        guestPath->setMotionRatio(motionRatio);
+    }
+}
 void stVillage::createObjBalloon(int index)
 {
     if (index == 0xE)
@@ -158,6 +209,12 @@ void stVillage::initStageDataTbl()
         void* data = fileData->getData(DATA_TYPE_MISC, 0x15, 0xfffe);
         if (data != NULL)
         {
+            this->dataTbl1 = stDataMultiContainer::create(data, Heaps::StageInstance);
+        }
+        data = fileData->getData(DATA_TYPE_MISC, 0x16, 0xfffe);
+        if (data != NULL)
+        {
+            this->dataTbl2 = stDataMultiContainer::create(data, Heaps::StageInstance);
         }
     }
 }
@@ -200,6 +257,10 @@ void stVillage::selectScene()
 void stVillage::setScene(u32 scene)
 {
     this->scene = scene;
+}
+void stVillage::setLive(u32 live)
+{
+    this->live = live;
 }
 void Ground::setStageData(void* stageData)
 {
