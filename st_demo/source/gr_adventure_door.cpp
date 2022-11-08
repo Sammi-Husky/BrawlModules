@@ -40,9 +40,9 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->setCalcuCallbackRoot(7);
     if (this->doorData->doorGimmickKind != Door_GimmickKind_Unk)
     {
-        this->calcWorldCallBack.nodeCallbackDataArray->scale.x = 1.1;
-        this->calcWorldCallBack.nodeCallbackDataArray->scale.y = 1.1;
-        this->calcWorldCallBack.nodeCallbackDataArray->scale.z = 1.0;
+        this->calcWorldCallBack.nodeCallbackDataArray->m_scale.x = 1.1;
+        this->calcWorldCallBack.nodeCallbackDataArray->m_scale.y = 1.1;
+        this->calcWorldCallBack.nodeCallbackDataArray->m_scale.z = 1.0;
     }
     this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20, // 0, 0x15, 0, 0, 0, 0
                                    this->doorData->field_0x24,
