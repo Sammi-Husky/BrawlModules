@@ -86,7 +86,7 @@ void grVillageGuestPathMove::updateMove(float deltaFrame)
                 this->m_seq.playFrame(this->getMotionFrame(0), 0);
 
                 Vec3f pos;
-                getNodePosition(&pos, 0, this->unk2);
+                getNodePosition(&pos, 0, this->m_nodeIndex);
 
                 this->m_sndGenerator.setPos(&pos);
             }
