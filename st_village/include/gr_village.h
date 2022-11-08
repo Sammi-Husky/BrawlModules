@@ -1,6 +1,8 @@
 #pragma once
 
+#include <StaticAssert.h>
 #include <gr/gr_yakumono.h>
+
 const float UNK_FLOAT = 0.0f;
 class grVillage : public grYakumono {
 protected:
@@ -48,4 +50,6 @@ public:
     void* getGimmickData();
     void setGimmickData(void* data);
     int getModelCount();
+
+    STATIC_CHECK(sizeof(grVillage) == 0x168)
 };
