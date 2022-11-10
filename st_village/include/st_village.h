@@ -1,6 +1,7 @@
 #pragma once
 
 #include <StaticAssert.h>
+#include <st/st_data_container.h>
 #include <st/st_melee.h>
 #include <types.h>
 
@@ -12,42 +13,42 @@ const float UNK_FLOAT1 = 0.0f;
 
 class stVillage : public stMelee {
 protected:
-    char scene;            // 0x00
-    char state;            // 0x01
-    char _0[4];            // 0x02
-    u8 live;               // 0x06
-    u8 posGuestWork[0x84]; // 0x08
-    char _0x8C;            // 0x8C
-    char _0x8D;            // 0x8D
-    char _0x8E;            // 0x8E
-    char _0x8F;            // 0x8F
-    float unkFloat1;       // 0x90
-    char _0x91;            // 0x91
-    char _0x92;            // 0x92
-    char _0x93;            // 0x93
-    char _0x94;            // 0x94
-    float unkFloat2;       // 0x98
-    char _0x9C;            // 0x9C
-    char _0x9D;            // 0x9D
-    char _0x9E;            // 0x9E
-    char _0x9F;            // 0x9F
-    float unkFloat3;       // 0xA0
-    char _0xA4;            // 0xA4
-    char _0xA5;            // 0xA5
-    char _0xA6;            // 0xA6
-    char _0xA7;            // 0xA7
-    char _0xA8;            // 0xA8
-    char _0xA9;            // 0xA9
-    char _0xAA;            // 0xAA
-    char _0xAB;            // 0xAB
-    char _0xAC;            // 0xAC
-    char _0xAD;            // 0xAD
-    char _0xAE;            // 0xAE
-    char _0xAF;            // 0xAF
-    u32 _0xB0;             // 0xB0
-    void* dataTbl1;        // 0xb4
-    void* dataTbl2;        // 0xb8
-    char _2[0x04];         // 0xbc
+    char scene;                     // 0x00
+    char state;                     // 0x01
+    char _0[4];                     // 0x02
+    u8 live;                        // 0x06
+    u8 posGuestWork[0x84];          // 0x08
+    char _0x8C;                     // 0x8C
+    char _0x8D;                     // 0x8D
+    char _0x8E;                     // 0x8E
+    char _0x8F;                     // 0x8F
+    float unkFloat1;                // 0x90
+    char m_perioState;              // 0x94
+    char _0x95;                     // 0x95
+    char _0x96;                     // 0x96
+    char _0x97;                     // 0x97
+    float unkFloat2;                // 0x98
+    char m_taxiState;               // 0x9C
+    char _0x9D;                     // 0x9D
+    char _0x9E;                     // 0x9E
+    char _0x9F;                     // 0x9F
+    float unkFloat3;                // 0xA0
+    char m_ufoState;                // 0xA4
+    char _0xA5;                     // 0xA5
+    char _0xA6;                     // 0xA6
+    char _0xA7;                     // 0xA7
+    char _0xA8;                     // 0xA8
+    char _0xA9;                     // 0xA9
+    char _0xAA;                     // 0xAA
+    char _0xAB;                     // 0xAB
+    char _0xAC;                     // 0xAC
+    char _0xAD;                     // 0xAD
+    char _0xAE;                     // 0xAE
+    char _0xAF;                     // 0xAF
+    u32 _0xB0;                      // 0xB0
+    stDataMultiContainer* dataTbl1; // 0xb4
+    stDataMultiContainer* dataTbl2; // 0xb8
+    char _2[0x04];                  // 0xbc
 
 public:
     stVillage() : stMelee("stVillage", 0x21)
@@ -56,14 +57,14 @@ public:
         scene = 5;
         state = 6;
         _0x8D = 0;
-        _0x91 = 6;
+        m_perioState = 6;
         unkFloat1 = UNK_FLOAT1;
-        _0x92 = 0;
+        _0x95 = 0;
         unkFloat2 = UNK_FLOAT1;
-        _0x9C = 6;
+        m_taxiState = 6;
         _0x9D = 0;
         unkFloat3 = UNK_FLOAT1;
-        _0xA4 = 6;
+        m_ufoState = 6;
         _0xA5 = 6;
         _0xA6 = 6;
         _0xA7 = 6;

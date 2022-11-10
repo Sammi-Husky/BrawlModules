@@ -11,4 +11,5 @@ public:
 
     static grVillageSky* create(int mdlIndex, char* tgtNodeName, char* taskName);
     virtual void changeColor();
+    virtual ~grVillageSky();
 };
