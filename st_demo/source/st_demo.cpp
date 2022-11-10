@@ -59,12 +59,14 @@ void stDemo::createObj()
     this->cannonData.pos.y = 0.0;
     this->cannonData.rot = 0.0;
     this->cannonData.field_0x3c = 62.0;
+    this->cannonData.difficultyRotateSpeeds[0] = 0.0;
+    this->cannonData.field_0xc8 = false;
+    this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 0x65;
     this->cannonData.shootCannonTriggerData = (stTriggerData){ 0, 1, 0 };
     this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 1, 0 };
     this->cannonData.isValidTriggerData = (stTriggerData){ 0, 1, 0 };
-    this->cannonData.attackData.unk1 =
-        this->cannonData.attackData.offsetPos.x = 0.0;
+    this->cannonData.attackData.unk1 = this->cannonData.attackData.offsetPos.x = 0.0;
     this->cannonData.attackData.offsetPos.y = 0.0;
     this->cannonData.attackData.offsetPos.z = 0.0;
     this->cannonData.attackData.size = 10.0;
@@ -118,7 +120,7 @@ void stDemo::createObj()
         door->startup(fileData, 0, 0);
     }
 
-    grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(110, 0, "grAdventureBarrelCannon");
+    grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(110, BarrelCannon_GimmickKind_Static, "grAdventureBarrelCannon");
     if (cannon != NULL)
     {
         addGround(cannon);
