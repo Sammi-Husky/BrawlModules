@@ -34,7 +34,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
 
     if (this->modelAnims != NULL)
     {
-        (*this->modelAnims)->unbindNodeAnim(*this->sceneModels);
+        (this->modelAnims[0])->unbindNodeAnim(this->sceneModels[0]);
     }
     this->makeCalcuCallback(1, Heaps::StageInstance);
     this->setCalcuCallbackRoot(7);
@@ -44,7 +44,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
         this->calcWorldCallBack.nodeCallbackDataArray->scale.y = 1.1;
         this->calcWorldCallBack.nodeCallbackDataArray->scale.z = 1.0;
     }
-    this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20, // 0, 0x15, 0, 0, 0, 0
+    this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20,
                                    this->doorData->field_0x24,
                                    this->doorData->field_0x28,
                                    this->doorData->field_0x2c };
