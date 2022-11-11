@@ -63,13 +63,13 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     if (this->doorData->doorType == Effect_Door)
     {
         this->createEffectWork(1);
-        this->effects->id = 0x103000c;
-        this->effects->field_0x10 = 0;
-        this->effects->nodeIndex = this->getNodeIndex(0, "effect_locator");
-        this->effects->field_0x14 = 0;
-        this->effects->field_0x1c = 0.0;
-        this->effects->field_0x20 = 0.0;
-        this->effects->field_0x24 = 1.0;
+        this->effects[0].id = 0x103000c;
+        this->effects[0].field_0x10 = 0;
+        this->effects[0].nodeIndex = this->getNodeIndex(0, "effect_locator");
+        this->effects[0].field_0x14 = 0;
+        this->effects[0].field_0x1c = 0.0;
+        this->effects[0].field_0x20 = 0.0;
+        this->effects[0].field_0x24 = 1.0;
         this->screenFadeFrames = 100.0;
     }
 }
