@@ -56,11 +56,12 @@ void stDemo::createObj()
     this->cannonData.field_0x28 = 20.0;
     this->cannonData.field_0x2c = 15.0;
     this->cannonData.pos.x = 0.0;
-    this->cannonData.pos.y = 0.0;
+    this->cannonData.pos.y = 50.0;
     this->cannonData.rot = 0.0;
-    this->cannonData.field_0x3c = 62.0;
+    this->cannonData.maxRot = 62.0;
     this->cannonData.difficultyRotateSpeeds[0] = 0.0;
     this->cannonData.field_0xc8 = false;
+    this->cannonData.restrictRotation = false;
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 0x65;
     this->cannonData.shootCannonTriggerData = (stTriggerData){ 0, 1, 0 };
@@ -124,7 +125,7 @@ void stDemo::createObj()
     if (cannon != NULL)
     {
         addGround(cannon);
-        cannon->setGimmickData(&this->doorData);
+        cannon->setGimmickData(&this->cannonData);
         cannon->startup(fileData, 0, 0);
     }
 

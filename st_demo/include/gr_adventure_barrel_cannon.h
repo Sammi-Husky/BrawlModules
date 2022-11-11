@@ -12,6 +12,12 @@ enum BarrelCannonGimmickKind {
     BarrelCannon_GimmickKind_PathUnk = 0x3,
 };
 
+enum BarrelCannonState {
+    BarrelCannon_State_Set = 0x0,
+    BarrelCannon_State_Fire = 0x1,
+    BarrelCannon_State_Rest = 0x2,
+};
+
 struct grGimmickBarrelCannnonData {
     grGimmickMotionPathData motionPathData;
     char _spacer[24];
@@ -21,12 +27,13 @@ struct grGimmickBarrelCannnonData {
     float field_0x2c;
     Vec2f pos;
     float rot;
-    float field_0x3c;
+    float maxRot;
     float difficultyRotateSpeeds[15];
     float difficultyMotionRatios[15];
     char _spacer3[16];
     bool field_0xc8;
-    char _spacer4[2];
+    char _spacer4[1];
+    bool restrictRotation;
     bool alwaysRotate;
     char mdlIndex;
     char _spacer5;
@@ -74,16 +81,16 @@ protected:
     float rotateSpeed;
     bool isRotate;
     char field_0x16d;
-    char field_0x16e;
+    char isInCooldown;
     char _spacer3;
-    float field_0x170;
+    float cooldownTimer;
     BarrelCannonPlayerInfo cannonPlayerInfos[4];
-    char field_0x1a4;
+    BarrelCannonState cannonState : 8;
     char _spacer4[3];
-    float field_0x1a8;
-    unsigned int animLength1;
-    unsigned int animLength2;
-    float field_0x1b4;
+    float animFrame;
+    unsigned int animSetLength;
+    unsigned int animFireLength;
+    float rotThreshold;
     soAreaData areaData;
     soAreaInit areaInit;
     YakumonoAreaInfo areaInfo;
@@ -94,16 +101,16 @@ public:
         this->field_0x160 = 0;
         this->isRotate = 0;
         this->field_0x16d = 0;
-        this->field_0x16e = 0;
-        this->field_0x170 = 0.0;
+        this->isInCooldown = false;
+        this->cooldownTimer = 0.0;
         this->cannonPlayerInfos[0] = (BarrelCannonPlayerInfo){false, 0, -1, 0.0};
         this->cannonPlayerInfos[1] = (BarrelCannonPlayerInfo){false, 0, -1, 0.0};
         this->cannonPlayerInfos[2] = (BarrelCannonPlayerInfo){false, 0, -1, 0.0};
         this->cannonPlayerInfos[3] = (BarrelCannonPlayerInfo){false, 0, -1, 0.0};
-        this->field_0x1a4 = 2;
-        this->field_0x1a8 = 0.0;
-        this->animLength1 = 60;
-        this->animLength2 = 60;
+        this->cannonState = BarrelCannon_State_Rest;
+        this->animFrame = 0.0;
+        this->animSetLength = 60;
+        this->animFireLength = 60;
         this->areaInfo.field_0x0 = 0;
         this->areaInfo.field_0x4 = 0;
 
