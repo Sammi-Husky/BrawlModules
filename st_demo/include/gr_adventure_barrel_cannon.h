@@ -33,7 +33,7 @@ struct grGimmickBarrelCannnonData {
     char _spacer3[16];
     bool field_0xc8;
     char _spacer4[1];
-    bool restrictRotation;
+    bool fullRotate;
     bool alwaysRotate;
     char mdlIndex;
     char _spacer5;

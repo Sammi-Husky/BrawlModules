@@ -182,8 +182,21 @@ void grAdventureBarrelCannon::update(float frameDelta)
 void grAdventureBarrelCannon::updateMove(float frameDelta)
 {
     if (this->isRotate) {
-
+        Vec3f rot = this->getRot();
+        this->setRot(rot.x, rot.y, rot.z += this->rotateSpeed);
+        if (!this->cannonData->fullRotate) {
+            if (hkMath::fabs(rot.z - this->cannonData->maxRot) < this->rotThreshold || hkMath::fabs(rot.z - this->cannonData->rot) < this->rotThreshold) {
+                this->rotateSpeed = -this->rotateSpeed;
+            }
+        }
+        if (360.0 < rot.z) {
+            this->setRot(rot.x, rot.y, rot.z - 360.0);
+        }
+        if (0.0 > rot.z) {
+            this->setRot(rot.x, rot.y, rot.z + 360.0);
+        }
     }
+
 }
 
 void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
@@ -192,6 +205,24 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int*
 
 void grAdventureBarrelCannon::setInitializeFlag()
 {
+    if (!g_stTriggerMng->getTriggerFlag(&this->cannonData->isValidTriggerData, true))
+    {
+        if (this->cannonData->isValidTriggerData.isValidFlag)
+        {
+            this->setValid(false);
+        }
+    }
+    else if (!this->cannonData->isValidTriggerData.isValidFlag)
+    {
+        this->setValid(false);
+    }
+
+    if (g_stTriggerMng->getTriggerFlag(&this->cannonData->motionPathTriggerData, false))
+    {
+        this->gimmickMotionPath->setFrame(this->gimmickMotionPath->frameCount);
+        this->gimmickMotionPath->setFrameModelAnim();
+    }
+
 }
 
 void grAdventureBarrelCannon::presentShootEvent(int index)

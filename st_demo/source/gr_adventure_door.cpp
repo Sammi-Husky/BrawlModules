@@ -162,7 +162,7 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 
 void grAdventureDoor::setInitializeFlag()
 {
-    if (g_stTriggerMng->getTriggerFlag(&this->doorData->isValidTriggerData, true))
+    if (!g_stTriggerMng->getTriggerFlag(&this->doorData->isValidTriggerData, true))
     {
         if (this->doorData->isValidTriggerData.isValidFlag)
         {
