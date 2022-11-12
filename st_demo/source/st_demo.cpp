@@ -61,7 +61,7 @@ void stDemo::createObj()
     this->cannonData.maxRot = 62.0;
     this->cannonData.difficultyRotateSpeeds[0] = 0.0;
     this->cannonData.field_0xc8 = false;
-    this->cannonData.restrictRotation = false;
+    this->cannonData.fullRotate = false;
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 0x65;
     this->cannonData.shootCannonTriggerData = (stTriggerData){ 0, 1, 0 };
