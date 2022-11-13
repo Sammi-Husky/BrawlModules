@@ -101,7 +101,7 @@ protected:
     float rotThreshold;
     soAreaData areaData;
     soAreaInit areaInit;
-    YakumonoAreaInfo areaInfo;
+    ykAreaInfo areaInfo;
 
 public:
     grAdventureBarrelCannon(char* taskName) : grYakumono(taskName) {

@@ -149,6 +149,7 @@ void grAdventureBarrelCannon::createMotionPath()
 void grAdventureBarrelCannon::processFixPosition() {
     Vec3f rot;
     grGimmickEventBarrelCannonInfo cannonEventInfo;
+    this->yakumono->presentEventGimmick(&cannonEventInfo, 0);
     for (int i = 0; i < NUM_PLAYERS; i++) {
         if (this->cannonPlayerInfos[i].isActive) {
             switch(this->cannonPlayerInfos[i].state) {
@@ -169,7 +170,7 @@ void grAdventureBarrelCannon::processFixPosition() {
                     cannonEventInfo.state = 9;
                     cannonEventInfo.sendID = 0;
                     cannonEventInfo.pos = this->getPos();
-                    //this->yakumono
+                    this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
 
 
                     break;
