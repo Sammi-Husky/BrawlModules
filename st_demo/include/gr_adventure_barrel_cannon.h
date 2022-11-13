@@ -5,11 +5,13 @@
 #include <st/st_trigger.h>
 #include <snd/snd_system.h>
 
+#define NUM_PLAYERS 4
+
 enum BarrelCannonGimmickKind {
     BarrelCannon_GimmickKind_Static = 0x0,
     BarrelCannon_GimmickKind_Path = 0x1,
-    BarrelCannon_GimmickKind_StaticUnk = 0x2,
-    BarrelCannon_GimmickKind_PathUnk = 0x3,
+    BarrelCannon_GimmickKind_StaticAuto = 0x2,
+    BarrelCannon_GimmickKind_PathAuto = 0x3,
 };
 
 enum BarrelCannonState {
@@ -30,16 +32,18 @@ struct grGimmickBarrelCannnonData {
     float maxRot;
     float difficultyRotateSpeeds[15];
     float difficultyMotionRatios[15];
-    char _spacer3[16];
+    char _spacer3[4];
+    float maxFireRot;
+    Vec2f cameraOffset;
     bool field_0xc8;
     char _spacer4[1];
     bool fullRotate;
     bool alwaysRotate;
     char mdlIndex;
     char _spacer5;
-    short field_0xce;
+    unsigned short field_0xce;
     char _spacer6[8];
-    stTriggerData shootCannonTriggerData;
+    stTriggerData enterCannonTriggerData;
     stTriggerData motionPathTriggerData;
     stTriggerData isValidTriggerData;
     grYakumonoAttackData attackData;
@@ -58,14 +62,18 @@ struct grGimmickBarrelCannnonPathData : grGimmickBarrelCannnonData {
 
 struct grGimmickEventBarrelCannonInfo : soGimmickEventInfo {
     Vec3f pos;
-    bool unk2;
+    unsigned int field_0x14;
+    soCollisionAttackData* attackData;
+    char _spacer2[4];
+    float rot;
 };
 
 struct BarrelCannonPlayerInfo {
-    bool field_0x0;
-    char field_0x1;
-    int field_0x4;
-    float field_0x8;
+    bool isActive;
+    char state;
+    char playerNumber;
+    int sendID;
+    float frame;
 };
 
 class grAdventureBarrelCannon : public grYakumono
@@ -80,7 +88,7 @@ protected:
     char _spacer2[3];
     float rotateSpeed;
     bool isRotate;
-    char field_0x16d;
+    bool isMainPlayerIn;
     char isInCooldown;
     char _spacer3;
     float cooldownTimer;
@@ -100,13 +108,13 @@ public:
         this->shootMotionPath = NULL;
         this->field_0x160 = 0;
         this->isRotate = 0;
-        this->field_0x16d = 0;
+        this->isMainPlayerIn = false;
         this->isInCooldown = false;
         this->cooldownTimer = 0.0;
-        this->cannonPlayerInfos[0] = (BarrelCannonPlayerInfo){false, 0, -1, 0.0};
-        this->cannonPlayerInfos[1] = (BarrelCannonPlayerInfo){false, 0, -1, 0.0};
-        this->cannonPlayerInfos[2] = (BarrelCannonPlayerInfo){false, 0, -1, 0.0};
-        this->cannonPlayerInfos[3] = (BarrelCannonPlayerInfo){false, 0, -1, 0.0};
+        this->cannonPlayerInfos[0] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
+        this->cannonPlayerInfos[1] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
+        this->cannonPlayerInfos[2] = (BarrelCannonPlayerInfo){false, 0, 0,-1, 0.0};
+        this->cannonPlayerInfos[3] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
         this->cannonState = BarrelCannon_State_Rest;
         this->animFrame = 0.0;
         this->animSetLength = 60;
@@ -115,6 +123,7 @@ public:
         this->areaInfo.field_0x4 = 0;
 
     };
+    virtual void processFixPosition();
     virtual void update(float frameDiff);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
     virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
@@ -124,7 +133,7 @@ public:
     virtual void updateMove(float frameDiff);
 
     static grAdventureBarrelCannon* create(int mdlIndex, BarrelCannonGimmickKind cannonType, char* taskName);
-    void presentShootEvent(int index);
-    void eraseSendID(int id);
+    void presentShootEvent(int playerCannonIndex);
+    void eraseSendID(int sendID);
 
 };

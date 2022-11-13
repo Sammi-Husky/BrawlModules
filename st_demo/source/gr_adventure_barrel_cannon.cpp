@@ -23,13 +23,13 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
         case BarrelCannon_GimmickKind_Static:
             this->cannonStaticData = (grGimmickBarrelCannnonStaticData*)this->getGimmickData();
             if (this->cannonData->field_0xc8) {
-                this->kind = BarrelCannon_GimmickKind_StaticUnk;
+                this->kind = BarrelCannon_GimmickKind_StaticAuto;
             }
             break;
         case BarrelCannon_GimmickKind_Path:
             this->cannonPathData = (grGimmickBarrelCannnonPathData*)this->getGimmickData();
             if (this->cannonData->field_0xc8) {
-                this->kind = BarrelCannon_GimmickKind_PathUnk;
+                this->kind = BarrelCannon_GimmickKind_PathAuto;
             }
             this->createMotionPath();
             this->shootMotionPath->startup(archive, 0, 0);
@@ -66,11 +66,11 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
         case BarrelCannon_GimmickKind_Path:
             trigger = g_stTriggerMng->createTrigger(Gimmick_Kind_BarrelCannonPath,-1);
             break;
-        case BarrelCannon_GimmickKind_StaticUnk:
-            trigger = g_stTriggerMng->createTrigger(Gimmick_Kind_BarrelCannonStaticUnk,-1);
+        case BarrelCannon_GimmickKind_StaticAuto:
+            trigger = g_stTriggerMng->createTrigger(Gimmick_Kind_BarrelCannonStaticAuto,-1);
             break;
-        case BarrelCannon_GimmickKind_PathUnk:
-            trigger = g_stTriggerMng->createTrigger(Gimmick_Kind_BarrelCannonPathUnk,-1);
+        case BarrelCannon_GimmickKind_PathAuto:
+            trigger = g_stTriggerMng->createTrigger(Gimmick_Kind_BarrelCannonPathAuto,-1);
             break;
         default:
             break;
@@ -124,7 +124,7 @@ void grAdventureBarrelCannon::createMotionPath()
 {
     switch(this->kind) {
         case BarrelCannon_GimmickKind_Static:
-        case BarrelCannon_GimmickKind_StaticUnk:
+        case BarrelCannon_GimmickKind_StaticAuto:
             break;
         default:
             this->shootMotionPath = grGimmickMotionPath::create(this->cannonPathData->shootMotionPathData.mdlIndex, "path_locator", "grGimmickMotionPath");
@@ -143,6 +143,39 @@ void grAdventureBarrelCannon::createMotionPath()
                 lastTask->unk_0x24 = this->shootMotionPath;
             }
             break;
+    }
+}
+
+void grAdventureBarrelCannon::processFixPosition() {
+    Vec3f rot;
+    grGimmickEventBarrelCannonInfo cannonEventInfo;
+    for (int i = 0; i < NUM_PLAYERS; i++) {
+        if (this->cannonPlayerInfos[i].isActive) {
+            switch(this->cannonPlayerInfos[i].state) {
+                case 2:
+                    rot = this->getRot();
+                    if (hkMath::fabs(rot.z - this->cannonData->maxFireRot) < this->rotThreshold
+                        && (this->kind == BarrelCannon_GimmickKind_StaticAuto || this->kind == BarrelCannon_GimmickKind_PathAuto)) {
+                        this->cannonPlayerInfos[i].state = 3;
+                        if (this->cannonState == BarrelCannon_State_Rest) {
+                            this->changeNodeAnim(1, 0);
+                            this->cannonState = BarrelCannon_State_Fire;
+                        }
+
+                    }
+                    if (this->isMainPlayerIn) {
+                       //g_stAdventure2->setCameraAdvCameraOffset(&this->cannonData->cameraOffset);
+                    }
+                    cannonEventInfo.state = 9;
+                    cannonEventInfo.sendID = 0;
+                    cannonEventInfo.pos = this->getPos();
+                    //this->yakumono
+
+
+                    break;
+
+            }
+        }
     }
 }
 
@@ -201,6 +234,62 @@ void grAdventureBarrelCannon::updateMove(float frameDelta)
 
 void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 {
+    int newPlayerIndex = 0;
+    Vec3f pos = this->getPos();
+    grGimmickEventBarrelCannonInfo* cannonEventInfo = (grGimmickEventBarrelCannonInfo*)eventInfo;
+    int playerNumber = this->getPlayerNumber(taskId);
+    if (playerNumber == 0 && !this->isSubFighter(taskId)) {
+        this->isMainPlayerIn = true;
+    }
+    switch (cannonEventInfo->state) {
+        case 0x2:
+            this->isRotate = true;
+            for (int i = 0; i < NUM_PLAYERS; i++) {
+                if (this->cannonPlayerInfos[i].isActive) {
+                    newPlayerIndex++;
+                }
+                else {
+                    break;
+                }
+            }
+            if (newPlayerIndex >= NUM_PLAYERS) {
+                newPlayerIndex = NUM_PLAYERS - 1;
+            }
+            this->cannonPlayerInfos[newPlayerIndex] = (BarrelCannonPlayerInfo){true, 1, playerNumber, cannonEventInfo->sendID, 0.0};
+            if (this->isMainPlayerIn) {
+                //g_stAdventure2->setFighterPos(1,&pos);
+            }
+            g_stTriggerMng->setTriggerFlag(&this->cannonData->enterCannonTriggerData);
+            if (newPlayerIndex >= 1) {
+                if (this->cannonPlayerInfos[0].state != 4) {
+                    this->cannonPlayerInfos[newPlayerIndex].state = this->cannonPlayerInfos[0].state;
+                    this->cannonPlayerInfos[newPlayerIndex].frame = this->cannonPlayerInfos[0].state;
+                }
+            }
+            if (this->cannonState == BarrelCannon_State_Rest) {
+                this->changeNodeAnim(0, 0);
+                this->cannonState = BarrelCannon_State_Set;
+            }
+            this->startGimmickSE(0);
+            cannonEventInfo->field_0x14 = this->cannonData->field_0xce;
+            cannonEventInfo->pos = pos;
+            break;
+        case 0x3:
+            this->isRotate = this->cannonData->alwaysRotate;
+            for (int i = 0; i < NUM_PLAYERS; i++) {
+                if (this->cannonPlayerInfos[i].isActive && this->cannonPlayerInfos[i].state != 4) {
+                    this->cannonPlayerInfos[i].state = 3;
+                }
+            }
+            this->changeNodeAnim(1,0);
+            this->cannonState = BarrelCannon_State_Fire;
+            break;
+        case 0x33:
+            this->eraseSendID(cannonEventInfo->sendID);
+            break;
+        default:
+            break;
+    }
 }
 
 void grAdventureBarrelCannon::setInitializeFlag()
@@ -225,10 +314,29 @@ void grAdventureBarrelCannon::setInitializeFlag()
 
 }
 
-void grAdventureBarrelCannon::presentShootEvent(int index)
+void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
 {
+
 }
 
-void grAdventureBarrelCannon::eraseSendID(int id)
+void grAdventureBarrelCannon::eraseSendID(int sendID)
 {
+    bool isNoPlayersIn = true;
+    for (int i = 0; i < NUM_PLAYERS; i++) {
+        if (sendID == this->cannonPlayerInfos[i].sendID) {
+            this->cannonPlayerInfos[i].isActive = false;
+        }
+        if (this->cannonPlayerInfos[i].isActive) {
+            isNoPlayersIn = false;
+        }
+    }
+    if (this->isMainPlayerIn) {
+        //g_stAdventure2->stopCameraAdvCameraOffset();
+        this->isMainPlayerIn = false;
+    }
+    if (isNoPlayersIn && this->modelAnims[0]->anmObjChrRes != NULL) {
+        this->cannonState = BarrelCannon_State_Rest;
+        this->animFrame = 0.0;
+        this->modelAnims[0]->unbindNodeAnim(this->sceneModels[0]);
+    }
 }
