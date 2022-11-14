@@ -51,10 +51,10 @@ struct grGimmickBarrelCannnonData {
 };
 
 struct grGimmickBarrelCannnonStaticData : grGimmickBarrelCannnonData {
-    float field_0x140;
-    float field_0x144;
-    float field_0x148;
-    float field_0x14c;
+    float shootSpeed;
+    float shootTimerSpeed;
+    float shootAngleOffset;
+    float shootStunTimerSpeed;
 };
 
 struct grGimmickBarrelCannnonPathData : grGimmickBarrelCannnonData {
@@ -65,11 +65,11 @@ struct grGimmickEventBarrelCannonInfo : soGimmickEventInfo {
     Vec3f pos;
     unsigned int field_0x14;
     soCollisionAttackData* attackData;
-    float field_0x1c;
+    float shootSpeed;
     float rot;
-    float field_0x24;
-    float field_0x28;
-    float field_0x2c;
+    float shootTimerSpeed;
+    float shootAngleOffset;
+    float shootStunTimerSpeed;
 };
 
 struct BarrelCannonPlayerInfo {
