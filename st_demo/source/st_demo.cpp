@@ -60,11 +60,13 @@ void stDemo::createObj()
     this->cannonData.rot = 0.0;
     this->cannonData.maxRot = 62.0;
     this->cannonData.difficultyRotateSpeeds[0] = 0.0;
+    this->cannonData.maxFrames = 0;
     this->cannonData.maxFireRot = 0.0;
     this->cannonData.field_0xc8 = false;
     this->cannonData.fullRotate = false;
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 0x65;
+    this->cannonData.field_0xce = 0x8;
     this->cannonData.enterCannonTriggerData = (stTriggerData){ 0, 1, 0 };
     this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 1, 0 };
     this->cannonData.isValidTriggerData = (stTriggerData){ 0, 1, 0 };
@@ -91,7 +93,10 @@ void stDemo::createObj()
     //char _spacer3[6];
     this->cannonData.attackData.nodeIndex = 0;
     this->cannonData.attackData.power = 0x1E;
-    this->cannonData.field_0x140 = 2.5;
+    this->cannonData.field_0x140 = 5.0;
+    this->cannonData.field_0x144 = 0.075;
+    this->cannonData.field_0x148 = 0.025;
+    this->cannonData.field_0x14c = 0.25;
 
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 1);
