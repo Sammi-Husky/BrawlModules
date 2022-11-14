@@ -32,7 +32,7 @@ struct grGimmickBarrelCannnonData {
     float maxRot;
     float difficultyRotateSpeeds[15];
     float difficultyMotionRatios[15];
-    char _spacer3[4];
+    u32 maxFrames;
     float maxFireRot;
     Vec2f cameraOffset;
     bool field_0xc8;
@@ -52,20 +52,24 @@ struct grGimmickBarrelCannnonData {
 
 struct grGimmickBarrelCannnonStaticData : grGimmickBarrelCannnonData {
     float field_0x140;
-    char _spacer[4];
+    float field_0x144;
+    float field_0x148;
+    float field_0x14c;
 };
 
 struct grGimmickBarrelCannnonPathData : grGimmickBarrelCannnonData {
     grGimmickMotionPathData shootMotionPathData;
-    char _spacer[8];
 };
 
 struct grGimmickEventBarrelCannonInfo : soGimmickEventInfo {
     Vec3f pos;
     unsigned int field_0x14;
     soCollisionAttackData* attackData;
-    char _spacer2[4];
+    float field_0x1c;
     float rot;
+    float field_0x24;
+    float field_0x28;
+    float field_0x2c;
 };
 
 struct BarrelCannonPlayerInfo {
@@ -83,7 +87,7 @@ protected:
     grGimmickBarrelCannnonStaticData* cannonStaticData;
     grGimmickBarrelCannnonPathData* cannonPathData;
     grGimmickMotionPath* shootMotionPath;
-    int field_0x160;
+    int nodeIndex;
     BarrelCannonGimmickKind kind : 8;
     char _spacer2[3];
     float rotateSpeed;
@@ -106,7 +110,7 @@ protected:
 public:
     grAdventureBarrelCannon(char* taskName) : grYakumono(taskName) {
         this->shootMotionPath = NULL;
-        this->field_0x160 = 0;
+        this->nodeIndex = 0;
         this->isRotate = 0;
         this->isMainPlayerIn = false;
         this->isInCooldown = false;

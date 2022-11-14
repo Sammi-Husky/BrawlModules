@@ -151,7 +151,13 @@ void grAdventureBarrelCannon::processFixPosition() {
     grGimmickEventBarrelCannonInfo cannonEventInfo;
     for (int i = 0; i < NUM_PLAYERS; i++) {
         if (this->cannonPlayerInfos[i].isActive) {
+            OSReport("State %d\n", this->cannonPlayerInfos[i].state);
             switch(this->cannonPlayerInfos[i].state) {
+                case 1:
+                    if (this->cannonState == BarrelCannon_State_Rest) {
+                        this->cannonPlayerInfos[i].state = 2;
+                    }
+                    break;
                 case 2:
                     rot = this->getRot();
                     if (hkMath::fabs(rot.z - this->cannonData->maxFireRot) < this->rotThreshold
@@ -169,11 +175,75 @@ void grAdventureBarrelCannon::processFixPosition() {
                     cannonEventInfo.state = 9;
                     cannonEventInfo.sendID = 0;
                     cannonEventInfo.pos = this->getPos();
+                    cannonEventInfo.attackData = NULL;
                     this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
-
-
                     break;
-
+                case 3: //
+                    if (this->cannonPlayerInfos[i].frame <= this->cannonData->maxFrames) {
+                        this->cannonPlayerInfos[i].frame += 1.0;
+                    }
+                    else {
+                        this->presentShootEvent(i);
+                        if (this->isMainPlayerIn) {
+                            this->isMainPlayerIn = false;
+                            //this->stopCameraAdvCameraOffset();
+                        }
+                        if (this->kind == BarrelCannon_GimmickKind_Static || this->kind == BarrelCannon_GimmickKind_StaticAuto) {
+                            cannonEventInfo.state = 5;
+                            cannonEventInfo.sendID = 0;
+                            cannonEventInfo.attackData = NULL;
+                            cannonEventInfo.pos = (Vec3f){0.0,0.0,0.0};
+                            cannonEventInfo.rot = this->getRot().z;
+                            cannonEventInfo.field_0x1c = this->cannonStaticData->field_0x140;
+                            cannonEventInfo.field_0x24 = this->cannonStaticData->field_0x144;
+                            cannonEventInfo.field_0x28 = this->cannonStaticData->field_0x148;
+                            cannonEventInfo.field_0x2c = this->cannonStaticData->field_0x14c;
+                            this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                            this->cannonPlayerInfos[i].isActive = false;
+                        }
+                        else {
+                            this->cannonPlayerInfos[i].state = 4;
+                            this->cannonPlayerInfos[i].frame = 0.0;
+                            if (0.0 < this->shootMotionPath->frameCount) {
+                                this->shootMotionPath->setFrame(this->cannonPlayerInfos[i].frame);
+                                cannonEventInfo.state = 6;
+                                cannonEventInfo.sendID = 0;
+                                cannonEventInfo.attackData = NULL;
+                                cannonEventInfo.pos = this->getPos();
+                                this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                            }
+                            else {
+                                cannonEventInfo.state = 7;
+                                cannonEventInfo.sendID = 0;
+                                cannonEventInfo.attackData = NULL;
+                                cannonEventInfo.pos = (Vec3f){0.0,0.0,0.0};
+                                this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                                this->cannonPlayerInfos[i].isActive = false;
+                            }
+                            this->cannonPlayerInfos[i].frame += cannonPathData->shootMotionPathData.motionRatio;
+                        }
+                    }
+                    break;
+                case 4:
+                    if (this->cannonPlayerInfos[i].frame < this->shootMotionPath->frameCount) {
+                        this->shootMotionPath->setFrame(this->cannonPlayerInfos[i].frame);
+                        cannonEventInfo.state = 6;
+                        cannonEventInfo.sendID = 0;
+                        cannonEventInfo.pos = this->getPos();
+                        cannonEventInfo.attackData = NULL;
+                        this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                    }
+                    else {
+                        cannonEventInfo.state = 7;
+                        cannonEventInfo.sendID = 0;
+                        cannonEventInfo.pos = (Vec3f){0.0,0.0,0.0};
+                        cannonEventInfo.attackData = NULL;
+                        this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                    }
+                    this->cannonPlayerInfos[i].frame += cannonPathData->shootMotionPathData.motionRatio;
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -316,6 +386,59 @@ void grAdventureBarrelCannon::setInitializeFlag()
 
 void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
 {
+    soCollisionAttackData attackData;
+    attackData.reactionEffect = 0x96;
+    attackData.reactionFix = 0;
+    attackData.reactionAdd = 0x50; //0x6e;
+    attackData.power = 5;
+    attackData.vector = 90;
+    attackData.size = 1;
+    attackData.offsetPos = (Vec3f){0.0, 0.0, 0.0};
+    attackData.hitstopMultiplier = 1.0;
+    attackData.tripRate = 1.0;
+    attackData.sdiMultiplier = 1.0;
+    attackData.bits.nodeIndex = 0x0;
+    attackData.bits.isCollisionCategory9 = true;
+    attackData.bits.isCollisionCategory8 = true;
+    attackData.bits.isCollisionCategory7 = true;
+    attackData.bits.isCollisionCategory6 = false;
+    attackData.bits.isCollisionCategory5 = true;
+    attackData.bits.isCollisionCategory4 = true;
+    attackData.bits.isCollisionCategory3 = true;
+    attackData.bits.isCollisionCategory2 = true;
+    attackData.bits.isCollisionCategory1 = true;
+    attackData.bits.isCollisionCategory0 = true;
+    attackData.bits.isCollisionSituationUnk = true;
+    attackData.bits.isCollisionSituationAir = true;
+    attackData.bits.isCollisionSituationGround = true;
+    attackData.bits.field_0x30_3 = false;
+    attackData.bits.isCollisionPartRegion3 = true;
+    attackData.bits.isCollisionPartRegion2 = true;
+    attackData.bits.isCollisionPartRegion1 = true;
+    attackData.bits.isCollisionPartRegion0 = true;
+    attackData.bits.elementType = Element_Type_Slash;
+    attackData.bits.hitSoundLevel = Hit_Sound_Level_Small;
+    attackData.bits.hitSoundType = Hit_Sound_Type_Slash;
+    attackData.bits.isClankable = false;
+    attackData.bits.field_0x34_3 = false;
+    attackData.bits.field_0x34_4 = false;
+    attackData.bits.isBlockable = true;
+    attackData.bits.isReflectable = true;
+    attackData.bits.isAbsorbable = false;
+    attackData.bits.field_0x34_8 = 0;
+    this->setSoCollisionAttackData(&attackData, &this->cannonData->attackData, 0);
+
+    grGimmickEventBarrelCannonInfo cannonEventInfo;
+    cannonEventInfo.state = 4;
+    cannonEventInfo.sendID = 0;
+    cannonEventInfo.attackData = &attackData;
+    this->getNodePosition(&cannonEventInfo.pos, 0, this->nodeIndex);
+    cannonEventInfo.rot = this->getRot().z;
+    this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[playerCannonIndex].sendID);
+
+    this->isInCooldown = true;
+    this->cooldownTimer = 30.0;
+    this->disableArea();
 
 }
 
