@@ -93,10 +93,10 @@ void stDemo::createObj()
     //char _spacer3[6];
     this->cannonData.attackData.nodeIndex = 0;
     this->cannonData.attackData.power = 0x1E;
-    this->cannonData.field_0x140 = 5.0;
-    this->cannonData.field_0x144 = 0.075;
-    this->cannonData.field_0x148 = 0.025;
-    this->cannonData.field_0x14c = 0.25;
+    this->cannonData.shootSpeed = 5.0;     // shootSpeed
+    this->cannonData.shootTimerSpeed = 0.075;   // shootTimerSpeed (less is more)
+    this->cannonData.shootAngleOffset = -0.000001; //10; // shootAngleOffset //0.025;
+    this->cannonData.shootStunTimerSpeed = 0.0001; //0.25; // shootStunTimerSpeed
 
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 1);
