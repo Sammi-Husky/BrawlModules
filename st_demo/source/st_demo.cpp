@@ -62,7 +62,7 @@ void stDemo::createObj()
     this->cannonData.difficultyRotateSpeeds[0] = 0.0;
     this->cannonData.maxFrames = 0;
     this->cannonData.maxFireRot = 0.0;
-    this->cannonData.field_0xc8 = false;
+    this->cannonData.isAutoFire = false;
     this->cannonData.fullRotate = false;
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 0x65;
@@ -93,10 +93,10 @@ void stDemo::createObj()
     //char _spacer3[6];
     this->cannonData.attackData.nodeIndex = 0;
     this->cannonData.attackData.power = 0x1E;
-    this->cannonData.shootSpeed = 5.0;     // shootSpeed
-    this->cannonData.shootTimerSpeed = 0.075;   // shootTimerSpeed (less is more)
-    this->cannonData.shootAngleOffset = -0.000001; //10; // shootAngleOffset //0.025;
-    this->cannonData.shootStunTimerSpeed = 0.0001; //0.25; // shootStunTimerSpeed
+    this->cannonData.shootSpeed = 5.0;
+    this->cannonData.shootTimerSpeed = 0.075;
+    this->cannonData.shootAngleOffset = 10;
+    this->cannonData.shootStunTimerSpeed = 0.25;
 
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 1);
