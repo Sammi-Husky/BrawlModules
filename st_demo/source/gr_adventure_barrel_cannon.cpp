@@ -22,13 +22,13 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
     switch (this->kind) {
         case BarrelCannon_GimmickKind_Static:
             this->cannonStaticData = (grGimmickBarrelCannnonStaticData*)this->getGimmickData();
-            if (this->cannonData->field_0xc8) {
+            if (this->cannonData->isAutoFire) {
                 this->kind = BarrelCannon_GimmickKind_StaticAuto;
             }
             break;
         case BarrelCannon_GimmickKind_Path:
             this->cannonPathData = (grGimmickBarrelCannnonPathData*)this->getGimmickData();
-            if (this->cannonData->field_0xc8) {
+            if (this->cannonData->isAutoFire) {
                 this->kind = BarrelCannon_GimmickKind_PathAuto;
             }
             this->createMotionPath();

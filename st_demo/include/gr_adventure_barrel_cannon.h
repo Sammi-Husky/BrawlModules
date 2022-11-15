@@ -35,7 +35,7 @@ struct grGimmickBarrelCannnonData {
     u32 maxFrames;
     float maxFireRot;
     Vec2f cameraOffset;
-    bool field_0xc8;
+    bool isAutoFire;
     char _spacer4[1];
     bool fullRotate;
     bool alwaysRotate;
