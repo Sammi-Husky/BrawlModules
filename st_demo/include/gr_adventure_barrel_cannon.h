@@ -105,7 +105,7 @@ protected:
     float rotThreshold;
     soAreaData areaData;
     soAreaInit areaInit;
-    ykData areaInfo;
+    ykAreaData areaInfo;
 
 public:
     grAdventureBarrelCannon(char* taskName) : grYakumono(taskName) {
@@ -123,8 +123,8 @@ public:
         this->animFrame = 0.0;
         this->animSetLength = 60;
         this->animFireLength = 60;
-        this->areaInfo.field_0x0 = 0;
-        this->areaInfo.field_0x4 = 0;
+        this->areaInfo.numHitGroups = 0;
+        this->areaInfo.hitGroupsInfo = NULL;
 
     };
     virtual void processFixPosition();
