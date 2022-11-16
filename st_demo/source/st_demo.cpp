@@ -62,7 +62,7 @@ void stDemo::createObj()
     this->cannonData.difficultyRotateSpeeds[0] = 0.0;
     this->cannonData.maxFrames = 0;
     this->cannonData.maxFireRot = 0.0;
-    this->cannonData.isAutoFire = false;
+    this->cannonData.isAutoFire = true;
     this->cannonData.fullRotate = false;
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 0x65;
