@@ -15,6 +15,7 @@ class stDemo : public stMelee {
 public:
     grGimmickDoorData doorData;
     grGimmickBarrelCannnonStaticData cannonData;
+    //grGimmickBarrelCannnonPathData cannonData;
 
     stDemo() : stMelee("stDemo", 0x02){};
     static stDemo* create();

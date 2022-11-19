@@ -91,7 +91,7 @@ protected:
     GimmickKind gimmickKind;
     soAreaData areaData;
     soAreaInit areaInit;
-    YakumonoAreaInfo areaInfo;
+    ykAreaData areaInfo;
 
 public:
     grAdventureDoor(char* taskName) : grYakumono(taskName)
@@ -103,8 +103,8 @@ public:
         doorData = NULL;
         jumpData = 0;
         gimmickKind = Gimmick_Kind_DoorGround;
-        areaInfo.field_0x0 = 0;
-        areaInfo.field_0x4 = 0;
+        areaInfo.numHitGroups = 0;
+        areaInfo.hitGroupsInfo = NULL;
     };
     virtual void update(float deltaFrame);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);

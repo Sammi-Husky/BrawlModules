@@ -34,7 +34,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
 
     if (this->modelAnims != NULL)
     {
-        (*this->modelAnims)->unbindNodeAnim(*this->sceneModels);
+        (this->modelAnims[0])->unbindNodeAnim(this->sceneModels[0]);
     }
     this->makeCalcuCallback(1, Heaps::StageInstance);
     this->setCalcuCallbackRoot(7);
@@ -44,7 +44,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
         this->calcWorldCallBack.nodeCallbackDataArray->m_scale.y = 1.1;
         this->calcWorldCallBack.nodeCallbackDataArray->m_scale.z = 1.0;
     }
-    this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20, // 0, 0x15, 0, 0, 0, 0
+    this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20,
                                    this->doorData->field_0x24,
                                    this->doorData->field_0x28,
                                    this->doorData->field_0x2c };
@@ -63,13 +63,13 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     if (this->doorData->doorType == Effect_Door)
     {
         this->createEffectWork(1);
-        this->effects->id = 0x103000c;
-        this->effects->field_0x10 = 0;
-        this->effects->nodeIndex = this->getNodeIndex(0, "effect_locator");
-        this->effects->field_0x14 = 0;
-        this->effects->field_0x1c = 0.0;
-        this->effects->field_0x20 = 0.0;
-        this->effects->field_0x24 = 1.0;
+        this->effects[0].id = 0x103000c;
+        this->effects[0].field_0x10 = 0;
+        this->effects[0].nodeIndex = this->getNodeIndex(0, "effect_locator");
+        this->effects[0].field_0x14 = 0;
+        this->effects[0].field_0x1c = 0.0;
+        this->effects[0].field_0x20 = 0.0;
+        this->effects[0].field_0x24 = 1.0;
         this->screenFadeFrames = 100.0;
     }
 }
@@ -162,7 +162,7 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 
 void grAdventureDoor::setInitializeFlag()
 {
-    if (g_stTriggerMng->getTriggerFlag(&this->doorData->isValidTriggerData, true))
+    if (!g_stTriggerMng->getTriggerFlag(&this->doorData->isValidTriggerData, true))
     {
         if (this->doorData->isValidTriggerData.isValidFlag)
         {
