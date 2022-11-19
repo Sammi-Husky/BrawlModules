@@ -5,95 +5,129 @@
 #include <st/st_trigger.h>
 #include <snd/snd_system.h>
 
+#define NUM_PLAYERS 4
+
+enum BarrelCannonGimmickKind {
+    BarrelCannon_GimmickKind_Static = 0x0,
+    BarrelCannon_GimmickKind_Path = 0x1,
+    BarrelCannon_GimmickKind_StaticAuto = 0x2,
+    BarrelCannon_GimmickKind_PathAuto = 0x3,
+};
+
+enum BarrelCannonState {
+    BarrelCannon_State_Set = 0x0,
+    BarrelCannon_State_Fire = 0x1,
+    BarrelCannon_State_Rest = 0x2,
+};
+
 struct grGimmickBarrelCannnonData {
     grGimmickMotionPathData motionPathData;
-    char _spacer[32];
+    char _spacer[24];
+    float field_0x20;
+    float field_0x24;
     float field_0x28;
     float field_0x2c;
     Vec2f pos;
     float rot;
-    float field_0x3c;
+    float maxRot;
     float difficultyRotateSpeeds[15];
     float difficultyMotionRatios[15];
-    char _spacer3[20];
+    u32 maxFrames;
+    float maxFireRot;
+    Vec2f cameraOffset;
+    bool isAutoFire;
+    char _spacer4[1];
+    bool fullRotate;
+    bool alwaysRotate;
     char mdlIndex;
-    char _spacer4[11];
-    stTriggerData shootCannonTriggerData;
+    char _spacer5;
+    unsigned short field_0xce;
+    char _spacer6[8];
+    stTriggerData enterCannonTriggerData;
     stTriggerData motionPathTriggerData;
     stTriggerData isValidTriggerData;
     grYakumonoAttackData attackData;
-    char _spacer5[4];
+    char _spacer7;
 };
 
 struct grGimmickBarrelCannnonStaticData : grGimmickBarrelCannnonData {
-    float field_0x140;
-    char _spacer[4];
+    float shootSpeed;
+    float shootTimerSpeed;
+    float shootAngleOffset;
+    float shootStunTimerSpeed;
 };
 
 struct grGimmickBarrelCannnonPathData : grGimmickBarrelCannnonData {
     grGimmickMotionPathData shootMotionPathData;
-    char _spacer[8];
 };
 
 struct grGimmickEventBarrelCannonInfo : soGimmickEventInfo {
     Vec3f pos;
-    bool unk2;
+    unsigned int field_0x14;
+    soCollisionAttackData* attackData;
+    float shootSpeed;
+    float rot;
+    float shootTimerSpeed;
+    float shootAngleOffset;
+    float shootStunTimerSpeed;
 };
 
-struct CannonPlayerInfo {
-    bool field_0x0;
-    char field_0x1;
-    int field_0x4;
-    float field_0x8;
+struct BarrelCannonPlayerInfo {
+    bool isActive;
+    char state;
+    char playerNumber;
+    int sendID;
+    float frame;
 };
 
 class grAdventureBarrelCannon : public grYakumono
 {
 protected:
-    grGimmickBarrelCannnonStaticData* cannonData;
+    grGimmickBarrelCannnonData* cannonData;
     grGimmickBarrelCannnonStaticData* cannonStaticData;
-    grGimmickBarrelCannnonStaticData* cannonPathData;
+    grGimmickBarrelCannnonPathData* cannonPathData;
     grGimmickMotionPath* shootMotionPath;
-    int field_0x160;
-    char kind;
+    int nodeIndex;
+    BarrelCannonGimmickKind kind : 8;
     char _spacer2[3];
     float rotateSpeed;
-    char field_0x16c;
-    char field_0x16d;
-    char field_0x16e;
+    bool isRotate;
+    bool isMainPlayerIn;
+    char isInCooldown;
     char _spacer3;
-    float field_0x170;
-    CannonPlayerInfo cannonPlayerInfos[4];
-    char field_0x1a4;
+    float cooldownTimer;
+    BarrelCannonPlayerInfo cannonPlayerInfos[4];
+    BarrelCannonState cannonState : 8;
     char _spacer4[3];
-    float field_0x1a8;
-    int field_0x1ac;
-    int field_0x1b0;
-    float field_0x1b4;
+    float animFrame;
+    unsigned int animSetLength;
+    unsigned int animFireLength;
+    float rotThreshold;
     soAreaData areaData;
     soAreaInit areaInit;
-    YakumonoAreaInfo areaInfo;
+    ykAreaData areaInfo;
 
 public:
     grAdventureBarrelCannon(char* taskName) : grYakumono(taskName) {
         this->shootMotionPath = NULL;
-        this->field_0x160 = 0;
-        this->field_0x16c = 0;
-        this->field_0x16d = 0;
-        this->field_0x16e = 0;
-        this->field_0x170 = 0.0;
-        this->cannonPlayerInfos[0] = (CannonPlayerInfo){false, 0, -1, 0.0};
-        this->cannonPlayerInfos[1] = (CannonPlayerInfo){false, 0, -1, 0.0};
-        this->cannonPlayerInfos[2] = (CannonPlayerInfo){false, 0, -1, 0.0};
-        this->cannonPlayerInfos[3] = (CannonPlayerInfo){false, 0, -1, 0.0};
-        this->field_0x1a4 = 2;
-        this->field_0x1a8 = 0.0;
-        this->field_0x1ac = 60;
-        this->field_0x1b0 = 60;
-        this->areaInfo.field_0x0 = 0;
-        this->areaInfo.field_0x4 = 0;
+        this->nodeIndex = 0;
+        this->isRotate = 0;
+        this->isMainPlayerIn = false;
+        this->isInCooldown = false;
+        this->cooldownTimer = 0.0;
+        this->cannonPlayerInfos[0] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
+        this->cannonPlayerInfos[1] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
+        this->cannonPlayerInfos[2] = (BarrelCannonPlayerInfo){false, 0, 0,-1, 0.0};
+        this->cannonPlayerInfos[3] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
+        this->cannonState = BarrelCannon_State_Rest;
+        this->animFrame = 0.0;
+        this->animSetLength = 60;
+        this->animFireLength = 60;
+        this->areaInfo.numHitGroups = 0;
+        this->areaInfo.hitGroupsInfo = NULL;
 
     };
+    virtual void processFixPosition();
     virtual void update(float frameDiff);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
     virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
@@ -102,8 +136,8 @@ public:
     virtual void createMotionPath();
     virtual void updateMove(float frameDiff);
 
-    static grAdventureBarrelCannon* create(int mdlIndex, char cannonType, char* taskName);
-    void presentShootEvent(int index);
-    void eraseSendID(int id);
+    static grAdventureBarrelCannon* create(int mdlIndex, BarrelCannonGimmickKind cannonType, char* taskName);
+    void presentShootEvent(int playerCannonIndex);
+    void eraseSendID(int sendID);
 
 };

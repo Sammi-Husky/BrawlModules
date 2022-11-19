@@ -56,15 +56,21 @@ void stDemo::createObj()
     this->cannonData.field_0x28 = 20.0;
     this->cannonData.field_0x2c = 15.0;
     this->cannonData.pos.x = 0.0;
-    this->cannonData.pos.y = 0.0;
+    this->cannonData.pos.y = 50.0;
     this->cannonData.rot = 0.0;
-    this->cannonData.field_0x3c = 62.0;
+    this->cannonData.maxRot = 62.0;
+    this->cannonData.difficultyRotateSpeeds[0] = 0.0;
+    this->cannonData.maxFrames = 0;
+    this->cannonData.maxFireRot = 0.0;
+    this->cannonData.isAutoFire = true;
+    this->cannonData.fullRotate = false;
+    this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 0x65;
-    this->cannonData.shootCannonTriggerData = (stTriggerData){ 0, 1, 0 };
+    this->cannonData.field_0xce = 0x8;
+    this->cannonData.enterCannonTriggerData = (stTriggerData){ 0, 1, 0 };
     this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 1, 0 };
     this->cannonData.isValidTriggerData = (stTriggerData){ 0, 1, 0 };
-    this->cannonData.attackData.unk1 =
-        this->cannonData.attackData.offsetPos.x = 0.0;
+    this->cannonData.attackData.unk1 = this->cannonData.attackData.offsetPos.x = 0.0;
     this->cannonData.attackData.offsetPos.y = 0.0;
     this->cannonData.attackData.offsetPos.z = 0.0;
     this->cannonData.attackData.size = 10.0;
@@ -87,7 +93,10 @@ void stDemo::createObj()
     //char _spacer3[6];
     this->cannonData.attackData.nodeIndex = 0;
     this->cannonData.attackData.power = 0x1E;
-    this->cannonData.field_0x140 = 2.5;
+    this->cannonData.shootSpeed = 5.0;
+    this->cannonData.shootTimerSpeed = 0.075;
+    this->cannonData.shootAngleOffset = 10;
+    this->cannonData.shootStunTimerSpeed = 0.25;
 
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 1);
@@ -118,11 +127,11 @@ void stDemo::createObj()
         door->startup(fileData, 0, 0);
     }
 
-    grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(110, 0, "grAdventureBarrelCannon");
+    grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(110, BarrelCannon_GimmickKind_Static, "grAdventureBarrelCannon");
     if (cannon != NULL)
     {
         addGround(cannon);
-        cannon->setGimmickData(&this->doorData);
+        cannon->setGimmickData(&this->cannonData);
         cannon->startup(fileData, 0, 0);
     }
 
