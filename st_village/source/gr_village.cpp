@@ -120,7 +120,7 @@ int grVillage::getModelCount()
 
 char grVillage::getTransparencyFlag()
 {
-    return this->transparencyFlag;
+    return this->m_transparencyFlag;
 }
 
 void* grVillage::getGimmickData()

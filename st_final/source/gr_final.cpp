@@ -77,7 +77,7 @@ int grFinal::getModelCount()
 
 char grFinal::getTransparencyFlag()
 {
-    return this->transparencyFlag;
+    return this->m_transparencyFlag;
 }
 
 void* grFinal::getGimmickData()
