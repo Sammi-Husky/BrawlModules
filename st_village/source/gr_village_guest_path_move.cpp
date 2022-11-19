@@ -38,64 +38,64 @@ void grVillageGuestPathMove::updateYakumono(float deltaFrame)
 }
 void grVillageGuestPathMove::updateMove(float deltaFrame)
 {
-    if (this->m_stateWork != NULL)
+    if (this->m_stateWork == NULL)
+        return;
+
+    this->m_unkFloat -= deltaFrame;
+    if (this->m_unkFloat < 0)
+        this->m_unkFloat = 0;
+
+    if (this->m_unk1 == 1 && *this->m_stateWork == 4)
     {
-        this->m_unkFloat -= deltaFrame;
-        if (this->m_unkFloat < 0)
-            this->m_unkFloat = 0;
-
-        if (this->m_unk1 == 1 && *this->m_stateWork == 4)
+        this->setMotion(0, 0, 1, &this->m_unkFloat);
+        this->m_unk1 = 4;
+        this->field_0x04 = 0;
+        if (this->m_type == 3)
         {
-            this->setMotion(0, 0, 1, &this->m_unkFloat);
-            this->m_unk1 = 4;
-            this->field_0x04 = 0;
+            float frame = this->getMotionFrame(0);
+            m_seq.playFrame(frame, 0.0, 0);
+        }
+    }
+    else if (this->m_unk1 == 0)
+    {
+        this->setMotion(4, 0, 1, NULL);
+        this->setVisibility(0);
+        if (this->field_0x01 == 1)
+        {
             if (this->m_type == 3)
             {
-                float frame = this->getMotionFrame(0);
-                m_seq.playFrame(frame, 0.0, 0);
+                this->m_sndID = snd_se_stage_Village_UFO_fly;
+                this->m_seqID = snd_se_stage_Village_UFO_fly;
+                this->field_0x50 = 0;
+                this->field_0x54 = 2280.0;
+                this->field_0x58 = 3730.0;
+                this->m_seq.registId(&m_sndID, 0);
+                this->m_seq.registSeq(0, &m_seqID, 1, Heaps::StageInstance);
+                this->m_seq.m_sndGenerator = &this->m_sndGenerator;
             }
+            this->field_0x01 = 0;
         }
-        else if (this->m_unk1 == 0)
+        this->m_unk1 = 1;
+    }
+    else if (this->m_unk1 == 4)
+    {
+        if (this->isSceneBit() && this->visibilityFlags > 0)
+            this->setVisibility(1);
+
+        if (this->m_type == 3)
         {
-            this->setMotion(4, 0, 1, NULL);
-            this->setVisibility(0);
-            if (this->field_0x01 == 1)
-            {
-                if (this->m_type == 3)
-                {
-                    this->m_sndID = snd_se_stage_Village_UFO_fly;
-                    this->m_seqID = snd_se_stage_Village_UFO_fly;
-                    this->field_0x50 = 0;
-                    this->field_0x54 = 2280.0;
-                    this->field_0x58 = 3730.0;
-                    this->m_seq.registId(&m_sndID, 0);
-                    this->m_seq.registSeq(0, &m_seqID, 1, Heaps::StageInstance);
-                    this->m_seq.m_sndGenerator = &this->m_sndGenerator;
-                }
-                this->field_0x01 = 0;
-            }
-            this->m_unk1 = 1;
+            this->m_seq.playFrame(this->getMotionFrame(0), 0);
+
+            Vec3f pos;
+            getNodePosition(&pos, 0, this->m_nodeIndex);
+
+            this->m_sndGenerator.setPos(&pos);
         }
-        else if (this->m_unk1 == 4)
+
+        if (this->field_0x08 <= this->getMotionFrame(0))
         {
-            if (this->isSceneBit() && this->visibilityFlags > 0)
-                this->setVisibility(1);
-
-            if (this->m_type == 3)
-            {
-                this->m_seq.playFrame(this->getMotionFrame(0), 0);
-
-                Vec3f pos;
-                getNodePosition(&pos, 0, this->m_nodeIndex);
-
-                this->m_sndGenerator.setPos(&pos);
-            }
-
-            if (this->field_0x08 <= this->getMotionFrame(0))
-            {
-                *this->m_stateWork = 6;
-                this->m_unk1 = 0;
-            }
+            *this->m_stateWork = 6;
+            this->m_unk1 = 0;
         }
     }
 }
