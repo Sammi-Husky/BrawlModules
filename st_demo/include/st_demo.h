@@ -2,6 +2,7 @@
 
 #include "gr_adventure_barrel_cannon.h"
 #include "gr_adventure_door.h"
+#include "gr_adventure_elevator.h"
 #include "gr_final.h"
 #include <st/st_melee.h>
 #include <types.h>
@@ -16,6 +17,7 @@ public:
     grGimmickDoorData doorData;
     grGimmickBarrelCannnonStaticData cannonData;
     //grGimmickBarrelCannnonPathData cannonData;
+    grAdventureElevatorData elevatorData;
 
     stDemo() : stMelee("stDemo", 0x02){};
     static stDemo* create();

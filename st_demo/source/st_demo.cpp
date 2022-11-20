@@ -65,7 +65,7 @@ void stDemo::createObj()
     this->cannonData.isAutoFire = true;
     this->cannonData.fullRotate = false;
     this->cannonData.alwaysRotate = false;
-    this->cannonData.mdlIndex = 0x65;
+    this->cannonData.mdlIndex = 110;
     this->cannonData.field_0xce = 0x8;
     this->cannonData.enterCannonTriggerData = (stTriggerData){ 0, 1, 0 };
     this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 1, 0 };
@@ -98,6 +98,20 @@ void stDemo::createObj()
     this->cannonData.shootAngleOffset = 10;
     this->cannonData.shootStunTimerSpeed = 0.25;
 
+    this->elevatorData.field_0x18 = 0.0;
+    this->elevatorData.field_0x1c = 25.0;
+    this->elevatorData.field_0x20 = 30.0;
+    this->elevatorData.field_0x24 = 65.0;
+    this->elevatorData.speed = 2.5;
+    this->elevatorData.deltaSpeed = 0.2;
+    this->elevatorData.mdlIndex = 105;
+    this->elevatorData.collIndex = 101;
+    this->elevatorData.posMdlIndex = 106;
+    this->elevatorData.sndIDs[0] = snd_se_ADVstage_36_0_ELV_START;
+    this->elevatorData.sndIDs[1] = snd_se_invalid;
+    this->elevatorData.sndIDs[2] = snd_se_invalid;
+    this->elevatorData.sndIDs[3] = snd_se_ADVstage_36_0_ELV_STOP;
+
     testStageParamInit(fileData, 0xA);
     testStageDataInit(fileData, 0x14, 1);
     grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
@@ -127,12 +141,21 @@ void stDemo::createObj()
         door->startup(fileData, 0, 0);
     }
 
-    grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(110, BarrelCannon_GimmickKind_Static, "grAdventureBarrelCannon");
+    grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(this->cannonData.mdlIndex, BarrelCannon_GimmickKind_Static, "grAdventureBarrelCannon");
     if (cannon != NULL)
     {
         addGround(cannon);
         cannon->setGimmickData(&this->cannonData);
         cannon->startup(fileData, 0, 0);
+    }
+
+    grAdventureElevator* elevator = grAdventureElevator::create(this->cannonData.mdlIndex, "grAdventureElevator");
+    if (elevator != NULL)
+    {
+        addGround(elevator);
+        elevator->setGimmickData(&this->elevatorData);
+        elevator->startup(fileData, 0, 0);
+        createCollision(fileData, this->elevatorData.collIndex, elevator);
     }
 
     createCollision(fileData, 2, NULL);
