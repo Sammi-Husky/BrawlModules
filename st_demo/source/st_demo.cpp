@@ -62,7 +62,7 @@ void stDemo::createObj()
     this->cannonData.difficultyRotateSpeeds[0] = 0.0;
     this->cannonData.maxFrames = 0;
     this->cannonData.maxFireRot = 0.0;
-    this->cannonData.isAutoFire = true;
+    this->cannonData.isAutoFire = false;
     this->cannonData.fullRotate = false;
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 110;
@@ -149,7 +149,7 @@ void stDemo::createObj()
         cannon->startup(fileData, 0, 0);
     }
 
-    grAdventureElevator* elevator = grAdventureElevator::create(this->cannonData.mdlIndex, "grAdventureElevator");
+    grAdventureElevator* elevator = grAdventureElevator::create(this->elevatorData.mdlIndex, "grAdventureElevator");
     if (elevator != NULL)
     {
         addGround(elevator);

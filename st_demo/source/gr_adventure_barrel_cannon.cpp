@@ -151,18 +151,17 @@ void grAdventureBarrelCannon::processFixPosition() {
     grGimmickEventBarrelCannonInfo cannonEventInfo;
     for (int i = 0; i < NUM_PLAYERS; i++) {
         if (this->cannonPlayerInfos[i].isActive) {
-            OSReport("State %d\n", this->cannonPlayerInfos[i].state);
             switch(this->cannonPlayerInfos[i].state) {
-                case 1:
+                case BarrelCannon_PlayerState_Enter:
                     if (this->cannonState == BarrelCannon_State_Rest) {
-                        this->cannonPlayerInfos[i].state = 2;
+                        this->cannonPlayerInfos[i].state = BarrelCannon_PlayerState_Set;
                     }
                     break;
-                case 2:
+                case BarrelCannon_PlayerState_Set:
                     rot = this->getRot();
                     if (hkMath::fabs(rot.z - this->cannonData->maxFireRot) < this->rotThreshold
                         && (this->kind == BarrelCannon_GimmickKind_StaticAuto || this->kind == BarrelCannon_GimmickKind_PathAuto)) {
-                        this->cannonPlayerInfos[i].state = 3;
+                        this->cannonPlayerInfos[i].state = BarrelCannon_PlayerState_Fire;
                         if (this->cannonState == BarrelCannon_State_Rest) {
                             this->changeNodeAnim(1, 0);
                             this->cannonState = BarrelCannon_State_Fire;
@@ -177,7 +176,7 @@ void grAdventureBarrelCannon::processFixPosition() {
                     cannonEventInfo.attackData = NULL;
                     this->yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
                     break;
-                case 3: //
+                case BarrelCannon_PlayerState_Fire:
                     if (this->cannonPlayerInfos[i].frame <= this->cannonData->maxFrames) {
                         this->cannonPlayerInfos[i].frame += 1.0;
                     }
@@ -201,7 +200,7 @@ void grAdventureBarrelCannon::processFixPosition() {
                             this->cannonPlayerInfos[i].isActive = false;
                         }
                         else {
-                            this->cannonPlayerInfos[i].state = 4;
+                            this->cannonPlayerInfos[i].state = BarrelCannon_PlayerState_Path;
                             this->cannonPlayerInfos[i].frame = 0.0;
                             if (0.0 < this->shootMotionPath->frameCount) {
                                 this->shootMotionPath->setFrame(this->cannonPlayerInfos[i].frame);
@@ -223,7 +222,7 @@ void grAdventureBarrelCannon::processFixPosition() {
                         }
                     }
                     break;
-                case 4:
+                case BarrelCannon_PlayerState_Path:
                     if (this->cannonPlayerInfos[i].frame < this->shootMotionPath->frameCount) {
                         this->shootMotionPath->setFrame(this->cannonPlayerInfos[i].frame);
                         cannonEventInfo.state = 6;
@@ -324,7 +323,7 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int*
             if (newPlayerIndex >= NUM_PLAYERS) {
                 newPlayerIndex = NUM_PLAYERS - 1;
             }
-            this->cannonPlayerInfos[newPlayerIndex] = (BarrelCannonPlayerInfo){true, 1, playerNumber, cannonEventInfo->sendID, 0.0};
+            this->cannonPlayerInfos[newPlayerIndex] = (BarrelCannonPlayerInfo){true, BarrelCannon_PlayerState_Enter, playerNumber, cannonEventInfo->sendID, 0.0};
             if (this->isMainPlayerIn) {
                 //g_stAdventure2->setFighterPos(1,&pos);
             }
@@ -346,8 +345,8 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int*
         case 0x3:
             this->isRotate = this->cannonData->alwaysRotate;
             for (int i = 0; i < NUM_PLAYERS; i++) {
-                if (this->cannonPlayerInfos[i].isActive && this->cannonPlayerInfos[i].state != 4) {
-                    this->cannonPlayerInfos[i].state = 3;
+                if (this->cannonPlayerInfos[i].isActive && this->cannonPlayerInfos[i].state != BarrelCannon_PlayerState_Path) {
+                    this->cannonPlayerInfos[i].state = BarrelCannon_PlayerState_Fire;
                 }
             }
             this->changeNodeAnim(1,0);
