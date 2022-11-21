@@ -20,7 +20,13 @@ public:
     };
     virtual void renderPre();
     virtual void update(float deltaFrame);
-    virtual ~grAdventure2(){};
+    virtual ~grAdventure2(){
+        for (int i = 0; i < 4; i++) {
+            if (backgrounds[i] != NULL) {
+                delete backgrounds[i];
+            }
+        }
+    };
     virtual bool setNode();
 
     static grAdventure2* create(int mdlIndex, char* taskName);

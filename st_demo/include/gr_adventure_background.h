@@ -10,8 +10,10 @@
 class grAdventureBackGround {
 
 public:
-    ~grAdventureBackGround();
-    void update(float);
+    virtual ~grAdventureBackGround() {
+
+    };
+    virtual void update(float);
     bool setBackGround(nw4r::g3d::ScnMdl* scnMdl);
 
 protected:
