@@ -102,8 +102,8 @@ void stDemo::createObj()
     this->elevatorData.field_0x1c = 25.0;
     this->elevatorData.field_0x20 = 30.0;
     this->elevatorData.field_0x24 = 65.0;
-    this->elevatorData.speed = 2.5;
-    this->elevatorData.deltaSpeed = 0.2;
+    this->elevatorData.speed = 0.5; // 2.5
+    this->elevatorData.deltaSpeed = 0.1; // 0.2
     this->elevatorData.mdlIndex = 105;
     this->elevatorData.collIndex = 101;
     this->elevatorData.posMdlIndex = 106;

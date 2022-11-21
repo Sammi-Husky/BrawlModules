@@ -5,6 +5,7 @@
 #include <gr/gr_visible_production_effect.h>
 #include <memory.h>
 #include <string.h>
+#include <hk/hk_math.h>
 
 grAdventureElevator* grAdventureElevator::create(int mdlIndex, char* taskName)
 {
@@ -69,23 +70,103 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
 
 void grAdventureElevator::processFixPosition()
 {
+    //if (this->state == Elevator_State_Rest) {
+        // Original code moves elevator to closest floor based on where player 1 in automatically
+    //}
 }
 
 void grAdventureElevator::update(float deltaFrame)
 {
     grGimmick::update(deltaFrame);
+    switch(this->state) {
+        case Elevator_State_Stop:
+            if (60.0 < this->timeSinceStartedMoving) {
+                this->state = Elevator_State_Rest;
+            }
+            break;
+        case Elevator_State_Move:
+            this->moveFloor();
+            break;
+        default:
+            break;
+    }
+    this->timeSinceStartedMoving += deltaFrame;
     grGimmick::updateCallback(0);
 
 }
 
 void grAdventureElevator::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 {
-    OSReport("Hi \n");
+    grGimmickEventElevatorInfo* elevatorEventInfo = (grGimmickEventElevatorInfo*)eventInfo;
+    if (this->state == Elevator_State_Rest) {
+        switch(elevatorEventInfo->state) {
+            case 0x2b:
+                if (this->prevFloor + 1 < this->numFloors) {
+                    elevatorEventInfo->canGoUp = true;
+                }
+                else {
+                    elevatorEventInfo->canGoUp = false;
+                }
+                if (this->prevFloor == 0) {
+                    elevatorEventInfo->canGoDown = false;
+                }
+                else {
+                    elevatorEventInfo->canGoDown = true;
+                }
+                break;
+            case 0x2c:
+                this->nextFloor = this->prevFloor + 1;
+                if (this->nextFloor < this->numFloors) {
+                    Vec3f pos;
+                    this->elevatorPosGround->getNodePosition(&pos, 0, this->nextFloor + 1);
+                    this->setMoveParameter(&pos);
+                }
+                else {
+                    this->nextFloor = this->prevFloor;
+                    this->startGimmickSE(2);
+                }
+                break;
+            case 0x2d:
+                this->nextFloor = this->prevFloor - 1;
+                if (this->nextFloor < this->numFloors) {
+                    Vec3f pos;
+                    this->elevatorPosGround->getNodePosition(&pos, 0, this->nextFloor + 1);
+                    this->setMoveParameter(&pos);
+                }
+                else {
+                    this->nextFloor = this->prevFloor;
+                    this->startGimmickSE(2);
+                }
+                break;
+            default:
+                break;
+        }
+    }
 }
 
-void grAdventureElevator::setMoveParameter(void*)
+void grAdventureElevator::setMoveParameter(Vec3f* targetPos)
 {
-
+    this->targetPos = *targetPos;
+    this->distanceFromPrevFloor = 0.0;
+    Vec3f currentPos = this->getPos();
+    this->distanceToNextFloor = targetPos->y - currentPos.y;
+    if (hkMath::fabs(this->distanceToNextFloor) <= this->maxDistanceForAccel * 2.0) {
+        this->distanceForAccel = this->distanceToNextFloor * 0.5;
+    }
+    else {
+        this->distanceForAccel = this->maxDistanceForAccel;
+    }
+    this->deltaSpeed = this->elevatorData->deltaSpeed;
+    if (this->distanceToNextFloor < 0.0) {
+        this->deltaSpeed = -this->deltaSpeed;
+        this->distanceForAccel = -this->distanceForAccel;
+    }
+    this->state = Elevator_State_Move;
+    this->speed = 0.0;
+    this->timeSinceStartedMoving = 0.0;
+    this->startGimmickSE(0);
+    this->disableArea();
+    this->getNextFloorTime();
 }
 
 void grAdventureElevator::getFloorData()
@@ -111,17 +192,64 @@ void grAdventureElevator::getFloorData()
     //}
     this->maxDistanceForAccel = (this->elevatorData->speed * this->elevatorData->speed / this->elevatorData->deltaSpeed) * 0.5;
     this->field_0x18c = this->elevatorData->speed / this->elevatorData->deltaSpeed;
-
 }
 
 void grAdventureElevator::getNextFloorTime()
 {
+    this->timeToNextFloor = 0.0;
+    float distanceFromPrevFloor = this->distanceFromPrevFloor;
+    float distanceToNextFloor = this->distanceToNextFloor;
+    float speed = this->speed;
+    float newSpeed = speed;
+    while (true) {
+        if (hkMath::fabs(this->distanceForAccel) <= hkMath::fabs(distanceFromPrevFloor)) {
+            if (hkMath::fabs(this->distanceForAccel) <= hkMath::fabs(distanceToNextFloor)) {
+                if (distanceToNextFloor <= 0.0) newSpeed = -this->elevatorData->speed;
+                else newSpeed = this->elevatorData->speed;
+            }
+            else newSpeed = speed - this->deltaSpeed;
+        }
+        else newSpeed = speed + this->deltaSpeed;
 
+        distanceFromPrevFloor += newSpeed;
+        distanceToNextFloor -= newSpeed;
+        if (speed < 0.0 && newSpeed >= 0.0) return;
+        else if (speed > 0.0 && newSpeed <= 0.0) return;
+        else if (hkMath::fabs(distanceToNextFloor) < hkMath::fabs(newSpeed)) return;
+        this->timeToNextFloor += 1.0;
+        speed = newSpeed;
+    }
 }
 
 void grAdventureElevator::moveFloor()
 {
-
+    float prevSpeed = this->speed;
+    if (hkMath::fabs(this->distanceForAccel) <= hkMath::fabs(this->distanceFromPrevFloor)) {
+        if (hkMath::fabs(this->distanceForAccel) <= hkMath::fabs(this->distanceToNextFloor)) {
+            if (this->distanceToNextFloor <= 0.0) this->speed = -this->elevatorData->speed;
+            else this->speed = this->elevatorData->speed;
+        }
+        else this->speed -= this->deltaSpeed;
+    }
+    else this->speed += this->deltaSpeed;
+    Vec3f pos = this->getPos();
+    pos.y += this->speed;
+    float remainingTime = this->timeToNextFloor - this->timeSinceStartedMoving;
+    this->distanceFromPrevFloor += this->speed;
+    this->distanceToNextFloor -= this->speed;
+    if (remainingTime <= 30.0 && 30.0 - 1.0 < remainingTime) {
+        this->startGimmickSE(3);
+    }
+    if ((prevSpeed < 0.0 && this->speed >= 0.0) || (prevSpeed > 0.0 && this->speed <= 0.0) || hkMath::fabs(this->distanceToNextFloor) < hkMath::fabs(this->speed)) {
+        pos.y = this->targetPos.y;
+        this->state = Elevator_State_Stop;
+        this->timeSinceStartedMoving = 0.0;
+        this->prevFloor = this->nextFloor;
+        this->stopGimmickSE(0);
+        this->startGimmickSE(1);
+        this->enableArea();
+    }
+    this->setPos(&pos);
 }
 
 
