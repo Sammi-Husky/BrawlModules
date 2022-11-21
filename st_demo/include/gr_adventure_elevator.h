@@ -7,9 +7,9 @@
 #include "gr_adventure2.h"
 
 enum ElevatorState {
-    Elevator_State_Move = 0x0,
-    Elevator_State_Set = 0x1,
-    BElevator_State_Rest = 0x2,
+    Elevator_State_Rest = 0x0,
+    Elevator_State_Move = 0x1,
+    Elevator_State_Stop = 0x2,
 };
 
 struct grAdventureElevatorData {
@@ -28,8 +28,8 @@ struct grAdventureElevatorData {
 };
 
 struct grGimmickEventElevatorInfo : soGimmickEventInfo {
-    bool unk1;
-    bool unk2;
+    bool canGoUp;
+    bool canGoDown;
 };
 
 class grAdventureElevator : public grYakumono {
@@ -39,6 +39,7 @@ protected:
     ElevatorState state : 8;
     char _spacer1[3];
     float timeSinceStartedMoving;
+    Vec3f targetPos;
     //Vec3f* floorPositions;
     u32 numFloors;
     u32 prevFloor;
@@ -58,7 +59,7 @@ protected:
 public:
     grAdventureElevator(char* taskName) : grYakumono(taskName)
     {
-        state = Elevator_State_Move;
+        state = Elevator_State_Rest;
         //floorPositions = NULL;
         numFloors = 0;
         prevFloor = 0;
@@ -75,7 +76,7 @@ public:
             delete [] floorPositions;
         } */
     };
-    virtual void setMoveParameter(void*);
+    virtual void setMoveParameter(Vec3f* targetPos);
     virtual void getFloorData();
     virtual void getNextFloorTime();
     virtual void moveFloor();
