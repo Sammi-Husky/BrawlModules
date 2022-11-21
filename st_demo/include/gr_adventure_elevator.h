@@ -59,6 +59,7 @@ protected:
 public:
     grAdventureElevator(char* taskName) : grYakumono(taskName)
     {
+        elevatorPosGround = NULL;
         state = Elevator_State_Rest;
         //floorPositions = NULL;
         numFloors = 0;

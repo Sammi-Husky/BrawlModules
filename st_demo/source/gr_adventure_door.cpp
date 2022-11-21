@@ -104,6 +104,7 @@ void grAdventureDoor::update(float deltaFrame)
 }
 
 // TODO: Figure out letting other players enter
+// Have to skip over check at 80860ff0 ftAreaGimmickTermDoor::isTerm
 
 void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 {
