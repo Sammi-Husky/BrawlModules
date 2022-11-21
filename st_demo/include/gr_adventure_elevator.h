@@ -6,6 +6,12 @@
 #include <st/st_trigger.h>
 #include "gr_adventure2.h"
 
+enum ElevatorState {
+    Elevator_State_Move = 0x0,
+    Elevator_State_Set = 0x1,
+    BElevator_State_Rest = 0x2,
+};
+
 struct grAdventureElevatorData {
     char _spacer[24];
     float field_0x18;
@@ -30,9 +36,9 @@ class grAdventureElevator : public grYakumono {
 protected:
     grAdventureElevatorData* elevatorData;
     grAdventure2* elevatorPosGround;
-    u8 field_0x158;
+    ElevatorState state : 8;
     char _spacer1[3];
-    float field_0x15c;
+    float timeSinceStartedMoving;
     //Vec3f* floorPositions;
     u32 numFloors;
     u32 prevFloor;
@@ -52,7 +58,7 @@ protected:
 public:
     grAdventureElevator(char* taskName) : grYakumono(taskName)
     {
-        field_0x158 = 0;
+        state = Elevator_State_Move;
         //floorPositions = NULL;
         numFloors = 0;
         prevFloor = 0;

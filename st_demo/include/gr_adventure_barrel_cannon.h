@@ -72,9 +72,18 @@ struct grGimmickEventBarrelCannonInfo : soGimmickEventInfo {
     float shootStunTimerSpeed;
 };
 
+enum BarrelCannonPlayerState {
+    BarrelCannon_PlayerState_Invalid = 0x0,
+    BarrelCannon_PlayerState_Enter = 0x1,
+    BarrelCannon_PlayerState_Set = 0x2,
+    BarrelCannon_PlayerState_Fire = 0x3,
+    BarrelCannon_PlayerState_Path = 0x4
+};
+
+
 struct BarrelCannonPlayerInfo {
     bool isActive;
-    char state;
+    BarrelCannonPlayerState state : 8;
     char playerNumber;
     int sendID;
     float frame;

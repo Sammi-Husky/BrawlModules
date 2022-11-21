@@ -17,7 +17,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
 {
     grYakumono::startup(archive, unk1, unk2);
     this->elevatorData = (grAdventureElevatorData*)this->getGimmickData();
-    this->elevatorPosGround = grAdventure2::create(this->elevatorData->mdlIndex, "");
+    this->elevatorPosGround = grAdventure2::create(this->elevatorData->posMdlIndex, "");
     this->elevatorPosGround->unk_0x1c = this;
     gfTask* task = this->unk_0x20;
     if (task == NULL) {
@@ -43,7 +43,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
     //Vec3f startPos;
     //g_stAdventure2->getFighterStartPos(&startPos, 0);
     Vec3f pos;
-    this->elevatorPosGround->getNodePosition(&pos, 0, this->prevFloor);
+    this->elevatorPosGround->getNodePosition(&pos, 0, this->prevFloor + 1);
     this->setPos(&pos);
     this->nextFloor = this->prevFloor;
     this->areaData = (soAreaData){ 0, 0x17, 1, 0, 0, 0, this->elevatorData->field_0x18,
@@ -69,17 +69,18 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
 
 void grAdventureElevator::processFixPosition()
 {
-
 }
 
 void grAdventureElevator::update(float deltaFrame)
 {
+    grGimmick::update(deltaFrame);
+    grGimmick::updateCallback(0);
 
 }
 
 void grAdventureElevator::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 {
-
+    OSReport("Hi \n");
 }
 
 void grAdventureElevator::setMoveParameter(void*)
