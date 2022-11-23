@@ -2,6 +2,7 @@
 #include <OS/OSError.h>
 #include <memory.h>
 #include <st/st_class_info.h>
+#include <gf/gf_module.h>
 
 static stClassInfoImpl<2, stDemo> classInfo = stClassInfoImpl<2, stDemo>();
 
@@ -21,6 +22,11 @@ void stDemo::update(float frameDiff)
 
 void stDemo::createObj()
 {
+    gfModuleManager* moduleManager = gfModuleManager::getInstance();
+    moduleManager->setTempolaryLoadHeap(Heaps::FighterTechqniq);
+    gfModuleLoadRequestResult requestResult;
+    gfModuleManager::loadModuleRequest(&requestResult, moduleManager, "sora_enemy_vs.rel", Heaps::OverlayStage, 1, 0);
+
     this->doorData.motionPathData.motionRatio = 1.0;
     this->doorData.motionPathData.index = 0;
     this->doorData.motionPathData.field_0x5 = 1;
