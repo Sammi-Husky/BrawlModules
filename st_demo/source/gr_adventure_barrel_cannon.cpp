@@ -364,12 +364,12 @@ void grAdventureBarrelCannon::setInitializeFlag()
 {
     if (!g_stTriggerMng->getTriggerFlag(&this->cannonData->isValidTriggerData, true))
     {
-        if (this->cannonData->isValidTriggerData.isValidFlag)
+        if (this->cannonData->isValidTriggerData.m_isValidFlag)
         {
             this->setValid(false);
         }
     }
-    else if (!this->cannonData->isValidTriggerData.isValidFlag)
+    else if (!this->cannonData->isValidTriggerData.m_isValidFlag)
     {
         this->setValid(false);
     }

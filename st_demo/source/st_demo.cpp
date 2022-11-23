@@ -3,6 +3,7 @@
 #include <memory.h>
 #include <st/st_class_info.h>
 #include <gf/gf_module.h>
+#include <em/em_manager.h>
 
 static stClassInfoImpl<2, stDemo> classInfo = stClassInfoImpl<2, stDemo>();
 
@@ -24,7 +25,7 @@ void stDemo::createObj()
 {
     gfModuleManager* moduleManager = gfModuleManager::getInstance();
     moduleManager->setTempolaryLoadHeap(Heaps::FighterTechqniq);
-    gfModuleLoadRequestResult requestResult;
+    gfModuleManager::LoadRequestResult requestResult;
     gfModuleManager::loadModuleRequest(&requestResult, moduleManager, "sora_enemy_vs.rel", Heaps::OverlayStage, 1, 0);
 
     this->doorData.motionPathData.motionRatio = 1.0;
@@ -47,11 +48,11 @@ void stDemo::createObj()
     this->doorData.field_0x37 = 0x1;
     this->doorData.pos.x = 0.0;
     this->doorData.pos.y = 0.0;
-    this->doorData.openDoorTriggerData = (stTriggerData){ 0, 1, 0 };
+    this->doorData.openDoorTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
     this->doorData.doorType = Normal_Door;
     this->doorData.sndID = snd_se_AllStar_Heal_Warp; //snd_se_invalid;
-    this->doorData.motionPathTriggerData = (stTriggerData){ 0, 1, 0 };
-    this->doorData.isValidTriggerData = (stTriggerData){ 0, 1, 0 };
+    this->doorData.motionPathTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
+    this->doorData.isValidTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
 
     this->cannonData.motionPathData.motionRatio = 1.0;
     this->cannonData.motionPathData.index = 0;
@@ -73,9 +74,9 @@ void stDemo::createObj()
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 110;
     this->cannonData.field_0xce = 0x8;
-    this->cannonData.enterCannonTriggerData = (stTriggerData){ 0, 1, 0 };
-    this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 1, 0 };
-    this->cannonData.isValidTriggerData = (stTriggerData){ 0, 1, 0 };
+    this->cannonData.enterCannonTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
+    this->cannonData.motionPathTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
+    this->cannonData.isValidTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
     this->cannonData.attackData.unk1 = this->cannonData.attackData.offsetPos.x = 0.0;
     this->cannonData.attackData.offsetPos.y = 0.0;
     this->cannonData.attackData.offsetPos.z = 0.0;

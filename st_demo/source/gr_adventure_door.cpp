@@ -165,12 +165,12 @@ void grAdventureDoor::setInitializeFlag()
 {
     if (!g_stTriggerMng->getTriggerFlag(&this->doorData->isValidTriggerData, true))
     {
-        if (this->doorData->isValidTriggerData.isValidFlag)
+        if (this->doorData->isValidTriggerData.m_isValidFlag)
         {
             this->setValid(false);
         }
     }
-    else if (!this->doorData->isValidTriggerData.isValidFlag)
+    else if (!this->doorData->isValidTriggerData.m_isValidFlag)
     {
         this->setValid(false);
     }
