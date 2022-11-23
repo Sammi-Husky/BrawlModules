@@ -53,12 +53,12 @@ struct grGimmickDoorData {
     char mdlIndex;
     char field_0x37;
     Vec2f pos;
-    stTriggerData openDoorTriggerData;
+    stTrigger::TriggerData openDoorTriggerData;
     DoorType doorType : 8;
     char _spacer3[3];
     SndID sndID;
-    stTriggerData motionPathTriggerData;
-    stTriggerData isValidTriggerData;
+    stTrigger::TriggerData motionPathTriggerData;
+    stTrigger::TriggerData isValidTriggerData;
     float difficultyMotionRatios[15];
 };
 
