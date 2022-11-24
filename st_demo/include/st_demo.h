@@ -55,7 +55,9 @@ public:
     virtual void createObj();
     virtual bool loading();
     virtual void update(float frameDiff);
+    virtual void notifyEventInfoGo();
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
+    virtual void getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyID enemyID);
     virtual ~stDemo() { this->releaseArchive(); };
 };

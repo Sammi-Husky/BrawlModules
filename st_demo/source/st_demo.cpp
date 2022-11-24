@@ -16,6 +16,21 @@ bool stDemo::loading()
 {
     return true;
 }
+
+void stDemo::notifyEventInfoGo() {
+    emManager::create(0x1e,0x14,0);
+    gfArchive* brres;
+    gfArchive* param;
+    gfArchive* enmCommon;
+    gfArchive* primFaceBrres;
+    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Kuribo);
+    emManager* enemyManager = emManager::getInstance();
+    enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Kuribo, true);
+    // TODO: Make sure to deallocate created gfArchives after
+
+
+};
+
 void stDemo::update(float frameDiff)
 {
     return;
@@ -184,6 +199,27 @@ void stDemo::createObj()
     registSceneAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
+}
+
+void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyID enemyID) {
+    int fileIndex = enemyID * 2;
+    int nodeSize;
+    *brres = NULL;
+    *param = NULL;
+    *enmCommon = NULL;
+    *primFaceBrres = NULL;
+
+    void* brresData = this->secondaryFileData->getData(DATA_TYPE_MISC, fileIndex + 1, &nodeSize, (u32)0xfffe);
+    *brres = new (Heaps::StageInstance) gfArchive();
+    (*brres)->setFileImage(brresData, nodeSize, Heaps::StageResource);
+
+    void* paramData = this->secondaryFileData->getData(DATA_TYPE_MISC, fileIndex, &nodeSize, (u32)0xfffe);
+    *param = new (Heaps::StageInstance) gfArchive();
+    (*param)->setFileImage(paramData, nodeSize, Heaps::StageResource);
+
+    void* enmCommonData = this->secondaryFileData->getData(DATA_TYPE_MISC, 300, &nodeSize, (u32)0xfffe);
+    *enmCommon = new (Heaps::StageInstance) gfArchive();
+    (*enmCommon)->setFileImage(paramData, nodeSize, Heaps::StageResource);
 }
 
 void Ground::setStageData(void* stageData)
