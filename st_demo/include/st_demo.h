@@ -18,10 +18,12 @@ public:
     grGimmickBarrelCannnonStaticData cannonData;
     //grGimmickBarrelCannnonPathData cannonData;
     grAdventureElevatorData elevatorData;
+    bool isGo;
     bool testCreated;
     float timer;
 
     stDemo() : stMelee("stDemo", 0x02){
+        isGo = false;
         testCreated = false;
         timer = 0;
     };

@@ -4,6 +4,9 @@
 #include <st/st_class_info.h>
 #include <gf/gf_module.h>
 #include <em/em_manager.h>
+#include <gf/gf_heap_manager.h>
+
+// TODO: Patch enemy pop so that can hitbox can affect any team (but can't hit fighters)
 
 static stClassInfoImpl<2, stDemo> classInfo = stClassInfoImpl<2, stDemo>();
 
@@ -27,13 +30,15 @@ void stDemo::notifyEventInfoGo() {
     emManager* enemyManager = emManager::getInstance();
     int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Kuribo, true);
     OSReport("Enemy archive preloaded result: %d \n", result);
+    this->isGo = true;
     // TODO: Make sure to deallocate created gfArchives after
+
 
 };
 
 void stDemo::update(float frameDiff)
 {
-    if (!this->testCreated) {
+    if (this->isGo && !this->testCreated) {
         if (this->timer > 120.0) {
             this->testCreated = true;
             emManager* enemyManager = emManager::getInstance();
@@ -59,6 +64,22 @@ void stDemo::update(float frameDiff)
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
             int result = enemyManager->createEnemy(&create);
             OSReport("Enemy Create result: %d \n", result);
+            create.m_spawnPos.x = -1.0;
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos.x = -2.0;
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos.x = -3.0;
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos.x =  1.0;
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos.x =  2.0;
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos.x =  3.0;
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos.x =  4.0;
+            enemyManager->createEnemy(&create);
+
+            gfHeapManager::dumpList();
 
         }
         else {
