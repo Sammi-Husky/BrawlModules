@@ -219,7 +219,7 @@ void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCo
 
     void* enmCommonData = this->secondaryFileData->getData(DATA_TYPE_MISC, 300, &nodeSize, (u32)0xfffe);
     *enmCommon = new (Heaps::StageInstance) gfArchive();
-    (*enmCommon)->setFileImage(paramData, nodeSize, Heaps::StageResource);
+    (*enmCommon)->setFileImage(enmCommonData, nodeSize, Heaps::StageResource);
 }
 
 void Ground::setStageData(void* stageData)
