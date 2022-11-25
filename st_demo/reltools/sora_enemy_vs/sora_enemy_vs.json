@@ -1,0 +1,76 @@
+{
+  "Name": "sora_enemy_vs",
+  "Type": "rel",
+  "ModuleID": 41,
+  "ModuleAlign": 32,
+  "BSSAlign": 8,
+  "FixSize": 620296,
+  "Sections": [
+    null,
+    {
+      "Path": "Section[1].asm",
+      "SectionID": 1,
+      "HasCode": true,
+      "IsBSS": false,
+      "Expand": false,
+      "ExpandSize": 0
+    },
+    {
+      "Path": "Section[2].asm",
+      "SectionID": 2,
+      "HasCode": false,
+      "IsBSS": false,
+      "Expand": false,
+      "ExpandSize": 0
+    },
+    {
+      "Path": "Section[3].asm",
+      "SectionID": 3,
+      "HasCode": false,
+      "IsBSS": false,
+      "Expand": false,
+      "ExpandSize": 4
+    },
+    {
+      "Path": "Section[4].asm",
+      "SectionID": 4,
+      "HasCode": false,
+      "IsBSS": false,
+      "Expand": false,
+      "ExpandSize": 28
+    },
+    {
+      "Path": "Section[5].asm",
+      "SectionID": 5,
+      "HasCode": false,
+      "IsBSS": false,
+      "Expand": false,
+      "ExpandSize": 0
+    },
+    {
+      "Path": "Section[6].asm",
+      "SectionID": 6,
+      "HasCode": false,
+      "IsBSS": true,
+      "Expand": false,
+      "ExpandSize": 0
+    },
+    {
+      "Path": "SSEEX.asm",
+      "SectionID": 7,
+      "HasCode": true,
+      "IsBSS": false,
+      "Expand": false,
+      "ExpandSize": 0
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null
+  ]
+}
