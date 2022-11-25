@@ -25,14 +25,46 @@ void stDemo::notifyEventInfoGo() {
     gfArchive* primFaceBrres;
     this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Kuribo);
     emManager* enemyManager = emManager::getInstance();
-    enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Kuribo, true);
+    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Kuribo, true);
+    OSReport("Enemy archive preloaded result: %d \n", result);
     // TODO: Make sure to deallocate created gfArchives after
-
 
 };
 
 void stDemo::update(float frameDiff)
 {
+    if (!this->testCreated) {
+        if (this->timer > 120.0) {
+            this->testCreated = true;
+            emManager* enemyManager = emManager::getInstance();
+            emCreate create;
+            create.m_8 = 10000;
+            create.m_difficultyLevel = 15;
+            create.m_enemyID = Enemy_Kuribo;
+            create.m_startingAction = 7;
+            create.m_spawnPos = (Vec2f) {0.0, 5.0};
+            create.m_24 = 0.0;
+            create.m_12 = 1.0;
+            create.m_32 = 1;
+            create.m_36 = 0.0;
+            create.m_posX1 = -create.m_spawnPos.x;
+            create.m_posX2 = -create.m_spawnPos.x;
+            create.m_posY1 = -create.m_spawnPos.y;
+            create.m_posY1 = -create.m_spawnPos.y;
+            create.m_connectedEnemyID = (EnemyID)0;
+            create.m_60 = NULL;
+            create.m_motionPath = NULL;
+            create.m_64 = 0;
+            create.m_72 = 0xFFFF;
+            //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
+            int result = enemyManager->createEnemy(&create);
+            OSReport("Enemy Create result: %d \n", result);
+
+        }
+        else {
+            this->timer += frameDiff;
+        }
+    }
     return;
 }
 

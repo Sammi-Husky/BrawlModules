@@ -18,8 +18,13 @@ public:
     grGimmickBarrelCannnonStaticData cannonData;
     //grGimmickBarrelCannnonPathData cannonData;
     grAdventureElevatorData elevatorData;
+    bool testCreated;
+    float timer;
 
-    stDemo() : stMelee("stDemo", 0x02){};
+    stDemo() : stMelee("stDemo", 0x02){
+        testCreated = false;
+        timer = 0;
+    };
     static stDemo* create();
     int getWind2ndOnlyData();
     bool isReStartSamePoint();
