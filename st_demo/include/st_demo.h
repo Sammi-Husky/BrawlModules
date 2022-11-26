@@ -12,6 +12,8 @@ const float BGM_VOLUME = 1.0f;
 const float SCROLL_DIR = 0.0f;
 const float POKETRAINER_Z = 0.0f;
 
+#define NUM_ENEMY_TYPES 1
+
 class stDemo : public stMelee {
 public:
     grGimmickDoorData doorData;
@@ -21,11 +23,17 @@ public:
     bool isGo;
     bool testCreated;
     float timer;
+    gfArchive* enemyArchives[NUM_ENEMY_TYPES*2];
+    gfArchive* enemyCommonArchive;
+    gfArchive* primFaceArchive;
 
     stDemo() : stMelee("stDemo", 0x02){
         isGo = false;
         testCreated = false;
         timer = 0;
+        __memfill(enemyArchives, NULL, NUM_ENEMY_TYPES*2*4);
+        enemyCommonArchive = NULL;
+        primFaceArchive = NULL;
     };
     static stDemo* create();
     int getWind2ndOnlyData();
@@ -66,5 +74,9 @@ public:
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
     virtual void getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyID enemyID);
-    virtual ~stDemo() { this->releaseArchive(); };
+    virtual ~stDemo() {
+        this->clearHeap();
+        this->releaseArchive();
+    };
+    void clearHeap();
 };

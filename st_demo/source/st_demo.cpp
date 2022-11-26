@@ -6,7 +6,9 @@
 #include <em/em_manager.h>
 #include <gf/gf_heap_manager.h>
 
-// TODO: Patch enemy pop so that can hitbox can affect any team (but can't hit fighters)
+// TODO: Patch enemy pop so that can hitbox can affect any team (but can't hit fighters) (or even better change the team based on who killed the enemy)
+
+// TODO: Test different enemies
 
 static stClassInfoImpl<2, stDemo> classInfo = stClassInfoImpl<2, stDemo>();
 
@@ -31,9 +33,6 @@ void stDemo::notifyEventInfoGo() {
     int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Kuribo, true);
     OSReport("Enemy archive preloaded result: %d \n", result);
     this->isGo = true;
-    // TODO: Make sure to deallocate created gfArchives after
-
-
 };
 
 void stDemo::update(float frameDiff)
@@ -64,19 +63,19 @@ void stDemo::update(float frameDiff)
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
             int result = enemyManager->createEnemy(&create);
             OSReport("Enemy Create result: %d \n", result);
-            create.m_spawnPos.x = -1.0;
-            enemyManager->createEnemy(&create);
             create.m_spawnPos.x = -2.0;
             enemyManager->createEnemy(&create);
-            create.m_spawnPos.x = -3.0;
+            create.m_spawnPos.x = -4.0;
             enemyManager->createEnemy(&create);
-            create.m_spawnPos.x =  1.0;
+            create.m_spawnPos.x = -6.0;
             enemyManager->createEnemy(&create);
             create.m_spawnPos.x =  2.0;
             enemyManager->createEnemy(&create);
-            create.m_spawnPos.x =  3.0;
-            enemyManager->createEnemy(&create);
             create.m_spawnPos.x =  4.0;
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos.x =  6.0;
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos.x =  8.0;
             enemyManager->createEnemy(&create);
 
             gfHeapManager::dumpList();
@@ -265,14 +264,42 @@ void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCo
     void* brresData = this->secondaryFileData->getData(DATA_TYPE_MISC, fileIndex + 1, &nodeSize, (u32)0xfffe);
     *brres = new (Heaps::StageInstance) gfArchive();
     (*brres)->setFileImage(brresData, nodeSize, Heaps::StageResource);
+    this->enemyArchives[0] = *brres;
 
     void* paramData = this->secondaryFileData->getData(DATA_TYPE_MISC, fileIndex, &nodeSize, (u32)0xfffe);
     *param = new (Heaps::StageInstance) gfArchive();
     (*param)->setFileImage(paramData, nodeSize, Heaps::StageResource);
+    this->enemyArchives[1] = *param;
 
     void* enmCommonData = this->secondaryFileData->getData(DATA_TYPE_MISC, 300, &nodeSize, (u32)0xfffe);
     *enmCommon = new (Heaps::StageInstance) gfArchive();
     (*enmCommon)->setFileImage(enmCommonData, nodeSize, Heaps::StageResource);
+    this->enemyCommonArchive = *enmCommon;
+}
+
+void stDemo::clearHeap() {
+    if (emManager::getInstance() != NULL) {
+        emManager* enemyManager = emManager::getInstance();
+        enemyManager->removeEnemyAll();
+        enemyManager->removeArchiveAll();
+        emManager::remove();
+    }
+    for (int i = 0; i < NUM_ENEMY_TYPES*2; i++) {
+        if (this->enemyArchives[i] != NULL) {
+            delete this->enemyArchives[i];
+            this->enemyArchives[i] = NULL;
+        }
+    }
+    if (this->enemyCommonArchive != NULL) {
+        delete this->enemyCommonArchive;
+        this->enemyCommonArchive = NULL;
+    }
+    if (this->primFaceArchive != NULL) {
+        delete this->primFaceArchive;
+        this->primFaceArchive = NULL;
+    }
+
+    gfModuleManager::getInstance()->destroy("sora_enemy_vs.rel");
 }
 
 void Ground::setStageData(void* stageData)
@@ -412,5 +439,7 @@ int stDemo::getFinalTechniqColor()
 {
     return 0x14000496;
 }
+
+// Note: Could implement new enemies and then replace the function pointer in the rel
 
 ST_CLASS_INFO
