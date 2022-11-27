@@ -35,7 +35,7 @@ void stDemo::notifyEventInfoGo() {
     weaponManager->m_list2.m_last = NULL;
     weaponManager->m_list2.m_first = NULL;
     weaponManager->m_list2.m_length = 0;
-    weaponManager->m_numStageObjects = 0x1e;
+    weaponManager->m_numStageObjects = 0xf; //0x1e;
     weaponManager->m_stageObjects = new (Heaps::StageInstance) wnemSimple[weaponManager->m_numStageObjects];
     for (int i = 0; i < weaponManager->m_numStageObjects; i++) {
         weaponManager->m_list1.addTail(&weaponManager->m_stageObjects[i]);
@@ -48,9 +48,9 @@ void stDemo::notifyEventInfoGo() {
     gfArchive* param;
     gfArchive* enmCommon;
     gfArchive* primFaceBrres;
-    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Masterhand); // Enemy_Kuribo
+    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Taboo); // Enemy_Kuribo
     emManager* enemyManager = emManager::getInstance();
-    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Masterhand, true); // Enemy_Kuribo
+    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Taboo, true); // Enemy_Kuribo
     OSReport("Enemy archive preloaded result: %d \n", result);
     this->isGo = true;
 };
@@ -83,8 +83,8 @@ void stDemo::update(float frameDiff)
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
             //int result = enemyManager->createEnemy(&create);
 
-            create.m_startingAction = 55;
-            create.m_enemyID = Enemy_Masterhand;
+            create.m_startingAction = 2;
+            create.m_enemyID = Enemy_Taboo;
             int result = enemyManager->createEnemy(&create);
             OSReport("Enemy Create result: %d \n", result);
            /* create.m_spawnPos.x = -2.0;
@@ -302,7 +302,14 @@ void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCo
 }
 
 void stDemo::clearHeap() {
-    if (emManager::getInstance() != NULL) {
+    emWeaponManager* weaponManager = emWeaponManager::getInstance();
+    if (weaponManager != NULL) {
+        weaponManager->reset();
+        weaponManager->m_32 = true;
+        emWeaponManager::remove();
+    }
+    emManager* enemyManager = emManager::getInstance();
+    if (enemyManager != NULL) {
         emManager* enemyManager = emManager::getInstance();
         enemyManager->removeEnemyAll();
         enemyManager->removeArchiveAll();
