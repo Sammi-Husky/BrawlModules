@@ -4,10 +4,11 @@
 #include <st/st_class_info.h>
 #include <gf/gf_module.h>
 #include <em/em_manager.h>
+#include <em/em_weapon_manager.h>
 #include <gf/gf_heap_manager.h>
 
 // TODO: Patch enemy pop so that can hitbox can affect any team (but can't hit fighters) (or even better change the team based on who killed the enemy)
-
+// TODO: Destroy enemy if they go past blast zone
 // TODO: Test different enemies
 
 static stClassInfoImpl<2, stDemo> classInfo = stClassInfoImpl<2, stDemo>();
@@ -24,13 +25,32 @@ bool stDemo::loading()
 
 void stDemo::notifyEventInfoGo() {
     emManager::create(0x1e,0x14,0);
+    //gfHeapManager::dumpList();
+    emWeaponManager::create();
+    emWeaponManager* weaponManager = emWeaponManager::getInstance();
+    weaponManager->clean();
+    weaponManager->m_list1.m_last = NULL;
+    weaponManager->m_list1.m_first = NULL;
+    weaponManager->m_list1.m_length = 0;
+    weaponManager->m_list2.m_last = NULL;
+    weaponManager->m_list2.m_first = NULL;
+    weaponManager->m_list2.m_length = 0;
+    weaponManager->m_numStageObjects = 0x1e;
+    weaponManager->m_stageObjects = new (Heaps::StageInstance) wnemSimple[weaponManager->m_numStageObjects];
+    for (int i = 0; i < weaponManager->m_numStageObjects; i++) {
+        weaponManager->m_list1.addTail(&weaponManager->m_stageObjects[i]);
+    }
+    weaponManager->m_32 = false;
+
+    // TODO: Deallocate weapon stuff
+
     gfArchive* brres;
     gfArchive* param;
     gfArchive* enmCommon;
     gfArchive* primFaceBrres;
-    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Kuribo);
+    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Masterhand); // Enemy_Kuribo
     emManager* enemyManager = emManager::getInstance();
-    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Kuribo, true);
+    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Masterhand, true); // Enemy_Kuribo
     OSReport("Enemy archive preloaded result: %d \n", result);
     this->isGo = true;
 };
@@ -38,7 +58,7 @@ void stDemo::notifyEventInfoGo() {
 void stDemo::update(float frameDiff)
 {
     if (this->isGo && !this->testCreated) {
-        if (this->timer > 120.0) {
+        if (this->timer > 300.0) {
             this->testCreated = true;
             emManager* enemyManager = emManager::getInstance();
             emCreate create;
@@ -61,9 +81,13 @@ void stDemo::update(float frameDiff)
             create.m_64 = 0;
             create.m_72 = 0xFFFF;
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
+            //int result = enemyManager->createEnemy(&create);
+
+            create.m_startingAction = 55;
+            create.m_enemyID = Enemy_Masterhand;
             int result = enemyManager->createEnemy(&create);
             OSReport("Enemy Create result: %d \n", result);
-            create.m_spawnPos.x = -2.0;
+           /* create.m_spawnPos.x = -2.0;
             enemyManager->createEnemy(&create);
             create.m_spawnPos.x = -4.0;
             enemyManager->createEnemy(&create);
@@ -76,7 +100,7 @@ void stDemo::update(float frameDiff)
             create.m_spawnPos.x =  6.0;
             enemyManager->createEnemy(&create);
             create.m_spawnPos.x =  8.0;
-            enemyManager->createEnemy(&create);
+            enemyManager->createEnemy(&create);*/
 
             gfHeapManager::dumpList();
 
