@@ -1064,7 +1064,7 @@ loc_102C:
 # include "./Enemies/rodata/emShelly.asm"
 # include "./Enemies/rodata/emTeckin.asm"
 # include "./Enemies/rodata/emSpar.asm"
-# include "./Enemies/rodata/emHammerbros.asm"
+.include "./Enemies/rodata/emHammerbros.asm"
 # include "./Enemies/rodata/emKokkon.asm"
 # include "./Enemies/rodata/emBombhead.asm"
 # include "./Enemies/rodata/emNgagog.asm"
@@ -1088,7 +1088,7 @@ loc_102C:
 # include "./Enemies/rodata/emPorky.asm"
 # include "./Enemies/rodata/emMetaridley.asm"
 # include "./Enemies/rodata/emFalconflyer.asm"
-# include "./Enemies/rodata/emTaboo.asm"
-# include "./Enemies/rodata/emMasterhand.asm"
+.include "./Enemies/rodata/emTaboo.asm"
+#include "./Enemies/rodata/emMasterhand.asm"
 # include "./Enemies/rodata/emCrazyhand.asm"
 

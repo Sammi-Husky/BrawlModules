@@ -38,7 +38,7 @@ loc_0:
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emshellyparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emteckinparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emsparparamaccessercpp____sinit_")]
-        #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emhammerbrosparamaccessercpp____sinit_")]
+        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emhammerbrosparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emkokkonparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "embombheadparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emngagogparamaccessercpp____sinit_")]
@@ -63,7 +63,7 @@ loc_0:
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emporkyparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emmetaridleyparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emfalconflyerparamaccessercpp____sinit_")]
-        #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emtabooparamaccessercpp____sinit_")]
+        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emtabooparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emmasterhandparamaccessercpp____sinit_")]
         #.4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emcrazyhandparamaccessercpp____sinit_")]
         .4byte 0x00000000

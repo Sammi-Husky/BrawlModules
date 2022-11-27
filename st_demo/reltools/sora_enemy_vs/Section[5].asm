@@ -7873,7 +7873,7 @@ loc_E884:
 # include "./Enemies/data/emShelly.asm"
 # include "./Enemies/data/emTeckin.asm"
 # include "./Enemies/data/emSpar.asm"
-# include "./Enemies/data/emHammerbros.asm"
+.include "./Enemies/data/emHammerbros.asm"
 # include "./Enemies/data/emKokkon.asm"
 # include "./Enemies/data/emBombhead.asm"
 # include "./Enemies/data/emNgagog.asm"
@@ -7897,8 +7897,8 @@ loc_E884:
 # include "./Enemies/data/emPorky.asm"
 # include "./Enemies/data/emMetaridley.asm"
 # include "./Enemies/data/emFalconflyer.asm"
-# include "./Enemies/data/emTaboo.asm"
-# include "./Enemies/data/emMasterhand.asm"
+.include "./Enemies/data/emTaboo.asm"
+#include "./Enemies/data/emMasterhand.asm"
 # include "./Enemies/data/emCrazyhand.asm"
 
 loc_1FE78:
