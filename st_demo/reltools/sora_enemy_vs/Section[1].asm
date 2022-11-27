@@ -1,4 +1,5 @@
 .set HEAP_TYPE, 0xf #0x25 EnemyInstance -> StageInstance
+.set WEAPON_HEAP_TYPE, 0xf #0x27 WeaponInstance -> StageInstance
 
 globaldestructorchain____register_global_object:
     /* 00000000: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 6, "loc_0")]
@@ -543,7 +544,7 @@ Enemy____ct:
     /* 00000838: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soEventUnitWithWorkArea_29soCollisionCatchEventObserver_1_____ct")]
     /* 0000083C: */    addi r3,r15,0x904
     /* 00000840: */    li r4,HEAP_TYPE
-    /* 00000844: */    li r5,0xf #0x11     # Use StageInstance cuz it refuses to work with StageResource for some reason (might be related to MEMAllocator)
+    /* 00000844: */    li r5,0xf #0x11     # Use StageInstance cuz StageResource is auto full
     /* 00000848: */    li r6,HEAP_TYPE
     /* 0000084C: */    li r7,0x0
     /* 00000850: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soHeapModuleImpl____ct")]
@@ -42898,7 +42899,7 @@ emWeaponManager__create:
     /* 0002BE78: */    cmpwi r0,0x0
     /* 0002BE7C: */    bne- loc_2BEAC
     /* 0002BE80: */    li r3,0x298
-    /* 0002BE84: */    li r4,0x27
+    /* 0002BE84: */    li r4,WEAPON_HEAP_TYPE
     /* 0002BE88: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srHeapType____nw")]
     /* 0002BE8C: */    cmpwi r3,0x0
     /* 0002BE90: */    beq- loc_2BE98
@@ -52532,8 +52533,8 @@ wnemheapmoduleimplcpp____sinit_:
     /* 00034AA4: */    stw r31,0xC(r1)
     /* 00034AA8: */    lis r31,0x0                              [R_PPC_ADDR16_HA(41, 6, "loc_26C")]
     /* 00034AAC: */    addi r3,r31,0x0                          [R_PPC_ADDR16_LO(41, 6, "loc_26C")]
-    /* 00034AB0: */    li r4,0x27
-    /* 00034AB4: */    li r5,0x11
+    /* 00034AB0: */    li r4,WEAPON_HEAP_TYPE  
+    /* 00034AB4: */    li r5,0xf #0x11     # Use StageInstance cuz StageResource is auto full
     /* 00034AB8: */    bl wnemHeapModuleImpl____ct
     /* 00034ABC: */    addi r3,r31,0x0                          [R_PPC_ADDR16_LO(41, 6, "loc_26C")]
     /* 00034AC0: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 1, "wnemHeapModuleImpl____dt")]
@@ -55107,7 +55108,7 @@ loc_48364:
 # include "./Enemies/asm/emShelly.asm"
 # include "./Enemies/asm/emTeckin.asm"
 # include "./Enemies/asm/emSpar.asm"
-# include "./Enemies/asm/emHammerbros.asm"
+.include "./Enemies/asm/emHammerbros.asm"
 # include "./Enemies/asm/emKokkon.asm"
 # include "./Enemies/asm/emBombhead.asm"
 # include "./Enemies/asm/emNgagog.asm"
@@ -55131,7 +55132,7 @@ loc_48364:
 # include "./Enemies/asm/emPorky.asm"
 # include "./Enemies/asm/emMetaridley.asm"
 # include "./Enemies/asm/emFalconflyer.asm"
-# include "./Enemies/asm/emTaboo.asm"
+.include "./Enemies/asm/emTaboo.asm"
 # include "./Enemies/asm/emMasterhand.asm"
 # include "./Enemies/asm/emCrazyhand.asm"
 
