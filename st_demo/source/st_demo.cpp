@@ -42,7 +42,6 @@ void stDemo::notifyEventInfoGo() {
     }
     weaponManager->m_32 = false;
 
-    // TODO: Deallocate weapon stuff
 
     gfArchive* brres;
     gfArchive* param;
