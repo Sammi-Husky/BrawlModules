@@ -46,9 +46,9 @@ void stDemo::notifyEventInfoGo() {
     gfArchive* param;
     gfArchive* enmCommon;
     gfArchive* primFaceBrres;
-    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Kuribo); // Enemy_Kuribo
+    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Killer); // Enemy_Kuribo
     emManager* enemyManager = emManager::getInstance();
-    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Kuribo, true); // Enemy_Kuribo
+    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Killer, true); // Enemy_Kuribo
     OSReport("Enemy archive preloaded result: %d \n", result);
     this->isGo = true;
 };
@@ -64,31 +64,30 @@ void stDemo::update(float frameDiff)
             emCreate create;
             create.m_8 = 10000;
             create.m_difficultyLevel = 15;
-            create.m_enemyID = Enemy_Kuribo;
-            create.m_startingAction = 7;
-            create.m_24 = 0.0;
+            create.m_enemyID = Enemy_Killer;
+            create.m_startingAction = 6;
             create.m_facingDirection = 1.0;
-            create.m_32 = 1;
+            create.m_32 = 2; //1;
             create.m_36 = 0.0;
             create.m_posX1 = -create.m_spawnPos.x;
             create.m_posX2 = -create.m_spawnPos.x;
             create.m_posY1 = -create.m_spawnPos.y;
             create.m_posY1 = -create.m_spawnPos.y;
             create.m_connectedEnemyID = (EnemyID)0;
-            create.m_60 = NULL;
+            create.m_epbm = NULL;
             create.m_motionPath = NULL;
-            create.m_64 = 0;
+            create.m_epsp = NULL;
             create.m_72 = 0xFFFF;
-            create.m_spawnPos = positions[0];//{0.0, 5.0};
+            create.m_spawnPos = (Vec3f){positions[0].x, positions[0].y, 0.0};//{0.0, 5.0};
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
             //int result = enemyManager->createEnemy(&create);
 
             //create.m_startingAction = 6;
             //create.m_enemyID = Enemy_Killer;
             int result = enemyManager->createEnemy(&create);
-            create.m_spawnPos =  positions[1];
+            create.m_spawnPos =  (Vec3f){positions[1].x, positions[1].y, 0.0};
             enemyManager->createEnemy(&create);
-            create.m_spawnPos =  positions[2];
+            create.m_spawnPos =  (Vec3f){positions[2].x, positions[2].y, 0.0};
             enemyManager->createEnemy(&create);
             //OSReport("Enemy Create result: %d \n", result);
            /* create.m_spawnPos.x = -2.0;
