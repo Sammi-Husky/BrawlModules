@@ -26,30 +26,29 @@ bool stDemo::loading()
 void stDemo::notifyEventInfoGo() {
     emManager::create(0x1e,0x14,0);
     //gfHeapManager::dumpList();
-    emWeaponManager::create();
-    emWeaponManager* weaponManager = emWeaponManager::getInstance();
-    weaponManager->clean();
-    weaponManager->m_list1.m_last = NULL;
-    weaponManager->m_list1.m_first = NULL;
-    weaponManager->m_list1.m_length = 0;
-    weaponManager->m_list2.m_last = NULL;
-    weaponManager->m_list2.m_first = NULL;
-    weaponManager->m_list2.m_length = 0;
-    weaponManager->m_numStageObjects = 0xf; //0x1e;
-    weaponManager->m_stageObjects = new (Heaps::StageInstance) wnemSimple[weaponManager->m_numStageObjects];
-    for (int i = 0; i < weaponManager->m_numStageObjects; i++) {
-        weaponManager->m_list1.addTail(&weaponManager->m_stageObjects[i]);
-    }
-    weaponManager->m_32 = false;
-
+//    emWeaponManager::create();
+//    emWeaponManager* weaponManager = emWeaponManager::getInstance();
+//    weaponManager->clean();
+//    weaponManager->m_list1.m_last = NULL;
+//    weaponManager->m_list1.m_first = NULL;
+//    weaponManager->m_list1.m_length = 0;
+//    weaponManager->m_list2.m_last = NULL;
+//    weaponManager->m_list2.m_first = NULL;
+//    weaponManager->m_list2.m_length = 0;
+//    weaponManager->m_numStageObjects = 0xf; //0x1e;
+//    weaponManager->m_stageObjects = new (Heaps::StageInstance) wnemSimple[weaponManager->m_numStageObjects];
+//    for (int i = 0; i < weaponManager->m_numStageObjects; i++) {
+//        weaponManager->m_list1.addTail(&weaponManager->m_stageObjects[i]);
+//    }
+//    weaponManager->m_32 = false;
 
     gfArchive* brres;
     gfArchive* param;
     gfArchive* enmCommon;
     gfArchive* primFaceBrres;
-    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Taboo); // Enemy_Kuribo
+    this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, Enemy_Kuribo); // Enemy_Kuribo
     emManager* enemyManager = emManager::getInstance();
-    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Taboo, true); // Enemy_Kuribo
+    int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, Enemy_Kuribo, true); // Enemy_Kuribo
     OSReport("Enemy archive preloaded result: %d \n", result);
     this->isGo = true;
 };
@@ -57,7 +56,9 @@ void stDemo::notifyEventInfoGo() {
 void stDemo::update(float frameDiff)
 {
     if (this->isGo && !this->testCreated) {
-        if (this->timer > 300.0) {
+        if (this->timer > 120.0) { // TODO: Should just check if enemy has loaded first or keep trying till it's loaded
+            Vec2f* positions = (Vec2f*)this->stageData;
+
             this->testCreated = true;
             emManager* enemyManager = emManager::getInstance();
             emCreate create;
@@ -65,9 +66,8 @@ void stDemo::update(float frameDiff)
             create.m_difficultyLevel = 15;
             create.m_enemyID = Enemy_Kuribo;
             create.m_startingAction = 7;
-            create.m_spawnPos = (Vec2f) {0.0, 5.0};
             create.m_24 = 0.0;
-            create.m_12 = 1.0;
+            create.m_facingDirection = 1.0;
             create.m_32 = 1;
             create.m_36 = 0.0;
             create.m_posX1 = -create.m_spawnPos.x;
@@ -79,13 +79,18 @@ void stDemo::update(float frameDiff)
             create.m_motionPath = NULL;
             create.m_64 = 0;
             create.m_72 = 0xFFFF;
+            create.m_spawnPos = positions[0];//{0.0, 5.0};
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
             //int result = enemyManager->createEnemy(&create);
 
-            create.m_startingAction = 2;
-            create.m_enemyID = Enemy_Taboo;
+            //create.m_startingAction = 6;
+            //create.m_enemyID = Enemy_Killer;
             int result = enemyManager->createEnemy(&create);
-            OSReport("Enemy Create result: %d \n", result);
+            create.m_spawnPos =  positions[1];
+            enemyManager->createEnemy(&create);
+            create.m_spawnPos =  positions[2];
+            enemyManager->createEnemy(&create);
+            //OSReport("Enemy Create result: %d \n", result);
            /* create.m_spawnPos.x = -2.0;
             enemyManager->createEnemy(&create);
             create.m_spawnPos.x = -4.0;
@@ -102,6 +107,9 @@ void stDemo::update(float frameDiff)
             enemyManager->createEnemy(&create);*/
 
             gfHeapManager::dumpList();
+
+            Vec3f test = {0,0,0};
+            test *= 5;
 
         }
         else {
