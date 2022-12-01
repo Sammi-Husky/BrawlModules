@@ -27,11 +27,6 @@ struct grAdventureElevatorData {
     SndID sndIDs[4];
 };
 
-struct grGimmickEventElevatorInfo : soGimmickEventInfo {
-    bool canGoUp;
-    bool canGoDown;
-};
-
 class grAdventureElevator : public grYakumono {
 protected:
     grAdventureElevatorData* elevatorData;

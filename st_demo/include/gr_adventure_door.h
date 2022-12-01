@@ -62,11 +62,6 @@ struct grGimmickDoorData {
     float difficultyMotionRatios[15];
 };
 
-struct grGimmickEventDoorInfo : soGimmickEventInfo {
-    Vec3f pos;
-    bool unk2;
-};
-
 class grAdventureDoor : public grYakumono {
 protected:
     DoorState state : 8;
