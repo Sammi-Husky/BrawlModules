@@ -99,19 +99,19 @@ void grAdventureElevator::onGimmickEvent(soGimmickEventInfo* eventInfo, int* tas
 {
     grGimmickEventElevatorInfo* elevatorEventInfo = (grGimmickEventElevatorInfo*)eventInfo;
     if (this->state == Elevator_State_Rest) {
-        switch(elevatorEventInfo->state) {
+        switch(elevatorEventInfo->m_state) {
             case 0x2b:
                 if (this->prevFloor + 1 < this->numFloors) {
-                    elevatorEventInfo->canGoUp = true;
+                    elevatorEventInfo->m_canGoUp = true;
                 }
                 else {
-                    elevatorEventInfo->canGoUp = false;
+                    elevatorEventInfo->m_canGoUp = false;
                 }
                 if (this->prevFloor == 0) {
-                    elevatorEventInfo->canGoDown = false;
+                    elevatorEventInfo->m_canGoDown = false;
                 }
                 else {
-                    elevatorEventInfo->canGoDown = true;
+                    elevatorEventInfo->m_canGoDown = true;
                 }
                 break;
             case 0x2c:

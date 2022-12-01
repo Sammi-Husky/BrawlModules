@@ -114,25 +114,25 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 
     if (this->doorData->doorGimmickKind == Door_GimmickKind_Unk)
     {
-        if (doorEventInfo->state == 0x32)
+        if (doorEventInfo->m_state == 0x32)
         {
             // stAdventure2::requestStepJump(g_stAdventure2,(this->_).jumpData)
         }
     }
-    else if (doorEventInfo->state == 0x11)
+    else if (doorEventInfo->m_state == 0x11)
     {
-        doorEventInfo->pos = this->getPos();
+        doorEventInfo->m_pos = this->getPos();
         if (this->doorData->doorType == Effect_Door)
         {
-            doorEventInfo->unk2 = true;
+            doorEventInfo->m_unk2 = true;
         }
         else
         {
-            doorEventInfo->unk2 = false;
+            doorEventInfo->m_unk2 = false;
         }
         if (this->doorData->doorGimmickKind == Door_GimmickKind_Ground)
         {
-            doorEventInfo->pos.y += 6.5;
+            doorEventInfo->m_pos.y += 6.5;
         }
         if (this->gimmickMotionPath != NULL)
         {
