@@ -61,17 +61,6 @@ struct grGimmickBarrelCannnonPathData : grGimmickBarrelCannnonData {
     grGimmickMotionPathData shootMotionPathData;
 };
 
-struct grGimmickEventBarrelCannonInfo : soGimmickEventInfo {
-    Vec3f pos;
-    unsigned int field_0x14;
-    soCollisionAttackData* attackData;
-    float shootSpeed;
-    float rot;
-    float shootTimerSpeed;
-    float shootAngleOffset;
-    float shootStunTimerSpeed;
-};
-
 enum BarrelCannonPlayerState {
     BarrelCannon_PlayerState_Invalid = 0x0,
     BarrelCannon_PlayerState_Enter = 0x1,
