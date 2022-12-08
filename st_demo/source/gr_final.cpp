@@ -1,6 +1,6 @@
 #include "gr_final.h"
 #include <OS/OSError.h>
-#include <ec_mgr.h>
+#include <ec/ec_mgr.h>
 #include <memory.h>
 
 grFinal* grFinal::create(int mdlIndex, char* tgtNodeName, char* taskName)
@@ -90,7 +90,6 @@ void grFinal::setGimmickData(void* gimmickData)
     this->gimmickData = gimmickData;
 }
 
-extern ecMgr* g_ecMgr;
 void grFinal::updateEff()
 {
     if (this->type == 0)

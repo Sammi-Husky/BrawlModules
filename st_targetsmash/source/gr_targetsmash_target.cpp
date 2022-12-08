@@ -1,5 +1,5 @@
 #include <memory.h>
-#include <ec_mgr.h>
+#include <ec/ec_mgr.h>
 #include "gr_targetsmash_target.h"
 #include <OS/OSError.h>
 
