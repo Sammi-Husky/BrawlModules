@@ -60,5 +60,6 @@ public:
     virtual ~stTargetSmash() { this->releaseArchive(); };
 
     void createObjAshiba(int mdlIndex);
+    void createObjGrass(int mdlIndex);
 
 };

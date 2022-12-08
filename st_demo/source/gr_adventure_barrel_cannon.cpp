@@ -1,6 +1,6 @@
 #include "gr_adventure_barrel_cannon.h"
 #include <OS/OSError.h>
-#include <ec_mgr.h>
+#include <ec/ec_mgr.h>
 #include <gr/gr_visible_production_effect.h>
 #include <memory.h>
 #include <hk/hk_math.h>
