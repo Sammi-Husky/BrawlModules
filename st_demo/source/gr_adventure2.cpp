@@ -36,7 +36,7 @@ bool grAdventure2::setNode()
     int modelCount = this->getModelCount();
     for (int i = 0; i < 4; i++) {
         for (int modelIndex = 0; modelIndex < modelCount; modelIndex++) {
-            if (this->backgrounds[i]->setBackGround(this->sceneModels[modelIndex])) {
+            if (this->backgrounds[i]->setBackGround(this->m_sceneModels[modelIndex])) {
                 break;
             }
         }

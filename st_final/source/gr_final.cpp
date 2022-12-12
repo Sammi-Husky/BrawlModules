@@ -42,19 +42,19 @@ void grFinal::setInitializeFlag()
 }
 void grFinal::disableCalcCollision()
 {
-    this->calcCollisionEnable &= 0xf7;
+    this->m_calcCollisionEnable &= 0xf7;
 }
 void grFinal::enableCalcCollision()
 {
-    this->calcCollisionEnable |= 8;
+    this->m_calcCollisionEnable |= 8;
 }
 bool grFinal::isEnableCalcCollision()
 {
-    return this->calcCollisionEnable >> 3 & 1;
+    return this->m_calcCollisionEnable >> 3 & 1;
 }
 short grFinal::getMdlIndex()
 {
-    return this->mdlIndex;
+    return this->m_mdlIndex;
 }
 // TODO
 // possibly has params. unused in stFinal though.
@@ -64,13 +64,13 @@ void grFinal::initStageData()
 }
 void* grFinal::getStageData()
 {
-    return this->stageData;
+    return this->m_stageData;
 }
 int grFinal::getModelCount()
 {
-    if (resFile.IsValid())
+    if (m_resFile.IsValid())
     {
-        return resFile.GetResMdlNumEntries();
+        return m_resFile.GetResMdlNumEntries();
     }
     return 0;
 }
@@ -82,11 +82,11 @@ char grFinal::getTransparencyFlag()
 
 void* grFinal::getGimmickData()
 {
-    return this->gimmickData;
+    return this->m_gimmickData;
 }
 void grFinal::setGimmickData(void* gimmickData)
 {
-    this->gimmickData = gimmickData;
+    this->m_gimmickData = gimmickData;
 }
 
 void grFinal::updateEff()
@@ -108,7 +108,7 @@ void grFinal::updateEff()
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330002);
                 g_ecMgr->setDrawPrio(0xffffffff);
-                g_ecMgr->setParent(unk, this->sceneModels[0], "spaceB", 0); // sceneModel is actually supposed to be a wrapper of some kind
+                g_ecMgr->setParent(unk, this->m_sceneModels[0], "spaceB", 0); // sceneModel is actually supposed to be a wrapper of some kind
                 step++;
             }
             break;
@@ -118,7 +118,7 @@ void grFinal::updateEff()
                 g_ecMgr->setDrawPrio(1);
                 u32 unk = g_ecMgr->setEffect(0x330003);
                 g_ecMgr->setDrawPrio(0xffffffff);
-                g_ecMgr->setParent(unk, this->sceneModels[0], "spaceF", 0); // sceneModel is actually supposed to be a wrapper of some kind
+                g_ecMgr->setParent(unk, this->m_sceneModels[0], "spaceF", 0); // sceneModel is actually supposed to be a wrapper of some kind
                 step++;
             }
             break;

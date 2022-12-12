@@ -21,14 +21,14 @@ void stFinal::update(float deltaFrame)
 
 void stFinal::createObj()
 {
-    testStageParamInit(fileData, 0xA);
-    testStageDataInit(fileData, 0x14, 1);
+    testStageParamInit(m_fileData, 0xA);
+    testStageDataInit(m_fileData, 0x14, 1);
     grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(fileData, 0, 0);
-        ground->setStageData(stageData);
+        ground->startup(m_fileData, 0, 0);
+        ground->setStageData(m_stageData);
         ground->setType(0);
         ground->setDontMoveGround();
     }
@@ -36,14 +36,14 @@ void stFinal::createObj()
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(fileData, 0, 0);
-        ground->setStageData(stageData);
+        ground->startup(m_fileData, 0, 0);
+        ground->setStageData(m_stageData);
         ground->setType(1);
         ground->setDontMoveGround();
     }
-    createCollision(fileData, 2, NULL);
+    createCollision(m_fileData, 2, NULL);
     initCameraParam();
-    void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
     if (posData == NULL)
     {
         // if no stgPos model in pac, use defaults
@@ -55,16 +55,16 @@ void stFinal::createObj()
         createStagePositions(&posData);
     }
     createWind2ndOnly();
-    loadStageAttrParam(fileData, 0x1E);
-    void* scnData = fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
+    loadStageAttrParam(m_fileData, 0x1E);
+    void* scnData = m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
     registSceneAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
-    createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
+    createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
 }
 
 void Ground::setStageData(void* stageData)
 {
-    this->stageData = stageData;
+    this->m_stageData = stageData;
 }
 void stFinal::startFighterEvent()
 {
@@ -96,11 +96,11 @@ void stFinal::notifyTimmingGameStart()
 }
 float stFinal::getFrameRuleTime()
 {
-    return this->frameRuleTime;
+    return this->m_frameRuleTime;
 }
 void stFinal::setFrameRuleTime(float newTime)
 {
-    this->frameRuleTime = newTime;
+    this->m_frameRuleTime = newTime;
 }
 bool stFinal::isNextStepBgmEqualNowStepBgmFromFlag()
 {
@@ -116,18 +116,18 @@ float stFinal::getBgmVolume()
 }
 void stFinal::setBgmChange(float unk, u32 unk1, u32 unk2)
 {
-    this->unk2 = unk1;
-    this->unk3 = unk2;
-    this->unk4 = unk;
+    this->m_unk2 = unk1;
+    this->m_unk3 = unk2;
+    this->m_unk4 = unk;
 }
 void stFinal::getBgmChangeID(u32 unk1, float unk2)
 {
-    unk1 = this->unk3;
-    unk2 = this->unk4;
+    unk1 = this->m_unk3;
+    unk2 = this->m_unk4;
 }
 bool stFinal::isBgmChange()
 {
-    return this->unk2;
+    return this->m_unk2;
 }
 int stFinal::getBgmOptionID()
 {

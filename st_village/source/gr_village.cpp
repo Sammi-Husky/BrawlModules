@@ -42,9 +42,9 @@ void grVillage::update(float deltaFrame)
 {
     grGimmick::update(deltaFrame);
 
-    if (this->unk3)
+    if (unk3)
     {
-        this->updateVisible(unk1);
+        this->updateVisible(m_unk1);
     }
 }
 void grVillage::updateVisible(float unk1)
@@ -85,19 +85,19 @@ void grVillage::setInitializeFlag()
 }
 void grVillage::disableCalcCollision()
 {
-    this->calcCollisionEnable &= 0xf7;
+    this->m_calcCollisionEnable &= 0xf7;
 }
 void grVillage::enableCalcCollision()
 {
-    this->calcCollisionEnable |= 8;
+    this->m_calcCollisionEnable |= 8;
 }
 bool grVillage::isEnableCalcCollision()
 {
-    return this->calcCollisionEnable >> 3 & 1;
+    return this->m_calcCollisionEnable >> 3 & 1;
 }
 short grVillage::getMdlIndex()
 {
-    return this->mdlIndex;
+    return this->m_mdlIndex;
 }
 // TODO
 // possibly has params. unused in stFinal though.
@@ -107,13 +107,13 @@ void grVillage::initStageData()
 }
 void* grVillage::getStageData()
 {
-    return this->stageData;
+    return this->m_stageData;
 }
 int grVillage::getModelCount()
 {
-    if (resFile.IsValid())
+    if (m_resFile.IsValid())
     {
-        return resFile.GetResMdlNumEntries();
+        return m_resFile.GetResMdlNumEntries();
     }
     return 0;
 }
@@ -125,9 +125,9 @@ char grVillage::getTransparencyFlag()
 
 void* grVillage::getGimmickData()
 {
-    return this->gimmickData;
+    return this->m_gimmickData;
 }
 void grVillage::setGimmickData(void* data)
 {
-    this->gimmickData = data;
+    this->m_gimmickData = data;
 }
