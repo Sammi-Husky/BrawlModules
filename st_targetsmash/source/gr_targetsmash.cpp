@@ -8,7 +8,7 @@ grTargetSmash* grTargetSmash::create(int mdlIndex, char* tgtNodeName, char* task
     grTargetSmash* ground = new (Heaps::StageInstance) grTargetSmash(taskName);
     ground->setupMelee();
     ground->setMdlIndex(mdlIndex);
-    ground->heapType = Heaps::StageInstance;
+    ground->m_heapType = Heaps::StageInstance;
     ground->makeCalcuCallback(1, Heaps::StageInstance);
     ground->setCalcuCallbackRoot(7);
 

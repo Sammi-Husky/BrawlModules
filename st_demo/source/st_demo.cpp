@@ -57,7 +57,7 @@ void stDemo::update(float frameDiff)
 {
     if (this->isGo && !this->testCreated) {
         if (this->timer > 120.0) { // TODO: Should just check if enemy has loaded first or keep trying till it's loaded
-            Vec2f* positions = (Vec2f*)this->stageData;
+            Vec2f* positions = (Vec2f*)this->m_stageData;
 
             this->testCreated = true;
             emManager* enemyManager = emManager::getInstance();
@@ -69,25 +69,25 @@ void stDemo::update(float frameDiff)
             create.m_facingDirection = 1.0;
             create.m_32 = 2; //1;
             create.m_36 = 0.0;
-            create.m_posX1 = -create.m_spawnPos.x;
-            create.m_posX2 = -create.m_spawnPos.x;
-            create.m_posY1 = -create.m_spawnPos.y;
-            create.m_posY1 = -create.m_spawnPos.y;
+            create.m_posX1 = -create.m_spawnPos.m_x;
+            create.m_posX2 = -create.m_spawnPos.m_x;
+            create.m_posY1 = -create.m_spawnPos.m_y;
+            create.m_posY1 = -create.m_spawnPos.m_y;
             create.m_connectedEnemyID = (EnemyID)0;
             create.m_epbm = NULL;
             create.m_motionPath = NULL;
             create.m_epsp = NULL;
             create.m_72 = 0xFFFF;
-            create.m_spawnPos = (Vec3f){positions[0].x, positions[0].y, 0.0};//{0.0, 5.0};
+            create.m_spawnPos = (Vec3f){positions[0].m_x, positions[0].m_y, 0.0};//{0.0, 5.0};
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
             //int result = enemyManager->createEnemy(&create);
 
             //create.m_startingAction = 6;
             //create.m_enemyID = Enemy_Killer;
             int result = enemyManager->createEnemy(&create);
-            create.m_spawnPos =  (Vec3f){positions[1].x, positions[1].y, 0.0};
+            create.m_spawnPos =  (Vec3f){positions[1].m_x, positions[1].m_y, 0.0};
             enemyManager->createEnemy(&create);
-            create.m_spawnPos =  (Vec3f){positions[2].x, positions[2].y, 0.0};
+            create.m_spawnPos =  (Vec3f){positions[2].m_x, positions[2].m_y, 0.0};
             enemyManager->createEnemy(&create);
             //OSReport("Enemy Create result: %d \n", result);
            /* create.m_spawnPos.x = -2.0;
@@ -125,10 +125,10 @@ void stDemo::createObj()
     gfModuleManager::LoadRequestResult requestResult;
     gfModuleManager::loadModuleRequest(&requestResult, moduleManager, "sora_enemy_vs.rel", Heaps::OverlayStage, 1, 0);
 
-    this->doorData.motionPathData.motionRatio = 1.0;
-    this->doorData.motionPathData.index = 0;
-    this->doorData.motionPathData.field_0x5 = 1;
-    this->doorData.motionPathData.mdlIndex = 0xFF;
+    this->doorData.motionPathData.m_motionRatio = 1.0;
+    this->doorData.motionPathData.m_index = 0;
+    this->doorData.motionPathData.m_0x5 = 1;
+    this->doorData.motionPathData.m_mdlIndex = 0xFF;
     this->doorData.motionPathData._padding = 0x0;
     this->doorData._spacer[7] = 0x12;
     this->doorData.field_0x20 = 0;
@@ -143,24 +143,24 @@ void stDemo::createObj()
     this->doorData._spacer2 = 0x1;
     this->doorData.mdlIndex = 0x66;
     this->doorData.field_0x37 = 0x1;
-    this->doorData.pos.x = 0.0;
-    this->doorData.pos.y = 0.0;
+    this->doorData.pos.m_x = 0.0;
+    this->doorData.pos.m_y = 0.0;
     this->doorData.openDoorTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
     this->doorData.doorType = Normal_Door;
     this->doorData.sndID = snd_se_AllStar_Heal_Warp; //snd_se_invalid;
     this->doorData.motionPathTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
     this->doorData.isValidTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
 
-    this->cannonData.motionPathData.motionRatio = 1.0;
-    this->cannonData.motionPathData.index = 0;
-    this->cannonData.motionPathData.field_0x5 = 1;
-    this->cannonData.motionPathData.mdlIndex = 0xFF;
+    this->cannonData.motionPathData.m_motionRatio = 1.0;
+    this->cannonData.motionPathData.m_index = 0;
+    this->cannonData.motionPathData.m_0x5 = 1;
+    this->cannonData.motionPathData.m_mdlIndex = 0xFF;
     this->cannonData.motionPathData._padding = 0x0;
     this->cannonData._spacer[7] = 0x12;
     this->cannonData.field_0x28 = 20.0;
     this->cannonData.field_0x2c = 15.0;
-    this->cannonData.pos.x = 0.0;
-    this->cannonData.pos.y = 50.0;
+    this->cannonData.pos.m_x = 0.0;
+    this->cannonData.pos.m_y = 50.0;
     this->cannonData.rot = 0.0;
     this->cannonData.maxRot = 62.0;
     this->cannonData.difficultyRotateSpeeds[0] = 0.0;
@@ -174,29 +174,30 @@ void stDemo::createObj()
     this->cannonData.enterCannonTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
     this->cannonData.motionPathTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
     this->cannonData.isValidTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
-    this->cannonData.attackData.unk1 = this->cannonData.attackData.offsetPos.x = 0.0;
-    this->cannonData.attackData.offsetPos.y = 0.0;
-    this->cannonData.attackData.offsetPos.z = 0.0;
-    this->cannonData.attackData.size = 10.0;
-    this->cannonData.attackData.vector = 169;
-    this->cannonData.attackData.reactionEffect = 19;
-    this->cannonData.attackData.reactionFix = 0;
-    this->cannonData.attackData.reactionAdd = 5;
+    this->cannonData.attackData.m_unk1 = 0;
+    this->cannonData.attackData.m_offsetPos.m_x = 0.0;
+    this->cannonData.attackData.m_offsetPos.m_y = 0.0;
+    this->cannonData.attackData.m_offsetPos.m_z = 0.0;
+    this->cannonData.attackData.m_size = 10.0;
+    this->cannonData.attackData.m_vector = 169;
+    this->cannonData.attackData.m_reactionEffect = 19;
+    this->cannonData.attackData.m_reactionFix = 0;
+    this->cannonData.attackData.m_reactionAdd = 5;
     //char _spacer[4];
-    this->cannonData.attackData.elementType = Element_Type_Normal;
-    this->cannonData.attackData.isClankable = false;
-    this->cannonData.attackData.unk2 = false;
-    this->cannonData.attackData.unk3 = true;
-    this->cannonData.attackData.unk4 = true;
+    this->cannonData.attackData.m_elementType = Element_Type_Normal;
+    this->cannonData.attackData.m_isClankable = false;
+    this->cannonData.attackData.m_unk2 = false;
+    this->cannonData.attackData.m_unk3 = true;
+    this->cannonData.attackData.m_unk4 = true;
     //char _spacer2[0xC];
-    this->cannonData.attackData.detectionRate = 0x3c;
-    this->cannonData.attackData.hitSoundLevel = Hit_Sound_Level_Medium;
-    this->cannonData.attackData.hitSoundType = Hit_Sound_Type_Punch;
-    this->cannonData.attackData.unk5 = false;
-    this->cannonData.attackData.isShapeCapsule = false;
+    this->cannonData.attackData.m_detectionRate = 0x3c;
+    this->cannonData.attackData.m_hitSoundLevel = Hit_Sound_Level_Medium;
+    this->cannonData.attackData.m_hitSoundType = Hit_Sound_Type_Punch;
+    this->cannonData.attackData.m_unk5 = false;
+    this->cannonData.attackData.m_isShapeCapsule = false;
     //char _spacer3[6];
-    this->cannonData.attackData.nodeIndex = 0;
-    this->cannonData.attackData.power = 0x1E;
+    this->cannonData.attackData.m_nodeIndex = 0;
+    this->cannonData.attackData.m_power = 0x1E;
     this->cannonData.shootSpeed = 5.0;
     this->cannonData.shootTimerSpeed = 0.075;
     this->cannonData.shootAngleOffset = 10;
@@ -216,14 +217,14 @@ void stDemo::createObj()
     this->elevatorData.sndIDs[2] = snd_se_invalid;
     this->elevatorData.sndIDs[3] = snd_se_ADVstage_36_0_ELV_STOP;
 
-    testStageParamInit(fileData, 0xA);
-    testStageDataInit(fileData, 0x14, 1);
+    testStageParamInit(m_fileData, 0xA);
+    testStageDataInit(m_fileData, 0x14, 1);
     grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(fileData, 0, 0);
-        ground->setStageData(stageData);
+        ground->startup(m_fileData, 0, 0);
+        ground->setStageData(m_stageData);
         ground->setType(0);
         ground->setDontMoveGround();
     }
@@ -231,8 +232,8 @@ void stDemo::createObj()
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(fileData, 0, 0);
-        ground->setStageData(stageData);
+        ground->startup(m_fileData, 0, 0);
+        ground->setStageData(m_stageData);
         ground->setType(1);
         ground->setDontMoveGround();
     }
@@ -242,7 +243,7 @@ void stDemo::createObj()
     {
         addGround(door);
         door->setGimmickData(&this->doorData);
-        door->startup(fileData, 0, 0);
+        door->startup(m_fileData, 0, 0);
     }
 
     grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(this->cannonData.mdlIndex, BarrelCannon_GimmickKind_Static, "grAdventureBarrelCannon");
@@ -250,7 +251,7 @@ void stDemo::createObj()
     {
         addGround(cannon);
         cannon->setGimmickData(&this->cannonData);
-        cannon->startup(fileData, 0, 0);
+        cannon->startup(m_fileData, 0, 0);
     }
 
     grAdventureElevator* elevator = grAdventureElevator::create(this->elevatorData.mdlIndex, "grAdventureElevator");
@@ -258,13 +259,13 @@ void stDemo::createObj()
     {
         addGround(elevator);
         elevator->setGimmickData(&this->elevatorData);
-        elevator->startup(fileData, 0, 0);
-        createCollision(fileData, this->elevatorData.collIndex, elevator);
+        elevator->startup(m_fileData, 0, 0);
+        createCollision(m_fileData, this->elevatorData.collIndex, elevator);
     }
 
-    createCollision(fileData, 2, NULL);
+    createCollision(m_fileData, 2, NULL);
     initCameraParam();
-    void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
     if (posData == NULL)
     {
         // if no stgPos model in pac, use defaults
@@ -276,11 +277,11 @@ void stDemo::createObj()
         createStagePositions(&posData);
     }
     createWind2ndOnly();
-    loadStageAttrParam(fileData, 0x1E);
-    void* scnData = fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
+    loadStageAttrParam(m_fileData, 0x1E);
+    void* scnData = m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
     registSceneAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
-    createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
+    createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
 }
 
 void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyID enemyID) {
@@ -291,17 +292,17 @@ void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCo
     *enmCommon = NULL;
     *primFaceBrres = NULL;
 
-    void* brresData = this->secondaryFileData->getData(DATA_TYPE_MISC, fileIndex + 1, &nodeSize, (u32)0xfffe);
+    void* brresData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, fileIndex + 1, &nodeSize, (u32)0xfffe);
     *brres = new (Heaps::StageInstance) gfArchive();
     (*brres)->setFileImage(brresData, nodeSize, Heaps::StageResource);
     this->enemyArchives[0] = *brres;
 
-    void* paramData = this->secondaryFileData->getData(DATA_TYPE_MISC, fileIndex, &nodeSize, (u32)0xfffe);
+    void* paramData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, fileIndex, &nodeSize, (u32)0xfffe);
     *param = new (Heaps::StageInstance) gfArchive();
     (*param)->setFileImage(paramData, nodeSize, Heaps::StageResource);
     this->enemyArchives[1] = *param;
 
-    void* enmCommonData = this->secondaryFileData->getData(DATA_TYPE_MISC, 300, &nodeSize, (u32)0xfffe);
+    void* enmCommonData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, 300, &nodeSize, (u32)0xfffe);
     *enmCommon = new (Heaps::StageInstance) gfArchive();
     (*enmCommon)->setFileImage(enmCommonData, nodeSize, Heaps::StageResource);
     this->enemyCommonArchive = *enmCommon;
@@ -341,7 +342,7 @@ void stDemo::clearHeap() {
 
 void Ground::setStageData(void* stageData)
 {
-    this->stageData = stageData;
+    this->m_stageData = stageData;
 }
 void stDemo::startFighterEvent()
 {
@@ -373,11 +374,11 @@ void stDemo::notifyTimmingGameStart()
 }
 float stDemo::getFrameRuleTime()
 {
-    return this->frameRuleTime;
+    return this->m_frameRuleTime;
 }
 void stDemo::setFrameRuleTime(float newTime)
 {
-    this->frameRuleTime = newTime;
+    this->m_frameRuleTime = newTime;
 }
 bool stDemo::isNextStepBgmEqualNowStepBgmFromFlag()
 {
@@ -393,18 +394,18 @@ float stDemo::getBgmVolume()
 }
 void stDemo::setBgmChange(float unk, u32 unk1, u32 unk2)
 {
-    this->unk2 = unk1;
-    this->unk3 = unk2;
-    this->unk4 = unk;
+    this->m_unk2 = unk1;
+    this->m_unk3 = unk2;
+    this->m_unk4 = unk;
 }
 void stDemo::getBgmChangeID(u32 unk1, float unk2)
 {
-    unk1 = this->unk3;
-    unk2 = this->unk4;
+    unk1 = this->m_unk3;
+    unk2 = this->m_unk4;
 }
 bool stDemo::isBgmChange()
 {
-    return this->unk2;
+    return this->m_unk2;
 }
 int stDemo::getBgmOptionID()
 {

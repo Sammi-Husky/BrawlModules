@@ -16,33 +16,31 @@ grAdventureDoor* grAdventureDoor::create(int mdlIndex, u32 jumpData, char* taskN
 void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
 {
     grYakumono::startup(archive, unk1, unk2);
-    this->doorData = (grGimmickDoorData*)this->gimmickData;
+    this->doorData = (grGimmickDoorData*)this->m_gimmickData;
     switch (this->doorData->doorGimmickKind)
     {
     case Door_GimmickKind_Air:
-        this->gimmickKind = Gimmick_Kind_DoorAir;
+        this->gimmickKind = GimmickKind_DoorAir;
         break;
     case Door_GimmickKind_GroundAuto:
-        this->gimmickKind = Gimmick_Kind_DoorGroundAuto;
+        this->gimmickKind = GimmickKind_DoorGroundAuto;
         break;
     case Door_GimmickKind_Unk:
-        this->gimmickKind = Gimmick_Kind_DoorUnk;
+        this->gimmickKind = GimmickKind_DoorUnk;
         break;
     default:
         break;
     }
 
-    if (this->modelAnims != NULL)
+    if (this->m_modelAnims != NULL)
     {
-        (this->modelAnims[0])->unbindNodeAnim(this->sceneModels[0]);
+        (this->m_modelAnims[0])->unbindNodeAnim(this->m_sceneModels[0]);
     }
     this->makeCalcuCallback(1, Heaps::StageInstance);
     this->setCalcuCallbackRoot(7);
     if (this->doorData->doorGimmickKind != Door_GimmickKind_Unk)
     {
-        this->calcWorldCallBack.nodeCallbackDataArray->m_scale.x = 1.1;
-        this->calcWorldCallBack.nodeCallbackDataArray->m_scale.y = 1.1;
-        this->calcWorldCallBack.nodeCallbackDataArray->m_scale.z = 1.0;
+        this->m_calcWorldCallBack.m_nodeCallbackDataArray->m_scale = (Vec3f){1.1, 1.1, 1.0};
     }
     this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20,
                                    this->doorData->field_0x24,
@@ -52,24 +50,24 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->doorData->motionPathData, 0x01000000, 0, 0, 0, 0, 0, 0 };
     this->createAttachMotionPath(&motionPathInfo, &this->doorData->motionPathTriggerData, "path_locator");
     stTrigger* trigger = g_stTriggerMng->createTrigger(this->gimmickKind, -1);
-    trigger->setObserveYakumono(this->yakumono);
-    this->setPos(this->doorData->pos.x, this->doorData->pos.y, 0);
+    trigger->setObserveYakumono(this->m_yakumono);
+    this->setPos(this->doorData->pos.m_x, this->doorData->pos.m_y, 0);
     this->setRot(0, 0, 0);
     grGimmickSimpleEffectData simpleEffectData;
     this->createSimpleEffectData(&simpleEffectData, 0x103001d, "effect_locator");
     u32 visProdIndex = 4;
-    this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->visibleProductions);
+    this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->m_visibleProductions);
     this->createIsValidTrigger(&this->doorData->isValidTriggerData);
     if (this->doorData->doorType == Effect_Door)
     {
         this->createEffectWork(1);
-        this->effects[0].id = 0x103000c;
-        this->effects[0].field_0x10 = 0;
-        this->effects[0].nodeIndex = this->getNodeIndex(0, "effect_locator");
-        this->effects[0].field_0x14 = 0;
-        this->effects[0].field_0x1c = 0.0;
-        this->effects[0].field_0x20 = 0.0;
-        this->effects[0].field_0x24 = 1.0;
+        this->m_effects[0].m_id = 0x103000c;
+        this->m_effects[0].m_0x10 = 0;
+        this->m_effects[0].m_nodeIndex = this->getNodeIndex(0, "effect_locator");
+        this->m_effects[0].m_0x14 = 0;
+        this->m_effects[0].m_0x1c = 0.0;
+        this->m_effects[0].m_0x20 = 0.0;
+        this->m_effects[0].m_0x24 = 1.0;
         this->screenFadeFrames = 100.0;
     }
 }
@@ -132,18 +130,18 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
         }
         if (this->doorData->doorGimmickKind == Door_GimmickKind_Ground)
         {
-            doorEventInfo->m_pos.y += 6.5;
+            doorEventInfo->m_pos.m_y += 6.5;
         }
-        if (this->gimmickMotionPath != NULL)
+        if (this->m_gimmickMotionPath != NULL)
         {
-            this->gimmickMotionPath->setFrameUpdate(0);
+            this->m_gimmickMotionPath->setFrameUpdate(0);
         }
         this->openTheDoor();
         // stAdventure2::notifyEntryDoor(g_stAdventure2);
         // stAreaManager::eraseAll(g_stAreaManager)
-        g_stTriggerMng->createTrigger(Gimmick_Kind_DoorGround, &this->doorData->openDoorTriggerData);
+        g_stTriggerMng->createTrigger(GimmickKind_DoorGround, &this->doorData->openDoorTriggerData);
         g_stTriggerMng->setTriggerFlag(&this->doorData->openDoorTriggerData);
-        this->motionRatio = 1.0;
+        this->m_motionRatio = 1.0;
         if (this->doorData->doorType == Yellow_Door || this->doorData->doorType == Unk_Door)
         {
             GXColor fillColor = { 0xff, 0xff, 0xff, 0xff };
@@ -183,7 +181,7 @@ void grAdventureDoor::setJumpData(u32 jumpData)
 
 void grAdventureDoor::openTheDoor()
 {
-    if (this->modelAnims[0]->resFile.GetResAnmChrNumEntries() > 0)
+    if (this->m_modelAnims[0]->m_resFile.GetResAnmChrNumEntries() > 0)
     {
         this->changeNodeAnim(0, 0);
     }

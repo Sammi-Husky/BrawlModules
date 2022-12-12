@@ -33,9 +33,9 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
         lastTask->unk_0x24 = this->elevatorPosGround;
     }
     this->elevatorPosGround->startup(archive, unk1, unk2);
-    if (this->modelAnims != NULL)
+    if (this->m_modelAnims != NULL)
     {
-        (this->modelAnims[0])->unbindNodeAnim(this->sceneModels[0]);
+        (this->m_modelAnims[0])->unbindNodeAnim(this->m_sceneModels[0]);
     }
     this->makeCalcuCallback(1, Heaps::StageInstance);
     this->setCalcuCallbackRoot(1);
@@ -52,17 +52,17 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
                                    this->elevatorData->field_0x20,
                                    this->elevatorData->field_0x24};
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);
-    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick_Kind_Elevator, -1);
-    trigger->setObserveYakumono(this->yakumono);
+    stTrigger* trigger = g_stTriggerMng->createTrigger(GimmickKind_Elevator, -1);
+    trigger->setObserveYakumono(this->m_yakumono);
     this->createSoundWork(4,1);
     for (int i = 0; i < 4; i++) {
         if (this->elevatorData->sndIDs[i] > 0) {
-            this->soundEffects[i].id = this->elevatorData->sndIDs[i];
-            this->soundEffects[i].field_0x10 = 0;
-            this->soundEffects[i].nodeIndex = 0;
-            this->soundEffects[i].field_0x14 = 0;
-            this->soundEffects[i].field_0x1c = 0.0;
-            this->soundEffects[i].field_0x20 = 0.0;
+            this->m_soundEffects[i].m_id = this->elevatorData->sndIDs[i];
+            this->m_soundEffects[i].m_0x10 = 0;
+            this->m_soundEffects[i].m_nodeIndex = 0;
+            this->m_soundEffects[i].m_0x14 = 0;
+            this->m_soundEffects[i].m_0x1c = 0.0;
+            this->m_soundEffects[i].m_0x20 = 0.0;
         }
     }
 
@@ -149,7 +149,7 @@ void grAdventureElevator::setMoveParameter(Vec3f* targetPos)
     this->targetPos = *targetPos;
     this->distanceFromPrevFloor = 0.0;
     Vec3f currentPos = this->getPos();
-    this->distanceToNextFloor = targetPos->y - currentPos.y;
+    this->distanceToNextFloor = targetPos->m_y - currentPos.m_y;
     if (hkMath::fabs(this->distanceToNextFloor) <= this->maxDistanceForAccel * 2.0) {
         this->distanceForAccel = this->distanceToNextFloor * 0.5;
     }
@@ -171,11 +171,11 @@ void grAdventureElevator::setMoveParameter(Vec3f* targetPos)
 
 void grAdventureElevator::getFloorData()
 {
-    nw4r::g3d::ResMdl resMdl = this->elevatorPosGround->sceneModels[0]->resMdl;
+    nw4r::g3d::ResMdl resMdl = this->elevatorPosGround->m_sceneModels[0]->m_resMdl;
     int numEntries = resMdl.GetResNodeNumEntries();
     this->numFloors = numEntries - 1;
     nw4r::g3d::ResNode resNode = resMdl.GetResNode((u64)0);
-    this->prevFloor = resNode.ptr()->m_rotation.y; // Get starting floor index from y rotation of first node
+    this->prevFloor = resNode.ptr()->m_rotation.m_y; // Get starting floor index from y rotation of first node
 
     //this->floorPositions = new (Heaps::StageInstance) Vec3f[this->numFloors];
     //for (int nodeIndex = 1; nodeIndex < numEntries; nodeIndex++) {
@@ -233,7 +233,7 @@ void grAdventureElevator::moveFloor()
     }
     else this->speed += this->deltaSpeed;
     Vec3f pos = this->getPos();
-    pos.y += this->speed;
+    pos.m_y += this->speed;
     float remainingTime = this->timeToNextFloor - this->timeSinceStartedMoving;
     this->distanceFromPrevFloor += this->speed;
     this->distanceToNextFloor -= this->speed;
@@ -241,7 +241,7 @@ void grAdventureElevator::moveFloor()
         this->startGimmickSE(3);
     }
     if ((prevSpeed < 0.0 && this->speed >= 0.0) || (prevSpeed > 0.0 && this->speed <= 0.0) || hkMath::fabs(this->distanceToNextFloor) < hkMath::fabs(this->speed)) {
-        pos.y = this->targetPos.y;
+        pos.m_y = this->targetPos.m_y;
         this->state = Elevator_State_Stop;
         this->timeSinceStartedMoving = 0.0;
         this->prevFloor = this->nextFloor;

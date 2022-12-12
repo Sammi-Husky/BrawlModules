@@ -1,5 +1,5 @@
 #include "st_targetsmash.h"
-#include "gr_targetsmash.h"
+#include "gr_targetsmash_target.h"
 #include <memory.h>
 #include <st/st_class_info.h>
 
@@ -21,13 +21,14 @@ void stTargetSmash::update(float deltaFrame)
 
 void stTargetSmash::createObj()
 {
-    testStageParamInit(fileData, 0xA);
-    testStageDataInit(fileData, 0x14, 1);
-    this->createObjAshiba(2);
+    testStageParamInit(m_fileData, 0xA);
+    testStageDataInit(m_fileData, 0x14, 1);
+    this->createObjAshiba(0);
+    this->createObjTarget(1);
 
-    createCollision(fileData, 2, NULL);
+    createCollision(m_fileData, 2, NULL);
     initCameraParam();
-    void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
     if (posData == NULL)
     {
         // if no stgPos model in pac, use defaults
@@ -39,26 +40,37 @@ void stTargetSmash::createObj()
         createStagePositions(&posData);
     }
     createWind2ndOnly();
-    loadStageAttrParam(fileData, 0x1E);
-    void* scnData = fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
+    loadStageAttrParam(m_fileData, 50);
+    void* scnData = m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
     registSceneAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
-    createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
+    createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
 }
 
 void stTargetSmash::createObjAshiba(int mdlIndex) {
-    grTargetSmash* ground = grTargetSmash::create(2, "", "grTargetSmashAshiba");
+    grTargetSmash* ground = grTargetSmash::create(mdlIndex, "", "grTargetSmashAshiba");
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(fileData, 0, 0);
-        ground->setStageData(stageData);
+        ground->startup(m_fileData, 0, 0);
+        ground->setStageData(m_stageData);
+    }
+}
+
+void stTargetSmash::createObjTarget(int mdlIndex) {
+    grTargetSmashTarget* target = grTargetSmashTarget::create(mdlIndex, "", "grTargetSmashTarget");
+    if(target != NULL){
+        addGround(target);
+        target->setStageData(m_stageData);
+        target->startup(this->m_fileData,0,0);
+        target->initializeEntity();
+        target->startEntity();
     }
 }
 
 void Ground::setStageData(void* stageData)
 {
-    this->stageData = stageData;
+    this->m_stageData = stageData;
 }
 void stTargetSmash::startFighterEvent()
 {
@@ -90,11 +102,11 @@ void stTargetSmash::notifyTimmingGameStart()
 }
 float stTargetSmash::getFrameRuleTime()
 {
-    return this->frameRuleTime;
+    return this->m_frameRuleTime;
 }
 void stTargetSmash::setFrameRuleTime(float newTime)
 {
-    this->frameRuleTime = newTime;
+    this->m_frameRuleTime = newTime;
 }
 bool stTargetSmash::isNextStepBgmEqualNowStepBgmFromFlag()
 {
@@ -110,18 +122,18 @@ float stTargetSmash::getBgmVolume()
 }
 void stTargetSmash::setBgmChange(float unk, u32 unk1, u32 unk2)
 {
-    this->unk2 = unk1;
-    this->unk3 = unk2;
-    this->unk4 = unk;
+    this->m_unk2 = unk1;
+    this->m_unk3 = unk2;
+    this->m_unk4 = unk;
 }
 void stTargetSmash::getBgmChangeID(u32 unk1, float unk2)
 {
-    unk1 = this->unk3;
-    unk2 = this->unk4;
+    unk1 = this->m_unk3;
+    unk2 = this->m_unk4;
 }
 bool stTargetSmash::isBgmChange()
 {
-    return this->unk2;
+    return this->m_unk2;
 }
 int stTargetSmash::getBgmOptionID()
 {

@@ -60,8 +60,8 @@ public:
         numFloors = 0;
         prevFloor = 0;
         timeToNextFloor = 0.0;
-        areaInfo.numHitGroups = 0;
-        areaInfo.hitGroupsInfo = NULL;
+        areaInfo.m_numHitGroups = 0;
+        areaInfo.m_hitGroupsInfo = NULL;
     };
     virtual void processFixPosition();
     virtual void update(float deltaFrame);

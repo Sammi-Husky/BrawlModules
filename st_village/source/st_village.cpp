@@ -32,8 +32,8 @@ void stVillage::update(float deltaFrame)
 extern sndSystem* g_sndSystem;
 void stVillage::createObj()
 {
-    testStageParamInit(fileData, 0xA);
-    testStageDataInit(fileData, 0x14, 0x48);
+    testStageParamInit(m_fileData, 0xA);
+    testStageDataInit(m_fileData, 0x14, 0x48);
     this->initStageDataTbl();
     this->selectScene();
     this->createObjBg(0x0);
@@ -53,10 +53,10 @@ void stVillage::createObj()
     this->createObjBalloon(0xE); // TODO
     // this->createObjGuest();            // TODO
 
-    createCollision(this->fileData, 2, 0);
+    createCollision(this->m_fileData, 2, 0);
     this->initCameraParam();
 
-    void* posData = fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
     if (posData == NULL)
     {
         // if no stgPos model in pac, use defaults
@@ -68,13 +68,13 @@ void stVillage::createObj()
     }
 
     createWind2ndOnly();
-    loadStageAttrParam(fileData, 0x1E);
+    loadStageAttrParam(m_fileData, 0x1E);
 
-    void* scnData = fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
+    void* scnData = m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
     registSceneAnim(scnData, this->scene);
 
     initPosPokeTrainer(1, 0);
-    createObjPokeTrainer(fileData, 0x65, "PokeTrainer00", this->unk, 0x0);
+    createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
 
     switch (this->scene)
     {
@@ -123,8 +123,8 @@ void stVillage::createObjBg(int index)
     if (bg != NULL)
     {
         this->addGround(bg);
-        bg->startup(fileData, 0, 0);
-        bg->setStageData(stageData);
+        bg->startup(m_fileData, 0, 0);
+        bg->setStageData(m_stageData);
         bg->setSceneWork((u32*)&this->scene);
         bg->setSceneBit(sceneBit);
         bg->setStateWork((u32*)&this->state);
@@ -140,15 +140,15 @@ void stVillage::createObjSky(int index)
             return;
 
         this->addGround(sky);
-        sky->startup(fileData, 0, 0);
-        sky->setStageData(stageData);
+        sky->startup(m_fileData, 0, 0);
+        sky->setStageData(m_stageData);
         sky->setSceneWork((u32*)&this->scene);
         sky->setStateWork((u32*)&this->state);
     }
 }
 void stVillage::createObjGuestPathMove(int index)
 {
-    void* data = this->stageData;
+    void* data = this->m_stageData;
     if (data == NULL)
         return;
 
@@ -187,8 +187,8 @@ void stVillage::createObjGuestPathMove(int index)
     if (guestPath != NULL)
     {
         this->addGround(guestPath);
-        guestPath->startup(this->fileData, 0, 0);
-        guestPath->setStageData(this->stageData);
+        guestPath->startup(this->m_fileData, 0, 0);
+        guestPath->setStageData(this->m_stageData);
         guestPath->setSceneWork((u32*)&this->scene);
         guestPath->setStateWork(stateWork);
         guestPath->setType(type);
@@ -204,14 +204,14 @@ void stVillage::createObjBalloon(int index)
 }
 void stVillage::initStageDataTbl()
 {
-    if (fileData != NULL)
+    if (m_fileData != NULL)
     {
-        void* data = fileData->getData(DATA_TYPE_MISC, 0x15, 0xfffe);
+        void* data = m_fileData->getData(DATA_TYPE_MISC, 0x15, 0xfffe);
         if (data != NULL)
         {
             this->dataTbl1 = stDataMultiContainer::create(data, Heaps::StageInstance);
         }
-        data = fileData->getData(DATA_TYPE_MISC, 0x16, 0xfffe);
+        data = m_fileData->getData(DATA_TYPE_MISC, 0x16, 0xfffe);
         if (data != NULL)
         {
             this->dataTbl2 = stDataMultiContainer::create(data, Heaps::StageInstance);
@@ -219,7 +219,6 @@ void stVillage::initStageDataTbl()
     }
 }
 
-extern GameGlobal* g_gameGlobal;
 void stVillage::selectScene()
 {
     gmGlobalModeMelee* globalMode = g_gameGlobal->m_globalMode;
@@ -264,7 +263,7 @@ void stVillage::setLive(u32 live)
 }
 void Ground::setStageData(void* stageData)
 {
-    this->stageData = stageData;
+    this->m_stageData = stageData;
 }
 void stVillage::startFighterEvent()
 {
@@ -296,11 +295,11 @@ void stVillage::notifyTimmingGameStart()
 }
 float stVillage::getFrameRuleTime()
 {
-    return this->frameRuleTime;
+    return this->m_frameRuleTime;
 }
 void stVillage::setFrameRuleTime(float newTime)
 {
-    this->frameRuleTime = newTime;
+    this->m_frameRuleTime = newTime;
 }
 bool stVillage::isNextStepBgmEqualNowStepBgmFromFlag()
 {
@@ -316,18 +315,18 @@ float stVillage::getBgmVolume()
 }
 void stVillage::setBgmChange(float unk, u32 unk1, u32 unk2)
 {
-    this->unk2 = unk1;
-    this->unk3 = unk2;
-    this->unk4 = unk;
+    this->m_unk2 = unk1;
+    this->m_unk3 = unk2;
+    this->m_unk4 = unk;
 }
 void stVillage::getBgmChangeID(u32 unk1, float unk2)
 {
-    unk1 = this->unk3;
-    unk2 = this->unk4;
+    unk1 = this->m_unk3;
+    unk2 = this->m_unk4;
 }
 bool stVillage::isBgmChange()
 {
-    return this->unk2;
+    return this->m_unk2;
 }
 int stVillage::getBgmOptionID()
 {

@@ -108,7 +108,7 @@ void grVillageGuestPathMove::setMotion(u32 unk1, u32 unk2, u32 unk3, float* unkF
 }
 void grVillageGuestPathMove::setMotionRatio(float ratio)
 {
-    this->motionRatio = ratio;
+    this->m_motionRatio = ratio;
 }
 void grVillageGuestPathMove::setType(u32 type)
 {

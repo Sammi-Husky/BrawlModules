@@ -23,11 +23,11 @@ void grVillageSky::changeColor()
         ResMatTevColor skyColor;
         ResMatTevColor cloudColor;
 
-        nw4r::g3d::ScnMdl* model = *this->sceneModels;
+        nw4r::g3d::ScnMdl* model = this->m_sceneModels[0];
         if (model != NULL)
         {
-            skyMat = model->resMdl.GetResMat("enkeiSky");
-            cloudMat = model->resMdl.GetResMat("enkeiCloud");
+            skyMat = model->m_resMdl.GetResMat("enkeiSky");
+            cloudMat = model->m_resMdl.GetResMat("enkeiCloud");
         }
 
         if (skyMat.IsValid() && cloudMat.IsValid())

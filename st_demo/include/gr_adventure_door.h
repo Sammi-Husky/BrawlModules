@@ -97,9 +97,9 @@ public:
         screenFadeFrames = 50.0;
         doorData = NULL;
         jumpData = 0;
-        gimmickKind = Gimmick_Kind_DoorGround;
-        areaInfo.numHitGroups = 0;
-        areaInfo.hitGroupsInfo = NULL;
+        gimmickKind = GimmickKind_DoorGround;
+        areaInfo.m_numHitGroups = 0;
+        areaInfo.m_hitGroupsInfo = NULL;
     };
     virtual void update(float deltaFrame);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
