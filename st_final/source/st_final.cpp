@@ -161,7 +161,7 @@ int stFinal::getDefaultLightSetIndex()
 }
 stRange* stFinal::getAIRange()
 {
-    return (u32) & this->aiRange;
+    return &this->aiRange;
 }
 bool stFinal::isAdventureStage()
 {
