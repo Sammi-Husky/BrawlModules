@@ -437,7 +437,7 @@ int stDemo::getDefaultLightSetIndex()
 {
     return 0x14;
 }
-int stDemo::getAIRange()
+stRange* stDemo::getAIRange()
 {
     return (u32) & this->aiRange;
 }

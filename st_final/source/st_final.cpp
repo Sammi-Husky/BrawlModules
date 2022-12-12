@@ -159,7 +159,7 @@ int stFinal::getDefaultLightSetIndex()
 {
     return 0x14;
 }
-int stFinal::getAIRange()
+stRange* stFinal::getAIRange()
 {
     return (u32) & this->aiRange;
 }
