@@ -29,13 +29,30 @@ void grTargetSmashTarget::startup(gfArchive* data, u32 unk1, u32 unk2) {
 
 }
 
+void grTargetSmashTarget::update(float deltaFrame) {
+
+}
+
 void grTargetSmashTarget::setupHitPoint() {
     Vec3f startOffsetPos = {0,0,0};
     Vec3f endOffsetPos = {0,0,0};
     this->setHitPoint(7.0, &startOffsetPos, &endOffsetPos, 1, 0);
 }
 
-void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
+void grTargetSmashTarget::setTargetPosition(grTargetSmash* targetPositions, u16 nodeIndex, int motionPathIndex) {
+    // TODO: Also keep effect index
+    this->targetPositions = targetPositions;
+    this->nodeIndex = nodeIndex;
+    Vec3f pos;
+    this->targetPositions->getNodePosition(&pos, 0, nodeIndex);
+    this->setPos(&pos);
+}
 
+void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
+    this->deleteHitPoint();
+    this->startGimmickSE(0);
+    Vec3f pos = this->getPos();
+    g_ecMgr->setEffect(0x12b0001, &pos);
+    this->setMotion(1);
 }
 
