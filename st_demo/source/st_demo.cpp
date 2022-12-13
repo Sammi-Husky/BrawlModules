@@ -439,7 +439,7 @@ int stDemo::getDefaultLightSetIndex()
 }
 stRange* stDemo::getAIRange()
 {
-    return &this->aiRange;
+    return &this->m_aiRange;
 }
 bool stDemo::isAdventureStage()
 {
