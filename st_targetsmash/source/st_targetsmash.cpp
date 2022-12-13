@@ -167,7 +167,7 @@ int stTargetSmash::getDefaultLightSetIndex()
 }
 stRange* stTargetSmash::getAIRange()
 {
-    return &this->aiRange;
+    return &this->m_aiRange;
 }
 bool stTargetSmash::isAdventureStage()
 {
