@@ -15,4 +15,6 @@ grTargetSmash* grTargetSmash::create(int mdlIndex, char* tgtNodeName, char* task
     return ground;
 }
 
-
+u32 grTargetSmash::getNumTargets() {
+    return this->m_sceneModels[0]->m_resMdl.GetResNodeNumEntries() - 1;
+}

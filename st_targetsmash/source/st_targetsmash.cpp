@@ -1,5 +1,4 @@
 #include "st_targetsmash.h"
-#include "gr_targetsmash_target.h"
 #include <memory.h>
 #include <st/st_class_info.h>
 
@@ -24,7 +23,6 @@ void stTargetSmash::createObj()
     testStageParamInit(m_fileData, 0xA);
     testStageDataInit(m_fileData, 0x14, 1);
     this->createObjAshiba(0);
-    this->createObjTarget(1);
 
     createCollision(m_fileData, 2, NULL);
     initCameraParam();
@@ -54,10 +52,17 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         addGround(ground);
         ground->startup(m_fileData, 0, 0);
         ground->setStageData(m_stageData);
+        u32 numTargets = ground->getNumTargets();
+        for (int i = 0; i < numTargets; i++) {
+            Vec3f scale;
+            ground->getNodeScale(&scale, 0, i + 1);
+            this->createObjTarget(scale.m_z, ground, i + 1, -1);
+        }
+
     }
 }
 
-void stTargetSmash::createObjTarget(int mdlIndex) {
+void stTargetSmash::createObjTarget(int mdlIndex, grTargetSmash* targetPositions, u16 nodeIndex, int motionPathIndex) {
     grTargetSmashTarget* target = grTargetSmashTarget::create(mdlIndex, "", "grTargetSmashTarget");
     if(target != NULL){
         addGround(target);
@@ -65,6 +70,7 @@ void stTargetSmash::createObjTarget(int mdlIndex) {
         target->startup(this->m_fileData,0,0);
         target->initializeEntity();
         target->startEntity();
+        target->setTargetPosition(targetPositions, nodeIndex, motionPathIndex);
     }
 }
 

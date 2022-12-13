@@ -4,6 +4,7 @@
 #include <st/st_data_container.h>
 #include <st/st_melee.h>
 #include <types.h>
+#include "gr_targetsmash_target.h"
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
@@ -60,6 +61,6 @@ public:
     virtual ~stTargetSmash() { this->releaseArchive(); };
 
     void createObjAshiba(int mdlIndex);
-    void createObjTarget(int mdlIndex);
+    void createObjTarget(int mdlIndex, grTargetSmash* targetPositions, u16 nodeIndex, int motionPathIndex);
 
 };
