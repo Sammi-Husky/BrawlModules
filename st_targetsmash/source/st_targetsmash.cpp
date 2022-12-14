@@ -56,7 +56,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         for (int i = 0; i < numTargets; i++) {
             Vec3f scale;
             ground->getNodeScale(&scale, 0, i + 1);
-            this->createObjTarget(scale.m_z, ground, i + 1, -1);
+            this->createObjTarget(scale.m_x, ground, i + 1, scale.m_y);
         }
 
     }
@@ -67,10 +67,8 @@ void stTargetSmash::createObjTarget(int mdlIndex, grTargetSmash* targetPositions
     if(target != NULL){
         addGround(target);
         target->setStageData(m_stageData);
-        target->startup(this->m_fileData,0,0);
-        target->initializeEntity();
-        target->startEntity();
         target->setTargetPosition(targetPositions, nodeIndex, motionPathIndex);
+        target->startup(this->m_fileData,0,0);
     }
 }
 

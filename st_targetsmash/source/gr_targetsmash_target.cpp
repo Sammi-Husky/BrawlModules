@@ -17,8 +17,8 @@ grTargetSmashTarget* grTargetSmashTarget::create(int mdlIndex, char* tgtNodeName
     return target;
 }
 
-void grTargetSmashTarget::startup(gfArchive* data, u32 unk1, u32 unk2) {
-    grMadein::startup(data, unk1, unk2);
+void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
+    grMadein::startup(archive, unk1, unk2);
     this->createSoundWork(1,1);
     this->m_soundEffects[0].m_id = snd_se_Target_Break;
     this->m_soundEffects[0].m_nodeIndex = 0;
@@ -27,10 +27,20 @@ void grTargetSmashTarget::startup(gfArchive* data, u32 unk1, u32 unk2) {
     this->m_soundEffects[0].m_0x1c = 0.0;
     this->m_soundEffects[0].m_0x20 = 0.0;
 
+    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, 0x01000000, 0, 0, 0, 0, 0, 0 };
+    stTrigger::TriggerData triggerData = (stTrigger::TriggerData){0,0,1,0};
+    this->createAttachMotionPath(&motionPathInfo, &triggerData, "TargetNode");
+
+    this->initializeEntity();
+    this->startEntity();
+
+    Vec3f pos;
+    this->targetPositions->getNodePosition(&pos, 0, nodeIndex);
+    this->setPos(&pos);
 }
 
 void grTargetSmashTarget::update(float deltaFrame) {
-
+    grMadein::update(deltaFrame);
 }
 
 void grTargetSmashTarget::setupHitPoint() {
@@ -43,9 +53,12 @@ void grTargetSmashTarget::setTargetPosition(grTargetSmash* targetPositions, u16 
     // TODO: Also keep effect index
     this->targetPositions = targetPositions;
     this->nodeIndex = nodeIndex;
-    Vec3f pos;
-    this->targetPositions->getNodePosition(&pos, 0, nodeIndex);
-    this->setPos(&pos);
+
+    this->motionPathData.m_motionRatio = 1.0;
+    this->motionPathData.m_index = 0;
+    this->motionPathData.m_0x5 = 1;
+    this->motionPathData.m_mdlIndex = motionPathIndex;
+    this->motionPathData._padding = 0x0;
 }
 
 void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
