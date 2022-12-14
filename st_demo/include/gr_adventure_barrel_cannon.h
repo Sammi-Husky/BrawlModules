@@ -5,7 +5,7 @@
 #include <st/st_trigger.h>
 #include <snd/snd_system.h>
 
-#define NUM_PLAYERS 4
+#define NUM_PLAYERS 8
 
 enum BarrelCannonGimmickKind {
     BarrelCannon_GimmickKind_Static = 0x0,

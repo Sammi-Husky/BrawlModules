@@ -221,6 +221,9 @@ void grAdventureBarrelCannon::processFixPosition() {
                             }
                             this->cannonPlayerInfos[i].frame += cannonPathData->shootMotionPathData.m_motionRatio;
                         }
+                        this->isRotate = this->cannonData->alwaysRotate;
+                        this->startGimmickEffect(0);
+                        this->startGimmickSE(1);
                     }
                     break;
                 case BarrelCannon_PlayerState_Path:
