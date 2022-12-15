@@ -411,9 +411,6 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
     attackData.m_bits.isCollisionCategory2 = true;
     attackData.m_bits.isCollisionCategory1 = true;
     attackData.m_bits.isCollisionCategory0 = true;
-    attackData.m_bits.isCollisionSituationUnk = true;
-    attackData.m_bits.isCollisionSituationAir = true;
-    attackData.m_bits.isCollisionSituationGround = true;
     attackData.m_bits.field_0x30_3 = false;
     attackData.m_bits.isCollisionPartRegion3 = true;
     attackData.m_bits.isCollisionPartRegion2 = true;
@@ -430,6 +427,9 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
     attackData.m_bits.isAbsorbable = false;
     attackData.m_bits.field_0x34_8 = 0;
     this->setSoCollisionAttackData(&attackData, &this->cannonData->attackData, 0);
+    attackData.m_bits.isCollisionSituationODD = true;
+    attackData.m_bits.isCollisionSituationAir = true;
+    attackData.m_bits.isCollisionSituationGround = true;
 
     grGimmickEventBarrelCannonInfo cannonEventInfo;
     cannonEventInfo.m_state = 4;

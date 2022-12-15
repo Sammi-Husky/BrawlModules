@@ -179,10 +179,10 @@ void stDemo::createObj()
     this->cannonData.attackData.m_offsetPos.m_y = 0.0;
     this->cannonData.attackData.m_offsetPos.m_z = 0.0;
     this->cannonData.attackData.m_size = 10.0;
-    this->cannonData.attackData.m_vector = 169;
-    this->cannonData.attackData.m_reactionEffect = 19;
+    this->cannonData.attackData.m_vector = 0x169;
+    this->cannonData.attackData.m_reactionEffect = 0x19;
     this->cannonData.attackData.m_reactionFix = 0;
-    this->cannonData.attackData.m_reactionAdd = 5;
+    this->cannonData.attackData.m_reactionAdd = 0x5;
     //char _spacer[4];
     this->cannonData.attackData.m_elementType = Element_Type_Normal;
     this->cannonData.attackData.m_isClankable = false;
