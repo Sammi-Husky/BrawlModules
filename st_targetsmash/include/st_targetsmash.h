@@ -4,6 +4,8 @@
 #include <st/st_data_container.h>
 #include <st/st_melee.h>
 #include <types.h>
+#include <mt/mt_vector.h>
+#include "gr_targetsmash.h"
 #include "gr_targetsmash_target.h"
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
@@ -14,12 +16,12 @@ const float UNK_FLOAT1 = 0.0f;
 
 class stTargetSmash : public stMelee {
 protected:
-
+    bool isItemsInitialized;
 
 public:
     stTargetSmash() : stMelee("stTargetSmash", 0x21)
     {
-
+        isItemsInitialized = false;
     };
     static stTargetSmash* create();
     int getWind2ndOnlyData();
@@ -62,5 +64,6 @@ public:
 
     void createObjAshiba(int mdlIndex);
     void createObjTarget(int mdlIndex, grTargetSmash* targetPositions, u16 nodeIndex, int motionPathIndex);
+    void putItem(int itemID, u32 variantID, Vec3f* pos);
 
 };
