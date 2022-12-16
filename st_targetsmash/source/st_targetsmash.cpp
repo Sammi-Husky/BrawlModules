@@ -1,6 +1,7 @@
 #include "st_targetsmash.h"
 #include <memory.h>
 #include <st/st_class_info.h>
+#include <it/it_manager.h>
 
 static stClassInfoImpl<2, stTargetSmash> classInfo = stClassInfoImpl<2, stTargetSmash>();
 
@@ -15,7 +16,19 @@ bool stTargetSmash::loading()
 }
 void stTargetSmash::update(float deltaFrame)
 {
-    return;
+    if (!this->isItemsInitialized) {
+        Ground* ground = this->getGround(0);
+        u32 itemsIndex = ground->getNodeIndex(0, "Items");
+        u32 endIndex = ground->getNodeIndex(0, "End");
+        for (int i = itemsIndex + 1; i < endIndex; i++) {
+            Vec3f scale;
+            ground->getNodeScale(&scale, 0, i);
+            Vec3f pos;
+            ground->getNodePosition(&pos, 0, i);
+            this->putItem(scale.m_x, scale.m_y, &pos);
+        }
+        this->isItemsInitialized = true;
+    }
 }
 
 void stTargetSmash::createObj()
@@ -52,13 +65,13 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         addGround(ground);
         ground->startup(m_fileData, 0, 0);
         ground->setStageData(m_stageData);
-        u32 numTargets = ground->getNumTargets();
-        for (int i = 0; i < numTargets; i++) {
+        u32 targetsIndex = ground->getNodeIndex(0, "Targets");
+        u32 itemsIndex = ground->getNodeIndex(0, "Items");
+        for (int i = targetsIndex + 1; i < itemsIndex; i++) {
             Vec3f scale;
-            ground->getNodeScale(&scale, 0, i + 1);
-            this->createObjTarget(scale.m_x, ground, i + 1, scale.m_y);
+            ground->getNodeScale(&scale, 0, i);
+            this->createObjTarget(scale.m_x, ground, i, scale.m_y);
         }
-
     }
 }
 
@@ -67,8 +80,23 @@ void stTargetSmash::createObjTarget(int mdlIndex, grTargetSmash* targetPositions
     if(target != NULL){
         addGround(target);
         target->setStageData(m_stageData);
-        target->setTargetPosition(targetPositions, nodeIndex, motionPathIndex);
+        target->setTargetInfo(motionPathIndex);
         target->startup(this->m_fileData,0,0);
+        Vec3f pos;
+        targetPositions->getNodePosition(&pos, 0, nodeIndex);
+        target->setPos(&pos);
+    }
+}
+
+void stTargetSmash::putItem(int itemID, u32 variantID, Vec3f* pos) {
+    // TODO: Allow pokemon/assists/custom stage items
+    itManager* itemManager = itManager::getInstance();
+    if (itemManager->isCompItemKindArchive((itKind)itemID, variantID, true)) {
+        BaseItem* item = itemManager->createItem((itKind)itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
+        if (item != NULL) {
+            item->warp(pos);
+            item->setVanishMode(false);
+        }
     }
 }
 

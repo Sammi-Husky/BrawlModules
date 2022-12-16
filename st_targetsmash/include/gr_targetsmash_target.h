@@ -1,13 +1,11 @@
 #pragma once
 
-#include "gr_targetsmash.h"
+#include <gr/gr_madein.h>
 
 class grTargetSmashTarget : public grMadein
 {
     protected:
         grGimmickMotionPathData motionPathData;
-        grTargetSmash* targetPositions;
-        u16 nodeIndex;
     public:
         grTargetSmashTarget(char* taskName) : grMadein(taskName) {
         };
@@ -16,7 +14,7 @@ class grTargetSmashTarget : public grMadein
         virtual void update(float deltaFrame);
         virtual void onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo);
         virtual void setupHitPoint();
-        virtual void setTargetPosition(grTargetSmash* targetPositions, u16 nodeIndex, int motionPathIndex);
+        virtual void setTargetInfo(int motionPathIndex);
 
         static grTargetSmashTarget* create(int mdlIndex, char* tgtNodeName, char* taskName);
 
