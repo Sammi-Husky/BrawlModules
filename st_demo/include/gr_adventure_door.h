@@ -31,10 +31,8 @@ enum DoorType {
 struct grGimmickDoorData {
     grGimmickMotionPathData motionPathData;
     char _spacer[20];
-    float field_0x20;
-    float field_0x24;
-    float field_0x28;
-    float field_0x2c;
+    Vec2f areaOffsetPos;
+    Vec2f areaRange;
     union {
         struct
         {

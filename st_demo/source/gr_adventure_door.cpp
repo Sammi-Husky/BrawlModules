@@ -42,10 +42,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     {
         this->m_calcWorldCallBack.m_nodeCallbackDataArray->m_scale = (Vec3f){1.1, 1.1, 1.0};
     }
-    this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->field_0x20,
-                                   this->doorData->field_0x24,
-                                   this->doorData->field_0x28,
-                                   this->doorData->field_0x2c };
+    this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->areaOffsetPos, this->doorData->areaRange };
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->doorData->motionPathData, 0x01000000, 0, 0, 0, 0, 0, 0 };
     this->createAttachMotionPath(&motionPathInfo, &this->doorData->motionPathTriggerData, "path_locator");

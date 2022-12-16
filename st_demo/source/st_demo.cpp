@@ -131,10 +131,8 @@ void stDemo::createObj()
     this->doorData.motionPathData.m_mdlIndex = 0xFF;
     this->doorData.motionPathData._padding = 0x0;
     this->doorData._spacer[7] = 0x12;
-    this->doorData.field_0x20 = 0;
-    this->doorData.field_0x24 = 10.0;
-    this->doorData.field_0x28 = 20.0;
-    this->doorData.field_0x2c = 20.0;
+    this->doorData.areaOffsetPos = (Vec2f){0, 10.0};
+    this->doorData.areaRange = (Vec2f){20.0, 20.0};
     this->doorData.levelId = 0x04;
     this->doorData.levelSequenceId = 0x0;
     this->doorData.levelSegmentId = 0x1;
@@ -157,8 +155,7 @@ void stDemo::createObj()
     this->cannonData.motionPathData.m_mdlIndex = 0xFF;
     this->cannonData.motionPathData._padding = 0x0;
     this->cannonData._spacer[7] = 0x12;
-    this->cannonData.field_0x28 = 20.0;
-    this->cannonData.field_0x2c = 15.0;
+    this->cannonData.areaRange = (Vec2f){20.0, 15.0};
     this->cannonData.pos.m_x = 0.0;
     this->cannonData.pos.m_y = 50.0;
     this->cannonData.rot = 0.0;
@@ -203,10 +200,8 @@ void stDemo::createObj()
     this->cannonData.shootAngleOffset = 10;
     this->cannonData.shootStunTimerSpeed = 0.25;
 
-    this->elevatorData.field_0x18 = 0.0;
-    this->elevatorData.field_0x1c = 25.0;
-    this->elevatorData.field_0x20 = 30.0;
-    this->elevatorData.field_0x24 = 65.0;
+    this->elevatorData.areaOffsetPos = (Vec2f){0.0, 25.0};
+    this->elevatorData.areaRange = (Vec2f){30.0, 65.0};
     this->elevatorData.speed = 0.5; // 2.5
     this->elevatorData.deltaSpeed = 0.1; // 0.2
     this->elevatorData.mdlIndex = 105;
