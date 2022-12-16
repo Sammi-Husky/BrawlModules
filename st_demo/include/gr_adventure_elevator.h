@@ -14,10 +14,8 @@ enum ElevatorState {
 
 struct grAdventureElevatorData {
     char _spacer[24];
-    float field_0x18;
-    float field_0x1c;
-    float field_0x20;
-    float field_0x24;
+    Vec2f areaOffsetPos;
+    Vec2f areaRange;
     float speed;
     float deltaSpeed;
     u8 mdlIndex;
