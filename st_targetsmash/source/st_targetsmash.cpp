@@ -56,6 +56,8 @@ void stTargetSmash::createObj()
     registSceneAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
+
+    this->setStageAttackData((grGimmickDamageFloor*)this->m_stageData, 0);
 }
 
 void stTargetSmash::createObjAshiba(int mdlIndex) {

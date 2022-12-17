@@ -75,7 +75,7 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
     }
     trigger->setObserveYakumono(this->m_yakumono);
     this->createEffectWork(1);
-    grGimmickSimpleEffectData simpleEffectData;
+    SimpleEffectData simpleEffectData;
     this->createSimpleEffectData(&simpleEffectData, 0x1030001, "FighterPos");
     if (0 < simpleEffectData.m_id) {
         this->m_effects[0].m_id = simpleEffectData.m_id;

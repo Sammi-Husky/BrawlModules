@@ -50,7 +50,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     trigger->setObserveYakumono(this->m_yakumono);
     this->setPos(this->doorData->pos.m_x, this->doorData->pos.m_y, 0);
     this->setRot(0, 0, 0);
-    grGimmickSimpleEffectData simpleEffectData;
+    SimpleEffectData simpleEffectData;
     this->createSimpleEffectData(&simpleEffectData, 0x103001d, "effect_locator");
     u32 visProdIndex = 4;
     this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->m_visibleProductions);
