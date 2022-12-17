@@ -171,7 +171,7 @@ void stDemo::createObj()
     this->cannonData.enterCannonTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
     this->cannonData.motionPathTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
     this->cannonData.isValidTriggerData = (stTrigger::TriggerData){ 0, 1, 0 };
-    this->cannonData.attackData.m_unk1 = 0;
+    this->cannonData.attackData.m_damage = 0;
     this->cannonData.attackData.m_offsetPos.m_x = 0.0;
     this->cannonData.attackData.m_offsetPos.m_y = 0.0;
     this->cannonData.attackData.m_offsetPos.m_z = 0.0;
