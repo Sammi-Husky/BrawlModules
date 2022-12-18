@@ -35,9 +35,10 @@ void stTargetSmash::createObj()
 {
     testStageParamInit(m_fileData, 0xA);
     testStageDataInit(m_fileData, 0x14, 1);
-    this->createObjAshiba(0);
 
+    this->createObjAshiba(0);
     createCollision(m_fileData, 2, NULL);
+
     initCameraParam();
     void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
     if (posData == NULL)
@@ -68,25 +69,45 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         ground->startup(m_fileData, 0, 0);
         ground->setStageData(m_stageData);
         u32 targetsIndex = ground->getNodeIndex(0, "Targets");
+        u32 springsIndex = ground->getNodeIndex(0, "Springs");
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
-        for (int i = targetsIndex + 1; i < itemsIndex; i++) {
+        for (int i = targetsIndex + 1; i < springsIndex; i++) {
             Vec3f scale;
             ground->getNodeScale(&scale, 0, i);
-            this->createObjTarget(scale.m_x, ground, i, scale.m_y);
+            Vec3f pos;
+            ground->getNodePosition(&pos, 0, i);
+            this->createObjTarget(scale.m_x, &pos, scale.m_y);
+        }
+        for (int i = springsIndex + 1; i < itemsIndex; i++) {
+            Vec3f scale;
+            ground->getNodeScale(&scale, 0, i);
+            Vec3f pos;
+            ground->getNodePosition(&pos, 0, i);
+            this->createObjSpring(scale.m_x, pos.m_z, &pos, 0.0, scale.m_y);
         }
     }
 }
 
-void stTargetSmash::createObjTarget(int mdlIndex, grTargetSmash* targetPositions, u16 nodeIndex, int motionPathIndex) {
+void stTargetSmash::createObjTarget(int mdlIndex, Vec3f* pos, int motionPathIndex) {
     grTargetSmashTarget* target = grTargetSmashTarget::create(mdlIndex, "", "grTargetSmashTarget");
     if(target != NULL){
         addGround(target);
         target->setStageData(m_stageData);
         target->setTargetInfo(motionPathIndex);
         target->startup(this->m_fileData,0,0);
-        Vec3f pos;
-        targetPositions->getNodePosition(&pos, 0, nodeIndex);
-        target->setPos(&pos);
+        target->setPos(pos);
+    }
+}
+
+void stTargetSmash::createObjSpring(int mdlIndex, int collIndex, Vec3f* pos, float rot, int motionPathIndex) {
+    grTargetSmashSpring* spring = grTargetSmashSpring::create(mdlIndex, "grTargetSmashTarget");
+    if (spring != NULL) {
+        addGround(spring);
+        this->springData.m_pos = (Vec2f){pos->m_x, pos->m_y};
+        this->springData.m_rot = rot;
+        spring->setGimmickData(&this->springData);
+        spring->startup(this->m_fileData,0,0);
+        this->createGimmickCollision(collIndex, spring, this->m_fileData);
     }
 }
 

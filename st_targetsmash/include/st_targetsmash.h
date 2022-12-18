@@ -7,6 +7,8 @@
 #include <mt/mt_vector.h>
 #include "gr_targetsmash.h"
 #include "gr_targetsmash_target.h"
+#include "gr_targetsmash_spring.h"
+#include <gr/gr_gimmick_catapult.h>
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
@@ -16,11 +18,21 @@ const float UNK_FLOAT1 = 0.0f;
 
 class stTargetSmash : public stMelee {
 protected:
+    grGimmickSpringData springData;
     bool isItemsInitialized;
 
 public:
     stTargetSmash() : stMelee("stTargetSmash", 0x21)
     {
+        springData.m_areaOffsetPos.m_x = 0.0;
+        springData.m_areaOffsetPos.m_y = 0.0;
+        springData.m_areaRange.m_x = 10.0;
+        springData.m_areaRange.m_y = 6.0;
+        springData.m_pos.m_x = 0.0;
+        springData.m_pos.m_y = 0.0;
+        springData.m_rot = 0.0;
+        springData.m_bounce = 1.0;
+
         isItemsInitialized = false;
     };
     static stTargetSmash* create();
@@ -63,7 +75,8 @@ public:
     virtual ~stTargetSmash() { this->releaseArchive(); };
 
     void createObjAshiba(int mdlIndex);
-    void createObjTarget(int mdlIndex, grTargetSmash* targetPositions, u16 nodeIndex, int motionPathIndex);
+    void createObjTarget(int mdlIndex, Vec3f* pos, int motionPathIndex);
+    void createObjSpring(int mdlIndex, int collIndex, Vec3f* pos, float rot, int motionPathIndex);
     void putItem(int itemID, u32 variantID, Vec3f* pos);
 
 };
