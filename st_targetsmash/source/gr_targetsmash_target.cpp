@@ -45,21 +45,22 @@ void grTargetSmashTarget::setupHitPoint() {
     this->setHitPoint(7.0, &startOffsetPos, &endOffsetPos, 1, 1);
 }
 
-void grTargetSmashTarget::setTargetInfo(int motionPathIndex) {
-    // TODO: Also pass in effect index
+void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex) {
 
     this->motionPathData.m_motionRatio = 1.0;
     this->motionPathData.m_index = 0;
     this->motionPathData.m_0x5 = 1;
     this->motionPathData.m_mdlIndex = motionPathIndex;
     this->motionPathData._padding = 0x0;
+
+    this->effectIndex = effectIndex;
 }
 
 void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
     this->deleteHitPoint();
     this->startGimmickSE(0);
     Vec3f pos = this->getPos();
-    g_ecMgr->setEffect(0x12b0001, &pos);
+    g_ecMgr->setEffect(0x12b0000 + this->effectIndex, &pos);
     this->setMotion(1);
 }
 

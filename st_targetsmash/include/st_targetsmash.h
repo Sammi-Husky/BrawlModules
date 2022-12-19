@@ -26,13 +26,6 @@ public:
     {
         springData.m_areaOffsetPos.m_x = 0.0;
         springData.m_areaOffsetPos.m_y = 0.0;
-        springData.m_areaRange.m_x = 10.0;
-        springData.m_areaRange.m_y = 6.0;
-        springData.m_pos.m_x = 0.0;
-        springData.m_pos.m_y = 0.0;
-        springData.m_rot = 0.0;
-        springData.m_bounce = 1.0;
-
         isItemsInitialized = false;
     };
     static stTargetSmash* create();
@@ -75,8 +68,9 @@ public:
     virtual ~stTargetSmash() { this->releaseArchive(); };
 
     void createObjAshiba(int mdlIndex);
-    void createObjTarget(int mdlIndex, Vec3f* pos, int motionPathIndex);
-    void createObjSpring(int mdlIndex, int collIndex, Vec3f* pos, float rot, int motionPathIndex);
+    void createObjTarget(int mdlIndex, Vec3f* pos, Vec3f* scale, int motionPathIndex, int effectIndex);
+    void createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, float rot, Vec2f* range, float bounce, int motionPathIndex);
+    void createTriggerConveyor(Vec3f* posSW, Vec3f* posNE, float speed, bool isRightDirection);
     void putItem(int itemID, u32 variantID, Vec3f* pos);
 
 };
