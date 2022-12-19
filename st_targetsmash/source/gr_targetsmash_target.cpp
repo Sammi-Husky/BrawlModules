@@ -2,6 +2,7 @@
 #include <ec/ec_mgr.h>
 #include "gr_targetsmash_target.h"
 #include <OS/OSError.h>
+#include <ft/ft_manager.h>
 
 grTargetSmashTarget* grTargetSmashTarget::create(int mdlIndex, char* tgtNodeName, char* taskName)
 {
@@ -45,7 +46,8 @@ void grTargetSmashTarget::setupHitPoint() {
     this->setHitPoint(7.0, &startOffsetPos, &endOffsetPos, 1, 1);
 }
 
-void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex) {
+void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
+                                        u32* numTargetsHitPerPlayerWork, float* totalDamageWork) {
 
     this->motionPathData.m_motionRatio = 1.0;
     this->motionPathData.m_index = 0;
@@ -54,9 +56,22 @@ void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex) {
     this->motionPathData._padding = 0x0;
 
     this->effectIndex = effectIndex;
+
+    this->targetsHitWork = targetsHitWork;
+    this->targetsLeftWork = targetsLeftWork;
+    this->numTargetsHitPerPlayerWork = numTargetsHitPerPlayerWork;
+    this->totalDamageWork = totalDamageWork;
 }
 
 void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
+    (*this->targetsHitWork)++;
+    (*this->targetsLeftWork)--;
+    *this->totalDamageWork += damage->damage;
+    int playerNo = g_ftManager->getPlayerNo(attackerInfo->m_indirectAttackerEntryId);
+    if (playerNo >= 0) {
+        this->numTargetsHitPerPlayerWork[playerNo]++;
+    }
+
     this->deleteHitPoint();
     this->startGimmickSE(0);
     Vec3f pos = this->getPos();

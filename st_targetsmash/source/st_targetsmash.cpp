@@ -31,6 +31,9 @@ void stTargetSmash::update(float deltaFrame)
 
 void stTargetSmash::createObj()
 {
+    this->patchInstructions();
+    this->level = 0; // TODO
+
     testStageParamInit(m_fileData, 0xA);
     testStageDataInit(m_fileData, 0x14, 1);
 
@@ -59,6 +62,25 @@ void stTargetSmash::createObj()
     this->setStageAttackData((grGimmickDamageFloor*)this->m_stageData, 0);
 }
 
+void stTargetSmash::patchInstructions() {
+    // stOperatorRuleTargetBreak::checkExtraRule
+    // Give enough room on stack for increased number of targets
+
+    int *instructionAddr = (int*)0x8095d198;
+    *instructionAddr = 0x9421FC40; // stwu sp, -0x3C0(sp) Original: stwu sp, -0x60(sp)
+    TRK_flush_cache(instructionAddr - 4, 0x8);
+    instructionAddr = (int*)0x8095d1a4;
+    *instructionAddr = 0x900103C4; // stw r0, 0x3C4(sp) Original: stw r0, 0x64(sp)
+    TRK_flush_cache(instructionAddr - 4, 0x8);
+
+    instructionAddr = (int*)0x8095d2e0;
+    *instructionAddr = 0x800103C4; // lwz r0, 0x3C4(sp) Original: lwz r0, 0x64(sp)
+    TRK_flush_cache(instructionAddr - 4, 0x8);
+    instructionAddr = (int*)0x8095d2e8;
+    *instructionAddr = 0x382103C0; // addi sp, sp, 0x3C0 Original: addi sp, sp, 0x60
+    TRK_flush_cache(instructionAddr - 4, 0x8);
+}
+
 void stTargetSmash::createObjAshiba(int mdlIndex) {
     grTargetSmash* ground = grTargetSmash::create(mdlIndex, "", "grTargetSmashAshiba");
     if (ground != NULL)
@@ -71,6 +93,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         u32 conveyorIndex = ground->getNodeIndex(0, "Conveyors");
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
         for (int i = targetsIndex + 1; i < springsIndex; i++) {
+            this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             this->createObjTarget(resNodeData->m_rotation.m_x, &resNodeData->m_translation, &resNodeData->m_scale,
                                   resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z);
@@ -95,7 +118,7 @@ void stTargetSmash::createObjTarget(int mdlIndex, Vec3f* pos, Vec3f* scale, int 
     if(target != NULL){
         addGround(target);
         target->setStageData(m_stageData);
-        target->setTargetInfo(motionPathIndex, effectIndex);
+        target->setTargetInfo(motionPathIndex, effectIndex, &this->targetsHit, &this->targetsLeft, this->numTargetsHitPerPlayer, &this->totalDamage);
         target->startup(this->m_fileData,0,0);
         target->setPos(pos);
         target->setScale(scale);
