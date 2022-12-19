@@ -112,7 +112,7 @@ void stTargetSmash::createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, flo
         springData.m_rot = rot;
         springData.m_areaRange = *range;
         springData.m_bounce = bounce;
-        spring->setGimmickData(&springData);
+        spring->setGimmickData(&springData); // Note: gimmickData will only apply in next function since was allocated on the stack
         spring->startup(this->m_fileData,0,0);
         this->createGimmickCollision(collIndex, spring, this->m_fileData);
     }
