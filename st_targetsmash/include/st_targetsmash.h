@@ -23,12 +23,12 @@ class stTargetSmash : public stMelee {
 protected:
     bool isItemsInitialized;
     char _473[848 - 473];
-    u32 level; // 848
-    u32 targetsHit; // 852
-    u32 targetsLeft; // 856
+    u32 level; // 848 (Required offset for stOperatorRuleTargetBreak!)
+    u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
+    u32 targetsLeft; // 856 (Required offset for stOperatorRuleTargetBreak!)
     char _860[912 - 860];
-    float totalDamage; // 912
-    u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916
+    float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
+    u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
 
 public:
     stTargetSmash() : stMelee("stTargetSmash", 0x38)
