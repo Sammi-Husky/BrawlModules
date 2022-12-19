@@ -7,6 +7,11 @@ class grTargetSmashTarget : public grMadein
     protected:
         grGimmickMotionPathData motionPathData;
         int effectIndex;
+        u32* targetsHitWork;
+        u32* targetsLeftWork;
+        u32* numTargetsHitPerPlayerWork;
+        float* totalDamageWork;
+
     public:
         grTargetSmashTarget(char* taskName) : grMadein(taskName) {
         };
@@ -15,7 +20,8 @@ class grTargetSmashTarget : public grMadein
         virtual void update(float deltaFrame);
         virtual void onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo);
         virtual void setupHitPoint();
-        virtual void setTargetInfo(int motionPathIndex, int effectIndex);
+        virtual void setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
+                                   u32* numTargetsHitPerPlayerWork, float* totalDamageWork);
 
         static grTargetSmashTarget* create(int mdlIndex, char* tgtNodeName, char* taskName);
 
