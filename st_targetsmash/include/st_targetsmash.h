@@ -18,14 +18,11 @@ const float UNK_FLOAT1 = 0.0f;
 
 class stTargetSmash : public stMelee {
 protected:
-    grGimmickSpringData springData;
     bool isItemsInitialized;
 
 public:
     stTargetSmash() : stMelee("stTargetSmash", 0x21)
     {
-        springData.m_areaOffsetPos.m_x = 0.0;
-        springData.m_areaOffsetPos.m_y = 0.0;
         isItemsInitialized = false;
     };
     static stTargetSmash* create();

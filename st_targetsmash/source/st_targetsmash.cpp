@@ -105,12 +105,14 @@ void stTargetSmash::createObjTarget(int mdlIndex, Vec3f* pos, Vec3f* scale, int 
 void stTargetSmash::createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, float rot, Vec2f* range, float bounce, int motionPathIndex) {
     grTargetSmashSpring* spring = grTargetSmashSpring::create(mdlIndex, "grTargetSmashSpring");
     if (spring != NULL) {
+        grGimmickSpringData springData;
+        __memfill(&springData, 0, sizeof(springData));
         addGround(spring);
-        this->springData.m_pos = *pos;
-        this->springData.m_rot = rot;
-        this->springData.m_areaRange = *range;
-        this->springData.m_bounce = bounce;
-        spring->setGimmickData(&this->springData);
+        springData.m_pos = *pos;
+        springData.m_rot = rot;
+        springData.m_areaRange = *range;
+        springData.m_bounce = bounce;
+        spring->setGimmickData(&springData);
         spring->startup(this->m_fileData,0,0);
         this->createGimmickCollision(collIndex, spring, this->m_fileData);
     }
