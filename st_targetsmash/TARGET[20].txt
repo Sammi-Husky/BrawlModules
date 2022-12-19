@@ -1,0 +1,132 @@
+Damage
+Default: 10.0
+
+	/EndDescription
+0
+
+OffsetPosX
+Default: 0.0
+	/EndDescription
+0
+
+OffsetPosY
+Default: 0.0
+	/EndDescription
+0
+
+OffsetPosZ
+Default: 0.0
+	/EndDescription
+0
+
+Size
+Default: 0.0
+
+	/EndDescription
+0
+
+Vector
+Angle
+
+Default: 361
+	/EndDescription
+1
+
+ReactionEffect
+Knockback Growth
+
+Default: 50
+	/EndDescription
+1
+
+ReactionFix
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+1
+
+ReactionAdd
+Base Knockback
+
+Default: 100
+	/EndDescription
+1
+
+0x038
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+1
+
+ElementType
+Default: 2 (Element_Type_Slash)
+	/EndDescription
+1
+
+isClankable, 0x041, 0x042, 0x043
+Default: false, false, true, true
+	/EndDescription
+6
+
+0x044
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+0x048
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+0x04C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+DetectionRate
+Default: 15
+	/EndDescription
+1
+
+HitSoundLevel
+Default: 1 (Hit_Sound_Level_Medium)
+	/EndDescription
+1
+
+HitSoundType
+Default: 3 (Hit_Sound_Type_Slash)
+	/EndDescription
+1
+
+0x05C, isShapeCapsule, 0x05E, 0x05F
+Default: false, false, 0, 0
+	/EndDescription
+6
+
+0x060
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+NodeIndex
+Default: 0
+	/EndDescription
+1
+
+Power
+Default: 10
+	/EndDescription
+1
+
+0x06C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Index
+Default: 1
+	/EndDescription
+1
+
+0x074
+Default: -1
+	/EndDescription
+1
