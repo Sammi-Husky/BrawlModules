@@ -11,8 +11,7 @@ grTargetSmashSpring* grTargetSmashSpring::create(int mdlIndex, char* taskName) {
 
 void grTargetSmashSpring::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grGimmickSpring::startup(archive, unk1, unk2);
-    this->m_rot = this->m_springData->m_rot;            // Copy to struct so that springData can be changed
-    this->m_bounce = this->m_springData->m_bounce;
+    this->m_bounce = this->m_springData->m_bounce; // Copy to struct so that springData can be changed
 }
 
 void grTargetSmashSpring::update(float deltaFrame) {
@@ -46,7 +45,7 @@ void grTargetSmashSpring::presentShootEvent() {
     eventInfo.m_sendID = 0;
     this->getTopNode(&eventInfo.m_topPos);
     eventInfo.m_bounce = this->m_bounce;
-    eventInfo.m_rot = this->m_rot;
+    eventInfo.m_rot = this->getRot().m_z;
     this->m_yakumono->presentEventGimmick(&eventInfo, -1);
 }
 
