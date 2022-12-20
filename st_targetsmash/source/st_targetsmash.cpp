@@ -117,7 +117,6 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
 }
 
 void stTargetSmash::createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int motionPathIndex, int effectIndex, int collIndex) {
-    // TODO: Check if category is same as in vanill
     grTargetSmashTarget* target = grTargetSmashTarget::create(mdlIndex, "", "grTargetSmashTarget");
     if(target != NULL){
         addGround(target);
