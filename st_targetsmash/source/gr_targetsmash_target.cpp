@@ -32,6 +32,8 @@ void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     stTrigger::TriggerData triggerData = (stTrigger::TriggerData){0,0,1,0};
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "TargetNode");
 
+    this->m_useCollisionCategory1 = true;
+
     this->initializeEntity();
     this->startEntity();
 }
@@ -43,7 +45,7 @@ void grTargetSmashTarget::update(float deltaFrame) {
 void grTargetSmashTarget::setupHitPoint() {
     Vec3f startOffsetPos = {0,0,0};
     Vec3f endOffsetPos = {0,0,0};
-    this->setHitPoint(7.0, &startOffsetPos, &endOffsetPos, 1, 1);
+    this->setHitPoint(7.0, &startOffsetPos, &endOffsetPos, true, 1);
 }
 
 void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
