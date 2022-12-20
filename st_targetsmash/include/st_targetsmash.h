@@ -27,7 +27,7 @@ protected:
     u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsLeft; // 856 (Required offset for stOperatorRuleTargetBreak!)
     char _860[912 - 860];
-    float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
+    float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!) TODO: Check if it's being applied correctly
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
 
 public:
@@ -80,7 +80,7 @@ public:
 
     void patchInstructions();
     void createObjAshiba(int mdlIndex);
-    void createObjTarget(int mdlIndex, Vec3f* pos, Vec3f* scale, int motionPathIndex, int effectIndex);
+    void createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int motionPathIndex, int effectIndex, int collIndex);
     void createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, float rot, Vec2f* range, float bounce, int motionPathIndex);
     void createTriggerConveyor(Vec3f* posSW, Vec3f* posNE, float speed, bool isRightDirection);
     void putItem(int itemID, u32 variantID, Vec3f* pos);

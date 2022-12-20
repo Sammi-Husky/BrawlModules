@@ -32,6 +32,8 @@ void stTargetSmash::update(float deltaFrame)
 void stTargetSmash::createObj()
 {
     this->patchInstructions();
+    // TODO: Look into switching UI to stock icon and number left if more than certain amount of targets (check IfCenter createModel functions)
+
     this->level = 0; // TODO
 
     testStageParamInit(m_fileData, 0xA);
@@ -92,16 +94,17 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         u32 springsIndex = ground->getNodeIndex(0, "Springs");
         u32 conveyorIndex = ground->getNodeIndex(0, "Conveyors");
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
+        // TODO: Optional targets (can select max targets in STDT)
         for (int i = targetsIndex + 1; i < springsIndex; i++) {
             this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->createObjTarget(resNodeData->m_rotation.m_x, &resNodeData->m_translation, &resNodeData->m_scale,
-                                  resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z);
+            this->createObjTarget(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy, &resNodeData->m_scale,
+                                  resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z, resNodeData->m_translation.m_z);
         }
         for (int i = springsIndex + 1; i < conveyorIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->createObjSpring(resNodeData->m_rotation.m_x, resNodeData->m_translation.m_z, (Vec2f*)&resNodeData->m_translation,
-                                  resNodeData->m_rotation.m_z, (Vec2f*)&resNodeData->m_scale, resNodeData->m_scale.m_z,
+            this->createObjSpring(resNodeData->m_rotation.m_x, resNodeData->m_translation.m_z, &resNodeData->m_translation.m_xy,
+                                  resNodeData->m_rotation.m_z, &resNodeData->m_scale.m_xy, resNodeData->m_scale.m_z,
                                   resNodeData->m_rotation.m_y);
         }
         for (int i = conveyorIndex + 1; i < itemsIndex; i += 2) {
@@ -113,15 +116,19 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
     }
 }
 
-void stTargetSmash::createObjTarget(int mdlIndex, Vec3f* pos, Vec3f* scale, int motionPathIndex, int effectIndex) {
+void stTargetSmash::createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int motionPathIndex, int effectIndex, int collIndex) {
+    // TODO: Check if category is same as in vanill
     grTargetSmashTarget* target = grTargetSmashTarget::create(mdlIndex, "", "grTargetSmashTarget");
     if(target != NULL){
         addGround(target);
         target->setStageData(m_stageData);
         target->setTargetInfo(motionPathIndex, effectIndex, &this->targetsHit, &this->targetsLeft, this->numTargetsHitPerPlayer, &this->totalDamage);
         target->startup(this->m_fileData,0,0);
-        target->setPos(pos);
+        target->setPos(pos->m_x, pos->m_y, 0);
         target->setScale(scale);
+        if (collIndex > 0) {
+            createCollision(m_fileData, collIndex, target);
+        }
     }
 }
 
