@@ -36,10 +36,6 @@ void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->startEntity();
 }
 
-void grTargetSmashDisk::update(float deltaFrame) {
-    grMadein::update(deltaFrame);
-}
-
 void grTargetSmashDisk::setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
                                         u32* numTargetsHitPerPlayerWork, float* totalDamageWork, int mode) {
 
@@ -53,51 +49,47 @@ void grTargetSmashDisk::setTargetInfo(int motionPathIndex, int effectIndex, u32*
     this->targetsLeftWork = targetsLeftWork;
     this->numTargetsHitPerPlayerWork = numTargetsHitPerPlayerWork;
     this->totalDamageWork = totalDamageWork;
-}
-/*
-void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
-    (*this->targetsHitWork)++;
-    (*this->targetsLeftWork)--;
-    *this->totalDamageWork += damage->damage;
-    int playerNo = g_ftManager->getPlayerNo(attackerInfo->m_indirectAttackerEntryId);
-    if (playerNo >= 0) {
-        this->numTargetsHitPerPlayerWork[playerNo]++;
-    }
 
-    this->deleteHitPoint();
-    this->startGimmickSE(0);
-    Vec3f pos = this->getPos();
-    g_ecMgr->setEffect(0x12b0000 + this->effectIndex, &pos);
-    this->setMotion(1);
+    this->mode = mode;
 }
-*/
-void grTargetSmashDisk::receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoint* collisionJoint, bool unk3) {
-    if (!this->isLandedOn) {
-        int unk = 1;
-        if (this->isCollisionStatusOwnerTask(collStatus, &unk)) {
+
+void grTargetSmashDisk::update(float deltaFrame) {
+    grMadein::update(deltaFrame);
+    if (this->mode == 3) {
+        if (!this->isLandedOn && this->prevIsLandedOn) {
+            (*this->targetsHitWork)--;
+            (*this->targetsLeftWork)++;
+            if (this->landedPlayerNo >= 0) {
+                this->numTargetsHitPerPlayerWork[this->landedPlayerNo]--;
+            }
+            this->setMotion(0);
+        }
+        this->prevIsLandedOn = this->isLandedOn;
+        this->isLandedOn = false;
+    }
+}
+
+void grTargetSmashDisk::receiveCollMsg(int direction, grCollStatus* collStatus, grCollisionJoint* collisionJoint) {
+    Ground::receiveCollMsg(direction, collStatus, collisionJoint);
+    int unk = 1;
+    if (this->isCollisionStatusOwnerTask(collStatus, &unk) || this->mode >= 2) {
+        if (!this->isLandedOn && !this->prevIsLandedOn) {
             int entryId = g_ftManager->getEntryIdFromTaskId(collStatus->m_taskId, NULL);
             int playerNo = g_ftManager->getPlayerNo(entryId);
             if (playerNo >= 0) {
                 this->numTargetsHitPerPlayerWork[playerNo]++;
+                this->landedPlayerNo = playerNo;
             }
             (*this->targetsHitWork)++;
             (*this->targetsLeftWork)--;
 
             this->startGimmickSE(0);
             this->setMotion(1);
-
-            this->isLandedOn = true;
         }
 
-
-
-
-
+        this->isLandedOn = true;
+        this->prevIsLandedOn = true;
     }
-
-
-
 }
-
 
 

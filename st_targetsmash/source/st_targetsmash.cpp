@@ -140,7 +140,6 @@ void stTargetSmash::createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int 
     }
 }
 
-// TODO: BTP, have setting where items can affect, and items can affect but they have to remain on platform (i.e. pressure plates)
 // TODO: Maybe have target setting for item only hits?
 
 void stTargetSmash::createObjDisk(int mdlIndex, Vec2f* pos, float rot, float scaleX, float scaleZ, int motionPathIndex, int collIndex, int mode) {
