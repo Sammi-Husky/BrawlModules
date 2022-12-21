@@ -12,7 +12,6 @@ class grTargetSmash : public grMadein
         grTargetSmash(char* taskName) : grMadein(taskName) {
         };
         virtual ~grTargetSmash() { };
-        virtual u32 getNumTargets();
 
         static grTargetSmash* create(int mdlIndex, char* tgtNodeName, char* taskName);
 

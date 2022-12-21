@@ -91,15 +91,24 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         ground->startup(m_fileData, 0, 0);
         ground->setStageData(m_stageData);
         u32 targetsIndex = ground->getNodeIndex(0, "Targets");
+        u32 disksIndex = ground->getNodeIndex(0, "Disks");
         u32 springsIndex = ground->getNodeIndex(0, "Springs");
         u32 conveyorIndex = ground->getNodeIndex(0, "Conveyors");
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
         // TODO: Optional targets (can select max targets in STDT)
-        for (int i = targetsIndex + 1; i < springsIndex; i++) {
+        for (int i = targetsIndex + 1; i < disksIndex; i++) {
             this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             this->createObjTarget(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy, &resNodeData->m_scale,
                                   resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z, resNodeData->m_translation.m_z);
+        }
+        for (int i = disksIndex + 1; i < springsIndex; i++) {
+            this->targetsLeft++;
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            this->createObjDisk(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
+                                  resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x,
+                                  resNodeData->m_scale.m_y, resNodeData->m_rotation.m_y,
+                                  resNodeData->m_translation.m_z, resNodeData->m_scale.m_z);
         }
         for (int i = springsIndex + 1; i < conveyorIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
@@ -121,13 +130,30 @@ void stTargetSmash::createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int 
     if(target != NULL){
         addGround(target);
         target->setStageData(m_stageData);
-        target->setTargetInfo(motionPathIndex, effectIndex, &this->targetsHit, &this->targetsLeft, this->numTargetsHitPerPlayer, &this->totalDamage);
+        target->setTargetInfo(motionPathIndex, effectIndex, &this->targetsHit, &this->targetsLeft, this->numTargetsHitPerPlayer, &this->totalDamage, 0);
         target->startup(this->m_fileData,0,0);
         target->setPos(pos->m_x, pos->m_y, 0);
         target->setScale(scale);
         if (collIndex > 0) {
             createCollision(m_fileData, collIndex, target);
         }
+    }
+}
+
+// TODO: BTP, have setting where items can affect, and items can affect but they have to remain on platform (i.e. pressure plates)
+// TODO: Maybe have target setting for item only hits?
+
+void stTargetSmash::createObjDisk(int mdlIndex, Vec2f* pos, float rot, float scaleX, float scaleZ, int motionPathIndex, int collIndex, int mode) {
+    grTargetSmashDisk* disk = grTargetSmashDisk::create(mdlIndex, "", "grTargetSmashDisk");
+    if(disk != NULL){
+        addGround(disk);
+        disk->setStageData(m_stageData);
+        disk->setTargetInfo(motionPathIndex, 0, &this->targetsHit, &this->targetsLeft, this->numTargetsHitPerPlayer, &this->totalDamage, mode);
+        disk->startup(this->m_fileData,0,0);
+        disk->setPos(pos->m_x, pos->m_y, 0.0);
+        disk->setScale(scaleX, 1.0, scaleZ);
+        disk->setRot(0.0, 0.0, rot);
+        createCollision(m_fileData, collIndex, disk);
     }
 }
 

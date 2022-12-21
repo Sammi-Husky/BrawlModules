@@ -2,28 +2,28 @@
 
 #include <gr/gr_madein.h>
 
-class grTargetSmashTarget : public grMadein
+class grTargetSmashDisk : public grMadein
 {
     protected:
         grGimmickMotionPathData motionPathData;
-        int effectIndex;
         u32* targetsHitWork;
         u32* targetsLeftWork;
         u32* numTargetsHitPerPlayerWork;
         float* totalDamageWork;
+        bool isLandedOn;
 
     public:
-        grTargetSmashTarget(char* taskName) : grMadein(taskName) {
+        grTargetSmashDisk(char* taskName) : grMadein(taskName) {
+            isLandedOn = false;
         };
-        virtual ~grTargetSmashTarget() { };
+        virtual ~grTargetSmashDisk() { };
         virtual void startup(gfArchive* archive, u32 unk1, u32 unk2);
         virtual void update(float deltaFrame);
-        virtual void onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo);
-        virtual void setupHitPoint();
+        virtual void receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoint* collisionJoint, bool unk3);
         virtual void setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
                                    u32* numTargetsHitPerPlayerWork, float* totalDamageWork, int mode);
 
-        static grTargetSmashTarget* create(int mdlIndex, char* tgtNodeName, char* taskName);
+        static grTargetSmashDisk* create(int mdlIndex, char* tgtNodeName, char* taskName);
 
 
 };
