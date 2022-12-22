@@ -83,6 +83,7 @@ public:
     void createObjAshiba(int mdlIndex);
     void createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int motionPathIndex, int effectIndex, int collIndex);
     void createObjDisk(int mdlIndex, Vec2f* pos, float rot, float scaleX, float scaleZ, int motionPathIndex, int collIndex, int mode);
+    void createObjPlatform(int mdlIndex, Vec2f* pos, float rot, Vec3f* scale, int motionPathIndex, int collIndex);
     void createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, float rot, Vec2f* range, float bounce, int motionPathIndex);
     void createTriggerConveyor(Vec3f* posSW, Vec3f* posNE, float speed, bool isRightDirection);
     void putItem(int itemID, u32 variantID, Vec3f* pos);
