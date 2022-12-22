@@ -5,6 +5,7 @@
 
 class grTargetSmashSpring : public grGimmickSpring {
     float m_bounce;
+    grGimmickMotionPathData motionPathData;
 public:
     grTargetSmashSpring(char* taskName) : grGimmickSpring(taskName) {
         m_bounce = 5.0;
@@ -14,6 +15,7 @@ public:
     virtual void update(float deltaFrame);
     virtual void setMotionOff();
     virtual void presentShootEvent();
+    virtual void setMotionPathData(int mdlIndex);
 
     static grTargetSmashSpring* create(int mdlIndex, char* taskName);
 };

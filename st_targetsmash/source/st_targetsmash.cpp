@@ -92,6 +92,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         ground->setStageData(m_stageData);
         u32 targetsIndex = ground->getNodeIndex(0, "Targets");
         u32 disksIndex = ground->getNodeIndex(0, "Disks");
+        u32 platformIndex = ground->getNodeIndex(0, "Platforms");
         u32 springsIndex = ground->getNodeIndex(0, "Springs");
         u32 conveyorIndex = ground->getNodeIndex(0, "Conveyors");
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
@@ -102,13 +103,18 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
             this->createObjTarget(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy, &resNodeData->m_scale,
                                   resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z, resNodeData->m_translation.m_z);
         }
-        for (int i = disksIndex + 1; i < springsIndex; i++) {
+        for (int i = disksIndex + 1; i < platformIndex; i++) {
             this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             this->createObjDisk(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
-                                  resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x,
-                                  resNodeData->m_scale.m_y, resNodeData->m_rotation.m_y,
-                                  resNodeData->m_translation.m_z, resNodeData->m_scale.m_z);
+                                  resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x, resNodeData->m_scale.m_y,
+                                  resNodeData->m_rotation.m_y, resNodeData->m_translation.m_z, resNodeData->m_scale.m_z);
+        }
+        for (int i = platformIndex + 1; i < springsIndex; i++) {
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            this->createObjPlatform(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
+                                resNodeData->m_rotation.m_z, &resNodeData->m_scale, resNodeData->m_rotation.m_y,
+                                resNodeData->m_translation.m_z);
         }
         for (int i = springsIndex + 1; i < conveyorIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
@@ -156,16 +162,33 @@ void stTargetSmash::createObjDisk(int mdlIndex, Vec2f* pos, float rot, float sca
     }
 }
 
+void stTargetSmash::createObjPlatform(int mdlIndex, Vec2f* pos, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
+    grTargetSmash* platform = grTargetSmash::create(mdlIndex, "", "grTargetSmashPlatform");
+    if(platform != NULL){
+        addGround(platform);
+        platform->setStageData(m_stageData);
+        platform->setMotionPathData(motionPathIndex);
+        platform->startup(this->m_fileData,0,0);
+        platform->setPos(pos->m_x, pos->m_y, 0.0);
+        platform->setScale(scale);
+        platform->setRot(0.0, 0.0, rot);
+        createCollision(m_fileData, collIndex, platform);
+
+    }
+}
+
 void stTargetSmash::createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, float rot, Vec2f* range, float bounce, int motionPathIndex) {
     grTargetSmashSpring* spring = grTargetSmashSpring::create(mdlIndex, "grTargetSmashSpring");
     if (spring != NULL) {
         grGimmickSpringData springData;
         __memfill(&springData, 0, sizeof(springData));
+        springData.m_motionPathData.m_mdlIndex = -1;
         addGround(spring);
         springData.m_pos = *pos;
         springData.m_rot = rot;
         springData.m_areaRange = *range;
         springData.m_bounce = bounce;
+        spring->setMotionPathData(motionPathIndex);
         spring->setGimmickData(&springData); // Note: gimmickData will only apply in next function since was allocated on the stack
         spring->startup(this->m_fileData,0,0);
         this->createGimmickCollision(collIndex, spring, this->m_fileData);

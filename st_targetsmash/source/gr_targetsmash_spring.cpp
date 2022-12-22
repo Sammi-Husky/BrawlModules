@@ -12,6 +12,10 @@ grTargetSmashSpring* grTargetSmashSpring::create(int mdlIndex, char* taskName) {
 void grTargetSmashSpring::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grGimmickSpring::startup(archive, unk1, unk2);
     this->m_bounce = this->m_springData->m_bounce; // Copy to struct so that springData can be changed
+
+    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, 0x01000000, 0, 0, 0, 0, 0, 0 };
+    stTrigger::TriggerData triggerData = (stTrigger::TriggerData){0,0,1,0};
+    this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 }
 
 void grTargetSmashSpring::update(float deltaFrame) {
@@ -57,5 +61,13 @@ void grTargetSmashSpring::setMotionOff() {
     this->m_state = State_Off;
     this->m_animFrame = 0.0;
 };
+
+void grTargetSmashSpring::setMotionPathData(int mdlIndex) {
+    this->motionPathData.m_motionRatio = 1.0;
+    this->motionPathData.m_index = 0;
+    this->motionPathData.m_0x5 = 1;
+    this->motionPathData.m_mdlIndex = mdlIndex;
+    this->motionPathData._padding = 0x0;
+}
 
 
