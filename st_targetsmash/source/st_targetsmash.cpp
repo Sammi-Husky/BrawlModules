@@ -88,6 +88,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
     if (ground != NULL)
     {
         addGround(ground);
+        ground->setMotionPathData(-1);
         ground->startup(m_fileData, 0, 0);
         ground->setStageData(m_stageData);
         u32 targetsIndex = ground->getNodeIndex(0, "Targets");
@@ -101,26 +102,26 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
             this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             this->createObjTarget(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy, &resNodeData->m_scale,
-                                  resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z, resNodeData->m_translation.m_z);
+                                  resNodeData->m_translation.m_z, resNodeData->m_rotation.m_z, resNodeData->m_rotation.m_y);
         }
         for (int i = disksIndex + 1; i < platformIndex; i++) {
             this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             this->createObjDisk(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
                                   resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x, resNodeData->m_scale.m_y,
-                                  resNodeData->m_rotation.m_y, resNodeData->m_translation.m_z, resNodeData->m_scale.m_z);
+                                  resNodeData->m_translation.m_z, resNodeData->m_rotation.m_y, resNodeData->m_scale.m_z);
         }
         for (int i = platformIndex + 1; i < springsIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             this->createObjPlatform(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
-                                resNodeData->m_rotation.m_z, &resNodeData->m_scale, resNodeData->m_rotation.m_y,
-                                resNodeData->m_translation.m_z);
+                                resNodeData->m_rotation.m_z, &resNodeData->m_scale, resNodeData->m_translation.m_z,
+                                resNodeData->m_rotation.m_y);
         }
         for (int i = springsIndex + 1; i < conveyorIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->createObjSpring(resNodeData->m_rotation.m_x, resNodeData->m_translation.m_z, &resNodeData->m_translation.m_xy,
+            this->createObjSpring(resNodeData->m_rotation.m_x, resNodeData->m_rotation.m_y, &resNodeData->m_translation.m_xy,
                                   resNodeData->m_rotation.m_z, &resNodeData->m_scale.m_xy, resNodeData->m_scale.m_z,
-                                  resNodeData->m_rotation.m_y);
+                                  resNodeData->m_translation.m_z);
         }
         for (int i = conveyorIndex + 1; i < itemsIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
