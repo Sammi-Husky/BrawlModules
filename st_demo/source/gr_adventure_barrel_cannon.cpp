@@ -127,18 +127,18 @@ void grAdventureBarrelCannon::createMotionPath()
         default:
             this->shootMotionPath = grGimmickMotionPath::create(this->cannonPathData->shootMotionPathData.m_mdlIndex, "path_locator", "grGimmickMotionPath");
             this->shootMotionPath->setGimmickData(&this->cannonPathData->shootMotionPathData);
-            this->shootMotionPath->unk_0x1c = this;
-            gfTask* task = this->unk_0x20;
+            this->shootMotionPath->m_connectedTask = this;
+            gfTask* task = this->m_attachedTask;
             if (task == NULL) {
-                this->unk_0x20 = this->shootMotionPath;
+                this->m_attachedTask = this->shootMotionPath;
             }
             else {
                 gfTask* lastTask;
                 while (task != NULL) {
                     lastTask = task;
-                    task = task->unk_0x24;
+                    task = task->m_nextTask;
                 }
-                lastTask->unk_0x24 = this->shootMotionPath;
+                lastTask->m_nextTask = this->shootMotionPath;
             }
             break;
     }
