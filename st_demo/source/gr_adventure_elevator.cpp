@@ -19,18 +19,18 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
     grYakumono::startup(archive, unk1, unk2);
     this->elevatorData = (grAdventureElevatorData*)this->getGimmickData();
     this->elevatorPosGround = grAdventure2::create(this->elevatorData->posMdlIndex, "");
-    this->elevatorPosGround->unk_0x1c = this;
-    gfTask* task = this->unk_0x20;
+    this->elevatorPosGround->m_connectedTask = this;
+    gfTask* task = this->m_attachedTask;
     if (task == NULL) {
-        this->unk_0x20 = this->elevatorPosGround;
+        this->m_attachedTask = this->elevatorPosGround;
     }
     else {
         gfTask* lastTask;
         while (task != NULL) {
             lastTask = task;
-            task = task->unk_0x24;
+            task = task->m_nextTask;
         }
-        lastTask->unk_0x24 = this->elevatorPosGround;
+        lastTask->m_nextTask = this->elevatorPosGround;
     }
     this->elevatorPosGround->startup(archive, unk1, unk2);
     if (this->m_modelAnims != NULL)
