@@ -3,7 +3,7 @@
 #include "gr_village_guest_path_move.h"
 #include "gr_village_sky.h"
 
-#include <gm/game_global.h>
+#include <gm/gm_global.h>
 #include <gr/gr_collision.h>
 #include <memory.h>
 #include <snd/snd_system.h>
