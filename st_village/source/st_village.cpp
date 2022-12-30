@@ -221,7 +221,7 @@ void stVillage::initStageDataTbl()
 
 void stVillage::selectScene()
 {
-    gmGlobalModeMelee* globalMode = g_GameGlobal->m_globalMode;
+    gmGlobalModeMelee* globalMode = g_GameGlobal->m_modeMelee;
     if (globalMode == NULL)
     {
         return;
