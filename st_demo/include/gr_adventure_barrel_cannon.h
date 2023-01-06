@@ -92,7 +92,7 @@ protected:
     char isInCooldown;
     char _spacer3;
     float cooldownTimer;
-    BarrelCannonPlayerInfo cannonPlayerInfos[4];
+    BarrelCannonPlayerInfo cannonPlayerInfos[NUM_PLAYERS];
     BarrelCannonState cannonState : 8;
     char _spacer4[3];
     float animFrame;
@@ -111,10 +111,9 @@ public:
         this->isMainPlayerIn = false;
         this->isInCooldown = false;
         this->cooldownTimer = 0.0;
-        this->cannonPlayerInfos[0] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
-        this->cannonPlayerInfos[1] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
-        this->cannonPlayerInfos[2] = (BarrelCannonPlayerInfo){false, 0, 0,-1, 0.0};
-        this->cannonPlayerInfos[3] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
+        for (int i = 0; i < NUM_PLAYERS; i++) {
+            this->cannonPlayerInfos[i] = (BarrelCannonPlayerInfo){false, 0, 0, -1, 0.0};
+        }
         this->cannonState = BarrelCannon_State_Rest;
         this->animFrame = 0.0;
         this->animSetLength = 60;
