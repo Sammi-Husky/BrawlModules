@@ -71,7 +71,7 @@ void stVillage::createObj()
     loadStageAttrParam(m_fileData, 0x1E);
 
     void* scnData = m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe);
-    registSceneAnim(scnData, this->scene);
+    registScnAnim(scnData, this->scene);
 
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
