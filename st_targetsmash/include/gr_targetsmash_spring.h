@@ -8,7 +8,7 @@ class grTargetSmashSpring : public grGimmickSpring {
     grGimmickMotionPathData motionPathData;
 public:
     grTargetSmashSpring(char* taskName) : grGimmickSpring(taskName) {
-        m_bounce = 5.0;
+
     }
     virtual ~grTargetSmashSpring() { }
     virtual void startup(gfArchive* archive, u32 unk1, u32 unk2);
