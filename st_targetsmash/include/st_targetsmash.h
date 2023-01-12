@@ -85,7 +85,7 @@ public:
     void createObjDisk(int mdlIndex, Vec2f* pos, float rot, float scaleX, float scaleZ, int motionPathIndex, int collIndex, int mode);
     void createObjPlatform(int mdlIndex, Vec2f* pos, float rot, Vec3f* scale, int motionPathIndex, int collIndex);
     void createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, float rot, Vec2f* range, float bounce, int motionPathIndex);
-    void createTriggerConveyor(Vec3f* posSW, Vec3f* posNE, float speed, bool isRightDirection);
+    void createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float speed, bool isRightDirection);
     void putItem(int itemID, u32 variantID, Vec3f* pos);
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4)

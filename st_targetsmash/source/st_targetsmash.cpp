@@ -126,7 +126,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         for (int i = conveyorIndex + 1; i < itemsIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
-            this->createTriggerConveyor(&resNodeDataSW->m_translation, &resNodeDataNE->m_translation,
+            this->createTriggerConveyor(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
                                         resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y);
         }
     }
@@ -196,16 +196,15 @@ void stTargetSmash::createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, flo
     }
 }
 
-void stTargetSmash::createTriggerConveyor(Vec3f* posSW, Vec3f* posNE, float speed, bool isRightDirection) {
-    SquareBeltConveyorGimmickAreaData beltConveyorAreaData;
-    __memfill(&beltConveyorAreaData, 0, sizeof(SquareBeltConveyorGimmickAreaData));
-    beltConveyorAreaData.m_conveyorPos = (*posSW + *posNE) * 0.5;
+void stTargetSmash::createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float speed, bool isRightDirection) {
+    grGimmickBeltConveyorData beltConveyorAreaData;
+    __memfill(&beltConveyorAreaData, 0, sizeof(beltConveyorAreaData));
+    beltConveyorAreaData.m_conveyorPos = (Vec3f){0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0};
     beltConveyorAreaData.m_range = (Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y};
     beltConveyorAreaData.m_speed = speed;
     beltConveyorAreaData.m_isRightDirection = isRightDirection;
 
-    stTrigger* trigger = g_stTriggerMng->createTrigger(GimmickKind_BeltConveyor,-1);
-    trigger->setBeltConveyorTrigger(&beltConveyorAreaData);
+    this->createGimmickBeltConveyor2(&beltConveyorAreaData);
 }
 
 void stTargetSmash::putItem(int itemID, u32 variantID, Vec3f* pos) {
