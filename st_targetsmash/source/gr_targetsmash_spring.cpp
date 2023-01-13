@@ -14,7 +14,7 @@ void grTargetSmashSpring::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->m_bounce = this->m_springData->m_bounce; // Copy to struct so that springData can be changed
 
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, 0x01000000, 0, 0, 0, 0, 0, 0 };
-    stTrigger::TriggerData triggerData = (stTrigger::TriggerData){0,0,1,0};
+    stTriggerData triggerData = {0,0,1,0};
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 }
 

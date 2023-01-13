@@ -41,9 +41,9 @@ struct grGimmickBarrelCannnonData {
     char _spacer5;
     unsigned short field_0xce;
     char _spacer6[8];
-    stTrigger::TriggerData enterCannonTriggerData;
-    stTrigger::TriggerData motionPathTriggerData;
-    stTrigger::TriggerData isValidTriggerData;
+    stTriggerData enterCannonTriggerData;
+    stTriggerData motionPathTriggerData;
+    stTriggerData isValidTriggerData;
     grYakumono::AttackData attackData;
     char _spacer7;
 };
