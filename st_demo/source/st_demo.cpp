@@ -143,11 +143,11 @@ void stDemo::createObj()
     this->doorData.field_0x37 = 0x1;
     this->doorData.pos.m_x = 0.0;
     this->doorData.pos.m_y = 0.0;
-    this->doorData.openDoorTriggerData = (stTriggerData){ 0, 1, 0 };
+    this->doorData.openDoorTriggerData = (stTriggerData){ 0, 0, 1, 0 };
     this->doorData.doorType = Normal_Door;
     this->doorData.sndID = snd_se_AllStar_Heal_Warp; //snd_se_invalid;
-    this->doorData.motionPathTriggerData = (stTriggerData){ 0, 1, 0 };
-    this->doorData.isValidTriggerData = (stTriggerData){ 0, 1, 0 };
+    this->doorData.motionPathTriggerData = (stTriggerData){ 0, 0, 1, 0 };
+    this->doorData.isValidTriggerData = (stTriggerData){ 0, 0, 1, 0 };
 
     this->cannonData.motionPathData.m_motionRatio = 1.0;
     this->cannonData.motionPathData.m_index = 0;
@@ -168,9 +168,9 @@ void stDemo::createObj()
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 110;
     this->cannonData.field_0xce = 0x8;
-    this->cannonData.enterCannonTriggerData = (stTriggerData){ 0, 1, 0 };
-    this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 1, 0 };
-    this->cannonData.isValidTriggerData = (stTriggerData){ 0, 1, 0 };
+    this->cannonData.enterCannonTriggerData = (stTriggerData){ 0, 0, 1, 0 };
+    this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 0, 1, 0 };
+    this->cannonData.isValidTriggerData = (stTriggerData){ 0, 0, 1, 0 };
     this->cannonData.attackData.m_damage = 0;
     this->cannonData.attackData.m_offsetPos.m_x = 0.0;
     this->cannonData.attackData.m_offsetPos.m_y = 0.0;
