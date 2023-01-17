@@ -28,18 +28,5 @@ public:
     virtual void setType(int type);
 
     static grFinal* create(int mdlIndex, char* tgtNodeName, char* taskName);
-    int adventureEventGetItem();
-    int getInitializeInfo();
-    void setInitializeInfo();
-    void setInitializeFlag();
-    void disableCalcCollision();
-    void enableCalcCollision();
-    bool isEnableCalcCollision();
-    short getMdlIndex();
-    void initStageData();
-    void* getStageData();
-    char getTransparencyFlag();
-    void* getGimmickData();
-    void setGimmickData(void* gimmickData);
-    int getModelCount();
+
 };
