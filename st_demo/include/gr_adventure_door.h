@@ -15,7 +15,7 @@ enum DoorGimmickKind {
     Door_GimmickKind_Ground = 0x0,
     Door_GimmickKind_Air = 0x1,
     Door_GimmickKind_GroundAuto = 0x2,
-    Door_GimmickKind_Unk = 0x3,
+    Door_GimmickKind_AirAuto = 0x3,
 };
 
 enum DoorType {

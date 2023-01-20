@@ -25,8 +25,8 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     case Door_GimmickKind_GroundAuto:
         this->gimmickKind = GimmickKind_DoorGroundAuto;
         break;
-    case Door_GimmickKind_Unk:
-        this->gimmickKind = GimmickKind_DoorUnk;
+    case Door_GimmickKind_AirAuto:
+        this->gimmickKind = GimmickKind_DoorAirAuto;
         break;
     default:
         break;
@@ -38,7 +38,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     }
     this->makeCalcuCallback(1, Heaps::StageInstance);
     this->setCalcuCallbackRoot(7);
-    if (this->doorData->doorGimmickKind != Door_GimmickKind_Unk)
+    if (this->doorData->doorGimmickKind != Door_GimmickKind_AirAuto)
     {
         this->m_calcWorldCallBack.m_nodeCallbackDataArray->m_scale = (Vec3f){1.1, 1.1, 1.0};
     }
@@ -107,7 +107,7 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 
     // grYakumono::onGimmickEvent(state, taskId);
 
-    if (this->doorData->doorGimmickKind == Door_GimmickKind_Unk)
+    if (this->doorData->doorGimmickKind == Door_GimmickKind_AirAuto)
     {
         if (doorEventInfo->m_state == 0x32)
         {
