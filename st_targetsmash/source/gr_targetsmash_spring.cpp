@@ -65,7 +65,7 @@ void grTargetSmashSpring::setMotionOff() {
 void grTargetSmashSpring::setMotionPathData(int mdlIndex) {
     this->motionPathData.m_motionRatio = 1.0;
     this->motionPathData.m_index = 0;
-    this->motionPathData.m_0x5 = 1;
+    this->motionPathData.m_pathMode = MotionPathMode_Loop;
     this->motionPathData.m_mdlIndex = mdlIndex;
     this->motionPathData._padding = 0x0;
 }
