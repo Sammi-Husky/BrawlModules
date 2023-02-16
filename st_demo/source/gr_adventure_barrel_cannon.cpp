@@ -264,7 +264,7 @@ void grAdventureBarrelCannon::update(float frameDelta)
         case BarrelCannon_State_Set:
             this->m_modelAnims[0]->m_anmObjChrRes->SetFrame(this->animFrame);
             this->animFrame += frameDelta;
-            if (this->animFrame >= this->animFireLength) {
+            if (this->animFrame >= this->animSetLength) {
                 this->cannonState = BarrelCannon_State_Rest;
                 this->animFrame = 0.0;
             }
