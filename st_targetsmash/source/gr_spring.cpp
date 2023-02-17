@@ -1,24 +1,23 @@
 #pragma once
 
-#include "gr_targetsmash_spring.h"
+#include "gr_spring.h"
 #include <snd/snd_system.h>
 
-grTargetSmashSpring* grTargetSmashSpring::create(int mdlIndex, char* taskName) {
-    grTargetSmashSpring* spring = new (Heaps::StageInstance) grTargetSmashSpring(taskName);
+grSpring* grSpring::create(int mdlIndex, char* taskName) {
+    grSpring* spring = new (Heaps::StageInstance) grSpring(taskName);
     spring->setMdlIndex(mdlIndex);
     return spring;
 }
 
-void grTargetSmashSpring::startup(gfArchive* archive, u32 unk1, u32 unk2) {
+void grSpring::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grGimmickSpring::startup(archive, unk1, unk2);
     this->m_bounce = this->m_springData->m_bounce; // Copy to struct so that springData can be changed
 
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, 0x01000000, 0, 0, 0, 0, 0, 0 };
-    stTriggerData triggerData = {0,0,1,0};
-    this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
+    this->createAttachMotionPath(&motionPathInfo, NULL, "MoveNode");
 }
 
-void grTargetSmashSpring::update(float deltaFrame) {
+void grSpring::update(float deltaFrame) {
     grGimmick::update(deltaFrame);
     switch(this->m_state) {
         case State_Off:
@@ -43,7 +42,7 @@ void grTargetSmashSpring::update(float deltaFrame) {
     this->updateCallback(0);
 }
 
-void grTargetSmashSpring::presentShootEvent() {
+void grSpring::presentShootEvent() {
     grGimmickEventSpringInfo eventInfo;
     eventInfo.m_state = 0x18;
     eventInfo.m_sendID = 0;
@@ -53,7 +52,7 @@ void grTargetSmashSpring::presentShootEvent() {
     this->m_yakumono->presentEventGimmick(&eventInfo, -1);
 }
 
-void grTargetSmashSpring::setMotionOff() {
+void grSpring::setMotionOff() {
     this->m_modelAnims[0]->unbindShapeAnim(this->m_sceneModels[0]);
     this->changeNodeAnim(0,0);
     this->changeShapeAnim(0,0);
@@ -62,7 +61,7 @@ void grTargetSmashSpring::setMotionOff() {
     this->m_animFrame = 0.0;
 };
 
-void grTargetSmashSpring::setMotionPathData(int mdlIndex) {
+void grSpring::setMotionPathData(int mdlIndex) {
     this->motionPathData.m_motionRatio = 1.0;
     this->motionPathData.m_index = 0;
     this->motionPathData.m_pathMode = MotionPathMode_Loop;
