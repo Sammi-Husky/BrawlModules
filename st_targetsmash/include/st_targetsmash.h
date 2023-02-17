@@ -5,11 +5,17 @@
 #include <st/st_melee.h>
 #include <types.h>
 #include <mt/mt_vector.h>
-#include "gr_targetsmash.h"
+#include "gr_final.h"
 #include "gr_targetsmash_target.h"
 #include "gr_targetsmash_disk.h"
-#include "gr_targetsmash_spring.h"
-#include <gr/gr_gimmick_catapult.h>
+#include "gr_platform.h"
+#include "gr_barrel_cannon.h"
+#include "gr_spring.h"
+#include "gr_ladder.h"
+#include "gr_elevator.h"
+#include "gr_punch_slider.h"
+#include "gr_warpzone.h"
+#include "gr_catapult.h"
 #include <TRK/flushcache.h>
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
@@ -17,8 +23,6 @@ const float BGM_VOLUME = 1.0f;
 const float SCROLL_DIR = 0.0f;
 const float POKETRAINER_Z = 0.0f;
 const float UNK_FLOAT1 = 0.0f;
-
-#define NUM_PLAYERS 4
 
 class stTargetSmash : public stMelee {
 protected:
@@ -83,9 +87,20 @@ public:
     void createObjAshiba(int mdlIndex);
     void createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int motionPathIndex, int effectIndex, int collIndex);
     void createObjDisk(int mdlIndex, Vec2f* pos, float rot, float scaleX, float scaleZ, int motionPathIndex, int collIndex, int mode);
-    void createObjPlatform(int mdlIndex, Vec2f* pos, float rot, Vec3f* scale, int motionPathIndex, int collIndex);
+    void createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float scale, int motionPathIndex, int collIndex);
+    void createObjBreak(int mdlIndex, Vec2f* pos, float rot, int motionPathIndex, int collIndex, float maxDamage, float respawnTime);
+    void createObjLand(int mdlIndex, Vec2f* pos, float rot, int motionPathIndex, int collIndex, float maxLandings, float respawnTime);
+    void createObjPunchSlider(int mdlIndex, int sliderPathIndex, int motionPathIndex, float, float, float, float, float, float);
+    void createObjElevator(int mdlIndex, Vec2f* pos, Vec2f* range, int collIndex, int posIndex, float speed, float deltaSpeed);
     void createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, float rot, Vec2f* range, float bounce, int motionPathIndex);
+    void createObjCannon(int mdlIndex, Vec2f* pos, float rot, float rotSpeed, float maxRot, int motionPathIndex, bool alwaysRotate, bool fullRotate, float autoFireFrames);
+    void createObjLadder(int mdlIndex, Vec2f* pos, int motionPathIndex, bool restrictUpExit, bool);
+    void createObjCatapult(int mdlIndex, float vector, float motionRatio, int motionPathIndex, float framesBeforeStartMove, float unk1, float unk2);
+    void createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float scale, Vec2f* range, int motionPathIndex, float deactivateFrames, Vec2f* dest, u8 warpType, bool isNotAuto, int connectedMdlIndex, int connectedMotionPathIndex);
+    void createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, float damage, short detectionRate);
     void createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float speed, bool isRightDirection);
+    void createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, bool canDrown);
+    void createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle);
     void putItem(int itemID, u32 variantID, Vec3f* pos);
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4)
