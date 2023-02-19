@@ -55,7 +55,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     u32 visProdIndex = 4;
     this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->m_visibleProductions);
     this->createIsValidTrigger(&this->doorData->isValidTriggerData);
-    if (this->doorData->doorType == Effect_Door)
+    if (this->doorData->doorType == Warp_Door)
     {
         this->createEffectWork(1);
         this->m_effects[0].m_id = 0x103000c;
@@ -82,7 +82,7 @@ void grAdventureDoor::update(float deltaFrame)
         {
             this->state = Door_State_Entered;
         }
-        if (this->doorData->doorType != Effect_Door)
+        if (this->doorData->doorType != Warp_Door)
         {
             // cmAdventureController stuff
         }
@@ -117,7 +117,7 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
     else if (doorEventInfo->m_state == 0x11)
     {
         doorEventInfo->m_pos = this->getPos();
-        if (this->doorData->doorType == Effect_Door)
+        if (this->doorData->doorType == Warp_Door)
         {
             doorEventInfo->m_unk2 = true;
         }
@@ -139,7 +139,7 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
         g_stTriggerMng->createTrigger(GimmickKind_DoorGround, &this->doorData->openDoorTriggerData);
         g_stTriggerMng->setTriggerFlag(&this->doorData->openDoorTriggerData);
         this->m_motionRatio = 1.0;
-        if (this->doorData->doorType == Yellow_Door || this->doorData->doorType == Unk_Door)
+        if (this->doorData->doorType == Yellow_Door || this->doorData->doorType == Factory_Yellow_Door)
         {
             GXColor fillColor = { 0xff, 0xff, 0xff, 0xff };
             g_efScreen->requestFill(this->screenFadeFrames, 7, 0, &fillColor);
@@ -221,7 +221,7 @@ void grAdventureDoor::EachDoorTypeEffect()
             g_sndSystem->playSE(this->doorData->sndID, -1, 0, 0, -1);
         }
     }
-    if (this->doorData->doorType == Effect_Door)
+    if (this->doorData->doorType == Warp_Door)
     {
         this->startGimmickEffect(0);
     }
