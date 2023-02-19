@@ -41,7 +41,7 @@ struct grGimmickDoorData {
             char levelSequenceId;
             char levelSegmentId;
             char doorIndex;
-        };
+        } jump;
         struct
         {
             unsigned int jumpData;
