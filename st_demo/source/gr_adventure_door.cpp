@@ -183,7 +183,7 @@ void grAdventureDoor::openTheDoor()
         this->changeNodeAnim(0, 0);
     }
 
-    if (this->doorData->field_0x37 != 0)
+    if (this->doorData->useOpenDoorTypeEffect)
     {
         this->EachDoorTypeEffect();
     }
@@ -191,7 +191,7 @@ void grAdventureDoor::openTheDoor()
 
 void grAdventureDoor::EachDoorTypeEffect()
 {
-    if (this->doorData->field_0x37 != 0)
+    if (this->doorData->useOpenDoorTypeEffect)
     {
         if (this->doorData->sndID < 1)
         {
