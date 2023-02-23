@@ -27,7 +27,7 @@ public:
     gfArchive* enemyCommonArchive;
     gfArchive* primFaceArchive;
 
-    stDemo() : stMelee("stDemo", 0x02){
+    stDemo() : stMelee("stDemo", Stages::Final){
         isGo = false;
         testCreated = false;
         timer = 0;

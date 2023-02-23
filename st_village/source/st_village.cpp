@@ -10,7 +10,7 @@
 #include <st/st_class_info.h>
 #include <st/st_melee.h>
 
-static stClassInfoImpl<0x21, stVillage> classInfo = stClassInfoImpl<0x21, stVillage>();
+static stClassInfoImpl<Stages::Village, stVillage> classInfo = stClassInfoImpl<Stages::Village, stVillage>();
 
 stVillage* stVillage::create()
 {

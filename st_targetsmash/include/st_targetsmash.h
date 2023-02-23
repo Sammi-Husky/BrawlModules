@@ -36,7 +36,7 @@ protected:
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
 
 public:
-    stTargetSmash() : stMelee("stTargetSmash", 0x38)
+    stTargetSmash() : stMelee("stTargetSmash", Stages::TBreak)
     {
         isItemsInitialized = false;
         targetsLeft = 0;
