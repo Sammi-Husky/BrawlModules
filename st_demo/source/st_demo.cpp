@@ -11,7 +11,7 @@
 // TODO: Destroy enemy if they go past blast zone
 // TODO: Test different enemies
 
-static stClassInfoImpl<2, stDemo> classInfo = stClassInfoImpl<2, stDemo>();
+static stClassInfoImpl<Stages::Final, stDemo> classInfo = stClassInfoImpl<Stages::Final, stDemo>();
 
 stDemo* stDemo::create()
 {

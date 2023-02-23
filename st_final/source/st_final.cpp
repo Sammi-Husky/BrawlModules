@@ -3,7 +3,7 @@
 #include <memory.h>
 #include <st/st_class_info.h>
 
-static stClassInfoImpl<2, stFinal> classInfo = stClassInfoImpl<2, stFinal>();
+static stClassInfoImpl<Stages::Final, stFinal> classInfo = stClassInfoImpl<Stages::Final, stFinal>();
 
 stFinal* stFinal::create()
 {

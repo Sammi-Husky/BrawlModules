@@ -4,7 +4,7 @@
 #include <it/it_manager.h>
 #include <memory.h>
 
-static stClassInfoImpl<2, stTargetSmash> classInfo = stClassInfoImpl<2, stTargetSmash>();
+static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
 stTargetSmash* stTargetSmash::create()
 {

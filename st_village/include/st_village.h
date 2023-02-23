@@ -51,7 +51,7 @@ protected:
     char _2[0x04];                  // 0xbc
 
 public:
-    stVillage() : stMelee("stVillage", 0x21)
+    stVillage() : stMelee("stVillage", Stages::Village)
     {
         _0xB0 = 0;
         scene = 5;

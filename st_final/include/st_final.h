@@ -11,7 +11,7 @@ const float POKETRAINER_Z = 0.0f;
 
 class stFinal : public stMelee {
 public:
-    stFinal() : stMelee("stFinal", 0x02){};
+    stFinal() : stMelee("stFinal", Stages::Final){};
     static stFinal* create();
     int getWind2ndOnlyData();
     bool isReStartSamePoint();
