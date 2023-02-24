@@ -241,7 +241,7 @@ void stDemo::createObj()
         door->startup(m_fileData, 0, 0);
     }
 
-    grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(this->cannonData.mdlIndex, BarrelCannon_GimmickKind_Static, "grAdventureBarrelCannon");
+    grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(this->cannonData.mdlIndex, BarrelCannon_Static, "grAdventureBarrelCannon");
     if (cannon != NULL)
     {
         addGround(cannon);
