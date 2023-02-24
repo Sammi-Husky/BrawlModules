@@ -49,7 +49,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->nextFloor = this->prevFloor;
     this->areaData = (soAreaData){ 0, 0x17, 1, 0, 0, 0, this->elevatorData->areaOffsetPos, this->elevatorData->areaRange };
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);
-    stTrigger* trigger = g_stTriggerMng->createTrigger(GimmickKind_Elevator, -1);
+    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick_Elevator, -1);
     trigger->setObserveYakumono(this->m_yakumono);
     this->createSoundWork(4,1);
     for (int i = 0; i < 4; i++) {

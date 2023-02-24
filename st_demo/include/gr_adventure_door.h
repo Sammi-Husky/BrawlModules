@@ -96,7 +96,7 @@ public:
         screenFadeFrames = 50.0;
         doorData = NULL;
         jumpData = 0;
-        gimmickKind = GimmickKind_DoorGround;
+        gimmickKind = Gimmick_DoorGround;
         areaInfo.m_numHitGroups = 0;
         areaInfo.m_hitGroupsInfo = NULL;
     };
