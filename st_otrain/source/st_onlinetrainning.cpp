@@ -1,23 +1,23 @@
 #include <types.h>
 #include <memory.h>
 #include <gf/gf_archive.h>
+#include <gm/gm_lib.h>
 #include <gr/gr_madein.h>
 #include <st/st_melee.h>
 #include <nw4r/g3d/g3d_resfile.h>
 #include <it/it_manager.h>
 #include <mt/mt_vector.h>
-#include <st/module.h>
 
 struct stClassInfo {
 public:
     stClassInfo();
     virtual ~stClassInfo();
     static stClassInfo* getClassInfo(int);
-    void setClassInfo(StageKind p1, stClassInfo* p2);
+    void setClassInfo(srStageKind p1, stClassInfo* p2);
     STATIC_CHECK(sizeof(stClassInfo) == 0x4);
 };
 
-template <StageKind I, class T>
+template <srStageKind I, class T>
 class stClassInfoImpl : public stClassInfo {
 public:
     stClassInfoImpl() : stClassInfo() {
@@ -52,7 +52,7 @@ class stOnlineTrainning : public stMelee {
         }
     }
 public:
-    stOnlineTrainning(char const* name) : stMelee(name, ST_OTRAIN),
+    stOnlineTrainning(char const* name) : stMelee(name, Stages::OTrain),
       unk1D8(data_loc_0), unk1DC(0), m_sandbag(0), unk1E4(false) {
         setPlayerPositionIndexSerial();
     }
@@ -66,7 +66,7 @@ public:
     virtual int getBgmID() { return 0x26FF; }
 
     static u32 data_loc_0;
-    static stClassInfoImpl<ST_OTRAIN, stOnlineTrainning> bss_loc_24;
+    static stClassInfoImpl<Stages::OTrain, stOnlineTrainning> bss_loc_24;
 };
 
 // Initialize to sequence of 4 words: 0xFF, 0, 0xFF, 1
@@ -91,7 +91,7 @@ namespace {
 __declspec(section ".data") u32 stOnlineTrainning::data_loc_0 = 0;
 #pragma pop
 
-stClassInfoImpl<ST_OTRAIN, stOnlineTrainning> stOnlineTrainning::bss_loc_24;
+stClassInfoImpl<Stages::OTrain, stOnlineTrainning> stOnlineTrainning::bss_loc_24;
 
 stOnlineTrainning* stOnlineTrainning::create() {
     return new (Heaps::StageInstance) stOnlineTrainning("stOnlineTrainning");
