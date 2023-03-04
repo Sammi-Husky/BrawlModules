@@ -26,12 +26,14 @@ const float UNK_FLOAT1 = 0.0f;
 
 class stTargetSmash : public stMelee {
 protected:
-    bool isItemsInitialized;
-    char _473[848 - 473];
+    gfArchive itemBrres;
+    gfArchive itemParam;
+    char _476[848 - 728];
     u32 level; // 848 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsLeft; // 856 (Required offset for stOperatorRuleTargetBreak!)
-    char _860[912 - 860];
+    bool isItemsInitialized;
+    char _860[912 - 861];
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
 
@@ -81,6 +83,7 @@ public:
     virtual void update(float deltaFrame);
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
+    virtual void getItemPac(gfArchive** brres, gfArchive** param, int itemID, int variantID);
     virtual ~stTargetSmash() { this->releaseArchive(); };
 
     void patchInstructions();
