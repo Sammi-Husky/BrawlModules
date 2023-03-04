@@ -35,6 +35,16 @@ void stTargetSmash::createObj()
     this->patchInstructions();
     // TODO: Look into switching UI to stock icon and number left if more than certain amount of targets (check IfCenter createModel functions)
 
+    int nodeSize;
+    void* data = m_fileData->getData(Data_Type_Misc, 0x2711, &nodeSize, 0xfffe);;
+    if (data != NULL) {
+        itemBrres.setFileImage(data, nodeSize, Heaps::StageResource);
+    }
+    data = m_fileData->getData(Data_Type_Misc, 0x2712, &nodeSize, 0xfffe);;
+    if (data != NULL) {
+        itemParam.setFileImage(data, nodeSize, Heaps::StageResource);
+    }
+
     this->level = 0; // TODO
 
     testStageParamInit(m_fileData, 0xA);
@@ -66,8 +76,10 @@ void stTargetSmash::createObj()
     this->setStageAttackData(&stageData->damageFloor, 0);
 }
 
-void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, int itemID, int variantID) {
+void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID) {
 
+    *brres = &this->itemBrres;
+    *param = &this->itemParam;
 }
 
 void stTargetSmash::patchInstructions() {

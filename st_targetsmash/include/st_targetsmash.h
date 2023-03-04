@@ -83,7 +83,7 @@ public:
     virtual void update(float deltaFrame);
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
-    virtual void getItemPac(gfArchive** brres, gfArchive** param, int itemID, int variantID);
+    virtual void getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID);
     virtual ~stTargetSmash() { this->releaseArchive(); };
 
     void patchInstructions();
