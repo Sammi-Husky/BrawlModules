@@ -260,7 +260,7 @@ void stDemo::createObj()
 
     createCollision(m_fileData, 2, NULL);
     initCameraParam();
-    void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    void* posData = m_fileData->getData(Data_Type_Model, 0x64, 0xfffe);
     if (posData == NULL)
     {
         // if no stgPos model in pac, use defaults
@@ -273,7 +273,7 @@ void stDemo::createObj()
     }
     createWind2ndOnly();
     loadStageAttrParam(m_fileData, 0x1E);
-    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe));
+    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(Data_Type_Scene, 0, 0xfffe));
     registScnAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
@@ -287,17 +287,17 @@ void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCo
     *enmCommon = NULL;
     *primFaceBrres = NULL;
 
-    void* brresData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, fileIndex + 1, &nodeSize, (u32)0xfffe);
+    void* brresData = this->m_secondaryFileData->getData(Data_Type_Misc, fileIndex + 1, &nodeSize, (u32)0xfffe);
     *brres = new (Heaps::StageInstance) gfArchive();
     (*brres)->setFileImage(brresData, nodeSize, Heaps::StageResource);
     this->enemyArchives[0] = *brres;
 
-    void* paramData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, fileIndex, &nodeSize, (u32)0xfffe);
+    void* paramData = this->m_secondaryFileData->getData(Data_Type_Misc, fileIndex, &nodeSize, (u32)0xfffe);
     *param = new (Heaps::StageInstance) gfArchive();
     (*param)->setFileImage(paramData, nodeSize, Heaps::StageResource);
     this->enemyArchives[1] = *param;
 
-    void* enmCommonData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, 300, &nodeSize, (u32)0xfffe);
+    void* enmCommonData = this->m_secondaryFileData->getData(Data_Type_Misc, 300, &nodeSize, (u32)0xfffe);
     *enmCommon = new (Heaps::StageInstance) gfArchive();
     (*enmCommon)->setFileImage(enmCommonData, nodeSize, Heaps::StageResource);
     this->enemyCommonArchive = *enmCommon;

@@ -119,7 +119,7 @@ void stOnlineTrainning::createObj() {
     }
     createCollision(m_fileData, 2, 0);
     initCameraParam();
-    void* mdl = m_fileData->getData(DATA_TYPE_MODEL, 100, 0xFFFE);
+    void* mdl = m_fileData->getData(Data_Type_Model, 100, 0xFFFE);
     if (mdl) {
         void* r1 = mdl;
         createStagePositions(&r1);
@@ -130,7 +130,7 @@ void stOnlineTrainning::createObj() {
     loadStageAttrParam(m_fileData, 0x1E);
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(m_fileData, 101, "PokeTrainer00", m_unk, 0);
-    nw4r::g3d::ResFileData* scn = (nw4r::g3d::ResFileData*) m_fileData->getData(DATA_TYPE_SCENE, 0, 0xFFFE);
+    nw4r::g3d::ResFileData* scn = (nw4r::g3d::ResFileData*) m_fileData->getData(Data_Type_Scene, 0, 0xFFFE);
     registScnAnim(scn, 0);
 
     static_cast<grMadein*>(getGround(0))->initializeEntity();
