@@ -64,7 +64,7 @@ void stDemo::update(float frameDiff)
             emCreate create;
             create.m_8 = 10000;
             create.m_difficultyLevel = 15;
-            create.m_enemyID = Enemy_Killer;
+            create.m_enemyKind = Enemy_Killer;
             create.m_startingAction = 6;
             create.m_facingDirection = 1.0;
             create.m_32 = 2; //1;
@@ -73,7 +73,7 @@ void stDemo::update(float frameDiff)
             create.m_posX2 = -create.m_spawnPos.m_x;
             create.m_posY1 = -create.m_spawnPos.m_y;
             create.m_posY1 = -create.m_spawnPos.m_y;
-            create.m_connectedEnemyID = (EnemyID)0;
+            create.m_connectedEnemyKind = (EnemyKind)0;
             create.m_epbm = NULL;
             create.m_motionPath = NULL;
             create.m_epsp = NULL;
@@ -279,8 +279,8 @@ void stDemo::createObj()
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
 }
 
-void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyID enemyID) {
-    int fileIndex = enemyID * 2;
+void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyKind) {
+    int fileIndex = enemyKind * 2;
     int nodeSize;
     *brres = NULL;
     *param = NULL;
