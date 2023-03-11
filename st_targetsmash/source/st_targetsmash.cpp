@@ -3,6 +3,7 @@
 #include <st/st_class_info.h>
 #include <it/it_manager.h>
 #include <memory.h>
+#include <OS/OSError.h>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
@@ -77,9 +78,10 @@ void stTargetSmash::createObj()
 }
 
 void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID) {
-
-    *brres = &this->itemBrres;
-    *param = &this->itemParam;
+    if (itemID == Item_MarioBros_Sidestepper) {
+        *brres = &this->itemBrres;
+        *param = &this->itemParam;
+    }
 }
 
 void stTargetSmash::patchInstructions() {
@@ -474,14 +476,38 @@ void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength
 
 void stTargetSmash::putItem(int itemID, u32 variantID, Vec3f* pos) {
     // TODO: Allow pokemon/assists/custom stage items
+//    itManager* itemManager = itManager::getInstance();
+//    if (itemManager->isCompItemKindArchive((itKind)itemID, variantID, true)) {
+//        BaseItem* item = itemManager->createItem((itKind)itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
+//        if (item != NULL) {
+//            item->warp(pos);
+//            item->setVanishMode(false);
+//        }
+//    }
+
     itManager* itemManager = itManager::getInstance();
-    if (itemManager->isCompItemKindArchive((itKind)itemID, variantID, true)) {
-        BaseItem* item = itemManager->createItem((itKind)itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
-        if (item != NULL) {
-            item->warp(pos);
-            item->setVanishMode(false);
-        }
-    }
+    itCreate create;
+    itemManager->m_numItems++;
+    create.m_index = itemManager->m_numItems;
+    create.m_kind = (itKind)itemID;
+    create.m_variation = variantID;
+    Vec3f initPos = {0, 0, 0};
+    create.m_pos1 = &initPos;
+    create.m_pos2 = &initPos;
+    create.m_connectedTaskId = -1;
+    create.m_8 = -1;
+    create.m_28 = 1.0;
+    create.m_32 = 0x14;
+    create.m_36 = 0;
+    create.m_40 = 0;
+    create.m_44 = 0xffff;
+    create.m_48 = 0;
+    create.m_52 = 0xffff;
+
+    BaseItem* item = itemManager->createItemInstance(&create);
+    itemManager->m_itKindNums[itemID]++;
+
+    item->warp(pos)
 }
 
 void Ground::setStageData(void* stageData)
