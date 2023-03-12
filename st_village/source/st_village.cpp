@@ -386,9 +386,9 @@ bool stVillage::isReStartSamePoint()
 {
     return true;
 }
-int stVillage::getWind2ndOnlyData()
+grGimmickWindData2nd* stVillage::getWind2ndOnlyData()
 {
-    return (u32) & this->wndOnlyData2;
+    return m_windAreaData2nd;
 }
 bool stVillage::isBamperVector()
 {

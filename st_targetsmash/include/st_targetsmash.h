@@ -47,7 +47,7 @@ public:
         __memfill(&numTargetsHitPerPlayer, 0, sizeof(numTargetsHitPerPlayer));
     };
     static stTargetSmash* create();
-    int getWind2ndOnlyData();
+    grGimmickWindData2nd* getWind2ndOnlyData();
     bool isReStartSamePoint();
     int getPokeTrainerPointNum();
     void startFighterEvent();

@@ -36,7 +36,7 @@ public:
         primFaceArchive = NULL;
     };
     static stDemo* create();
-    int getWind2ndOnlyData();
+    grGimmickWindData2nd* getWind2ndOnlyData();
     bool isReStartSamePoint();
     int getPokeTrainerPointNum();
     void startFighterEvent();

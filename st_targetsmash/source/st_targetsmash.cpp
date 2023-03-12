@@ -494,7 +494,7 @@ void stTargetSmash::putItem(int itemID, u32 variantID, Vec3f* pos) {
     Vec3f initPos = {0, 0, 0};
     create.m_pos1 = &initPos;
     create.m_pos2 = &initPos;
-    create.m_connectedTaskId = -1;
+    create.m_creatorItemTaskId = -1;
     create.m_8 = -1;
     create.m_28 = 1.0;
     create.m_32 = 0x14;
@@ -635,9 +635,9 @@ bool stTargetSmash::isReStartSamePoint()
 {
     return true;
 }
-int stTargetSmash::getWind2ndOnlyData()
+grGimmickWindData2nd* stTargetSmash::getWind2ndOnlyData()
 {
-    return (u32) & this->wndOnlyData2;
+    return m_windAreaData2nd;
 }
 bool stTargetSmash::isBamperVector()
 {
