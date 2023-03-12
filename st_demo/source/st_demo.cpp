@@ -460,9 +460,9 @@ bool stDemo::isReStartSamePoint()
 {
     return true;
 }
-int stDemo::getWind2ndOnlyData()
+grGimmickWindData2nd* stDemo::getWind2ndOnlyData()
 {
-    return (u32) & this->wndOnlyData2;
+    return m_windAreaData2nd;
 }
 bool stDemo::isBamperVector()
 {

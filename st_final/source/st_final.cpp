@@ -187,9 +187,9 @@ bool stFinal::isReStartSamePoint()
 {
     return true;
 }
-int stFinal::getWind2ndOnlyData()
+grGimmickWindData2nd* stFinal::getWind2ndOnlyData()
 {
-    return (u32) & this->wndOnlyData2;
+    return m_windAreaData2nd;
 }
 bool stFinal::isBamperVector()
 {
