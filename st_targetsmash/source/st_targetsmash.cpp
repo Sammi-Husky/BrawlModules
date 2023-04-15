@@ -18,7 +18,7 @@ bool stTargetSmash::loading()
 }
 void stTargetSmash::update(float deltaFrame)
 {
-    if (!this->isItemsInitialized) {
+    if (!this->isItemsInitialized && itManager::getInstance()->isCompItemKindArchive(Item_Hammer, 0, true)) {
         Ground* ground = this->getGround(0);
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
         u32 endIndex = ground->getNodeIndex(0, "End");
@@ -44,6 +44,10 @@ void stTargetSmash::createObj()
     data = m_fileData->getData(Data_Type_Misc, 0x2712, &nodeSize, 0xfffe);;
     if (data != NULL) {
         itemParam.setFileImage(data, nodeSize, Heaps::StageResource);
+    }
+    data = m_fileData->getData(Data_Type_Misc, 0x2713, &nodeSize, 0xfffe);;
+    if (data != NULL) {
+        itemCommonParam.setFileImage(data, nodeSize, Heaps::StageResource);
     }
 
     this->level = 0; // TODO
@@ -75,12 +79,27 @@ void stTargetSmash::createObj()
 
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->m_stageData);
     this->setStageAttackData(&stageData->damageFloor, 0);
+
+
+
+    itManager *itemManager = itManager::getInstance();
+    itemManager->preloadItemKindArchive(Item_MarioBros_Sidestepper, 0, itArchive::Temp, true);
+    itemManager->preloadItemKindArchive(Item_MarioBros_Sidestepper, 1, itArchive::Temp, true);
 }
 
-void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID) {
+void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer) {
     if (itemID == Item_MarioBros_Sidestepper) {
+        //OSReport("HI \n");
         *brres = &this->itemBrres;
         *param = &this->itemParam;
+        if (variantID == 0) {
+            *commonParam = &this->itemCommonParam;
+        }
+
+        if (variantID = 5001) {
+
+        }
+
     }
 }
 
@@ -124,6 +143,8 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         u32 watersIndex = ground->getNodeIndex(0, "Waters");
         u32 windsIndex = ground->getNodeIndex(0, "Winds");
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
+
+        // TODO: Ground object with collision that kos you above certain %
         // TODO: Optional targets (can select max targets in STDT)
         for (int i = targetsIndex + 1; i < disksIndex; i++) {
             this->targetsLeft++;
@@ -476,40 +497,57 @@ void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength
 
 void stTargetSmash::putItem(int itemID, u32 variantID, Vec3f* pos) {
     // TODO: Allow pokemon/assists/custom stage items
+    itManager *itemManager = itManager::getInstance();
+    if (itemManager->isCompItemKindArchive((itKind) itemID, variantID, true)) {
+        //OSReport("Item: %d, Variant: %d \n", itemID, variantID);
+        BaseItem *item = itemManager->createItem((itKind) itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
+        if (item != NULL) {
+            item->warp(pos);
+            item->setVanishMode(false);
+            //OSReport("Created \n");
+        }
+    }
+    if (variantID == 1) {
+        for (int i = 0; i < itemManager->m_itArchiveArrayList.size(); i++) {
+            itArchive* itemArchive = *itemManager->m_itArchiveArrayList.at(i);
+            //OSReport("itArchive %d, itKind %d, variant %d \n", i, itemArchive->m_itKind, itemArchive->m_itVariation);
+        }
+
+        //itArchive* itemArchive = itemManager->it
+    }
+
+
 //    itManager* itemManager = itManager::getInstance();
-//    if (itemManager->isCompItemKindArchive((itKind)itemID, variantID, true)) {
-//        BaseItem* item = itemManager->createItem((itKind)itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
-//        if (item != NULL) {
-//            item->warp(pos);
-//            item->setVanishMode(false);
-//        }
+//    itCreate create;
+//    itemManager->m_numItems++;
+//    create.m_index = itemManager->m_numItems;
+//    create.m_kind = (itKind)itemID;
+//    create.m_variation = variantID;
+//    Vec3f initPos = {0, 0, 0};
+//    create.m_pos1 = &initPos;
+//    create.m_pos2 = &initPos;
+//    create.m_creatorItemTaskId = -1;
+//    create.m_8 = -1;
+//    create.m_28 = 1.0;
+//    create.m_32 = 0x14;
+//    create.m_36 = 0;
+//    create.m_40 = 0;
+//    create.m_44 = 0xffff;
+//    create.m_48 = 0;
+//    create.m_52 = 0xffff;
+//
+//    //BaseItem* item = itemManager->createItemInstance(&create);
+//    BaseItem* item = new (Heaps::StageInstance) BaseItem(&create);
+//    if (item != NULL) {
+//        item->activate(create.m_28, 0.0, create.m_pos2, false);
+//        item->setSafePos(&create.m_pos1->m_xy);
+//        item->reset(float )
 //    }
-
-    itManager* itemManager = itManager::getInstance();
-    itCreate create;
-    itemManager->m_numItems++;
-    create.m_index = itemManager->m_numItems;
-    create.m_kind = (itKind)itemID;
-    create.m_variation = variantID;
-    Vec3f initPos = {0, 0, 0};
-    create.m_pos1 = &initPos;
-    create.m_pos2 = &initPos;
-    create.m_creatorItemTaskId = -1;
-    create.m_8 = -1;
-    create.m_28 = 1.0;
-    create.m_32 = 0x14;
-    create.m_36 = 0;
-    create.m_40 = 0;
-    create.m_44 = 0xffff;
-    create.m_48 = 0;
-    create.m_52 = 0xffff;
-
-    BaseItem* item = itemManager->createItemInstance(&create);
-    itemManager->m_itKindNums[itemID]++;
-
-    item->warp(pos)
+//    if (item != NULL) {
+//        itemManager->m_itKindNums[itemID]++;
+//        item->warp(pos);
+//    }
 }
-
 void Ground::setStageData(void* stageData)
 {
     this->m_stageData = stageData;
