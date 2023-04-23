@@ -1,5 +1,5 @@
 #include "gr_village_sky.h"
-#include <GX/GXColor.h>
+#include <GX.h>
 #include <nw4r/g3d/g3d_resmat.h>
 #include <nw4r/g3d/g3d_resmdl.h>
 #include <nw4r/g3d/g3d_scnmdl.h>

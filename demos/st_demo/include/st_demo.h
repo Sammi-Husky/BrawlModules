@@ -36,7 +36,7 @@ public:
         primFaceArchive = NULL;
     };
     static stDemo* create();
-    int getWind2ndOnlyData();
+    grGimmickWindData2nd* getWind2ndOnlyData();
     bool isReStartSamePoint();
     int getPokeTrainerPointNum();
     void startFighterEvent();
@@ -73,7 +73,7 @@ public:
     virtual void notifyEventInfoGo();
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
-    virtual void getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyID enemyID);
+    virtual void getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyKind);
     virtual ~stDemo() {
         this->clearHeap();
         this->releaseArchive();

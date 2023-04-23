@@ -16,7 +16,6 @@
 #include "gr_punch_slider.h"
 #include "gr_warpzone.h"
 #include "gr_catapult.h"
-#include <TRK/flushcache.h>
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
@@ -26,14 +25,19 @@ const float UNK_FLOAT1 = 0.0f;
 
 class stTargetSmash : public stMelee {
 protected:
-    bool isItemsInitialized;
-    char _473[848 - 473];
+    gfArchive itemBrres;
+    gfArchive itemParam;
+//    gfArchive itemBrres;
+//    gfArchive itemParam;
+    char _476[848 - 728];
     u32 level; // 848 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsLeft; // 856 (Required offset for stOperatorRuleTargetBreak!)
-    char _860[912 - 860];
+    bool isItemsInitialized;
+    char _860[912 - 861];
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
+    gfArchive itemCommonParam;
 
 public:
     stTargetSmash() : stMelee("stTargetSmash", Stages::TBreak)
@@ -45,7 +49,7 @@ public:
         __memfill(&numTargetsHitPerPlayer, 0, sizeof(numTargetsHitPerPlayer));
     };
     static stTargetSmash* create();
-    int getWind2ndOnlyData();
+    grGimmickWindData2nd* getWind2ndOnlyData();
     bool isReStartSamePoint();
     int getPokeTrainerPointNum();
     void startFighterEvent();
@@ -81,6 +85,7 @@ public:
     virtual void update(float deltaFrame);
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
+    virtual void getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer);
     virtual ~stTargetSmash() { this->releaseArchive(); };
 
     void patchInstructions();
@@ -103,5 +108,5 @@ public:
     void createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle);
     void putItem(int itemID, u32 variantID, Vec3f* pos);
 
-    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4)
+    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(itemCommonParam))
 };

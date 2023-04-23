@@ -7,6 +7,7 @@
 #include <em/em_weapon_manager.h>
 #include <gf/gf_heap_manager.h>
 
+// TODO: Have enemy module loaded first from stage pac (loadModuleRequestOnImage should be relevant function)
 // TODO: Patch enemy pop so that can hitbox can affect any team (but can't hit fighters) (or even better change the team based on who killed the enemy)
 // TODO: Destroy enemy if they go past blast zone
 // TODO: Test different enemies
@@ -64,7 +65,7 @@ void stDemo::update(float frameDiff)
             emCreate create;
             create.m_8 = 10000;
             create.m_difficultyLevel = 15;
-            create.m_enemyID = Enemy_Killer;
+            create.m_enemyKind = Enemy_Killer;
             create.m_startingAction = 6;
             create.m_facingDirection = 1.0;
             create.m_32 = 2; //1;
@@ -73,7 +74,7 @@ void stDemo::update(float frameDiff)
             create.m_posX2 = -create.m_spawnPos.m_x;
             create.m_posY1 = -create.m_spawnPos.m_y;
             create.m_posY1 = -create.m_spawnPos.m_y;
-            create.m_connectedEnemyID = (EnemyID)0;
+            create.m_connectedEnemyKind = (EnemyKind)0;
             create.m_epbm = NULL;
             create.m_motionPath = NULL;
             create.m_epsp = NULL;
@@ -260,7 +261,7 @@ void stDemo::createObj()
 
     createCollision(m_fileData, 2, NULL);
     initCameraParam();
-    void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    void* posData = m_fileData->getData(Data_Type_Model, 0x64, 0xfffe);
     if (posData == NULL)
     {
         // if no stgPos model in pac, use defaults
@@ -273,31 +274,31 @@ void stDemo::createObj()
     }
     createWind2ndOnly();
     loadStageAttrParam(m_fileData, 0x1E);
-    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe));
+    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(Data_Type_Scene, 0, 0xfffe));
     registScnAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
 }
 
-void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyID enemyID) {
-    int fileIndex = enemyID * 2;
+void stDemo::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyKind) {
+    int fileIndex = enemyKind * 2;
     int nodeSize;
     *brres = NULL;
     *param = NULL;
     *enmCommon = NULL;
     *primFaceBrres = NULL;
 
-    void* brresData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, fileIndex + 1, &nodeSize, (u32)0xfffe);
+    void* brresData = this->m_secondaryFileData->getData(Data_Type_Misc, fileIndex + 1, &nodeSize, (u32)0xfffe);
     *brres = new (Heaps::StageInstance) gfArchive();
     (*brres)->setFileImage(brresData, nodeSize, Heaps::StageResource);
     this->enemyArchives[0] = *brres;
 
-    void* paramData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, fileIndex, &nodeSize, (u32)0xfffe);
+    void* paramData = this->m_secondaryFileData->getData(Data_Type_Misc, fileIndex, &nodeSize, (u32)0xfffe);
     *param = new (Heaps::StageInstance) gfArchive();
     (*param)->setFileImage(paramData, nodeSize, Heaps::StageResource);
     this->enemyArchives[1] = *param;
 
-    void* enmCommonData = this->m_secondaryFileData->getData(DATA_TYPE_MISC, 300, &nodeSize, (u32)0xfffe);
+    void* enmCommonData = this->m_secondaryFileData->getData(Data_Type_Misc, 300, &nodeSize, (u32)0xfffe);
     *enmCommon = new (Heaps::StageInstance) gfArchive();
     (*enmCommon)->setFileImage(enmCommonData, nodeSize, Heaps::StageResource);
     this->enemyCommonArchive = *enmCommon;
@@ -460,9 +461,9 @@ bool stDemo::isReStartSamePoint()
 {
     return true;
 }
-int stDemo::getWind2ndOnlyData()
+grGimmickWindData2nd* stDemo::getWind2ndOnlyData()
 {
-    return (u32) & this->wndOnlyData2;
+    return m_windAreaData2nd;
 }
 bool stDemo::isBamperVector()
 {
