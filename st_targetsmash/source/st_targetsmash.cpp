@@ -4,6 +4,8 @@
 #include <it/it_manager.h>
 #include <memory.h>
 #include <OS/OSError.h>
+#include <gm/gm_global.h>
+#include <OS/__ppc_eabi_init.h>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
@@ -103,17 +105,17 @@ void stTargetSmash::patchInstructions() {
 
     int *instructionAddr = (int*)0x8095d198;
     *instructionAddr = 0x9421FC40; // stwu sp, -0x3C0(sp) Original: stwu sp, -0x60(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
+    __flush_cache(instructionAddr - 4, 0x8);
     instructionAddr = (int*)0x8095d1a4;
     *instructionAddr = 0x900103C4; // stw r0, 0x3C4(sp) Original: stw r0, 0x64(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
+    __flush_cache(instructionAddr - 4, 0x8);
 
     instructionAddr = (int*)0x8095d2e0;
     *instructionAddr = 0x800103C4; // lwz r0, 0x3C4(sp) Original: lwz r0, 0x64(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
+    __flush_cache(instructionAddr - 4, 0x8);
     instructionAddr = (int*)0x8095d2e8;
     *instructionAddr = 0x382103C0; // addi sp, sp, 0x3C0 Original: addi sp, sp, 0x60
-    TRK_flush_cache(instructionAddr - 4, 0x8);
+    __flush_cache(instructionAddr - 4, 0x8);
 }
 
 void stTargetSmash::createObjAshiba(int mdlIndex) {

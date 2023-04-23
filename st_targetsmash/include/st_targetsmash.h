@@ -16,7 +16,6 @@
 #include "gr_punch_slider.h"
 #include "gr_warpzone.h"
 #include "gr_catapult.h"
-#include <TRK/flushcache.h>
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
