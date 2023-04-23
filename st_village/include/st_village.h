@@ -80,7 +80,7 @@ public:
         dataTbl2 = NULL;
     };
     static stVillage* create();
-    int getWind2ndOnlyData();
+    grGimmickWindData2nd* getWind2ndOnlyData();
     bool isReStartSamePoint();
     int getPokeTrainerPointNum();
     void startFighterEvent();

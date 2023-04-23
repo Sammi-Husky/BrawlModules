@@ -56,7 +56,7 @@ void stVillage::createObj()
     createCollision(this->m_fileData, 2, 0);
     this->initCameraParam();
 
-    void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    void* posData = m_fileData->getData(Data_Type_Model, 0x64, 0xfffe);
     if (posData == NULL)
     {
         // if no stgPos model in pac, use defaults
@@ -70,7 +70,7 @@ void stVillage::createObj()
     createWind2ndOnly();
     loadStageAttrParam(m_fileData, 0x1E);
 
-    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe));
+    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(Data_Type_Scene, 0, 0xfffe));
     registScnAnim(scnData, this->scene);
 
     initPosPokeTrainer(1, 0);
@@ -206,12 +206,12 @@ void stVillage::initStageDataTbl()
 {
     if (m_fileData != NULL)
     {
-        void* data = m_fileData->getData(DATA_TYPE_MISC, 0x15, 0xfffe);
+        void* data = m_fileData->getData(Data_Type_Misc, 0x15, 0xfffe);
         if (data != NULL)
         {
             this->dataTbl1 = stDataMultiContainer::create(data, Heaps::StageInstance);
         }
-        data = m_fileData->getData(DATA_TYPE_MISC, 0x16, 0xfffe);
+        data = m_fileData->getData(Data_Type_Misc, 0x16, 0xfffe);
         if (data != NULL)
         {
             this->dataTbl2 = stDataMultiContainer::create(data, Heaps::StageInstance);
@@ -386,9 +386,9 @@ bool stVillage::isReStartSamePoint()
 {
     return true;
 }
-int stVillage::getWind2ndOnlyData()
+grGimmickWindData2nd* stVillage::getWind2ndOnlyData()
 {
-    return (u32) & this->wndOnlyData2;
+    return m_windAreaData2nd;
 }
 bool stVillage::isBamperVector()
 {

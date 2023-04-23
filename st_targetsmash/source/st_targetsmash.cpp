@@ -3,6 +3,9 @@
 #include <st/st_class_info.h>
 #include <it/it_manager.h>
 #include <memory.h>
+#include <OS/OSError.h>
+#include <gm/gm_global.h>
+#include <OS/__ppc_eabi_init.h>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
@@ -17,7 +20,7 @@ bool stTargetSmash::loading()
 }
 void stTargetSmash::update(float deltaFrame)
 {
-    if (!this->isItemsInitialized) {
+    if (!this->isItemsInitialized && itManager::getInstance()->isCompItemKindArchive(Item_Hammer, 0, true)) {
         Ground* ground = this->getGround(0);
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
         u32 endIndex = ground->getNodeIndex(0, "End");
@@ -35,6 +38,20 @@ void stTargetSmash::createObj()
     this->patchInstructions();
     // TODO: Look into switching UI to stock icon and number left if more than certain amount of targets (check IfCenter createModel functions)
 
+    int nodeSize;
+    void* data = m_fileData->getData(Data_Type_Misc, 0x2711, &nodeSize, 0xfffe);;
+    if (data != NULL) {
+        itemBrres.setFileImage(data, nodeSize, Heaps::StageResource);
+    }
+    data = m_fileData->getData(Data_Type_Misc, 0x2712, &nodeSize, 0xfffe);;
+    if (data != NULL) {
+        itemParam.setFileImage(data, nodeSize, Heaps::StageResource);
+    }
+    data = m_fileData->getData(Data_Type_Misc, 0x2713, &nodeSize, 0xfffe);;
+    if (data != NULL) {
+        itemCommonParam.setFileImage(data, nodeSize, Heaps::StageResource);
+    }
+
     this->level = 0; // TODO
 
     testStageParamInit(m_fileData, 0xA);
@@ -44,7 +61,7 @@ void stTargetSmash::createObj()
     createCollision(m_fileData, 2, NULL);
 
     initCameraParam();
-    void* posData = m_fileData->getData(DATA_TYPE_MODEL, 0x64, 0xfffe);
+    void* posData = m_fileData->getData(Data_Type_Model, 0x64, 0xfffe);
     if (posData == NULL)
     {
         // if no stgPos model in pac, use defaults
@@ -57,13 +74,29 @@ void stTargetSmash::createObj()
     }
     createWind2ndOnly();
     loadStageAttrParam(m_fileData, 50);
-    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(DATA_TYPE_SCENE, 0, 0xfffe));
+    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(Data_Type_Scene, 0, 0xfffe));
     registScnAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
 
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->m_stageData);
     this->setStageAttackData(&stageData->damageFloor, 0);
+
+
+
+    itManager *itemManager = itManager::getInstance();
+    itemManager->preloadItemKindArchive(Item_MarioBros_Sidestepper, 0, itArchive::Temp, true);
+    itemManager->preloadItemKindArchive(Item_MarioBros_Sidestepper, 1, itArchive::Temp, true);
+}
+
+void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer) {
+    if (itemID == Item_MarioBros_Sidestepper) {
+        *brres = &this->itemBrres;
+        *param = &this->itemParam;
+        if (variantID == 0) {
+            *commonParam = &this->itemCommonParam;
+        }
+    }
 }
 
 void stTargetSmash::patchInstructions() {
@@ -72,17 +105,17 @@ void stTargetSmash::patchInstructions() {
 
     int *instructionAddr = (int*)0x8095d198;
     *instructionAddr = 0x9421FC40; // stwu sp, -0x3C0(sp) Original: stwu sp, -0x60(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
+    __flush_cache(instructionAddr - 4, 0x8);
     instructionAddr = (int*)0x8095d1a4;
     *instructionAddr = 0x900103C4; // stw r0, 0x3C4(sp) Original: stw r0, 0x64(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
+    __flush_cache(instructionAddr - 4, 0x8);
 
     instructionAddr = (int*)0x8095d2e0;
     *instructionAddr = 0x800103C4; // lwz r0, 0x3C4(sp) Original: lwz r0, 0x64(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
+    __flush_cache(instructionAddr - 4, 0x8);
     instructionAddr = (int*)0x8095d2e8;
     *instructionAddr = 0x382103C0; // addi sp, sp, 0x3C0 Original: addi sp, sp, 0x60
-    TRK_flush_cache(instructionAddr - 4, 0x8);
+    __flush_cache(instructionAddr - 4, 0x8);
 }
 
 void stTargetSmash::createObjAshiba(int mdlIndex) {
@@ -106,6 +139,8 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         u32 watersIndex = ground->getNodeIndex(0, "Waters");
         u32 windsIndex = ground->getNodeIndex(0, "Winds");
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
+
+        // TODO: Ground object with collision that kos you above certain %
         // TODO: Optional targets (can select max targets in STDT)
         for (int i = targetsIndex + 1; i < disksIndex; i++) {
             this->targetsLeft++;
@@ -457,17 +492,15 @@ void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength
 }
 
 void stTargetSmash::putItem(int itemID, u32 variantID, Vec3f* pos) {
-    // TODO: Allow pokemon/assists/custom stage items
-    itManager* itemManager = itManager::getInstance();
-    if (itemManager->isCompItemKindArchive((itKind)itemID, variantID, true)) {
-        BaseItem* item = itemManager->createItem((itKind)itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
+    itManager *itemManager = itManager::getInstance();
+    if (itemManager->isCompItemKindArchive((itKind) itemID, variantID, true)) {
+        BaseItem *item = itemManager->createItem((itKind) itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
         if (item != NULL) {
             item->warp(pos);
             item->setVanishMode(false);
         }
     }
 }
-
 void Ground::setStageData(void* stageData)
 {
     this->m_stageData = stageData;
@@ -593,9 +626,9 @@ bool stTargetSmash::isReStartSamePoint()
 {
     return true;
 }
-int stTargetSmash::getWind2ndOnlyData()
+grGimmickWindData2nd* stTargetSmash::getWind2ndOnlyData()
 {
-    return (u32) & this->wndOnlyData2;
+    return m_windAreaData2nd;
 }
 bool stTargetSmash::isBamperVector()
 {

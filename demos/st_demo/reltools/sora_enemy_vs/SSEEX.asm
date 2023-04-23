@@ -22,3 +22,8 @@ loc_emDamageModuleImpl__getDamageAngle_passConnectedHitboxForSpecialAngles:
     li r7,0x1                # Original operation
     lwz r8, 0x10(r1)
     b __unresolved                          [R_PPC_REL24(41, 1, "loc_passExtraParamForGetDamageAngleFinished")]
+
+loc_wnemSimple__notifyEventOnDamage_passConnectedHitboxForSpecialAngles:
+    li r7,0x0                # Original operation
+    mr r8, r28
+    b __unresolved                          [R_PPC_REL24(41, 1, "loc_passExtraParamForNotifyEventOnDamageFinished")]
