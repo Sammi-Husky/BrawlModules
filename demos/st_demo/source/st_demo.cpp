@@ -7,6 +7,7 @@
 #include <em/em_weapon_manager.h>
 #include <gf/gf_heap_manager.h>
 
+// TODO: Have enemy module loaded first from stage pac (loadModuleRequestOnImage should be relevant function)
 // TODO: Patch enemy pop so that can hitbox can affect any team (but can't hit fighters) (or even better change the team based on who killed the enemy)
 // TODO: Destroy enemy if they go past blast zone
 // TODO: Test different enemies
