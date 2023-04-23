@@ -28,6 +28,8 @@ class stTargetSmash : public stMelee {
 protected:
     gfArchive itemBrres;
     gfArchive itemParam;
+//    gfArchive itemBrres;
+//    gfArchive itemParam;
     char _476[848 - 728];
     u32 level; // 848 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
@@ -36,6 +38,7 @@ protected:
     char _860[912 - 861];
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
+    gfArchive itemCommonParam;
 
 public:
     stTargetSmash() : stMelee("stTargetSmash", Stages::TBreak)
@@ -83,7 +86,7 @@ public:
     virtual void update(float deltaFrame);
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
-    virtual void getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID);
+    virtual void getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer);
     virtual ~stTargetSmash() { this->releaseArchive(); };
 
     void patchInstructions();
@@ -106,5 +109,5 @@ public:
     void createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle);
     void putItem(int itemID, u32 variantID, Vec3f* pos);
 
-    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4)
+    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(itemCommonParam))
 };
