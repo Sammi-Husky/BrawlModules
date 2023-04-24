@@ -15,8 +15,8 @@ include $(DEVKITPPC)/wii_rules
 # SOURCES is a list of directories containing source code
 # INCLUDES is a list of directories containing extra header files
 #---------------------------------------------------------------------------------
-TARGET      :=  st_otrain
-RELID       :=  86
+TARGET      :=  st_starfox
+RELID       :=  58
 BUILD       :=  build
 SOURCES     :=  source ../lib/PowerPC_EABI_Support/Runtime/Src $(wildcard source/*)
 INCLUDES    :=  include
@@ -31,7 +31,7 @@ LD          := $(TOPDIR)/../tools/MWCC4_1/mwldeppc.exe
 ELF2REL     := $(TOPDIR)/../tools/elf2rel.exe
 
 
-CCFLAGS     := -Cpp_exceptions off -W illpragmas -proc gekko -nostdinc -O4,p -ipa file -inline auto -fp hard -u _prolog -u _epilog -u _unresolved -enum int -sdata 0 -sdata2 0 -func_align 4
+CCFLAGS     := -Cpp_exceptions off -W illpragmas -proc gekko -nostdinc -O4,p -ipa file -inline on,noauto -fp hard -u _prolog -u _epilog -u _unresolved -enum int -sdata 0 -sdata2 0 -func_align 4
 CXXFLAGS    := -lang=c++ $(CCFLAGS)
 LDFLAGS     := -lcf $(LCF) -r1 -fp hard -m _prolog -g -unused
 
@@ -55,8 +55,7 @@ export DEPSDIR  := $(CURDIR)/$(BUILD)
 # automatically build a list of object files for our project
 #---------------------------------------------------------------------------------
 CFILES      :=  global_destructor_chain.c
-CPPFILES    :=  st_onlinetrainning.cpp mo_stage.cpp junk.cpp
-
+CPPFILES    :=  st_starfox.cpp mo_stage.cpp junk.cpp
 #---------------------------------------------------------------------------------
 # use CXX for linking C++ projects, CC for standard C
 #---------------------------------------------------------------------------------
@@ -136,13 +135,13 @@ $(OFILES_SOURCES) : $(HFILES)
 	@echo compiling ... $(notdir $<)
 	$(SILENTMSG) $(notdir $<)
 	$(SILENTCMD)$(CXX) $(CXXFLAGS) -MMD $< $(INCLUDE) -o $(DEPSDIR)/$*.d
-	$(SILENTCMD)$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) -o $@
+	$(SILENTCMD)$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) -o $@)
 
 %.o: %.c
 	@echo compiling ... $(notdir $<)
 	$(SILENTMSG) $(notdir $<)
 	$(SILENTCMD)$(CC) $(CCFLAGS) -MMD $< $(INCLUDE) -o $(DEPSDIR)/$*.d
-	$(SILENTCMD)$(CC) $(CCFLAGS) -c $< $(INCLUDE) -o $@
+	$(SILENTCMD)$(CC) $(CCFLAGS) -c $< $(INCLUDE) -o $@)
 
 -include $(DEPENDS)
 

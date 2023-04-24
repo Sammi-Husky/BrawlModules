@@ -11,8 +11,7 @@ grVillageGuestPathMove* grVillageGuestPathMove::create(int mdlIndex, char* tgtNo
 }
 
 inline grVillageGuestPathMove::grVillageGuestPathMove(char* taskName)
-    : grVillage(taskName),
-      m_seq((void*)&field_0x2C, 1, (void*)&field_0x38, 1)
+    : grVillage(taskName)
 {
     this->m_type = 5;
     this->field_0x01 = 1;
@@ -65,10 +64,10 @@ void grVillageGuestPathMove::updateMove(float deltaFrame)
             if (this->m_type == 3)
             {
                 this->m_sndID = snd_se_stage_Village_UFO_fly;
-                this->m_seqID = snd_se_stage_Village_UFO_fly;
-                this->field_0x50 = 0;
-                this->field_0x54 = 2280.0;
-                this->field_0x58 = 3730.0;
+                this->m_seqID.id = snd_se_stage_Village_UFO_fly;
+                this->m_seqID.unk4 = 0;
+                this->m_seqID.unk8 = 2280.0;
+                this->m_seqID.unkC = 3730.0;
                 this->m_seq.registId(&m_sndID, 0);
                 this->m_seq.registSeq(0, &m_seqID, 1, Heaps::StageInstance);
                 this->m_seq.m_sndGenerator = &this->m_sndGenerator;
