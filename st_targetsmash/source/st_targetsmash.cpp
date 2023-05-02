@@ -39,15 +39,15 @@ void stTargetSmash::createObj()
     // TODO: Look into switching UI to stock icon and number left if more than certain amount of targets (check IfCenter createModel functions)
 
     int nodeSize;
-    void* data = m_fileData->getData(Data_Type_Misc, 0x2711, &nodeSize, 0xfffe);;
+    void* data = m_fileData->getData(Data_Type_Misc, 0x2711, &nodeSize, 0xfffe);
     if (data != NULL) {
         itemBrres.setFileImage(data, nodeSize, Heaps::StageResource);
     }
-    data = m_fileData->getData(Data_Type_Misc, 0x2712, &nodeSize, 0xfffe);;
+    data = m_fileData->getData(Data_Type_Misc, 0x2712, &nodeSize, 0xfffe);
     if (data != NULL) {
         itemParam.setFileImage(data, nodeSize, Heaps::StageResource);
     }
-    data = m_fileData->getData(Data_Type_Misc, 0x2713, &nodeSize, 0xfffe);;
+    data = m_fileData->getData(Data_Type_Misc, 0x2713, &nodeSize, 0xfffe);
     if (data != NULL) {
         itemCommonParam.setFileImage(data, nodeSize, Heaps::StageResource);
     }
