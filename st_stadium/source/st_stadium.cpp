@@ -193,9 +193,5 @@ bool stStadium::isBamperVector()
 {
     return true;
 }
-int stStadium::getFinalTechniqColor()
-{
-    return 0x14000496;
-}
 
 ST_CLASS_INFO;
