@@ -47,9 +47,22 @@ public:
     virtual void createObj();
     virtual bool loading();
     virtual void update(float deltaFrame);
-    virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
+    virtual void notifyEventInfoGo();
+    virtual void notifyEventInfoReady();
+    virtual void setVision(u8);
     virtual ~stStadium() { this->releaseArchive(); };
+
+    virtual void createObjDetails();
+
+    void updateSpecialStage(float);
+    void updateSymbol(float);
+    void updateVisionScreen();
+    void updateVisionScreenPos();
+
+    void enableVisionScreen();
+
+
 
     STATIC_CHECK(sizeof(stStadium) == 0x1D8)
 };
