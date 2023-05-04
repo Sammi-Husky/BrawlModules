@@ -14,10 +14,6 @@ bool stStadium::loading()
 {
     return true;
 }
-void stStadium::update(float deltaFrame)
-{
-    return;
-}
 
 void stStadium::createObj()
 {
@@ -135,15 +131,108 @@ void stStadium::createObj()
 
     this->m_displayEvent.end();
     this->m_visionScreenState = VisionScreen_Disabled;
-
-    stadiumVision->setNodeVisibility(0, 0, "AuroraVision", 0, 0);
-    stadiumVision->setNodeVisibility(0, 0, "AuroraVision9monitor", 0, 0);
-    stadiumVision->setDisplay(false);
+    this->setDefaultDisplay();
     this->playSeBasic(snd_se_stage_Stadium_02, 0);
 }
 
 void stStadium::createObjDetails() {
 
+}
+
+void stStadium::update(float deltaFrame)
+{
+    if (this->m_normalEvent.isReadyEnd() && !this->m_phaseEvent.isEvent()) {
+        switch(this->m_transformTypes[this->m_transformTypeIndex]) {
+            case Type_Electric:
+                this->m_stadiumTypeGroundIndex = 10;
+                break;
+            case Type_Ground:
+                this->m_stadiumTypeGroundIndex = 13;
+                break;
+            case Type_Ice:
+                this->m_stadiumTypeGroundIndex = 12;
+                break;
+            case Type_Flying:
+                this->m_stadiumTypeGroundIndex = 14;
+                break;
+            default:
+                break;
+        }
+        this->m_phaseEvent.start();
+        this->m_transformTypeIndex++;
+        if (this->m_transformTypeIndex > 3) {
+            this->prepareNextTransformTypes();
+        }
+    }
+
+    this->m_normalEvent.update(deltaFrame);
+    this->m_phaseEvent.update(deltaFrame);
+    this->m_typeEvent.update(deltaFrame);
+    this->m_transformEvent.update(deltaFrame);
+    this->m_displayTransformEvent.update(deltaFrame);
+    this->m_preTransformEvent.update(deltaFrame);
+    this->m_displayEvent.update(deltaFrame);
+    this->m_electricPkmnEvent.update(deltaFrame);
+    if (this->m_displayEvent.isEvent()) {
+        int phase = this->m_displayEvent.getPhase();
+        if (phase == 1 && this->m_displayEvent.isReadyEnd()) {
+            this->m_displayEvent.end();
+            this->m_visionScreenState = VisionScreen_Disabled;
+            this->setDefaultDisplay();
+        }
+        if (phase == 0 || (phase == 1 && !this->m_displayEvent.isReadyEnd())) {
+            int nextDisplayIndex = randi(2);
+            this->m_displayState++;
+            this->m_displayEvent.set(600.0, 1200.0);
+            if (this->m_displayState > 6) {
+                this->m_displayState = 0;
+                nextDisplayIndex = 2;
+                this->m_displayEvent.set(300.0, 300.0);
+            }
+            this->m_displayEvent.end();
+            this->m_visionScreenState = VisionScreen_Disabled;
+            this->setDefaultDisplay();
+            this->m_displayEvent.start();
+            grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
+            switch(nextDisplayIndex) {
+                case 0:
+                    this->m_targetZoom = randf()*0.9 + 0.6;
+                    this->enableVisionScreen();
+                    break;
+                case 1:
+                    stadiumVision->m_messageDisplay = grStadiumVision::MessageDisplay_Overview;
+                    stadiumVision->setDisplay(true);
+                    if (this->m_currentDisplayIndex != nextDisplayIndex) {
+                        this->playSeBasic(snd_se_stage_Stadium_10,0);
+                    }
+                    break;
+                case 2:
+                    stadiumVision->m_messageDisplay = grStadiumVision::MessageDisplay_Leader;
+                    stadiumVision->setDisplay(true);
+                    if (this->m_currentDisplayIndex != nextDisplayIndex) {
+                        this->playSeBasic(snd_se_stage_Stadium_10,0);
+                    }
+                default:
+                    break;
+            }
+            this->m_currentDisplayIndex = nextDisplayIndex;
+            this->m_displayEvent.setPhase(1);
+        }
+    }
+    this->updateVisionScreen();
+    this->updateSpecialStage(deltaFrame);
+    if (this->m_transformEvent.isEvent()) {
+        if (this->m_transformEvent.isReadyEnd()) {
+            cmRemoveQuake(1);
+            this->stopSeBasic(this->m_transformSfxIndex, 2.0);
+            this->m_transformSfxIndex = -1;
+            this->m_transformEvent.end();
+        }
+        else {
+            cmReqQuake(1, &(Vec3f){0.0, 0.0, 0.0});
+        }
+    }
+    this->updateSymbol(deltaFrame);
 }
 
 void stStadium::notifyEventInfoGo() {
@@ -155,6 +244,26 @@ void stStadium::notifyEventInfoReady() {
 }
 
 void stStadium::setVision(u8 index) {
+
+}
+
+void stStadium::enableVisionScreen() {
+
+}
+
+void stStadium::updateSpecialStage(float deltaFrame) {
+
+}
+
+void stStadium::updateSymbol(float deltaFrame) {
+
+}
+
+void stStadium::updateVisionScreen() {
+
+}
+
+void stStadium::updateVisionScreenPos() {
 
 }
 
