@@ -3,6 +3,8 @@
 #include <StaticAssert.h>
 #include <st/st_melee.h>
 #include <st/st_trigger.h>
+#include <gr/gr_madein.h>
+#include <gr/gr_stadium_vision.h>
 #include <gr/gr_tengan_event.h>
 #include <gm/gm_global.h>
 #include <mt/mt_prng.h>
@@ -13,6 +15,38 @@ const float BGM_VOLUME = 1.0f;
 const float SCROLL_DIR = 0.0f;
 const float POKETRAINER_Z = 0.0f;
 
+struct stStadiumData {
+    float m_0x0;
+    float m_0x4;
+    float m_0x8;
+    float m_0xc;
+    float m_0x10;
+    float m_0x14;
+    float m_0x18;
+    float m_0x1c;
+    float m_0x20;
+    float m_0x24;
+    float m_0x28;
+    float m_normalMinFrames;
+    float m_normalMaxFrames;
+    float m_0x34;
+    float m_0x38;
+    float m_0x3c;
+    float m_0x40;
+    float m_0x44;
+    float m_0x48;
+    float m_0x4c;
+    float m_0x50;
+    float m_0x54;
+    float m_0x58;
+    float m_0x5c;
+    float m_0x60;
+    float m_0x64;
+    float m_0x68;
+
+    STATIC_CHECK(sizeof(stStadiumData) == 108)
+};
+
 class stStadium : public stMelee {
     enum Type {
         Type_Electric = 0,
@@ -21,33 +55,38 @@ class stStadium : public stMelee {
         Type_Flying = 3,
     };
 
+    enum VisionScreenState {
+        VisionScreen_Disabled = 0,
+        VisionScreen_Enabled = 1,
+    };
+
 protected:
     u8 m_0x1d8;
     char _473[3];
-    grTenganEvent m_event1;
-    grTenganEvent m_event2;
-    grTenganEvent m_event3;
-    grTenganEvent m_event4;
-    grTenganEvent m_event5;
-    grTenganEvent m_event6;
-    grTenganEvent m_event7;
+    grTenganEvent m_normalEvent;
+    grTenganEvent m_phaseEvent;
+    grTenganEvent m_typeEvent;
+    grTenganEvent m_transformEvent;
+    grTenganEvent m_displayTransformEvent;
+    grTenganEvent m_preTransformEvent;
+    grTenganEvent m_electricPkmnEvent;
     grGimmickBeltConveyorData m_beltConveyor1Data;
     grGimmickBeltConveyorData m_beltConveyor2Data;
-    stTrigger* m_beltConveyorTrigger1;
-    stTrigger* m_beltConveyorTrigger2;
+    stTrigger* m_beltConveyor1Trigger;
+    stTrigger* m_beltConveyor2Trigger;
     u8 m_0x6a0;
     char _0x6a1[3];
     float m_0x6a4;
     u8 m_0x6a8;
-    u8 m_transformState;
+    u8 m_stadiumTypeGroundIndex;
     char _0x6aa[2];
-    int m_0x6ac;
+    VisionScreenState m_visionScreenState;
     float m_0x6b0;
     int m_0x6b4;
     u8 m_0x6b8;
     char _0x6b9[3];
-    int m_0x6bc;
-    int m_0x6c0;
+    int m_sfx1Index;
+    int m_sfx2Index;
     int m_transformTypeIndex;
     Type m_transformTypes[4];
     float m_0x6cc;
@@ -60,7 +99,7 @@ protected:
     u8 m_0x6e5;
     u8 m_0x6e6;
     u8 m_0x6e7;
-    grTenganEvent m_event8;
+    grTenganEvent m_displayEvent;
     float m_0x794;
     float m_0x798;
     float m_0x79c;
@@ -91,14 +130,14 @@ public:
     };
 
     stStadium() : stMelee("stStadium", Stages::Final){
-        m_0x6bc = -1;
-        m_0x6c0 = -1;
+        m_sfx1Index = -1;
+        m_sfx2Index = -1;
         prepareNextTransformTypes();
         m_0x1d8 = 0;
         m_0x6b0 = 0.0;
         m_0x6b4 = -1;
         m_0x6b8 = 0;
-        m_0x6ac = 0;
+        m_visionScreenState = VisionScreen_Disabled;
         m_0x794 = 1.0;
         m_0x6e5 = 0;
         m_0x6e6 = 0;
@@ -163,7 +202,7 @@ public:
     virtual bool isBamperVector();
     virtual void notifyEventInfoGo();
     virtual void notifyEventInfoReady();
-    virtual void setVision(u8);
+    virtual void setVision(u8 index);
     virtual ~stStadium() {
         this->releaseArchive();
         g_GameGlobal->m_modeMelee->m_meleeInitData.m_0x4_0 = false;
