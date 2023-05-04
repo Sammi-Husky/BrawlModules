@@ -77,28 +77,41 @@ public:
 };
 
 class stStarfox : public stMelee {
-    grTenganEvent unk1D8;
-    grTenganEvent unk284;
-    grTenganEvent unk330;
-    u32 unk3DC[0x5];
-    s32 unk3F0[0x4];
-    grMadein* unk400[0x4];
-    bool unk410;
-    u8 unk411;
-    IfFoxSmashAppearTask* unk414;
-    u8 unk418;
-    s32 unk41C;
-    s32 unk420;
-    u32 unk424;
-    u8 unk428_b7: 1;
-    u8 unk428_b6: 1;
-    u8 unk428_b5: 1;
-    StSeUtil::SeSeqInstance<4, 40> unk42C;
-    s32 unk6FC;
-    snd3DGenerator unk700;
-    snd3DGenerator unk708;
-    Vec3f unk710;
-    u8 unk71C;
+    grTenganEvent m_scene_lifecycle;
+    grTenganEvent m_curr_scene;
+    grTenganEvent m_curr_scene_effect;
+    u32 m_effects[0x5];
+    s32 m_scene_ground_num[0x4];
+    grMadein* m_scene_grounds[0x4];
+    bool m_change_scene;
+    u8 m_smash_taunt_activated;
+    IfFoxSmashAppearTask* m_smash_taunt_task;
+    u8 m_smash_taunt_kind;
+    s32 m_scene_num;
+    s32 m_prev_scene_num;
+    u32 m_unused;
+    u8 m_not_first_scene: 1;
+    u8 m_show_dogfight: 1;
+    u8 m_smash_taunt_timing: 1;
+    StSeUtil::SeSeqInstance<4, 40> m_se_player;
+    s32 m_great_fox_engine_se;
+    snd3DGenerator m_great_fox_sndgen;
+    snd3DGenerator m_pleiades_sndgen;
+    Vec3f m_slope_rotate;
+    u8 m_corneria_phase;
+
+    static const int SCENE_ASTEROID = 0;
+    static const int SCENE_BATTLESHIP = 1;
+    static const int SCENE_CORNERIA = 2;
+    static const int SCENE_SPACE = 3;
+
+    void startScene();
+    void updateScene(float deltaFrame);
+    void updateSceneEffectAsteroid(float deltaFrame);
+    void updateSceneEffectSpace(float deltaFrame);
+    void updateSceneEffectCorneria(float deltaFrame);
+    void updateSceneEffectBattleship(float deltaFrame);
+    void startAppearCore();
 public:
     stStarfox();
 
@@ -117,17 +130,9 @@ public:
     virtual void setChangeSceneNumber(s32 n);
 
     virtual int getFinalTechniqColor() { return 0x14000496; }
-    virtual IfSmashAppearTask* getAppearTask() { return unk414; }
+    virtual IfSmashAppearTask* getAppearTask() { return m_smash_taunt_task; }
     virtual bool isBamperVector() { return true; }
     virtual int getPokeTrainerDrawLayer() { return 1; }
-
-    void startScene();
-    void updateScene(float frame);
-    void updateSceneEffectAsteroid(float frame);
-    void updateSceneEffectSpace(float frame);
-    void updateSceneEffectCorneria(float frame);
-    void updateSceneEffectBattleship(float frame);
-    void startAppearCore();
 
     static stStarfox* create();
     static stClassInfoImpl<Stages::StarFox, stStarfox> bss_loc_14;
