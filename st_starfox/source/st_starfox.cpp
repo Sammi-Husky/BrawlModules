@@ -21,17 +21,17 @@ stStarfox* stStarfox::create() {
 }
 
 stStarfox::stStarfox() : stMelee("stStarfox", Stages::StarFox) {
-    unk414 = 0;
-    unk418 = 0;
-    unk428_b5 = 0;
-    unk411 = 0;
-    unk71C = 0;
-    unk41C = 0;
+    m_smash_taunt_task = 0;
+    m_smash_taunt_kind = 0;
+    m_smash_taunt_timing = 0;
+    m_smash_taunt_activated = 0;
+    m_corneria_phase = 0;
+    m_scene_num = SCENE_ASTEROID;
 }
 
 stStarfox::~stStarfox() {
-    if (unk414) {
-        unk414->exit();
+    if (m_smash_taunt_task) {
+        m_smash_taunt_task->exit();
     }
 }
 
@@ -42,36 +42,36 @@ bool stStarfox::loading() {
 void stStarfox::createObj() {
     testStageParamInit(m_fileData, 0xA);
     testStageDataInit(m_fileData, 0x14, 0x38);
-    grMadein* r28 = grMadein::create(0, "", "grStarfoxWarp1", Heaps::StageInstance);
-    if (r28) {
-        addGround(r28);
-        r28->startup(m_secondaryFileData, false, 0);
-        r28->setStageData(m_stageData);
+    grMadein* stageElement = grMadein::create(0, "", "grStarfoxWarp1", Heaps::StageInstance);
+    if (stageElement) {
+        addGround(stageElement);
+        stageElement->startup(m_secondaryFileData, false, 0);
+        stageElement->setStageData(m_stageData);
     }
-    r28 = grMadein::create(1, "", "grStarfoxWarp2", Heaps::StageInstance);
-    if (r28) {
-        addGround(r28);
-        r28->startup(m_secondaryFileData, false, 0);
-        r28->setStageData(m_stageData);
+    stageElement = grMadein::create(1, "", "grStarfoxWarp2", Heaps::StageInstance);
+    if (stageElement) {
+        addGround(stageElement);
+        stageElement->startup(m_secondaryFileData, false, 0);
+        stageElement->setStageData(m_stageData);
     }
-    r28 = grMadein::create(2, "", "grStarfoxWarp3", Heaps::StageInstance);
-    if (r28) {
-        addGround(r28);
-        r28->startup(m_secondaryFileData, false, 0);
-        r28->setStageData(m_stageData);
+    stageElement = grMadein::create(2, "", "grStarfoxWarp3", Heaps::StageInstance);
+    if (stageElement) {
+        addGround(stageElement);
+        stageElement->startup(m_secondaryFileData, false, 0);
+        stageElement->setStageData(m_stageData);
     }
-    r28 = grMadein::create(0, "", "grStarfoxGdiff", Heaps::StageInstance);
-    if (r28) {
-        addGround(r28);
-        r28->startup(m_fileData, false, 0);
-        r28->setStageData(m_stageData);
+    stageElement = grMadein::create(0, "", "grStarfoxGdiff", Heaps::StageInstance);
+    if (stageElement) {
+        addGround(stageElement);
+        stageElement->startup(m_fileData, false, 0);
+        stageElement->setStageData(m_stageData);
     }
-    createCollision(m_fileData, 2, r28);
+    createCollision(m_fileData, 2, stageElement);
     initCameraParam();
-    void* mdl = m_fileData->getData(Data_Type_Model, 100, 0xFFFE);
-    if (mdl) {
-        void* r1 = mdl;
-        createStagePositions(&r1);
+    void* model = m_fileData->getData(Data_Type_Model, 100, 0xFFFE);
+    if (model) {
+        void* mdl = model;
+        createStagePositions(&mdl);
     } else {
         createStagePositions();
     }
@@ -81,79 +81,79 @@ void stStarfox::createObj() {
         static_cast<grMadein*>(getGround(i))->initializeEntity();
     }
     static_cast<grMadein*>(getGround(3))->startEntityAutoLoop();
-    unk3F0[0] = 2;
-    unk3F0[1] = 1;
-    unk3F0[2] = 1;
-    unk3F0[3] = 4;
-    unk330.set(0.0f, 0.0f);
-    unk1D8.set(0.0f, 0.0f);
-    unk284.set(300.0f, 600.0f);
-    unk1D8.start();
+    m_scene_ground_num[0] = 2;
+    m_scene_ground_num[1] = 1;
+    m_scene_ground_num[2] = 1;
+    m_scene_ground_num[3] = 4;
+    m_curr_scene_effect.set(0.0f, 0.0f);
+    m_scene_lifecycle.set(0.0f, 0.0f);
+    m_curr_scene.set(300.0f, 600.0f);
+    m_scene_lifecycle.start();
     resetChangeScene();
-    unk424 = 0;
-    unk428_b7 = 0;
+    m_unused = 0;
+    m_not_first_scene = 0;
     loadStageAttrParam(m_fileData, 0x1E);
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", m_unk, 0);
-    unk420 = -1;
-    unk428_b6 = 0;
-    unk42C.registId(data_loc_11A0, SndIDTableSize);
-    unk42C.registSeq(0, data_loc_0, SndSeqTable1Size, Heaps::StageInstance);
-    unk42C.registSeq(1, data_loc_190, SndSeqTable2Size, Heaps::StageInstance);
-    unk42C.registSeq(2, data_loc_980, SndSeqTable3Size, Heaps::StageInstance);
-    unk42C.registSeq(3, data_loc_9C0, SndSeqTable4Size, Heaps::StageInstance);
+    m_prev_scene_num = -1;
+    m_show_dogfight = 0;
+    m_se_player.registId(data_loc_11A0, SndIDTableSize);
+    m_se_player.registSeq(0, data_loc_0, SndSeqTable1Size, Heaps::StageInstance);
+    m_se_player.registSeq(1, data_loc_190, SndSeqTable2Size, Heaps::StageInstance);
+    m_se_player.registSeq(2, data_loc_980, SndSeqTable3Size, Heaps::StageInstance);
+    m_se_player.registSeq(3, data_loc_9C0, SndSeqTable4Size, Heaps::StageInstance);
     nw4r::g3d::ResFileData* scn = (nw4r::g3d::ResFileData*) m_secondaryFileData->getData(Data_Type_Scene, 0, 0xFFFE);
     registScnAnim(scn, 0);
-    s32 result = unk708.prepareSE(snd_se_stage_Starfox_pleiadians_eng, 0);
+    s32 result = m_pleiades_sndgen.prepareSE(snd_se_stage_Starfox_pleiadians_eng, 0);
     if (result != -1) {
         Vec3f pos;
         pos.m_x = 0.0f;
         pos.m_y = 0.0f;
         pos.m_z = 0.0f;
-        unk708.setPos(&pos);
-        unk708.startSE(result, 0);
+        m_pleiades_sndgen.setPos(&pos);
+        m_pleiades_sndgen.startSE(result, 0);
     }
-    unk6FC = -1;
-    unk710.m_x = 0;
-    unk710.m_y = 0;
-    unk710.m_z = 0;
-    unk414 = IfFoxSmashAppearTask::create(m_secondaryFileData);
+    m_great_fox_engine_se = -1;
+    m_slope_rotate.m_x = 0;
+    m_slope_rotate.m_y = 0;
+    m_slope_rotate.m_z = 0;
+    m_smash_taunt_task = IfFoxSmashAppearTask::create(m_secondaryFileData);
 }
 
 void stStarfox::setChangeSceneNumber(s32 n) {
-    unk41C = n;
+    m_scene_num = n;
 }
 
 bool stStarfox::checkChangeScene() {
-    return unk410;
+    return m_change_scene;
 }
 
 void stStarfox::resetChangeScene() {
-    unk410 = false;
+    m_change_scene = false;
 }
 
 void stStarfox::startScene() {
-    switch (unk41C) {
-        case 0:
-            unk284.set(1000.0f, 1700.0f);
+    switch (m_scene_num) {
+        case SCENE_ASTEROID:
+            m_curr_scene.set(1000.0f, 1700.0f);
             static_cast<grMadein*>(getGround(3))->endEntity();
             static_cast<grMadein*>(getGround(3))->setMotion(0);
             static_cast<grMadein*>(getGround(3))->startEntityAutoLoop();
             break;
-        case 1:
-            unk284.set(2900.0f, 2900.0f);
+        case SCENE_BATTLESHIP:
+            m_curr_scene.set(2900.0f, 2900.0f);
             static_cast<grMadein*>(getGround(3))->endEntity();
             static_cast<grMadein*>(getGround(3))->setMotion(2);
             static_cast<grMadein*>(getGround(3))->startEntityAutoLoop();
             break;
-        case 2:
-            unk284.set(2300.0f, 2300.0f);
+        case SCENE_CORNERIA:
+            m_curr_scene.set(2300.0f, 2300.0f);
             static_cast<grMadein*>(getGround(3))->endEntity();
             static_cast<grMadein*>(getGround(3))->setMotion(1);
             static_cast<grMadein*>(getGround(3))->startEntityAutoLoop();
             break;
-        case 3:
-            unk284.set(3000.0f, 3500.0f);
+        case SCENE_SPACE:
+            m_curr_scene.set(3000.0f, 3500.0f);
             static_cast<grMadein*>(getGround(3))->endEntity();
             static_cast<grMadein*>(getGround(3))->setMotion(0);
             static_cast<grMadein*>(getGround(3))->startEntityAutoLoop();
@@ -161,59 +161,59 @@ void stStarfox::startScene() {
         default:
             break;
     }
-    unk284.start();
-    unk330.start();
-    if (!unk428_b6 && unk41C == 3) {
-        unk400[1]->endEntity();
-        unk400[2]->endEntity();
-        unk400[3]->endEntity();
+    m_curr_scene.start();
+    m_curr_scene_effect.start();
+    if (!m_show_dogfight && m_scene_num == SCENE_SPACE) {
+        m_scene_grounds[1]->endEntity();
+        m_scene_grounds[2]->endEntity();
+        m_scene_grounds[3]->endEntity();
     }
-    unk424 = 0;
+    m_unused = 0;
 }
 
-void stStarfox::updateScene(float frame) {
+void stStarfox::updateScene(float deltaFrame) {
     nw4r::g3d::ResFileData* scn;
-    switch(unk1D8.getPhase()) {
-        case 0:
+    switch(m_scene_lifecycle.getPhase()) {
+        case 0: // Ready to start next scene
             if (unk1A8) {
-                grMadein* r27;
-                unk400[3] = 0;
-                unk400[2] = 0;
-                unk400[1] = 0;
-                unk400[0] = 0;
+                grMadein* scene_ground;
+                m_scene_grounds[3] = 0;
+                m_scene_grounds[2] = 0;
+                m_scene_grounds[1] = 0;
+                m_scene_grounds[0] = 0;
                 g_gfSceneRoot->removeResAnmScn();
-                for (s32 i = 0; i < unk3F0[unk41C]; i++) {
-                    r27 = grMadein::create((s16)i, "", "SceneGround", Heaps::StageInstance);
-                    if (r27) {
-                        addGround(r27);
-                        r27->startup(unk1A8, 0, 0);
-                        r27->setStageData(m_stageData);
-                        r27->initializeEntity();
-                        r27->startEntityAutoLoop();
-                        unk400[(s16)i] = r27;
+                for (s32 i = 0; i < m_scene_ground_num[m_scene_num]; i++) {
+                    scene_ground = grMadein::create((s16)i, "", "SceneGround", Heaps::StageInstance);
+                    if (scene_ground) {
+                        addGround(scene_ground);
+                        scene_ground->startup(unk1A8, 0, 0);
+                        scene_ground->setStageData(m_stageData);
+                        scene_ground->initializeEntity();
+                        scene_ground->startEntityAutoLoop();
+                        m_scene_grounds[(s16)i] = scene_ground;
                     }
                 }
                 startScene();
-                if (unk428_b7 == 1) {
+                if (m_not_first_scene == 1) {
                     scn = (nw4r::g3d::ResFileData*)
-                        m_secondaryFileData->getData(Data_Type_Scene, unk41C*3 + 2, 0xFFFE);
+                        m_secondaryFileData->getData(Data_Type_Scene, m_scene_num*3 + 2, 0xFFFE);
                     registScnAnim(scn, 0);
                     static_cast<grMadein*>(getGround(1))->endEntity();
                     static_cast<grMadein*>(getGround(2))->startEntity();
-                    unk1D8.setPhase(unk1D8.getPhase() + 1);
+                    m_scene_lifecycle.setPhase(m_scene_lifecycle.getPhase() + 1);
                     playSeBasic(snd_se_stage_Starfox_warp_out, 0.0f);
                 } else {
-                    unk1D8.setPhase(unk1D8.getPhase() + 2);
+                    m_scene_lifecycle.setPhase(m_scene_lifecycle.getPhase() + 2);
                     scn = (nw4r::g3d::ResFileData*)
                         unk1A8->getData(Data_Type_Scene, 0, 0xFFFE);
                     registScnAnim(scn, 0);
                 }
             }
             break;
-        case 1:
+        case 1: // Check for smash taunt activation
             if (static_cast<grMadein*>(getGround(2))->isEndEntity() == 1u) {
                 static_cast<grMadein*>(getGround(2))->endEntity();
-                unk1D8.setPhase(unk1D8.getPhase() + 1);
+                m_scene_lifecycle.setPhase(m_scene_lifecycle.getPhase() + 1);
                 g_gfSceneRoot->removeResAnmScn();
                 scn = (nw4r::g3d::ResFileData*)
                     unk1A8->getData(Data_Type_Scene, 0, 0xFFFE);
@@ -222,16 +222,16 @@ void stStarfox::updateScene(float frame) {
                 startAppearCore();
             }
             break;
-        case 2:
-            if (unk284.isReadyEnd() == 1u) {
-                unk284.end();
+        case 2: // Scene is in progress, waiting for timer to run out
+            if (m_curr_scene.isReadyEnd() == 1u) {
+                m_curr_scene.end();
                 static_cast<grMadein*>(getGround(0))->startEntity();
-                unk1D8.setPhase(unk1D8.getPhase() + 1);
-                unk428_b7 = 1;
-                unk420 = unk41C;
+                m_scene_lifecycle.setPhase(m_scene_lifecycle.getPhase() + 1);
+                m_not_first_scene = 1;
+                m_prev_scene_num = m_scene_num;
                 g_gfSceneRoot->removeResAnmScn();
                 scn = (nw4r::g3d::ResFileData*)
-                    m_secondaryFileData->getData(Data_Type_Scene, unk420*3, 0xFFFE);
+                    m_secondaryFileData->getData(Data_Type_Scene, m_prev_scene_num*3, 0xFFFE);
                 registScnAnim(scn, 0);
                 playSeBasic(snd_se_stage_Starfox_warp_in, 0.0f);
                 m_windAreaData2nd->m_windStrength = 0.5f;
@@ -244,54 +244,54 @@ void stStarfox::updateScene(float frame) {
                 static_cast<grMadein*>(getGround(3))->endEntity();
                 static_cast<grMadein*>(getGround(3))->setMotion(3);
                 static_cast<grMadein*>(getGround(3))->startEntityAutoLoop();
-                if (unk6FC != -1) {
-                    unk700.stopSE(unk6FC, 0);
-                    unk6FC = -1;
+                if (m_great_fox_engine_se != -1) {
+                    m_great_fox_sndgen.stopSE(m_great_fox_engine_se, 0);
+                    m_great_fox_engine_se = -1;
                 }
             }
             break;
-        case 3:
+        case 3: // Scene transition (warp) in progress?
             if (static_cast<grMadein*>(getGround(0))->isEndEntity() == 1u) {
                 static_cast<grMadein*>(getGround(0))->endEntity();
                 static_cast<grMadein*>(getGround(1))->startEntityAutoLoop();
-                unk1D8.setPhase(unk1D8.getPhase() + 1);
+                m_scene_lifecycle.setPhase(m_scene_lifecycle.getPhase() + 1);
                 g_gfSceneRoot->removeResAnmScn();
                 scn = (nw4r::g3d::ResFileData*)
-                    m_secondaryFileData->getData(Data_Type_Scene, unk420*3 + 1, 0xFFFE);
+                    m_secondaryFileData->getData(Data_Type_Scene, m_prev_scene_num*3 + 1, 0xFFFE);
                 registScnAnim(scn, 0);
             }
             break;
-        case 4:
-            unk330.end();
+        case 4: // Teardown phase for scene effects and grounds
+            m_curr_scene_effect.end();
             // TODO UBFIX: Match this code without reinterpret_cast
             s32 i = 0;
-            s32 arrSz = sizeof(unk3DC)/sizeof(unk3DC[0]);
-            u32* unk3DC_ptr = reinterpret_cast<u32*>(this);
-            for (i = 0; i < arrSz; unk3DC_ptr++, i++) {
-                if (unk3DC_ptr[0xF7] != 0xFFFFFFFF) {
-                    g_ecMgr->killEffect(unk3DC_ptr[0xF7], 1, 1);
-                    unk3DC_ptr[0xF7] = 0xFFFFFFFF;
+            s32 arrSz = sizeof(m_effects)/sizeof(m_effects[0]);
+            u32* m_effects_ptr = reinterpret_cast<u32*>(this);
+            for (i = 0; i < arrSz; m_effects_ptr++, i++) {
+                if (m_effects_ptr[0xF7] != 0xFFFFFFFF) {
+                    g_ecMgr->killEffect(m_effects_ptr[0xF7], 1, 1);
+                    m_effects_ptr[0xF7] = 0xFFFFFFFF;
                 }
             }
             s32 j = 0;
-            grMadein** unk400_ptr = reinterpret_cast<grMadein**>(this);
-            for (j = 0; j < unk3F0[unk41C]; unk400_ptr++, j++) {
-                if (unk400_ptr[0x100]) {
-                    removeGround(unk400_ptr[0x100]);
-                    (unk400_ptr[0x100])->preExit();
-                    (unk400_ptr[0x100])->exit();
+            grMadein** m_scene_grounds_ptr = reinterpret_cast<grMadein**>(this);
+            for (j = 0; j < m_scene_ground_num[m_scene_num]; m_scene_grounds_ptr++, j++) {
+                if (m_scene_grounds_ptr[0x100]) {
+                    removeGround(m_scene_grounds_ptr[0x100]);
+                    (m_scene_grounds_ptr[0x100])->preExit();
+                    (m_scene_grounds_ptr[0x100])->exit();
                 }
             }
-            unk1D8.setPhase(unk1D8.getPhase() + 1);
+            m_scene_lifecycle.setPhase(m_scene_lifecycle.getPhase() + 1);
             break;
-        case 5:
-            unk410 = true;
-            unk1D8.end();
-            unk1D8.start();
-            if (unk428_b6 == 1) {
-                unk428_b6 = 0;
+        case 5: // Indicate to user that the scene is ready to change again
+            m_change_scene = true;
+            m_scene_lifecycle.end();
+            m_scene_lifecycle.start();
+            if (m_show_dogfight == 1) {
+                m_show_dogfight = 0;
             } else {
-                unk428_b6 = 1;
+                m_show_dogfight = 1;
             }
             break;
         default:
@@ -299,30 +299,30 @@ void stStarfox::updateScene(float frame) {
     }
 }
 
-void stStarfox::updateSceneEffectAsteroid(float frame) {
-    switch (unk330.getPhase()) {
+void stStarfox::updateSceneEffectAsteroid(float deltaFrame) {
+    switch (m_curr_scene_effect.getPhase()) {
         case 0:
-            unk3DC[4] = -1;
-            unk3DC[3] = -1;
-            unk3DC[2] = -1;
-            unk3DC[1] = -1;
-            unk3DC[0] = -1;
-            unk330.setPhase(unk330.getPhase() + 1);
+            m_effects[4] = -1;
+            m_effects[3] = -1;
+            m_effects[2] = -1;
+            m_effects[1] = -1;
+            m_effects[0] = -1;
+            m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
             break;
         case 1:
-            if (unk400[0]->isFrameOffset(674.0f) == 1u) {
-                u32 r4 = g_ecMgr->setEffect(0x440005);
-                unk3DC[0] = r4;
-                g_ecMgr->setParent(r4, unk400[0]->m_sceneModels[0], "clash_meteo2", 0);
-                unk330.setPhase(unk330.getPhase() + 1);
+            if (m_scene_grounds[0]->isFrameOffset(674.0f) == 1u) {
+                u32 effect = g_ecMgr->setEffect(0x440005);
+                m_effects[0] = effect;
+                g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "clash_meteo2", 0);
+                m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
             }
             break;
         case 2:
-            if (unk400[0]->isFrameOffset(710.0f) == 1u) {
-                u32 r4 = g_ecMgr->setEffect(0x440005);
-                unk3DC[1] = r4;
-                g_ecMgr->setParent(r4, unk400[0]->m_sceneModels[0], "clash_meteo3", 0);
-                unk330.setPhase(unk330.getPhase() + 1);
+            if (m_scene_grounds[0]->isFrameOffset(710.0f) == 1u) {
+                u32 effect = g_ecMgr->setEffect(0x440005);
+                m_effects[1] = effect;
+                g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "clash_meteo3", 0);
+                m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
             }
             break;
         default:
@@ -330,30 +330,30 @@ void stStarfox::updateSceneEffectAsteroid(float frame) {
     }
 }
 
-void stStarfox::updateSceneEffectSpace(float frame) {
-    switch (unk330.getPhase()) {
+void stStarfox::updateSceneEffectSpace(float deltaFrame) {
+    switch (m_curr_scene_effect.getPhase()) {
         case 0:
-            unk3DC[4] = -1;
-            unk3DC[3] = -1;
-            unk3DC[2] = -1;
-            unk3DC[1] = -1;
-            unk3DC[0] = -1;
-            u32 r4 = g_ecMgr->setEffect(0x440002);
-            unk3DC[0] = r4;
-            g_ecMgr->setParent(r4, unk400[0]->m_sceneModels[0], "PPP", 0);
-            unk330.setPhase(unk330.getPhase() + 1);
-            s32 res = unk700.prepareSE(snd_se_stage_Starfox_greatfox_eng, 0);
-            unk6FC = res;
+            m_effects[4] = -1;
+            m_effects[3] = -1;
+            m_effects[2] = -1;
+            m_effects[1] = -1;
+            m_effects[0] = -1;
+            u32 effect = g_ecMgr->setEffect(0x440002);
+            m_effects[0] = effect;
+            g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "PPP", 0);
+            m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
+            s32 res = m_great_fox_sndgen.prepareSE(snd_se_stage_Starfox_greatfox_eng, 0);
+            m_great_fox_engine_se = res;
             if (res != -1) {
-                unk700.startSE(res, 0);
+                m_great_fox_sndgen.startSE(res, 0);
             }
             break;
         default:
             break;
     }
-    if (unk6FC != -1) {
+    if (m_great_fox_engine_se != -1) {
         Vec3f nodePos;
-        unk400[3]->getNodePosition(&nodePos, 0, "GfoxMove");
+        m_scene_grounds[3]->getNodePosition(&nodePos, 0, "GfoxMove");
         Vec3f sndPos;
         float f0, f1, f2;
         f2 = nodePos.m_z;
@@ -362,27 +362,27 @@ void stStarfox::updateSceneEffectSpace(float frame) {
         sndPos.m_y = f1;
         sndPos.m_x = f0;
         sndPos.m_z = f2;
-        unk700.setPos(&sndPos);
+        m_great_fox_sndgen.setPos(&sndPos);
     }
 }
 
-void stStarfox::updateSceneEffectCorneria(float frame) {
-    switch (unk330.getPhase()) {
+void stStarfox::updateSceneEffectCorneria(float deltaFrame) {
+    switch (m_curr_scene_effect.getPhase()) {
         case 0:
-            unk3DC[4] = -1;
-            unk3DC[3] = -1;
-            unk3DC[2] = -1;
-            unk3DC[1] = -1;
-            unk3DC[0] = -1;
-            unk330.setPhase(unk330.getPhase() + 1);
-            unk71C = 1;
+            m_effects[4] = -1;
+            m_effects[3] = -1;
+            m_effects[2] = -1;
+            m_effects[1] = -1;
+            m_effects[0] = -1;
+            m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
+            m_corneria_phase = 1;
             break;
         default:
             break;
     }
-    switch (unk71C) {
+    switch (m_corneria_phase) {
         case 1:
-            if (unk284.getTimeLeft() < 1900.0f) {
+            if (m_curr_scene.getTimeLeft() < 1900.0f) {
                 m_windAreaData2nd->m_windStrength = 0.5f;
                 m_windAreaData2nd->m_horizontalWindRotation = 90.0f;
                 m_windAreaData2nd->m_verticalWindRotation = 16.0f;
@@ -390,17 +390,17 @@ void stStarfox::updateSceneEffectCorneria(float frame) {
                 m_windAreaData2nd->m_72 = 0x46;
                 m_wind2ndTrigger->setWindParam(m_windAreaData2nd, 0);
                 m_wind2ndTrigger->setAreaSleep(0);
-                unk71C++;
+                m_corneria_phase++;
             }
             break;
         case 2:
-            if (unk284.getTimeLeft() < 1500.0f) {
+            if (m_curr_scene.getTimeLeft() < 1500.0f) {
                 m_wind2ndTrigger->setAreaSleep(1);
-                unk71C++;
+                m_corneria_phase++;
             }
             break;
         case 3:
-            if (unk284.getTimeLeft() < 370.0f) {
+            if (m_curr_scene.getTimeLeft() < 370.0f) {
                 m_windAreaData2nd->m_windStrength = 0.6f;
                 m_windAreaData2nd->m_horizontalWindRotation = 270.0f;
                 m_windAreaData2nd->m_verticalWindRotation = 24.0f;
@@ -408,13 +408,13 @@ void stStarfox::updateSceneEffectCorneria(float frame) {
                 m_windAreaData2nd->m_72 = 0x3C;
                 m_wind2ndTrigger->setWindParam(m_windAreaData2nd, 0);
                 m_wind2ndTrigger->setAreaSleep(0);
-                unk71C++;
+                m_corneria_phase++;
             }
             break;
         case 4:
-            if (unk284.getTimeLeft() < 100.0f) {
+            if (m_curr_scene.getTimeLeft() < 100.0f) {
                 m_wind2ndTrigger->setAreaSleep(1);
-                unk71C++;
+                m_corneria_phase++;
             }
             break;
         default:
@@ -422,44 +422,44 @@ void stStarfox::updateSceneEffectCorneria(float frame) {
     }
 }
 
-void stStarfox::updateSceneEffectBattleship(float frame) {
-    switch (unk330.getPhase()) {
+void stStarfox::updateSceneEffectBattleship(float deltaFrame) {
+    switch (m_curr_scene_effect.getPhase()) {
         case 0:
-            unk3DC[4] = -1;
-            unk3DC[3] = -1;
-            unk3DC[2] = -1;
-            unk3DC[1] = -1;
-            unk3DC[0] = -1;
-            u32 r4 = g_ecMgr->setEffect(0x440001);
-            unk3DC[4] = r4;
-            g_ecMgr->setParent(r4, unk400[0]->m_sceneModels[0], "main_rotate", 0);
-            unk330.setPhase(unk330.getPhase() + 1);
+            m_effects[4] = -1;
+            m_effects[3] = -1;
+            m_effects[2] = -1;
+            m_effects[1] = -1;
+            m_effects[0] = -1;
+            u32 effect = g_ecMgr->setEffect(0x440001);
+            m_effects[4] = effect;
+            g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "main_rotate", 0);
+            m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
             break;
         case 1:
-            if (unk400[0]->isFrameOffset(680.0f) == 1u) {
-                u32 r4 = g_ecMgr->setEffect(0x440003);
-                unk3DC[0] = r4;
-                g_ecMgr->setParent(r4, unk400[0]->m_sceneModels[0], "explosion_01", 0);
-                unk330.setPhase(unk330.getPhase() + 1);
+            if (m_scene_grounds[0]->isFrameOffset(680.0f) == 1u) {
+                u32 effect = g_ecMgr->setEffect(0x440003);
+                m_effects[0] = effect;
+                g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "explosion_01", 0);
+                m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
             }
             break;
         case 2:
-            if (unk400[0]->isFrameOffset(692.0f) == 1u) {
-                u32 r4 = g_ecMgr->setEffect(0x440003);
-                unk3DC[1] = r4;
-                g_ecMgr->setParent(r4, unk400[0]->m_sceneModels[0], "explosion_02", 0);
-                r4 = g_ecMgr->setEffect(0x440004);
-                unk3DC[3] = r4;
-                g_ecMgr->setParent(r4, unk400[0]->m_sceneModels[0], "explosion_02", 0);
-                unk330.setPhase(unk330.getPhase() + 1);
+            if (m_scene_grounds[0]->isFrameOffset(692.0f) == 1u) {
+                u32 effect = g_ecMgr->setEffect(0x440003);
+                m_effects[1] = effect;
+                g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "explosion_02", 0);
+                effect = g_ecMgr->setEffect(0x440004);
+                m_effects[3] = effect;
+                g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "explosion_02", 0);
+                m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
             }
             break;
         case 3:
-            if (unk400[0]->isFrameOffset(706.0f) == 1u) {
-                u32 r4 = g_ecMgr->setEffect(0x440003);
-                unk3DC[2] = r4;
-                g_ecMgr->setParent(r4, unk400[0]->m_sceneModels[0], "explosion_03", 0);
-                unk330.setPhase(unk330.getPhase() + 1);
+            if (m_scene_grounds[0]->isFrameOffset(706.0f) == 1u) {
+                u32 effect = g_ecMgr->setEffect(0x440003);
+                m_effects[2] = effect;
+                g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "explosion_03", 0);
+                m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
             }
             break;
         default:
@@ -467,107 +467,107 @@ void stStarfox::updateSceneEffectBattleship(float frame) {
     }
 }
 
-void stStarfox::update(float frame) {
+void stStarfox::update(float deltaFrame) {
     g_ecMgr->setDrawPrio(1);
-    updateScene(frame);
-    if (unk330.isEvent() == 1u) {
-        if (unk428_b6 || unk41C != 3) {
-            unk42C.playFrame(unk41C, unk400[0]->getEntityFrame());
+    updateScene(deltaFrame);
+    if (m_curr_scene_effect.isEvent() == 1u) {
+        if (m_show_dogfight || m_scene_num != SCENE_SPACE) {
+            m_se_player.playFrame(m_scene_num, m_scene_grounds[0]->getEntityFrame());
         }
-        switch (unk41C) {
-            case 0:
-                updateSceneEffectAsteroid(frame);
+        switch (m_scene_num) {
+            case SCENE_ASTEROID:
+                updateSceneEffectAsteroid(deltaFrame);
                 break;
-            case 1:
-                updateSceneEffectBattleship(frame);
+            case SCENE_BATTLESHIP:
+                updateSceneEffectBattleship(deltaFrame);
                 break;
-            case 2:
-                updateSceneEffectCorneria(frame);
+            case SCENE_CORNERIA:
+                updateSceneEffectCorneria(deltaFrame);
                 break;
-            case 3:
-                updateSceneEffectSpace(frame);
+            case SCENE_SPACE:
+                updateSceneEffectSpace(deltaFrame);
                 break;
             default:
                 break;
         }
         Matrix nodeMtx;
-        unk400[0]->getNodeMatrix(&nodeMtx, 0, "Slope");
-        nodeMtx.getRotate(&unk710);
+        m_scene_grounds[0]->getNodeMatrix(&nodeMtx, 0, "Slope");
+        nodeMtx.getRotate(&m_slope_rotate);
         float f1, f2, f3;
-        f1 = unk710.m_x;
-        f2 = unk710.m_y;
+        f1 = m_slope_rotate.m_x;
+        f2 = m_slope_rotate.m_y;
         f1 = 57.29578f * f1;
-        f3 = unk710.m_z;
+        f3 = m_slope_rotate.m_z;
         f2 = 57.29578f * f2;
         f3 = 57.29578f * f3;
-        unk710.m_x = f1;
-        unk710.m_y = f2;
-        unk710.m_z = f3;
+        m_slope_rotate.m_x = f1;
+        m_slope_rotate.m_y = f2;
+        m_slope_rotate.m_z = f3;
     } else {
-        unk710.m_x *= 0.9f;
-        unk710.m_y *= 0.9f;
-        unk710.m_z *= 0.9f;
+        m_slope_rotate.m_x *= 0.9f;
+        m_slope_rotate.m_y *= 0.9f;
+        m_slope_rotate.m_z *= 0.9f;
     }
-    static_cast<grGimmick*>(getGround(3))->setRot(&unk710);
-    unk284.update(frame);
-    unk330.update(frame);
-    unk1D8.update(frame);
+    static_cast<grGimmick*>(getGround(3))->setRot(&m_slope_rotate);
+    m_curr_scene.update(deltaFrame);
+    m_curr_scene_effect.update(deltaFrame);
+    m_scene_lifecycle.update(deltaFrame);
     g_ecMgr->setDrawPrio(-1);
 }
 
 void stStarfox::setAppearKind(u8 kind) {
-    unk418 = kind;
+    m_smash_taunt_kind = kind;
 }
 
 void stStarfox::startAppearCore() {
-    if (unk411) {
-        u32 r4 = 0;
-        switch (unk41C) {
-            case 0:
-                r4 = 3;
+    if (m_smash_taunt_activated) {
+        u32 id = 0;
+        switch (m_scene_num) {
+            case SCENE_ASTEROID:
+                id = 3;
                 break;
-            case 1:
-                r4 = 4;
+            case SCENE_BATTLESHIP:
+                id = 4;
                 break;
-            case 2:
-                r4 = 2;
+            case SCENE_CORNERIA:
+                id = 2;
                 break;
-            case 3:
-                r4 = unk428_b6;
+            case SCENE_SPACE:
+                id = m_show_dogfight;
                 break;
             default:
                 break;
         }
-        r4 += unk418*5;
-        if (unk414) {
-            unk414->start(r4);
+        id += m_smash_taunt_kind*5;
+        if (m_smash_taunt_task) {
+            m_smash_taunt_task->start(id);
         }
-        unk411 = 0;
+        m_smash_taunt_activated = 0;
     }
 }
 
 bool stStarfox::startAppear() {
-    unk411 = 1;
-    unk428_b5 = 1;
+    m_smash_taunt_activated = 1;
+    m_smash_taunt_timing = 1;
     return true;
 }
 
 void stStarfox::endAppear() {
-    if (unk414 && isAppear()) {
-        unk414->stop(0);
+    if (m_smash_taunt_task && isAppear()) {
+        m_smash_taunt_task->stop(0);
     }
 }
 
 s32 stStarfox::isStartAppearTimming() {
-    return unk428_b5 ^ 1;
+    return m_smash_taunt_timing ^ 1;
 }
 
 bool stStarfox::isAppear() {
-    return unk414->isPlaying();
+    return m_smash_taunt_task->isPlaying();
 }
 
 void stStarfox::forceStopAppear() {
-    if (unk414) {
-        unk414->stop(1);
+    if (m_smash_taunt_task) {
+        m_smash_taunt_task->stop(1);
     }
 }
