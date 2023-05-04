@@ -2,6 +2,7 @@
 #include "gr_final.h"
 #include <memory.h>
 #include <st/st_class_info.h>
+#include <gm/gm_global.h>
 
 static stClassInfoImpl<Stages::Final, stStadium> classInfo = stClassInfoImpl<Stages::Final, stStadium>();
 
@@ -250,7 +251,33 @@ void stStadium::setVision(u8 index) {
 }
 
 void stStadium::enableVisionScreen() {
+    grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
+    stadiumVision->setDisplay(false);
+    stadiumVision->setNodeVisibility(1, 0, "AuroraVision", 0, 0);
+    stadiumVision->setNodeVisibility(1, 0, "AuroraVision9monitor", 0, 0);
+    int playerNumbers[7] = {0, 0, 0, 0, 0, 0, 0};
+    int playerCount = 0;
+    for (int i = 0; i < 7; i++) {
+        Vec3f pos;
+        if (this->getPlayerPosition(i, &pos)) {
+            playerNumbers[playerCount] = i;
+            playerCount++;
+        }
+    }
+    if (this->m_nextPlayerIndex >= playerCount) {
+        this->m_nextPlayerIndex = 0;
+    }
+    this->m_visionScreenState = VisionScreen_Enabled;
+    this->m_focusedPlayerNo = playerNumbers[this->m_nextPlayerIndex];
+    this->m_nextPlayerIndex++;
 
+    gmGlobalModeMelee* globalModeMelee = g_GameGlobal->m_modeMelee;
+    if (globalModeMelee->m_playersInitData[this->m_focusedPlayerNo].m_characterKind == Character_Purin && globalModeMelee->m_playersInitData[this->m_focusedPlayerNo].m_state == 3) {
+        globalModeMelee->m_meleeInitData.m_0x7_0 = true;
+    }
+    else {
+        globalModeMelee->m_meleeInitData.m_0x7_0 = false;
+    }
 }
 
 void stStadium::updateSpecialStage(float deltaFrame) {
