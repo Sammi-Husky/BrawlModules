@@ -21,25 +21,83 @@ void stStadium::update(float deltaFrame)
 
 void stStadium::createObj()
 {
-    testStageParamInit(m_fileData, 0xA);
-    testStageDataInit(m_fileData, 0x14, 1);
-    grFinal* ground = grFinal::create(1, "", "grFinalMainBg");
-    if (ground != NULL)
-    {
-        addGround(ground);
-        ground->startup(m_fileData, 0, 0);
-        ground->setStageData(m_stageData);
-        ground->setDontMoveGround();
+    this->testStageParamInit(m_fileData, 0xA);
+    this->testStageDataInit(m_fileData, 0x14, 0x70);
+    this->addGround(grStadiumVision::create(3, "", "grStadiumAuroraVision"));
+    this->addGround(grMadein::create(0x14, "OVDenki", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0x16, "OVTuchi", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0x15, "OVKoori", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0x17, "OVHikou", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0x18, "OVNormal", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(4, "", "grStadiumSearchLight", Heaps::StageInstance));
+    this->addGround(grMadein::create(0, "", "grStadiumMainBg", Heaps::StageInstance));
+    this->addGround(grMadein::create(1, "StgStadium00AshibaL", "grStadiumAshibaL", Heaps::StageInstance));
+    this->addGround(grMadein::create(2, "StgStadium00AshibaR", "grStadiumAshibaR", Heaps::StageInstance));
+    this->addGround(grMadein::create(5, "StgStadium00Denki", "grStadiumDenki", Heaps::StageInstance));
+    this->addGround(grMadein::create(6, "StgStadium00DenkiRing", "grStadiumDenkiRing", Heaps::StageInstance));
+    this->addGround(grMadein::create(7, "StgStadium00Koori", "grStadiumKoori", Heaps::StageInstance));
+    this->addGround(grMadein::create(8, "StgStadium00Tuchi", "grStadiumTuchi", Heaps::StageInstance));
+    this->addGround(grMadein::create(9, "StgStadium00Hikou", "grStadiumHikou", Heaps::StageInstance));
+    this->addGround(grMadein::create(10, "Airmd", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0xb, "Dugtrio", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0xc, "Elekible", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0xd, "Fuwante", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0xe, "Hanecco", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0xf, "Jibacoil", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0x10, "Karakara", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0x11, "Yukikaburi", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0x12, "Yukiwarashi", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0x13, "Conveyor", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(200, "DenkiAshiba", "", Heaps::StageInstance));
+    this->addGround(grMadein::create(0xc9, "KooriAshiba", "", Heaps::StageInstance));
+    int groundNum = this->getGroundNum();
+    for (int i = 0; i < groundNum; i++) {
+        Ground* ground = this->getGround(i);
+        ground->startup(this->m_fileData, 0, 0);
+        ground->setStageData(this->m_stageData);
     }
-    ground = grFinal::create(2, "", "grFinalStage");
-    if (ground != NULL)
-    {
-        addGround(ground);
-        ground->startup(m_fileData, 0, 0);
-        ground->setStageData(m_stageData);
-        ground->setDontMoveGround();
+    this->createCollision(this->m_fileData, 2, NULL);
+    this->createCollision(this->m_fileData, 3, NULL);
+    this->createCollision(this->m_fileData, 4, NULL);
+    this->createCollision(this->m_fileData, 5, this->getGround(0xd));
+    this->createCollision(this->m_fileData, 6, this->getGround(0xe));
+    for (int i = 1; i < groundNum; i++) {
+        grMadein* ground = static_cast<grMadein*>(this->getGround(i));
+        ground->initializeEntity();
     }
-    createCollision(m_fileData, 2, NULL);
+    __memfill(&this->m_beltConveyor1Data, 0, sizeof(this->m_beltConveyor1Data));
+    this->m_beltConveyor1Data.m_conveyorPos = (Vec3f){-65.0, 0.0, 0.0};
+    this->m_beltConveyor1Data.m_speed = 0.7;
+    this->m_beltConveyor1Data.m_isRightDirection = false;
+    this->m_beltConveyor1Data.m_pos = (Vec2f){0.0, 0.0};
+    this->m_beltConveyor1Data.m_range = (Vec2f){75.0, 10.0};
+    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick_BeltConveyor, -1);
+    trigger->setBeltConveyorTrigger(&this->m_beltConveyor1Data);
+    this->m_beltConveyor1Trigger = trigger;
+    trigger->setAreaSleep(true);
+
+    __memfill(&this->m_beltConveyor2Data, 0, sizeof(this->m_beltConveyor2Data));
+    this->m_beltConveyor2Data.m_conveyorPos = (Vec3f){65.0, 0.0, 0.0};
+    this->m_beltConveyor2Data.m_speed = 0.7;
+    this->m_beltConveyor2Data.m_isRightDirection = true;
+    this->m_beltConveyor2Data.m_pos = (Vec2f){0.0, 0.0};
+    this->m_beltConveyor2Data.m_range = (Vec2f){75.0, 10.0};
+    trigger = g_stTriggerMng->createTrigger(Gimmick_BeltConveyor, -1);
+    trigger->setBeltConveyorTrigger(&this->m_beltConveyor2Data);
+    this->m_beltConveyor2Trigger = trigger;
+    trigger->setAreaSleep(true);
+
+    static_cast<grMadein*>(this->getGround(6))->startEntityAutoLoop();
+    static_cast<grMadein*>(this->getGround(7))->startEntityAutoLoop();
+    static_cast<grMadein*>(this->getGround(8))->startEntityAutoLoop();
+    static_cast<grMadein*>(this->getGround(9))->startEntityAutoLoop();
+    this->getGround(0x19)->setEnableCollisionStatus(false);
+    this->getGround(0x1a)->setEnableCollisionStatus(false);
+    this->getGround(10)->setEnableCollisionStatus(false);
+    this->getGround(0xc)->setEnableCollisionStatus(false);
+    this->getGround(0xd)->setEnableCollisionStatus(false);
+    this->getGround(0xe)->setEnableCollisionStatus(false);
+
     initCameraParam();
     void* posData = m_fileData->getData(Data_Type_Model, 0x64, 0xfffe);
     if (posData == NULL)
@@ -52,12 +110,52 @@ void stStadium::createObj()
         // stgPosWrapper stgPos = {posData}; // creates wrapper on the stack
         createStagePositions(&posData);
     }
-    createWind2ndOnly();
-    loadStageAttrParam(m_fileData, 0x1E);
-    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(m_fileData->getData(Data_Type_Scene, 0, 0xfffe));
-    registScnAnim(scnData, 0);
-    initPosPokeTrainer(1, 0);
-    createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
+
+    stStadiumData* stadiumData = static_cast<stStadiumData*>(this->m_stageData);
+    this->m_phaseEvent.set(0.0, 0.0);
+    this->m_normalEvent.set(stadiumData->m_normalMinFrames, stadiumData->m_normalMaxFrames);
+    this->m_typeEvent.set(1200.0, 1800.0);
+    this->m_displayEvent.set(600.0, 600.0);
+    this->m_displayTransformEvent.set(600.0, 600.0);
+    this->m_preTransformEvent.set(300.0, 300.0);
+    this->m_transformEvent.set(200.0, 200.0);
+    this->m_electricPkmnEvent.set(400.0, 800.0);
+    this->m_normalEvent.start();
+    this->m_displayEvent.start();
+
+    nw4r::g3d::ResFileData* scnData = static_cast<nw4r::g3d::ResFileData*>(this->m_fileData->getData(Data_Type_Scene, 0, 0xfffe));
+    this->registScnAnim(scnData, 0);
+    this->initPosPokeTrainer(1, 0);
+    this->createObjPokeTrainer(this->m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
+    this->loadStageAttrParam(m_fileData, 0x1E);
+
+    grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
+    stadiumVision->m_stadiumType = 4;
+    stadiumVision->m_msgBinData = this->m_fileData->getData(Data_Type_Misc, 0x28, 0xfffe);
+
+    this->m_displayEvent.end();
+    this->m_visionScreenState = VisionScreen_Disabled;
+
+    stadiumVision->setNodeVisibility(0, 0, "AuroraVision", 0, 0);
+    stadiumVision->setNodeVisibility(0, 0, "AuroraVision9monitor", 0, 0);
+    stadiumVision->setDisplay(false);
+    this->playSeBasic(snd_se_stage_Stadium_02, 0);
+}
+
+void stStadium::createObjDetails() {
+
+}
+
+void stStadium::notifyEventInfoGo() {
+
+}
+
+void stStadium::notifyEventInfoReady() {
+
+}
+
+void stStadium::setVision(u8 index) {
+
 }
 
 void Ground::setStageData(void* stageData)
