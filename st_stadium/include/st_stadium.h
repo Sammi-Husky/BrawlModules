@@ -82,11 +82,11 @@ protected:
     char _0x6aa[2];
     VisionScreenState m_visionScreenState;
     float m_0x6b0;
-    int m_0x6b4;
+    int m_transformSfxIndex;
     u8 m_0x6b8;
     char _0x6b9[3];
-    int m_sfx1Index;
-    int m_sfx2Index;
+    int m_electroSfx1Index;
+    int m_electroSfx2Index;
     int m_transformTypeIndex;
     Type m_transformTypes[4];
     float m_0x6cc;
@@ -95,19 +95,15 @@ protected:
     float m_0x6d8;
     float m_0x6dc;
     float m_0x6e0;
-    u8 m_0x6e4;
-    u8 m_0x6e5;
-    u8 m_0x6e6;
-    u8 m_0x6e7;
+    u8 m_focusedPlayerNo;
+    u8 m_nextPlayerIndex;
+    u8 m_displayState;
+    u8 m_currentDisplayIndex;
     grTenganEvent m_displayEvent;
-    float m_0x794;
-    float m_0x798;
-    float m_0x79c;
-    float m_0x7a0;
-    float m_0x7a4;
-    float m_0x7a8;
-    float m_0x7ac;
-    float m_0x7b0;
+    float m_targetZoom;
+    float m_zoom;
+    Vec3f m_0x79c;
+    Vec3f m_0x7a8;
     float m_0x7b4;
     float m_0x7b8;
     float m_0x7bc;
@@ -129,26 +125,29 @@ public:
         }
     };
 
+    void setDefaultDisplay() {
+        grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
+        stadiumVision->setNodeVisibility(0, 0, "AuroraVision", 0, 0);
+        stadiumVision->setNodeVisibility(0, 0, "AuroraVision9monitor", 0, 0);
+        stadiumVision->setDisplay(false);
+    }
+
     stStadium() : stMelee("stStadium", Stages::Final){
-        m_sfx1Index = -1;
-        m_sfx2Index = -1;
+        m_electroSfx1Index = -1;
+        m_electroSfx2Index = -1;
         prepareNextTransformTypes();
         m_0x1d8 = 0;
         m_0x6b0 = 0.0;
-        m_0x6b4 = -1;
+        m_transformSfxIndex = -1;
         m_0x6b8 = 0;
         m_visionScreenState = VisionScreen_Disabled;
-        m_0x794 = 1.0;
-        m_0x6e5 = 0;
-        m_0x6e6 = 0;
-        m_0x6e7 = -1;
-        m_0x798 = 1.0;
-        m_0x79c = 0.0;
-        m_0x7a0 = 0.0;
-        m_0x7a4 = 0.0;
-        m_0x7a8 = 0.0;
-        m_0x7ac = 0.0;
-        m_0x7b0 = 0.0;
+        m_targetZoom = 1.0;
+        m_nextPlayerIndex = 0;
+        m_displayState = 0;
+        m_currentDisplayIndex = -1;
+        m_zoom = 1.0;
+        m_0x79c = (Vec3f){0.0, 0.0, 0.0};
+        m_0x7a8 = (Vec3f){0.0, 0.0, 0.0};
         m_0x7b4 = 0.0;
         m_0x7b8 = 0.0;
         m_0x7bc = 1.0;
@@ -210,8 +209,8 @@ public:
 
     virtual void createObjDetails();
 
-    void updateSpecialStage(float);
-    void updateSymbol(float);
+    void updateSpecialStage(float deltaFrame);
+    void updateSymbol(float deltaFrame);
     void updateVisionScreen();
     void updateVisionScreenPos();
 
