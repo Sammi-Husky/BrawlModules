@@ -129,8 +129,6 @@ void stStadium::createObj()
     stadiumVision->m_stadiumType = 4;
     stadiumVision->m_msgBinData = this->m_fileData->getData(Data_Type_Misc, 0x28, 0xfffe);
 
-    this->m_displayEvent.end();
-    this->m_visionScreenState = VisionScreen_Disabled;
     this->setDefaultDisplay();
     this->playSeBasic(snd_se_stage_Stadium_02, 0);
 }
@@ -176,8 +174,6 @@ void stStadium::update(float deltaFrame)
     if (this->m_displayEvent.isEvent()) {
         int phase = this->m_displayEvent.getPhase();
         if (phase == 1 && this->m_displayEvent.isReadyEnd()) {
-            this->m_displayEvent.end();
-            this->m_visionScreenState = VisionScreen_Disabled;
             this->setDefaultDisplay();
         }
         if (phase == 0 || (phase == 1 && !this->m_displayEvent.isReadyEnd())) {
@@ -189,8 +185,6 @@ void stStadium::update(float deltaFrame)
                 nextDisplayIndex = 2;
                 this->m_displayEvent.set(300.0, 300.0);
             }
-            this->m_displayEvent.end();
-            this->m_visionScreenState = VisionScreen_Disabled;
             this->setDefaultDisplay();
             this->m_displayEvent.start();
             grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
@@ -244,7 +238,15 @@ void stStadium::notifyEventInfoReady() {
 }
 
 void stStadium::setVision(u8 index) {
-
+    short numFramesForMessage[20] = {0, 0x78, 0x78, 0x78, 0x78, 0x78, 0x78, 0x3c, 0x78, 0xff, 0xff, 0xff, 0xff, 0xff,
+                                     0xff, 0x78, 0x78, 0x78, 0x78, 0x78};
+    this->setDefaultDisplay();
+    grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
+    stadiumVision->m_messageDisplay = static_cast<grStadiumVision::MessageDisplay>(index);
+    stadiumVision->setDisplay(true);
+    this->m_displayEvent.set(numFramesForMessage[index], numFramesForMessage[index]);
+    this->m_displayEvent.start();
+    this->m_displayEvent.setPhase(1);
 }
 
 void stStadium::enableVisionScreen() {

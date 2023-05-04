@@ -126,6 +126,8 @@ public:
     };
 
     void setDefaultDisplay() {
+        this->m_displayEvent.end();
+        this->m_visionScreenState = VisionScreen_Disabled;
         grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
         stadiumVision->setNodeVisibility(0, 0, "AuroraVision", 0, 0);
         stadiumVision->setNodeVisibility(0, 0, "AuroraVision9monitor", 0, 0);
