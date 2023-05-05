@@ -3,6 +3,8 @@
 #include <memory.h>
 #include <st/st_class_info.h>
 #include <gm/gm_global.h>
+#include <ec/ec_mgr.h>
+#include <OS/OSError.h>
 
 static stClassInfoImpl<Stages::Final, stStadium> classInfo = stClassInfoImpl<Stages::Final, stStadium>();
 
@@ -116,7 +118,7 @@ void stStadium::createObj()
     this->m_displayTransformEvent.set(600.0, 600.0);
     this->m_preTransformEvent.set(300.0, 300.0);
     this->m_transformEvent.set(200.0, 200.0);
-    this->m_electricPkmnEvent.set(400.0, 800.0);
+    this->m_electricPokemonEvent.set(400.0, 800.0);
     this->m_normalEvent.start();
     this->m_displayEvent.start();
 
@@ -171,47 +173,54 @@ void stStadium::update(float deltaFrame)
     this->m_displayTransformEvent.update(deltaFrame);
     this->m_preTransformEvent.update(deltaFrame);
     this->m_displayEvent.update(deltaFrame);
-    this->m_electricPkmnEvent.update(deltaFrame);
+    this->m_electricPokemonEvent.update(deltaFrame);
     if (this->m_displayEvent.isEvent()) {
-        int phase = this->m_displayEvent.getPhase();
-        if (phase == 1 && this->m_displayEvent.isReadyEnd()) {
-            this->setDefaultDisplay();
-        }
-        if (phase == 0 || (phase == 1 && !this->m_displayEvent.isReadyEnd())) {
-            int nextDisplayIndex = randi(2);
-            this->m_displayState++;
-            this->m_displayEvent.set(600.0, 1200.0);
-            if (this->m_displayState > 6) {
-                this->m_displayState = 0;
-                nextDisplayIndex = 2;
-                this->m_displayEvent.set(300.0, 300.0);
+        switch(this->m_displayEvent.getPhase()) {
+            case 1:
+                if (!this->m_displayEvent.isReadyEnd()) {
+                    break;
+                }
+                this->setDefaultDisplay();
+            case 0:
+            {
+                int nextDisplayIndex = randi(2);
+                this->m_displayState++;
+                this->m_displayEvent.set(600.0, 1200.0);
+                if (this->m_displayState > 6) {
+                    this->m_displayState = 0;
+                    nextDisplayIndex = 2;
+                    this->m_displayEvent.set(300.0, 300.0);
+                }
+                this->setDefaultDisplay();
+                this->m_displayEvent.start();
+                grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
+                switch(nextDisplayIndex) {
+                    case 0:
+                        this->m_targetZoom = randf()*0.9 + 0.6;
+                        this->enableVisionScreen();
+                        break;
+                    case 1:
+                        stadiumVision->m_messageDisplay = grStadiumVision::MessageDisplay_Overview;
+                        stadiumVision->setDisplay(true);
+                        if (this->m_currentDisplayIndex != nextDisplayIndex) {
+                            this->playSeBasic(snd_se_stage_Stadium_10,0);
+                        }
+                        break;
+                    case 2:
+                        stadiumVision->m_messageDisplay = grStadiumVision::MessageDisplay_Leader;
+                        stadiumVision->setDisplay(true);
+                        if (this->m_currentDisplayIndex != nextDisplayIndex) {
+                            this->playSeBasic(snd_se_stage_Stadium_10,0);
+                        }
+                    default:
+                        break;
+                }
+                this->m_currentDisplayIndex = nextDisplayIndex;
+                this->m_displayEvent.setPhase(1);
+                break;
             }
-            this->setDefaultDisplay();
-            this->m_displayEvent.start();
-            grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
-            switch(nextDisplayIndex) {
-                case 0:
-                    this->m_targetZoom = randf()*0.9 + 0.6;
-                    this->enableVisionScreen();
-                    break;
-                case 1:
-                    stadiumVision->m_messageDisplay = grStadiumVision::MessageDisplay_Overview;
-                    stadiumVision->setDisplay(true);
-                    if (this->m_currentDisplayIndex != nextDisplayIndex) {
-                        this->playSeBasic(snd_se_stage_Stadium_10,0);
-                    }
-                    break;
-                case 2:
-                    stadiumVision->m_messageDisplay = grStadiumVision::MessageDisplay_Leader;
-                    stadiumVision->setDisplay(true);
-                    if (this->m_currentDisplayIndex != nextDisplayIndex) {
-                        this->playSeBasic(snd_se_stage_Stadium_10,0);
-                    }
-                default:
-                    break;
-            }
-            this->m_currentDisplayIndex = nextDisplayIndex;
-            this->m_displayEvent.setPhase(1);
+            default:
+                break;
         }
     }
     this->updateVisionScreen();
@@ -254,7 +263,7 @@ void stStadium::enableVisionScreen() {
     grStadiumVision* stadiumVision = static_cast<grStadiumVision*>(this->getGround(0));
     stadiumVision->setDisplay(false);
     stadiumVision->setNodeVisibility(1, 0, "AuroraVision", 0, 0);
-    stadiumVision->setNodeVisibility(1, 0, "AuroraVision9monitor", 0, 0);
+    stadiumVision->setNodeVisibility(0, 0, "AuroraVision9monitor", 0, 0);
     int playerNumbers[7] = {0, 0, 0, 0, 0, 0, 0};
     int playerCount = 0;
     for (int i = 0; i < 7; i++) {
@@ -281,7 +290,423 @@ void stStadium::enableVisionScreen() {
 }
 
 void stStadium::updateSpecialStage(float deltaFrame) {
+    stStadiumData* stadiumData = static_cast<stStadiumData*>(this->m_stageData);
+    if (this->m_phaseEvent.isEvent()) {
+        //OSReport("Phase %d: \n", this->m_phaseEvent.getPhase());
+        switch(this->m_phaseEvent.getPhase()) {
+            case 0:
+                if (!this->m_transformEvent.isEvent()) {
+                    this->setDefaultDisplay();
+                    this->m_displayTransformEvent.start();
+                    this->m_preTransformEvent.start();
+                    this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
+                    this->m_changeToNormal = false;
+                    this->m_flyingPokemon1PosY = randf() * 50.0 + 10.0;
+                    this->m_flyingPokemon2PosY = randf() * 50.0 + 20.0;
+                    this->m_flyingPokemon3PosY = randf() * 50.0 + 30.0;
+                    this->m_pokemon1Scale = 0.001;
+                    this->m_pokemon2Scale = 0.001;
+                    this->m_pokemon3Scale = 0.001;
+                }
+                break;
+            case 1:
+                if (this->m_preTransformEvent.isReadyEnd()) {
+                    this->m_preTransformEvent.end();
+                    this->m_stadiumScaleY = 1.0;
+                    this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
+                    g_ecMgr->setEffect(0x450001);
+                    this->m_transformEvent.start();
+                    this->m_transformSfxIndex = this->playSeBasic(snd_se_stage_Stadium_01, 0);
+                    this->zoomOutCamera(300.0, 310.0);
+                }
+                break;
+            case 2:
+                this->m_stadiumScaleY -= (1.0 / stadiumData->m_stadiumScaleYGrowthRate) * deltaFrame;
+                if (this->m_stadiumScaleY <= 0.0) {
+                    this->m_stadiumScaleY = 0.0001;
+                    this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
+                    grMadein *ground = static_cast<grMadein *>(this->getGround(8));
+                    ground->endEntity();
+                    ground->setEnableCollisionStatus(false);
+                    ground = static_cast<grMadein *>(this->getGround(9));
+                    ground->endEntity();
+                    ground->setEnableCollisionStatus(false);
+                    ground = static_cast<grMadein *>(this->getGround(this->m_stadiumTypeGroundIndex));
+                    ground->startEntityAutoLoop();
+                    ground->setEnableCollisionStatus(true);
+                    ground->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                    switch (this->m_stadiumTypeGroundIndex) {
+                        case 10:
+                            static_cast<grGimmick *>(this->getGround(0xb))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                            static_cast<grGimmick *>(this->getGround(0x18))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                            static_cast<grGimmick *>(this->getGround(0x19))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                            this->getGround(0x19)->setEnableCollisionStatus(true);
+                            static_cast<grMadein *>(this->getGround(0xb))->startEntityAutoLoop();
+                            static_cast<grMadein *>(this->getGround(0x18))->startEntityAutoLoop();
+                            static_cast<grMadein *>(this->getGround(0x19))->startEntityAutoLoop();
 
+                            this->m_electricPokemonEvent.end();
+                            this->m_electricPokemonEvent.start();
+                            this->playSeBasic(snd_se_stage_Stadium_05, 0);
+                            static_cast<grMadein *>(this->getGround(0x14))->setMotion(0);
+                            static_cast<grMadein *>(this->getGround(0x14))->startEntity();
+                            static_cast<grMadein *>(this->getGround(0x11))->setMotion(randi(2));
+                            static_cast<grMadein *>(this->getGround(0x11))->startEntity();
+                            break;
+                        case 0xc:
+                            static_cast<grGimmick *>(this->getGround(0x1a))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                            this->getGround(0x1a)->setEnableCollisionStatus(true);
+                            static_cast<grMadein *>(this->getGround(0x1a))->startEntityAutoLoop();
+
+                            this->playSeBasic(snd_se_stage_Stadium_04, 0);
+                            static_cast<grMadein *>(this->getGround(0x16))->setMotion(randi(3));
+                            static_cast<grMadein *>(this->getGround(0x16))->startEntity();
+                            static_cast<grMadein *>(this->getGround(0x17))->setMotion(randi(2));
+                            static_cast<grMadein *>(this->getGround(0x17))->startEntity();
+
+                            break;
+                        case 0xd:
+                            this->playSeBasic(snd_se_stage_Stadium_03, 0);
+                            static_cast<grMadein *>(this->getGround(0x15))->setMotion(randi(3));
+                            static_cast<grMadein *>(this->getGround(0x15))->startEntity();
+                            static_cast<grMadein *>(this->getGround(0x10))->setMotion(randi(2));
+                            static_cast<grMadein *>(this->getGround(0x10))->startEntity();
+                            break;
+                        case 0xe:
+                            static_cast<grGimmick *>(this->getGround(0xe))->setPos(0.0, -0.5, 0.0);
+
+                            this->m_typeSfx1Index = this->playSeBasic(snd_se_stage_Stadium_08, 0);
+                            static_cast<grGimmick *>(this->getGround(0xf))->setRot(&(Vec3f) {0.0, 30.0, 0.0});
+                            static_cast<grMadein *>(this->getGround(0xf))->startEntityAutoLoop();
+                            static_cast<grMadein *>(this->getGround(0x12))->setMotion(randi(2));
+                            static_cast<grMadein *>(this->getGround(0x12))->startEntity();
+                            static_cast<grMadein *>(this->getGround(0x13))->startEntityAutoLoop();
+                            break;
+                        default:
+                            break;
+                    }
+                    this->zoomInCamera();
+                }
+                static_cast<grGimmick *>(this->getGround(8))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                static_cast<grGimmick *>(this->getGround(9))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                break;
+            case 3:
+                this->m_stadiumScaleY += (1.0 / stadiumData->m_stadiumScaleYGrowthRate) * deltaFrame;
+                if (this->m_stadiumScaleY >= 1.0) {
+                    this->m_stadiumScaleY = 1.0;
+                    this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
+                    this->m_typeEvent.start();
+                    switch (this->m_stadiumTypeGroundIndex) {
+                        case 10: {
+                            this->m_typeSfx1Index = this->playSeBasic(snd_se_stage_Stadium_06, 0);
+                            this->m_typeSfx2Index = this->playSeBasic(snd_se_stage_Stadium_07, 0);
+                            this->m_beltConveyor1Trigger->setAreaSleep(false);
+                            this->m_beltConveyor2Trigger->setAreaSleep(false);
+                            this->playSeBasic(snd_se_stage_Stadium_electro_finish, 0);
+                            void *posData = m_fileData->getData(Data_Type_Model, 0x65, 0xfffe);
+                            if (posData != NULL) {
+                                this->m_stagePositions->loadPositionData(&posData);
+                            }
+                        }
+                            break;
+                        case 0xc: {
+                            this->playSeBasic(snd_se_stage_Stadium_ice_finish, 0);
+                            void *posData = m_fileData->getData(Data_Type_Model, 0x66, 0xfffe);
+                            if (posData != NULL) {
+                                this->m_stagePositions->loadPositionData(&posData);
+                            }
+                        }
+                            break;
+                        case 0xd: {
+                            this->playSeBasic(snd_se_stage_Stadium_ground_finish, 0);
+                            void *posData = m_fileData->getData(Data_Type_Model, 0x67, 0xfffe);
+                            if (posData != NULL) {
+                                this->m_stagePositions->loadPositionData(&posData);
+                            }
+                        }
+                            break;
+
+                        case 0xe: {
+                            this->setGravityHalf();
+                            static_cast<grGimmick *>(this->getGround(0xe))->setPos(0.0, 0.0, 0.0);
+                            if (this->m_wind2ndTrigger != NULL) {
+                                this->m_wind2ndTrigger->setAreaSleep(false);
+                            }
+                            void *posData = m_fileData->getData(Data_Type_Model, 0x68, 0xfffe);
+                            if (posData != NULL) {
+                                this->m_stagePositions->loadPositionData(&posData);
+                            }
+                        }
+                            break;
+
+                        default:
+                            break;
+                    }
+                    this->updateStagePositions();
+                }
+                static_cast<grGimmick *>(this->getGround(this->m_stadiumTypeGroundIndex))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                switch (this->m_stadiumTypeGroundIndex) {
+                    case 10:
+                        static_cast<grGimmick*>(this->getGround(0xb))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                        static_cast<grGimmick*>(this->getGround(0x18))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                        static_cast<grGimmick*>(this->getGround(0x19))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                        break;
+                    case 0xc:
+                        static_cast<grGimmick*>(this->getGround(0x1a))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                        break;
+                    case 0xd:
+                        break;
+                    case 0xe:
+                        static_cast<grGimmick*>(this->getGround(0xe))->setPos(0.0, this->m_stadiumScaleY*0.5 - 0.5, 0.0);
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 4:
+                this->m_pokemon1Scale += 0.08;
+                if (this->m_pokemon1Scale >= 1.0) {
+                    this->m_pokemon1Scale = 1.0;
+                }
+                if (this->m_pokemon1Scale == 1.0) {
+                    this->m_pokemon2Scale += 0.04;
+                    if (this->m_pokemon2Scale >= 1.0) {
+                        this->m_pokemon2Scale = 1.0;
+                    }
+                }
+                if (this->m_pokemon2Scale == 1.0) {
+                    this->m_pokemon3Scale += 0.02;
+                    if (this->m_pokemon3Scale >= 1.0) {
+                        this->m_pokemon3Scale = 1.0;
+                    }
+                }
+                switch(this->m_stadiumTypeGroundIndex) {
+                    case 10:
+                    {
+                        grMadein* ground = static_cast<grMadein*>(this->getGround(0x14));
+                        if (ground != NULL && ground->isEndEntity()) {
+                            ground->setMotion(randi(2));
+                            ground->startEntity();
+                        }
+                        ground = static_cast<grMadein*>(this->getGround(0x11));
+                        if (ground != NULL && ground->isEndEntity()) {
+                            ground->setMotion(randi(2));
+                            ground->startEntity();
+                        }
+                    }
+                        break;
+                    case 0xc: {
+                        grMadein *ground = static_cast<grMadein *>(this->getGround(0x16));
+                        if (ground != NULL && ground->isEndEntity()) {
+                            ground->setMotion(randi(3));
+                            ground->startEntity();
+                        }
+                        ground = static_cast<grMadein *>(this->getGround(0x17));
+                        if (ground != NULL && ground->isEndEntity()) {
+                            ground->setMotion(randi(2));
+                            ground->startEntity();
+                        }
+                    }
+                        break;
+                    case 0xd: {
+                        grMadein *ground = static_cast<grMadein *>(this->getGround(0x15));
+                        if (ground != NULL && ground->isEndEntity()) {
+                            ground->setMotion(randi(3));
+                            ground->startEntity();
+                        }
+                        ground = static_cast<grMadein *>(this->getGround(0x10));
+                        if (ground != NULL && ground->isEndEntity()) {
+                            ground->setMotion(randi(2) + 2);
+                            ground->startEntity();
+                        }
+                    }
+                        break;
+                    case 0xe: {
+                        grMadein *ground = static_cast<grMadein *>(this->getGround(0x12));
+                        if (ground != NULL && ground->isEndEntity()) {
+                            ground->setMotion(randi(2));
+                            ground->startEntity();
+                        }
+                    }
+                        break;
+                    default:
+                        break;
+                }
+                if (this->m_typeEvent.isReadyEnd() && !this->m_transformEvent.isEvent() && this->m_pokemon1Scale == 1.0 && this->m_pokemon2Scale == 1.0 && this->m_pokemon3Scale == 1.0 ) {
+                    this->setDefaultDisplay();
+                    this->m_displayTransformEvent.start();
+                    this->m_preTransformEvent.start();
+                    this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
+                    this->m_changeToNormal = true;
+                }
+                break;
+            case 5:
+
+                if (this->m_pokemon3Scale > 0.001) {
+                    this->m_pokemon3Scale -= 0.08;
+                }
+                if (this->m_pokemon3Scale <= 0.001) {
+                    if (this->m_pokemon2Scale > 0.001) {
+                        this->m_pokemon2Scale -= 0.04;
+                    }
+                }
+                if (this->m_pokemon2Scale <= 0.001) {
+                    if (this->m_pokemon1Scale > 0.001) {
+                        this->m_pokemon1Scale -= 0.02;
+                    }
+                }
+                if (this->m_preTransformEvent.isReadyEnd() && this->m_pokemon1Scale <= 0.001 && this->m_pokemon2Scale <= 0.001 && this->m_pokemon3Scale <= 0.001) {
+                    this->m_pokemon3Scale = 0.001;
+                    this->m_pokemon2Scale = 0.001;
+                    this->m_pokemon1Scale = 0.001;
+                    this->m_preTransformEvent.end();
+                    this->m_typeEvent.end();
+                    this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
+                    g_ecMgr->setEffect(0x450001);
+                    this->m_transformEvent.start();
+                    this->m_transformSfxIndex = this->playSeBasic(snd_se_stage_Stadium_01, 0);
+                    this->stopSeBasic(this->m_typeSfx1Index, 4.0);
+                    this->stopSeBasic(this->m_typeSfx2Index, 4.0);
+                    this->m_typeSfx1Index = -1;
+                    this->m_typeSfx2Index = -1;
+                    this->zoomOutCamera(300.0, 310.0);
+                    this->setGravityNormal();
+                }
+                break;
+            case 6:
+                this->m_stadiumScaleY -= (1.0 / stadiumData->m_stadiumScaleYGrowthRate) * deltaFrame;
+                if (this->m_stadiumScaleY <= 0.0) {
+                    this->m_stadiumScaleY = 0.0001;
+                    this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
+                    grMadein *ground = static_cast<grMadein *>(this->getGround(this->m_stadiumTypeGroundIndex));
+                    ground->endEntity();
+                    ground->setEnableCollisionStatus(false);
+                    if (this->m_wind2ndTrigger != NULL) {
+                        this->m_wind2ndTrigger->setAreaSleep(true);
+                    }
+                    switch (this->m_stadiumTypeGroundIndex) {
+                        case 10:
+                            this->m_beltConveyor1Trigger->setAreaSleep(true);
+                            this->m_beltConveyor2Trigger->setAreaSleep(true);
+                            static_cast<grMadein *>(this->getGround(0xb))->endEntity();
+                            static_cast<grMadein *>(this->getGround(0x18))->endEntity();
+                            static_cast<grMadein *>(this->getGround(0x19))->endEntity();
+                            this->getGround(0x19)->setEnableCollisionStatus(false);
+                            break;
+                        case 0xc:
+                            static_cast<grMadein *>(this->getGround(0x1a))->endEntity();
+                            this->getGround(0x1a)->setEnableCollisionStatus(false);
+                            break;
+                        case 0xd:
+                            break;
+                        case 0xe:
+                            break;
+                        default:
+                            break;
+                    }
+                    ground = static_cast<grMadein *>(this->getGround(8));
+                    ground->startEntityAutoLoop();
+                    ground->setEnableCollisionStatus(true);
+                    ground->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                    ground = static_cast<grMadein *>(this->getGround(9));
+                    ground->startEntityAutoLoop();
+                    ground->setEnableCollisionStatus(true);
+                    ground->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                    static_cast<grMadein*>(this->getGround(0xf))->endEntity();
+                    static_cast<grMadein*>(this->getGround(0x10))->endEntity();
+                    static_cast<grMadein*>(this->getGround(0x11))->endEntity();
+                    static_cast<grMadein*>(this->getGround(0x12))->endEntity();
+                    static_cast<grMadein*>(this->getGround(0x13))->endEntity();
+                    static_cast<grMadein*>(this->getGround(0x14))->endEntity();
+                    static_cast<grMadein*>(this->getGround(0x15))->endEntity();
+                    static_cast<grMadein*>(this->getGround(0x16))->endEntity();
+                    static_cast<grMadein*>(this->getGround(0x17))->endEntity();
+                    this->zoomInCamera();
+                }
+                static_cast<grGimmick *>(this->getGround(this->m_stadiumTypeGroundIndex))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                switch (this->m_stadiumTypeGroundIndex) {
+                    case 10:
+                        static_cast<grGimmick *>(this->getGround(0xb))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                        static_cast<grGimmick *>(this->getGround(0x18))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                        static_cast<grGimmick *>(this->getGround(0x19))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                        break;
+                    case 0xc:
+                        static_cast<grGimmick *>(this->getGround(0x1a))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                        break;
+                    case 0xd:
+                        break;
+                    case 0xe:
+                        break;
+                    default:
+                        break;
+                }
+                break;
+            case 7:
+                this->m_stadiumScaleY += (1.0 / stadiumData->m_stadiumScaleYGrowthRate) * deltaFrame;
+                if (this->m_stadiumScaleY >= 1.0) {
+                    this->m_stadiumScaleY = 1.0;
+                    this->m_phaseEvent.end();
+                    this->m_normalEvent.end();
+                    this->m_normalEvent.start();
+                    this->playSeBasic(snd_se_stage_Stadium_02, 0);
+                    void *posData = m_fileData->getData(Data_Type_Model, 100, 0xfffe);
+                    if (posData != NULL) {
+                        this->m_stagePositions->loadPositionData(&posData);
+                    }
+                    this->updateStagePositions();
+                }
+                static_cast<grGimmick *>(this->getGround(8))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+                static_cast<grGimmick *>(this->getGround(9))->setScale(1.0, this->m_stadiumScaleY, 1.0);
+
+                break;
+            default:
+                break;
+
+        }
+        Vec3f pos;
+        switch(this->m_stadiumTypeGroundIndex) {
+            case 10:
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Jibacoil1");
+                static_cast<grGimmick*>(this->getGround(0x14))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0x14))->setScale(this->m_pokemon1Scale*1.1, this->m_pokemon1Scale*1.1, this->m_pokemon1Scale*1.1);
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Elekible1");
+                static_cast<grGimmick*>(this->getGround(0x11))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0x11))->setScale(this->m_pokemon2Scale*1.4, this->m_pokemon2Scale*1.4, this->m_pokemon2Scale*1.4);
+                break;
+            case 0xc:
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Yukikaburi1");
+                static_cast<grGimmick*>(this->getGround(0x16))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0x16))->setScale(this->m_pokemon1Scale*1.4, this->m_pokemon1Scale*1.4, this->m_pokemon1Scale*1.4);
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Yukiwarashi1");
+                static_cast<grGimmick*>(this->getGround(0x17))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0x17))->setScale(this->m_pokemon2Scale*1.6, this->m_pokemon2Scale*1.6, this->m_pokemon2Scale*1.6);
+                break;
+            case 0xd:
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Karakara1");
+                static_cast<grGimmick*>(this->getGround(0x15))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0x15))->setScale(this->m_pokemon1Scale*1.85, this->m_pokemon1Scale*1.85, this->m_pokemon1Scale*1.85);
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Dugtorio1");
+                static_cast<grGimmick*>(this->getGround(0x10))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0x10))->setScale(this->m_pokemon2Scale*1.6, this->m_pokemon2Scale*1.6, this->m_pokemon2Scale*1.6);
+                break;
+            case 0xe:
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Airmd1");
+                pos.m_y = this->m_flyingPokemon1PosY;
+                static_cast<grGimmick*>(this->getGround(0xf))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0xf))->setScale(this->m_pokemon1Scale*1.6, this->m_pokemon1Scale*1.6, this->m_pokemon1Scale*1.6);
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Fuwante1");
+                pos.m_y = this->m_flyingPokemon2PosY;
+                static_cast<grGimmick*>(this->getGround(0x12))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0x12))->setScale(this->m_pokemon2Scale*2.5, this->m_pokemon2Scale*2.5, this->m_pokemon2Scale*2.5);
+                this->getGround(this->m_stadiumTypeGroundIndex)->getNodePosition(&pos, 0, "Hanecco1");
+                pos.m_y = this->m_flyingPokemon3PosY;
+                static_cast<grGimmick*>(this->getGround(0x13))->setPos(&pos);
+                static_cast<grGimmick*>(this->getGround(0x13))->setScale(this->m_pokemon3Scale*2.1, this->m_pokemon3Scale*2.1, this->m_pokemon3Scale*2.1);
+                break;
+            default:
+                break;
+        }
+    }
 }
 
 void stStadium::updateSymbol(float deltaFrame) {

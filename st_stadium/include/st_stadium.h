@@ -31,7 +31,7 @@ struct stStadiumData {
     float m_normalMaxFrames;
     float m_0x34;
     float m_0x38;
-    float m_0x3c;
+    float m_stadiumScaleYGrowthRate;
     float m_0x40;
     float m_0x44;
     float m_0x48;
@@ -69,7 +69,7 @@ protected:
     grTenganEvent m_transformEvent;
     grTenganEvent m_displayTransformEvent;
     grTenganEvent m_preTransformEvent;
-    grTenganEvent m_electricPkmnEvent;
+    grTenganEvent m_electricPokemonEvent;
     grGimmickBeltConveyorData m_beltConveyor1Data;
     grGimmickBeltConveyorData m_beltConveyor2Data;
     stTrigger* m_beltConveyor1Trigger;
@@ -81,20 +81,20 @@ protected:
     u8 m_stadiumTypeGroundIndex;
     char _0x6aa[2];
     VisionScreenState m_visionScreenState;
-    float m_0x6b0;
+    float m_stadiumScaleY;
     int m_transformSfxIndex;
-    u8 m_0x6b8;
+    bool m_changeToNormal;
     char _0x6b9[3];
-    int m_electroSfx1Index;
-    int m_electroSfx2Index;
+    int m_typeSfx1Index;
+    int m_typeSfx2Index;
     int m_transformTypeIndex;
     Type m_transformTypes[4];
-    float m_0x6cc;
-    float m_0x6d0;
-    float m_0x6d4;
-    float m_0x6d8;
-    float m_0x6dc;
-    float m_0x6e0;
+    float m_flyingPokemon1PosY;
+    float m_flyingPokemon2PosY;
+    float m_flyingPokemon3PosY;
+    float m_pokemon1Scale;
+    float m_pokemon2Scale;
+    float m_pokemon3Scale;
     u8 m_focusedPlayerNo;
     u8 m_nextPlayerIndex;
     u8 m_displayState;
@@ -135,13 +135,13 @@ public:
     }
 
     stStadium() : stMelee("stStadium", Stages::Final){
-        m_electroSfx1Index = -1;
-        m_electroSfx2Index = -1;
+        m_typeSfx1Index = -1;
+        m_typeSfx2Index = -1;
         prepareNextTransformTypes();
         m_0x1d8 = 0;
-        m_0x6b0 = 0.0;
+        m_stadiumScaleY = 0.0;
         m_transformSfxIndex = -1;
-        m_0x6b8 = 0;
+        m_changeToNormal = 0;
         m_visionScreenState = VisionScreen_Disabled;
         m_targetZoom = 1.0;
         m_nextPlayerIndex = 0;
@@ -154,12 +154,12 @@ public:
         m_0x7b8 = 0.0;
         m_0x7bc = 1.0;
         m_0x7c0 = 1.0;
-        m_0x6cc = 0.0;
-        m_0x6d0 = 0.0;
-        m_0x6d4 = 0.0;
-        m_0x6d8 = 1.0;
-        m_0x6dc = 1.0;
-        m_0x6e0 = 1.0;
+        m_flyingPokemon1PosY = 0.0;
+        m_flyingPokemon2PosY = 0.0;
+        m_flyingPokemon3PosY = 0.0;
+        m_pokemon1Scale = 1.0;
+        m_pokemon2Scale = 1.0;
+        m_pokemon3Scale = 1.0;
         m_0x6a0 = 0;
         m_0x6a4 = 0.0;
         m_0x6a8 = 0;
