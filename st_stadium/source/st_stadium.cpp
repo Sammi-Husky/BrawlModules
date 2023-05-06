@@ -3,6 +3,7 @@
 #include <st/st_class_info.h>
 #include <gm/gm_global.h>
 #include <ec/ec_mgr.h>
+#include <gf/gf_copyefb.h>
 #include <OS/OSError.h>
 
 static stClassInfoImpl<Stages::Final, stStadium> classInfo = stClassInfoImpl<Stages::Final, stStadium>();
@@ -776,7 +777,24 @@ void stStadium::updateVisionScreen() {
     if (this->m_visionScreenState) {
         Vec2f pos = (this->m_visionScreenPos1 + this->m_visionScreenPos2)*0.5;
         Vec2f range = this->m_visionScreenPos2 - this->m_visionScreenPos1;
-        this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResMat("MoniterDummy1");
+        nw4r::g3d::ResMatData* resMatData = this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResMat("MoniterDummy1").ptr();
+        nw4r::g3d::ResTexObj resTexObj(&resMatData->m_resTexObjData);
+        GXTexObj* tex = resTexObj.GetTexObj(GX_TEXMAP0);
+
+        gfCopyEFBMgr* copyEFBMgr = gfCopyEFBMgr::getInstance();
+        if (copyEFBMgr->isValid(0)) {
+            GXTexObj* efbTex = copyEFBMgr->getCopyEFBTex(0);
+            *tex = *efbTex;
+        }
+        nw4r::g3d::ResTexSrt resTexSrt(&resMatData->m_resTexSrtData);
+        resTexSrt.SetMapMode(0, 0, -1, -1);
+        resTexSrt.ptr()->m_range = range;
+        resTexSrt.ptr()->m_pos = (Vec2f){(pos.m_x - range.m_x*0.5)/range.m_x, (pos.m_y - range.m_y*0.5)/range.m_y};
+        resTexSrt.ptr()->m_flag3 = false;
+        resTexSrt.ptr()->m_flag2 = true;
+        resTexSrt.ptr()->m_flag1 = false;
+        resTexSrt.ptr()->m_flag0 = true;
+        this->updateVisionScreenPos();
     }
 }
 
