@@ -1,5 +1,4 @@
 #include "st_stadium.h"
-#include "gr_final.h"
 #include <memory.h>
 #include <st/st_class_info.h>
 #include <gm/gm_global.h>
