@@ -119,12 +119,15 @@ void stOnlineTrainning::createObj() {
     }
     createCollision(m_fileData, 2, 0);
     initCameraParam();
-    void* mdl = m_fileData->getData(Data_Type_Model, 100, 0xFFFE);
-    if (mdl) {
-        void* r1 = mdl;
-        createStagePositions(&r1);
-    } else {
+    nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x64, 0xfffe));
+    if (posData.ptr() == NULL)
+    {
+        // if no stgPos model in pac, use defaults
         createStagePositions();
+    }
+    else
+    {
+        createStagePositions(&posData);
     }
     createWind2ndOnly();
     loadStageAttrParam(m_fileData, 0x1E);

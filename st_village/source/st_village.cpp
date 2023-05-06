@@ -56,8 +56,8 @@ void stVillage::createObj()
     createCollision(this->m_fileData, 2, 0);
     this->initCameraParam();
 
-    void* posData = m_fileData->getData(Data_Type_Model, 0x64, 0xfffe);
-    if (posData == NULL)
+    nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x64, 0xfffe));
+    if (posData.ptr() == NULL)
     {
         // if no stgPos model in pac, use defaults
         createStagePositions();
