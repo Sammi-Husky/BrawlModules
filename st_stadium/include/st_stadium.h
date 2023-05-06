@@ -104,10 +104,8 @@ protected:
     float m_zoom;
     Vec3f m_0x79c;
     Vec3f m_0x7a8;
-    float m_0x7b4;
-    float m_0x7b8;
-    float m_0x7bc;
-    float m_0x7c0;
+    Vec2f m_visionScreenPos1;
+    Vec2f m_visionScreenPos2;
 
 public:
     void prepareNextTransformTypes() {
@@ -150,10 +148,8 @@ public:
         m_zoom = 1.0;
         m_0x79c = (Vec3f){0.0, 0.0, 0.0};
         m_0x7a8 = (Vec3f){0.0, 0.0, 0.0};
-        m_0x7b4 = 0.0;
-        m_0x7b8 = 0.0;
-        m_0x7bc = 1.0;
-        m_0x7c0 = 1.0;
+        m_visionScreenPos1 = (Vec2f){0.0, 0.0};
+        m_visionScreenPos2 = (Vec2f){1.0, 1.0};
         m_flyingPokemon1PosY = 0.0;
         m_flyingPokemon2PosY = 0.0;
         m_flyingPokemon3PosY = 0.0;

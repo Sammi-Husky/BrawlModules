@@ -98,15 +98,14 @@ void stStadium::createObj()
     this->getGround(0xe)->setEnableCollisionStatus(false);
 
     initCameraParam();
-    void* posData = m_fileData->getData(Data_Type_Model, 0x64, 0xfffe);
-    if (posData == NULL)
+    nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x64, 0xfffe));
+    if (posData.ptr() == NULL)
     {
         // if no stgPos model in pac, use defaults
         createStagePositions();
     }
     else
     {
-        // stgPosWrapper stgPos = {posData}; // creates wrapper on the stack
         createStagePositions(&posData);
     }
 
@@ -292,7 +291,6 @@ void stStadium::enableVisionScreen() {
 void stStadium::updateSpecialStage(float deltaFrame) {
     stStadiumData* stadiumData = static_cast<stStadiumData*>(this->m_stageData);
     if (this->m_phaseEvent.isEvent()) {
-        //OSReport("Phase %d: \n", this->m_phaseEvent.getPhase());
         switch(this->m_phaseEvent.getPhase()) {
             case 0:
                 if (!this->m_transformEvent.isEvent()) {
@@ -403,24 +401,24 @@ void stStadium::updateSpecialStage(float deltaFrame) {
                             this->m_beltConveyor1Trigger->setAreaSleep(false);
                             this->m_beltConveyor2Trigger->setAreaSleep(false);
                             this->playSeBasic(snd_se_stage_Stadium_electro_finish, 0);
-                            void *posData = m_fileData->getData(Data_Type_Model, 0x65, 0xfffe);
-                            if (posData != NULL) {
+                            nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x65, 0xfffe));
+                            if (posData.ptr()  != NULL) {
                                 this->m_stagePositions->loadPositionData(&posData);
                             }
                         }
                             break;
                         case 0xc: {
                             this->playSeBasic(snd_se_stage_Stadium_ice_finish, 0);
-                            void *posData = m_fileData->getData(Data_Type_Model, 0x66, 0xfffe);
-                            if (posData != NULL) {
+                            nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x66, 0xfffe));
+                            if (posData.ptr() != NULL) {
                                 this->m_stagePositions->loadPositionData(&posData);
                             }
                         }
                             break;
                         case 0xd: {
                             this->playSeBasic(snd_se_stage_Stadium_ground_finish, 0);
-                            void *posData = m_fileData->getData(Data_Type_Model, 0x67, 0xfffe);
-                            if (posData != NULL) {
+                            nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x67, 0xfffe));
+                            if (posData.ptr() != NULL) {
                                 this->m_stagePositions->loadPositionData(&posData);
                             }
                         }
@@ -432,8 +430,8 @@ void stStadium::updateSpecialStage(float deltaFrame) {
                             if (this->m_wind2ndTrigger != NULL) {
                                 this->m_wind2ndTrigger->setAreaSleep(false);
                             }
-                            void *posData = m_fileData->getData(Data_Type_Model, 0x68, 0xfffe);
-                            if (posData != NULL) {
+                            nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x68, 0xfffe));
+                            if (posData.ptr() != NULL) {
                                 this->m_stagePositions->loadPositionData(&posData);
                             }
                         }
@@ -649,8 +647,8 @@ void stStadium::updateSpecialStage(float deltaFrame) {
                     this->m_normalEvent.end();
                     this->m_normalEvent.start();
                     this->playSeBasic(snd_se_stage_Stadium_02, 0);
-                    void *posData = m_fileData->getData(Data_Type_Model, 100, 0xfffe);
-                    if (posData != NULL) {
+                    nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 100, 0xfffe));
+                    if (posData.ptr() != NULL) {
                         this->m_stagePositions->loadPositionData(&posData);
                     }
                     this->updateStagePositions();
@@ -710,11 +708,77 @@ void stStadium::updateSpecialStage(float deltaFrame) {
 }
 
 void stStadium::updateSymbol(float deltaFrame) {
-
+    if (this->m_displayTransformEvent.isEvent()) {
+        int symbolGroundIndex;
+        int stadiumType;
+        switch(this->m_stadiumTypeGroundIndex) {
+            case 10:
+                symbolGroundIndex = 1;
+                stadiumType = 0;
+                break;
+            case 0xc:
+                symbolGroundIndex = 3;
+                stadiumType = 2;
+                break;
+            case 0xd:
+                symbolGroundIndex = 2;
+                stadiumType = 1;
+                break;
+            case 0xe:
+                symbolGroundIndex = 4;
+                stadiumType = 3;
+                break;
+            default:
+                stadiumType = 0;
+                symbolGroundIndex = 0;
+                break;
+        }
+        if (this->m_changeToNormal) {
+            stadiumType = 5;
+            symbolGroundIndex = 4;
+        }
+        static_cast<grStadiumVision*>(this->getGround(0))->m_stadiumType = stadiumType;
+        if (symbolGroundIndex != 0) {
+            switch(this->m_displayTransformEvent.getPhase()) {
+                case 0:
+                    this->m_displayTransformEvent.m_manualFramesLeft = 50.0;
+                    static_cast<grMadein*>(this->getGround(symbolGroundIndex))->startEntity();
+                    this->m_displayTransformEvent.setPhase(1);
+                    this->playSeBasic(snd_se_stage_Stadium_09, 0);
+                    break;
+                case 1:
+                    this->m_displayTransformEvent.m_manualFramesLeft -= deltaFrame;
+                    if (this->m_displayTransformEvent.m_manualFramesLeft <= 0.0) {
+                        static_cast<grMadein*>(this->getGround(symbolGroundIndex))->endEntity();
+                        this->m_displayTransformEvent.m_manualFramesLeft = 50.0;
+                        this->m_displayTransformEvent.setPhase(2);
+                        if (this->m_displayTransformEvent.isReadyEnd()) {
+                            this->m_displayTransformEvent.end();
+                            this->setDefaultDisplay();
+                            this->m_displayEvent.start();
+                        }
+                    }
+                    break;
+                case 2:
+                    this->m_displayTransformEvent.m_manualFramesLeft -= deltaFrame;
+                    if (this->m_displayTransformEvent.m_manualFramesLeft <= 0.0) {
+                        this->m_displayTransformEvent.m_manualFramesLeft = 0.0;
+                        this->m_displayTransformEvent.setPhase(0);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
 }
 
 void stStadium::updateVisionScreen() {
-
+    if (this->m_visionScreenState) {
+        Vec2f pos = (this->m_visionScreenPos1 + this->m_visionScreenPos2)*0.5;
+        Vec2f range = this->m_visionScreenPos2 - this->m_visionScreenPos1;
+        this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResMat("MoniterDummy1");
+    }
 }
 
 void stStadium::updateVisionScreenPos() {

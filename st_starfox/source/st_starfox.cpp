@@ -68,12 +68,15 @@ void stStarfox::createObj() {
     }
     createCollision(m_fileData, 2, stageElement);
     initCameraParam();
-    void* model = m_fileData->getData(Data_Type_Model, 100, 0xFFFE);
-    if (model) {
-        void* mdl = model;
-        createStagePositions(&mdl);
-    } else {
+    nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x64, 0xfffe));
+    if (posData.ptr() == NULL)
+    {
+        // if no stgPos model in pac, use defaults
         createStagePositions();
+    }
+    else
+    {
+        createStagePositions(&posData);
     }
     createWind2ndOnly();
     m_wind2ndTrigger->setAreaSleep(1);
