@@ -3,7 +3,6 @@
 #include <st/st_class_info.h>
 #include <gm/gm_global.h>
 #include <ec/ec_mgr.h>
-#include <gf/gf_copyefb.h>
 #include <OS/OSError.h>
 
 static stClassInfoImpl<Stages::Final, stStadium> classInfo = stClassInfoImpl<Stages::Final, stStadium>();
@@ -133,6 +132,9 @@ void stStadium::createObj()
 
     this->setDefaultDisplay();
     this->playSeBasic(snd_se_stage_Stadium_02, 0);
+
+//    m_copyEFBMgr.createCopyEFB(0, Heaps::Fighter4Resource);
+//    m_copyEFBMgr.createCopyEFB(1, Heaps::Fighter4Resource);
 }
 
 void stStadium::createObjDetails() {
@@ -141,6 +143,13 @@ void stStadium::createObjDetails() {
 
 void stStadium::update(float deltaFrame)
 {
+//    if (m_test < 600) {
+//        m_copyEFBMgr.getEFB(0);
+//        m_copyEFBMgr.drawCopyEFB(0, &(GXColor){0, 0, 0, 255});
+//    }
+//
+//    m_test += deltaFrame;
+
     if (this->m_normalEvent.isReadyEnd() && !this->m_phaseEvent.isEvent()) {
         switch(this->m_transformTypes[this->m_transformTypeIndex]) {
             case Type_Electric:
@@ -786,6 +795,10 @@ void stStadium::updateVisionScreen() {
             GXTexObj* efbTex = copyEFBMgr->getCopyEFBTex(0);
             *tex = *efbTex;
         }
+//        if (m_copyEFBMgr.isValid(0)) {
+//            GXTexObj* efbTex = m_copyEFBMgr.getCopyEFBTex(0);
+//            *tex = *efbTex;
+//        }
         nw4r::g3d::ResTexSrt resTexSrt(&resMatData->m_resTexSrtData);
         resTexSrt.SetMapMode(0, 0, -1, -1);
         resTexSrt.ptr()->m_range = range;

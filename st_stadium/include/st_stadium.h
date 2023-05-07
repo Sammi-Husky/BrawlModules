@@ -9,6 +9,7 @@
 #include <gm/gm_global.h>
 #include <mt/mt_prng.h>
 #include <types.h>
+#include <gf/gf_copyefb.h>
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
@@ -107,6 +108,9 @@ protected:
     Vec2f m_visionScreenPos1;
     Vec2f m_visionScreenPos2;
 
+//    gfCopyEFBMgr m_copyEFBMgr;
+//    float m_test;
+
 public:
     void prepareNextTransformTypes() {
         m_transformTypeIndex = 0;
@@ -159,6 +163,14 @@ public:
         m_0x6a0 = 0;
         m_0x6a4 = 0.0;
         m_0x6a8 = 0;
+
+//        m_copyEFBMgr.m_104 = false;
+//        m_copyEFBMgr.m_108 = 200;
+//        m_copyEFBMgr.m_copyEFBs[0].m_texBuffer = NULL;
+//        m_copyEFBMgr.m_copyEFBs[0].m_isValid = false;
+//        m_copyEFBMgr.m_copyEFBs[1].m_texBuffer = NULL;
+//        m_copyEFBMgr.m_copyEFBs[1].m_isValid = false;
+//        m_test = 0;
 
     };
     static stStadium* create();
