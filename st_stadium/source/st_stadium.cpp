@@ -7,7 +7,7 @@
 #include <gf/gf_camera.h>
 #include <OS/OSError.h>
 
-static stClassInfoImpl<Stages::Final, stStadium> classInfo = stClassInfoImpl<Stages::Final, stStadium>();
+static stClassInfoImpl<Stages::Stadium, stStadium> classInfo = stClassInfoImpl<Stages::Stadium, stStadium>();
 
 stStadium* stStadium::create()
 {

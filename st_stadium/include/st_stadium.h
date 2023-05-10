@@ -136,7 +136,7 @@ public:
         stadiumVision->setDisplay(false);
     }
 
-    stStadium() : stMelee("stStadium", Stages::Final){
+    stStadium() : stMelee("stStadium", Stages::Stadium){
         m_typeSfx1Index = -1;
         m_typeSfx2Index = -1;
         prepareNextTransformTypes();
