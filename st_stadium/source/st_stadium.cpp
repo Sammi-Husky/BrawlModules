@@ -3,6 +3,8 @@
 #include <st/st_class_info.h>
 #include <gm/gm_global.h>
 #include <ec/ec_mgr.h>
+#include <cm/cm_subject.h>
+#include <gf/gf_camera.h>
 #include <OS/OSError.h>
 
 static stClassInfoImpl<Stages::Final, stStadium> classInfo = stClassInfoImpl<Stages::Final, stStadium>();
@@ -802,7 +804,7 @@ void stStadium::updateVisionScreen() {
         nw4r::g3d::ResTexSrt resTexSrt(&resMatData->m_resTexSrtData);
         resTexSrt.SetMapMode(0, 0, -1, -1);
         resTexSrt.ptr()->m_range = range;
-        resTexSrt.ptr()->m_pos = (Vec2f){(pos.m_x - range.m_x*0.5)/range.m_x, (pos.m_y - range.m_y*0.5)/range.m_y};
+        resTexSrt.ptr()->m_pos = (Vec2f){-(pos.m_x - range.m_x*0.5)/range.m_x, -(pos.m_y - range.m_y*0.5)/range.m_y};
         resTexSrt.ptr()->m_flag3 = false;
         resTexSrt.ptr()->m_flag2 = true;
         resTexSrt.ptr()->m_flag1 = false;
@@ -812,6 +814,96 @@ void stStadium::updateVisionScreen() {
 }
 
 void stStadium::updateVisionScreenPos() {
+    cmSubject* camSubject = cmSubjectList::getSubjectByPlayerNo(this->m_focusedPlayerNo);
+    if (camSubject != NULL) {
+        this->m_zoom += (this->m_targetZoom - this->m_zoom) / 10.0;
+        stRange range = (stRange){camSubject->m_range.m_left*this->m_zoom, camSubject->m_range.m_right*this->m_zoom, camSubject->m_range.m_top*this->m_zoom, camSubject->m_range.m_bottom*this->m_zoom};
+        Vec3f rangePos1 = (Vec3f){camSubject->m_pos.m_x + range.m_left - this->m_cameraPos1.m_x, camSubject->m_pos.m_y + range.m_bottom - this->m_cameraPos1.m_y, camSubject->m_pos.m_z - this->m_cameraPos1.m_z}*0.25;
+        this->m_cameraPos1 += rangePos1;
+        Vec3f rangePos2 = (Vec3f){camSubject->m_pos.m_x + range.m_right - this->m_cameraPos2.m_x, camSubject->m_pos.m_y + range.m_top - this->m_cameraPos2.m_y, camSubject->m_pos.m_z - this->m_cameraPos2.m_z}*0.25;
+        this->m_cameraPos2 += rangePos2;
+
+        Vec2f projPos1;
+        Vec2f projPos2;
+        gfCameraManager* cameraManager = gfCameraManager::getManager();
+        cameraManager->m_cameras[0].calcProjection3Dto2D(&this->m_cameraPos1, &projPos1);
+        cameraManager->m_cameras[0].calcProjection3Dto2D(&this->m_cameraPos2, &projPos2);
+        projPos1.m_x = projPos1.m_x / 640.0;
+        float fVar6 = projPos2.m_x / 640.0;
+        projPos1.m_y = 1.0 - projPos1.m_y / 480.0;
+        float fVar5 = 1.0 - projPos2.m_y / 480.0;
+        projPos2.m_x = fVar6;
+        if (fVar6 < projPos1.m_x) {
+            projPos2.m_x = projPos1.m_x;
+            projPos1.m_x = fVar6;
+        }
+        projPos2.m_y = fVar5;
+        if (fVar5 < projPos1.m_y) {
+            projPos2.m_y = projPos1.m_y;
+            projPos1.m_y = fVar5;
+        }
+        Vec2f projPosDiff;
+        projPosDiff.m_x = projPos2.m_x - projPos1.m_x;
+        if (projPosDiff.m_x < 0.08) {
+            projPosDiff.m_x = 0.08;
+        }
+        projPosDiff.m_y = projPos2.m_y - projPos1.m_y;
+        if (projPosDiff.m_y < 0.08) {
+            projPosDiff.m_y = 0.08;
+        }
+
+        float ratio = 1.0;
+        if (g_GameGlobal->getGlobalRecordMenuDatap()->m_isWidescreen) {
+            ratio = 1.333333;
+        }
+
+        if (projPosDiff.m_x / projPosDiff.m_y <= 1.57143) {
+            projPosDiff.m_x = projPosDiff.m_y * 1.57143 / ratio;
+            if (1.0 < projPosDiff.m_x) {
+                projPosDiff.m_y = projPosDiff.m_y / projPosDiff.m_x;
+                projPosDiff.m_x = 1.0;
+            }
+            if (1.0 < projPosDiff.m_y) {
+                projPosDiff.m_x = projPosDiff.m_x / projPosDiff.m_y;
+                projPosDiff.m_y = 1.0;
+            }
+        }
+        else {
+            projPosDiff.m_y = projPosDiff.m_x * ratio / 1.57143;
+            if (1.0 < projPosDiff.m_y) {
+                projPosDiff.m_x = projPosDiff.m_x / projPosDiff.m_y;
+                projPosDiff.m_y = 1.0;
+            }
+            if (1.0 < projPosDiff.m_x) {
+                projPosDiff.m_y = projPosDiff.m_y / projPosDiff.m_x;
+                projPosDiff.m_x = 1.0;
+            }
+        }
+
+        Vec2f projMidPos = (projPos1 + projPos2)*0.5;
+        projPos1 = projMidPos - projPosDiff*0.5;
+        projPos2 = projMidPos + projPosDiff*0.5;
+        if (projPos1.m_x < 0.0) {
+            projPos1.m_x = 0.0;
+            projPos2.m_x = projPosDiff.m_x;
+        }
+        if (projPos1.m_y < 0.0) {
+            projPos1.m_y = 0.0;
+            projPos2.m_y = projPosDiff.m_y;
+        }
+        if (projPos2.m_x >= 1.0) {
+            projPos1.m_x = 1.0 - projPosDiff.m_x;
+            projPos2.m_x = 1.0;
+        }
+        if (projPos2.m_y >= 1.0) {
+            projPos1.m_y = 1.0 - projPosDiff.m_y;
+            projPos2.m_y = 1.0;
+        }
+
+        this->m_visionScreenPos1 = projPos1;
+        this->m_visionScreenPos2 = projPos2;
+
+    }
 
 }
 
