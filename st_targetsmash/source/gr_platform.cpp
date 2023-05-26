@@ -65,8 +65,8 @@ void grPlatform::update(float deltaFrame)
 }
 
 void grPlatform::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
-    if (this->timer <= 0 && damage->totalDamage >= this->maxDamage) {
-        damage->totalDamage = 0;
+    if (this->timer <= 0 && damage->m_totalDamage >= this->maxDamage) {
+        damage->m_totalDamage = 0;
         this->startGimmickSE(1);
         if (this->respawnFrames > 0) {
             this->timer = this->respawnFrames;
