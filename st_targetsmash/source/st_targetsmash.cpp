@@ -80,12 +80,6 @@ void stTargetSmash::createObj()
 
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->m_stageData);
     this->setStageAttackData(&stageData->damageFloor, 0);
-
-
-
-    itManager *itemManager = itManager::getInstance();
-    itemManager->preloadItemKindArchive(Item_MarioBros_Sidestepper, 0, itArchive::Temp, true);
-    itemManager->preloadItemKindArchive(Item_MarioBros_Sidestepper, 1, itArchive::Temp, true);
 }
 
 void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer) {
@@ -101,6 +95,8 @@ void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind item
 void stTargetSmash::patchInstructions() {
     // stOperatorRuleTargetBreak::checkExtraRule
     // Give enough room on stack for increased number of targets
+
+    // TODO: Use rel addresses
 
     int *instructionAddr = (int*)0x8095d198;
     *instructionAddr = 0x9421FC40; // stwu sp, -0x3C0(sp) Original: stwu sp, -0x60(sp)
