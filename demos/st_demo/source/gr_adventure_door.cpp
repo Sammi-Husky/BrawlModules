@@ -40,7 +40,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->setCalcuCallbackRoot(7);
     if (this->doorData->doorGimmickKind != Door_GimmickKind_AirAuto)
     {
-        this->m_calcWorldCallBack.m_nodeCallbackDataArray->m_scale = (Vec3f){1.1, 1.1, 1.0};
+        this->m_calcWorldCallBack.m_nodeCallbackDatas[0].m_scale = (Vec3f){1.1, 1.1, 1.0};
     }
     this->areaData = (soAreaData){ 0, 0x15, 0, 0, 0, 0, this->doorData->areaOffsetPos, this->doorData->areaRange };
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);

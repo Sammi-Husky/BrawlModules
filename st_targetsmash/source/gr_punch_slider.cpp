@@ -45,12 +45,12 @@ void grPunchSlider::setCulcCallback(gfArchive* archive) {
         }
         else {
             this->makeCalcuCallback(3, Heaps::StageInstance);
-            this->m_calcWorldCallBack.m_nodeCallbackDataArray[2].m_nodeIndex = this->m_polyGlowNodeIndex;
-            this->m_calcWorldCallBack.m_nodeCallbackDataArray[2].m_flags = 6;
+            this->m_calcWorldCallBack.m_nodeCallbackDatas[2].m_nodeIndex = this->m_polyGlowNodeIndex;
+            this->m_calcWorldCallBack.m_nodeCallbackDatas[2].m_flags = 6;
         }
         this->setCalcuCallbackRoot(3);
-        this->m_calcWorldCallBack.m_nodeCallbackDataArray[1].m_nodeIndex = this->m_ballNodeIndex;
-        this->m_calcWorldCallBack.m_nodeCallbackDataArray[1].m_flags = 3;
+        this->m_calcWorldCallBack.m_nodeCallbackDatas[1].m_nodeIndex = this->m_ballNodeIndex;
+        this->m_calcWorldCallBack.m_nodeCallbackDatas[1].m_flags = 3;
         grGimmickMotionPathInfo motionPathInfo = { archive, &this->m_sliderData->m_motionPathData, 0x3000000, 0, 0, 0, 0, 0, 0 };
         this->createAttachMotionPath(&motionPathInfo, NULL, "MoveNode");
     }
@@ -67,7 +67,7 @@ void grPunchSlider::updateMove(float deltaFrame) {
             pos = this->m_sliderMotionPath->getPos();
             rot = this->m_sliderMotionPath->getRot();
         }
-        this->m_calcWorldCallBack.m_nodeCallbackDataArray[1].m_pos = pos;
-        this->m_calcWorldCallBack.m_nodeCallbackDataArray[1].m_rot = rot;
+        this->m_calcWorldCallBack.m_nodeCallbackDatas[1].m_pos = pos;
+        this->m_calcWorldCallBack.m_nodeCallbackDatas[1].m_rot = rot;
     }
 }
