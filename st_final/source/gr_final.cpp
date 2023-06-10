@@ -20,21 +20,6 @@ void grFinal::setType(int type)
     this->type = type;
 }
 
-void grFinal::startup(gfArchive* data, u32 unk1, u32 unk2) {
-    grYakumono::startup(data, unk1, unk2);
-    if (this->type == 1) {
-        this->createEffectWork(1);
-        this->m_effects[0].m_id = 0x330004;
-        this->m_effects[0].m_0x10 = 0;
-        this->m_effects[0].m_nodeIndex = this->getNodeIndex(0, "effect_locator");
-        this->m_effects[0].m_0x14 = 0.0;
-        this->m_effects[0].m_0x1c = 0.0;
-        this->m_effects[0].m_0x20 = 0.0;
-        this->m_effects[0].m_0x24 = 0.0;
-        this->startGimmickEffect(0);
-    }
-}
-
 void grFinal::updateEff()
 {
     if (this->type == 0)
