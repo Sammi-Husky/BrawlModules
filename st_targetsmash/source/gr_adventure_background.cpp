@@ -7,8 +7,8 @@ void grAdventureBackGround::update(float)
 {
     if (this->field_0x4 && this->resNode.ptr() != NULL) {
         gfCameraManager* cameraManager = gfCameraManager::getManager();
-        this->resNode.SetTranslate(this->pos.m_x + cameraManager->m_cameras[0].m_108 * this->field_0x2c - this->field_0x20,
-                                   this->pos.m_y + cameraManager->m_cameras[0].m_112 * this->field_0x30 - this->field_0x24,
+        this->resNode.SetTranslate(this->pos.m_x + cameraManager->m_cameras[0].m_centerPos.m_x * this->field_0x2c - this->field_0x20,
+                                   this->pos.m_y + cameraManager->m_cameras[0].m_centerPos.m_y * this->field_0x30 - this->field_0x24,
                                    this->pos.m_z - this->field_0x28);
     }
 }
