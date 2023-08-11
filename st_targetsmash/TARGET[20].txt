@@ -1,62 +1,63 @@
-Damage
+Slider Attack Damage
+Default: 30.0
+
+	/EndDescription
+0
+
+Slider Attack OffsetPosX
+Default: 0.0
+	/EndDescription
+0
+
+Slider Attack OffsetPosY
+Default: 0.0
+	/EndDescription
+0
+
+Slider Attack OffsetPosZ
+Default: 0.0
+	/EndDescription
+0
+
+Slider Attack Size
 Default: 10.0
 
 	/EndDescription
 0
 
-OffsetPosX
-Default: 0.0
-	/EndDescription
-0
-
-OffsetPosY
-Default: 0.0
-	/EndDescription
-0
-
-OffsetPosZ
-Default: 0.0
-	/EndDescription
-0
-
-Size
-Default: 0.0
-
-	/EndDescription
-0
-
-Vector
+Slider Attack Vector
 Angle
 
 Default: 361
 	/EndDescription
 1
 
-ReactionEffect
+Slider Attack ReactionEffect
 Knockback Growth
 
-Default: 50
+Default: 41
 	/EndDescription
 1
 
-ReactionFix
-Default: 0 (Could be int or float - be careful)
+Slider Attack ReactionFix
+Default: 0 
+
 	/EndDescription
 1
 
-ReactionAdd
+Slider Attack ReactionAdd
 Base Knockback
 
-Default: 100
+Default: 5
 	/EndDescription
 1
 
-0x038
+Slider Attack 0x038
 Default: 0 (Could be int or float - be careful)
 	/EndDescription
 1
 
-ElementType
+Slider Attack ElementType
 Default: 2 (Element_Type_Slash)
 	/EndDescription
 1
@@ -66,32 +67,33 @@ Default: false, false, true, true
 	/EndDescription
 6
 
-0x044
+Slider Attack 0x044
 Default: 0 (Could be int or float - be careful)
 	/EndDescription
 0
 
-0x048
+Slider Attack 0x048
 Default: 0 (Could be int or float - be careful)
 	/EndDescription
 0
 
-0x04C
+Slider Attack 0x04C
 Default: 0 (Could be int or float - be careful)
 	/EndDescription
 0
 
-DetectionRate
-Default: 15
+Slider Attack DetectionRate
+Default: 1000
+
 	/EndDescription
 1
 
-HitSoundLevel
+Slider Attack HitSoundLevel
 Default: 1 (Hit_Sound_Level_Medium)
 	/EndDescription
 1
 
-HitSoundType
+Slider Attack HitSoundType
 Default: 3 (Hit_Sound_Type_Slash)
 	/EndDescription
 1
@@ -101,32 +103,304 @@ Default: false, false, 0, 0
 	/EndDescription
 6
 
-0x060
+Slider Attack 0x060
 Default: 0 (Could be int or float - be careful)
 	/EndDescription
 0
 
-NodeIndex
+Slider Attack NodeIndex
 Default: 0
 	/EndDescription
 1
 
-Power
-Default: 10
+Slider Attack Power
+Default: 30
 	/EndDescription
 1
 
-0x06C
+Cannon Attack Damage
+Default: 15.0
+
+	/EndDescription
+0
+
+Cannon Attack OffsetPosX
+Default: 0.0
+	/EndDescription
+0
+
+Cannon Attack OffsetPosY
+Default: 0.0
+	/EndDescription
+0
+
+Cannon Attack OffsetPosZ
+Default: 0.0
+	/EndDescription
+0
+
+Cannon Attack Size
+Default: 10.0
+
+	/EndDescription
+0
+
+Cannon Attack Vector
+Angle
+
+Default: 361
+	/EndDescription
+1
+
+Cannon Attack ReactionEffect
+Knockback Growth
+
+Default: 50
+	/EndDescription
+1
+
+Cannon Attack ReactionFix
+Default: 0 
+
+	/EndDescription
+1
+
+Cannon Attack ReactionAdd
+Base Knockback
+
+Default: 100
+	/EndDescription
+1
+
+Cannon Attack 0x038
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+1
+
+Cannon Attack ElementType
+Default: 0 (Element_Type_Normal)
+	/EndDescription
+1
+
+isClankable, 0x041, 0x042, 0x043
+Default: false, false, true, true
+	/EndDescription
+6
+
+Cannon Attack 0x044
 Default: 0 (Could be int or float - be careful)
 	/EndDescription
 0
 
-Index
+Cannon Attack 0x048
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Cannon Attack 0x04C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Cannon Attack DetectionRate
+Default: 60
+	/EndDescription
+1
+
+Cannon Attack HitSoundLevel
+Default: 1 (Hit_Sound_Level_Medium)
+	/EndDescription
+1
+
+Cannon Attack HitSoundType
+Default: 1 (Hit_Sound_Type_Punch)
+	/EndDescription
+1
+
+0x05C, isShapeCapsule, 0x05E, 0x05F
+Default: false, false, 0, 0
+	/EndDescription
+6
+
+Cannon Attack 0x060
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Cannon Attack NodeIndex
+Default: 0
+	/EndDescription
+1
+
+Cannon Attack Power
+Default: 15
+	/EndDescription
+1
+
+isCannonInvincibility, isCannonShootStop, _, _
+Default: true, false, false, false
+	/EndDescription
+6
+
+Cannon Active Min Z
+Cannon Active Min Z
+Default: -15
+	/EndDescription
+0
+
+Cannon Active Max Z
+Cannon Active Max Z
+Default: 5
+	/EndDescription
+0
+
+Cannon Shoot Speed
+Cannon Shoot Speed
+Default: 5
+	/EndDescription
+0
+
+Cannon Shoot Time Speed
+Default: 0.075
+
+	/EndDescription
+0
+
+Cannon Shoot Stun Timer Speed
+Default: 0.25
+	/EndDescription
+0
+
+Collision Hazard Damage
+Default: 10.0
+
+	/EndDescription
+0
+
+Collision Hazard OffsetPosX
+Default: 0.0
+	/EndDescription
+0
+
+Collision Hazard OffsetPosY
+Default: 0.0
+	/EndDescription
+0
+
+Collision Hazard OffsetPosZ
+Default: 0.0
+	/EndDescription
+0
+
+Collision Hazard Size
+Default: 0.0
+
+	/EndDescription
+0
+
+Collision Hazard Vector
+Angle
+
+Default: 361
+	/EndDescription
+1
+
+Collision Hazard ReactionEffect
+Knockback Growth
+
+Default: 50
+	/EndDescription
+1
+
+Collision Hazard ReactionFix
+Default: 0 
+
+	/EndDescription
+1
+
+Collision Hazard ReactionAdd
+Base Knockback
+
+Default: 100
+	/EndDescription
+1
+
+Collision Hazard 0x038
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+1
+
+Collision Hazard ElementType
+Default: 2 (Element_Type_Slash)
+	/EndDescription
+1
+
+isClankable, 0x041, 0x042, 0x043
+Default: false, false, true, true
+	/EndDescription
+6
+
+Collision Hazard 0x044
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision Hazard 0x048
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision Hazard 0x04C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision Hazard DetectionRate
+Default: 15
+	/EndDescription
+1
+
+Collision Hazard HitSoundLevel
+Default: 1 (Hit_Sound_Level_Medium)
+	/EndDescription
+1
+
+Collision Hazard HitSoundType
+Default: 3 (Hit_Sound_Type_Slash)
+	/EndDescription
+1
+
+0x05C, isShapeCapsule, 0x05E, 0x05F
+Default: false, false, 0, 0
+	/EndDescription
+6
+
+Collision Hazard 0x060
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision Hazard NodeIndex
+Default: 0
+	/EndDescription
+1
+
+Collision Hazard Power
+Default: 10
+	/EndDescription
+1
+
+Collision Hazard 0x06C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision Hazard Index
 Default: 1
 	/EndDescription
 1
 
-0x074
+Collision Hazard 0x074
 Default: -1
 	/EndDescription
 1
