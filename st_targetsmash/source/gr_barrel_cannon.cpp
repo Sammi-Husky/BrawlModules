@@ -194,9 +194,9 @@ void grAdventureBarrelCannon::processFixPosition() {
                             this->cannonState = State_Fire;
                         }
                     }
-                    if (this->isMainPlayerIn) {
+                    //if (this->isPlayerIn) {
                         //g_stAdventure2->setCameraAdvCameraOffset(&this->cannonData->cameraOffset);
-                    }
+                    //}
                     cannonEventInfo.m_state = 9;
                     cannonEventInfo.m_sendID = 0;
                     cannonEventInfo.m_pos = this->getPos();
@@ -209,8 +209,8 @@ void grAdventureBarrelCannon::processFixPosition() {
                     }
                     else {
                         this->presentShootEvent(i);
-                        if (this->isMainPlayerIn) {
-                            this->isMainPlayerIn = false;
+                        if (this->isPlayerIn) {
+                            this->isPlayerIn = false;
                             //this->stopCameraAdvCameraOffset();
                         }
                         if (this->kind == BarrelCannon_Static || this->kind == BarrelCannon_StaticAuto) {
@@ -374,11 +374,11 @@ void grAdventureBarrelCannon::updateMove(float frameDelta)
             this->setRot(rot.m_x, rot.m_y, rot.m_z + 360.0);
         }
     }
-    if (pos.m_z > stageData->cannonActiveMinZ && pos.m_z < stageData->cannonActiveMaxZ) {
-        this->setSleepArea(false);
+    if ((pos.m_z > stageData->cannonActiveMinZ && pos.m_z < stageData->cannonActiveMaxZ) && !(stageData->isCannonSingleRider && this->isPlayerIn) && !this->isInCooldown) {
+        this->enableArea();
     }
     else {
-        this->setSleepArea(true);
+        this->disableArea();
     }
 
 }
@@ -389,9 +389,7 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int*
     Vec3f pos = this->getPos();
     grGimmickEventBarrelCannonInfo* cannonEventInfo = (grGimmickEventBarrelCannonInfo*)eventInfo;
     int playerNumber = this->getPlayerNumber(taskId);
-    if (playerNumber == 0 && !this->isSubFighter(taskId)) {
-        this->isMainPlayerIn = true;
-    }
+    this->isPlayerIn = true;
     switch (cannonEventInfo->m_state) {
         case 0x2:
             this->isRotate = true;
@@ -407,9 +405,9 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int*
                 newPlayerIndex = NUM_PLAYERS - 1;
             }
             this->cannonPlayerInfos[newPlayerIndex] = (PlayerInfo){true, PlayerState_Enter, playerNumber, cannonEventInfo->m_sendID, 0.0};
-            if (this->isMainPlayerIn) {
+            //if (this->isPlayerIn) {
                 //g_stAdventure2->setFighterPos(1,&pos);
-            }
+            //}
             g_stTriggerMng->setTriggerFlag(&this->cannonData->enterCannonTriggerData);
             if (newPlayerIndex >= 1) {
                 if (this->cannonPlayerInfos[0].state != 4) {
@@ -538,9 +536,9 @@ void grAdventureBarrelCannon::eraseSendID(int sendID)
             isNoPlayersIn = false;
         }
     }
-    if (this->isMainPlayerIn) {
+    if (this->isPlayerIn) {
         //g_stAdventure2->stopCameraAdvCameraOffset();
-        this->isMainPlayerIn = false;
+        this->isPlayerIn = false;
     }
     if (isNoPlayersIn && this->m_modelAnims[0]->m_anmObjChrRes != NULL) {
         this->cannonState = State_Rest;
