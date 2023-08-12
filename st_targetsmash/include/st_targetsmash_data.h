@@ -9,7 +9,8 @@ struct stTargetSmashData {
     grGimmick::AttackData cannonAttackData;
     bool isCannonInvincibility;
     bool isCannonShootStop;
-    char _[2];
+    bool isCannonSingleRider;
+    char _;
     float cannonActiveMinZ;
     float cannonActiveMaxZ;
     float cannonShootSpeed;

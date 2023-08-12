@@ -237,7 +237,7 @@ Default: 15
 	/EndDescription
 1
 
-isCannonInvincibility, isCannonShootStop, _, _
+isCannonInvincibility, isCannonShootStop, isCannonSingleRider, _
 Default: true, false, false, false
 	/EndDescription
 6

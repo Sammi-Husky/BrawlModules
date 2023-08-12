@@ -76,7 +76,7 @@ protected:
     char _spacer2[3];
     float rotateSpeed;
     bool isRotate;
-    bool isMainPlayerIn;
+    bool isPlayerIn;
     char isInCooldown;
     char _spacer3;
     float cooldownTimer;
@@ -99,7 +99,7 @@ public:
         this->shootMotionPath = NULL;
         this->nodeIndex = 0;
         this->isRotate = 0;
-        this->isMainPlayerIn = false;
+        this->isPlayerIn = false;
         this->isInCooldown = false;
         this->cooldownTimer = 0.0;
         this->autoFireTimer = 0.0;
