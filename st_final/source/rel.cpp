@@ -1,3 +1,4 @@
+#include <GX/GXHardware.h>
 #include <gf/gf_file_io.h>
 #include <gf/gf_task.h>
 #include <memory.h>
@@ -6,8 +7,8 @@ namespace stFinal {
 
     extern "C" {
     typedef void (*PFN_voidfunc)();
-    __declspec(section ".init") extern PFN_voidfunc _ctors[];
-    __declspec(section ".init") extern PFN_voidfunc _dtors[];
+    __attribute__((section(".ctors"))) extern PFN_voidfunc _ctors[];
+    __attribute__((section(".ctors"))) extern PFN_voidfunc _dtors[];
 
     void _prolog();
     void _epilog();
@@ -22,6 +23,7 @@ namespace stFinal {
         {
             (*ctor)();
         }
+        WGPIPE.c = 0x11;
     }
 
     void _epilog()
