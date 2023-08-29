@@ -16,7 +16,7 @@ class grTargetSmashDisk : public grMadein
         bool prevIsLandedOn;
 
     public:
-        grTargetSmashDisk(char* taskName) : grMadein(taskName) {
+        grTargetSmashDisk(const char* taskName) : grMadein(taskName) {
             landedPlayerNo = -1;
             isLandedOn = false;
             prevIsLandedOn = false;
@@ -28,7 +28,7 @@ class grTargetSmashDisk : public grMadein
         virtual void setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
                                    u32* numTargetsHitPerPlayerWork, float* totalDamageWork, int mode);
 
-        static grTargetSmashDisk* create(int mdlIndex, char* tgtNodeName, char* taskName);
+        static grTargetSmashDisk* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
 
 
 };

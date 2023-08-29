@@ -12,7 +12,7 @@ class grWarpZone : public grGimmickWarpZone {
     grWarpZone* connectedWarp;
 
 public:
-    grWarpZone(char* taskName) : grGimmickWarpZone(taskName) {
+    grWarpZone(const char* taskName) : grGimmickWarpZone(taskName) {
         connectedWarp = NULL;
     };
     virtual ~grWarpZone() {}
@@ -23,7 +23,7 @@ public:
     virtual void deactivateWarp();
     virtual void setConnectedWarp(grWarpZone* connectedWarp);
 
-    static grWarpZone* create(int mdlIndex, char* taskName);
+    static grWarpZone* create(int mdlIndex, const char* taskName);
 
     void prepareWarpData(int motionPathIndex, float deactivateFrames);
 

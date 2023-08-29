@@ -7,7 +7,7 @@
 #include <string.h>
 #include <hk/hk_math.h>
 
-grAdventureElevator* grAdventureElevator::create(int mdlIndex, char* taskName)
+grAdventureElevator* grAdventureElevator::create(int mdlIndex, const char* taskName)
 {
     grAdventureElevator* elevator = new (Heaps::StageInstance) grAdventureElevator(taskName);
     elevator->setMdlIndex(mdlIndex);

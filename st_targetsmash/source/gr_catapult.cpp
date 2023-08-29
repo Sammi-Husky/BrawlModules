@@ -5,7 +5,7 @@
 #include <so/so_external_value_accesser.h>
 #include <OS/OSError.h>
 
-grCatapult* grCatapult::create(int mdlIndex, char* taskName) {
+grCatapult* grCatapult::create(int mdlIndex, const char* taskName) {
     grCatapult* catapult = new (Heaps::StageInstance) grCatapult(taskName);
     catapult->setMdlIndex(mdlIndex);
     return catapult;

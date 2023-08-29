@@ -7,7 +7,7 @@ class grSpring : public grGimmickSpring {
     float m_bounce;
     grGimmickMotionPathData motionPathData;
 public:
-    grSpring(char* taskName) : grGimmickSpring(taskName) {
+    grSpring(const char* taskName) : grGimmickSpring(taskName) {
 
     }
     virtual ~grSpring() { }
@@ -17,5 +17,5 @@ public:
     virtual void presentShootEvent();
     virtual void setMotionPathData(int mdlIndex);
 
-    static grSpring* create(int mdlIndex, char* taskName);
+    static grSpring* create(int mdlIndex, const char* taskName);
 };

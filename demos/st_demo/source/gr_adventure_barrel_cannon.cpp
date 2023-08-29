@@ -6,7 +6,7 @@
 #include <hk/hk_math.h>
 #include <gf/gf_heap_manager.h>
 
-grAdventureBarrelCannon* grAdventureBarrelCannon::create(int mdlIndex, BarrelCannonKind cannonKind, char* taskName)
+grAdventureBarrelCannon* grAdventureBarrelCannon::create(int mdlIndex, BarrelCannonKind cannonKind, const char* taskName)
 {
     grAdventureBarrelCannon* cannon = new (Heaps::StageInstance) grAdventureBarrelCannon(taskName);
     cannon->setMdlIndex(mdlIndex);

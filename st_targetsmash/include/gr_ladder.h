@@ -8,7 +8,7 @@ class grLadder : public grGimmickLadder {
     bool m_51;
     grGimmickMotionPathData motionPathData;
 public:
-    grLadder(char* taskName) : grGimmickLadder(taskName) {
+    grLadder(const char* taskName) : grGimmickLadder(taskName) {
 
     }
     virtual ~grLadder() { }
@@ -16,5 +16,5 @@ public:
     virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
     virtual void setMotionPathData(int mdlIndex);
 
-    static grLadder* create(int mdlIndex, char* taskName);
+    static grLadder* create(int mdlIndex, const char* taskName);
 };

@@ -29,7 +29,7 @@ protected:
     float field_0x30;
     char nodeName[0x20];
 public:
-    grAdventureBackGround(u32 index, char* nodeName) {
+    grAdventureBackGround(u32 index, const char* nodeName) {
         this->index = index;
         field_0x4 = false;
         field_0x10 = 0;

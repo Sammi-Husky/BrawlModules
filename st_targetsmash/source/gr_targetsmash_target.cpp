@@ -4,7 +4,7 @@
 #include <OS/OSError.h>
 #include <ft/ft_manager.h>
 
-grTargetSmashTarget* grTargetSmashTarget::create(int mdlIndex, char* tgtNodeName, char* taskName)
+grTargetSmashTarget* grTargetSmashTarget::create(int mdlIndex, const char* tgtNodeName, const char* taskName)
 {
     grTargetSmashTarget* target = new (Heaps::StageInstance) grTargetSmashTarget(taskName);
     target->setupMelee();

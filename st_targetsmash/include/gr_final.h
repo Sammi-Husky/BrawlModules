@@ -6,12 +6,12 @@ class grFinal : public grYakumono {
 protected:
 
 public:
-    grFinal(char* taskName) : grYakumono(taskName)
+    grFinal(const char* taskName) : grYakumono(taskName)
     {
 
     };
     virtual void update(float deltaFrame);
     virtual ~grFinal(){};
 
-    static grFinal* create(int mdlIndex, char* tgtNodeName, char* taskName);
+    static grFinal* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
 };

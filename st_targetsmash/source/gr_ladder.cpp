@@ -3,7 +3,7 @@
 #include "gr_ladder.h"
 #include <snd/snd_system.h>
 
-grLadder* grLadder::create(int mdlIndex, char* taskName) {
+grLadder* grLadder::create(int mdlIndex, const char* taskName) {
     grLadder* ladder = new (Heaps::StageInstance) grLadder(taskName);
     ladder->setMdlIndex(mdlIndex);
     return ladder;

@@ -14,7 +14,7 @@ protected:
     u16 padding;
 
 public:
-    grFinal(char* taskName) : grYakumono(taskName)
+    grFinal(const char* taskName) : grYakumono(taskName)
     {
         unk1 = 0;
         unk_float = EFF_SOMETHING;
@@ -27,6 +27,6 @@ public:
     virtual void updateEff();
     virtual void setType(int type);
 
-    static grFinal* create(int mdlIndex, char* tgtNodeName, char* taskName);
+    static grFinal* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
 
 };

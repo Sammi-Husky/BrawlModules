@@ -8,7 +8,7 @@ protected:
     int field_0x14c;
     grAdventureBackGround* backgrounds[4];
 public:
-    grAdventure2(char* taskName) : grGimmick(taskName)
+    grAdventure2(const char* taskName) : grGimmick(taskName)
     {
         field_0x14c = 0;
         backgrounds[0] = NULL;
@@ -29,5 +29,5 @@ public:
     };
     virtual bool setNode();
 
-    static grAdventure2* create(int mdlIndex, char* taskName);
+    static grAdventure2* create(int mdlIndex, const char* taskName);
 };

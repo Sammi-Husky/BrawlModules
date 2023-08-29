@@ -8,14 +8,14 @@ class grPunchSlider : public grYakumonoPunchSlider {
     grGimmickPunchSliderData _sliderData;
 
 public:
-    grPunchSlider(char* taskName) : grYakumonoPunchSlider(taskName) {
+    grPunchSlider(const char* taskName) : grYakumonoPunchSlider(taskName) {
 
     };
     virtual ~grPunchSlider() {}
     virtual void setCulcCallback(gfArchive* archive);
     virtual void updateMove(float deltaFrame);
 
-    static grPunchSlider* create(int mdlIndex, char* taskName);
+    static grPunchSlider* create(int mdlIndex, const char* taskName);
 
     void prepareSliderData(int motionPathIndex, int sliderPathIndex, float, float, float, float, float, float);
 };

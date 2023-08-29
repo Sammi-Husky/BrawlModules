@@ -6,7 +6,7 @@
 #include <OS/OSError.h>
 #include <ec/ec_mgr.h>
 
-grWarpZone* grWarpZone::create(int mdlIndex, char* taskName) {
+grWarpZone* grWarpZone::create(int mdlIndex, const char* taskName) {
     grWarpZone* warpZone = new (Heaps::StageInstance) grWarpZone(taskName);
     warpZone->setMdlIndex(mdlIndex);
     return warpZone;

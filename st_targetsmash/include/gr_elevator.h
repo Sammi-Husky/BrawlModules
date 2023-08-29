@@ -45,7 +45,7 @@ protected:
     ykAreaData areaInfo;
 
 public:
-    grAdventureElevator(char* taskName) : grYakumono(taskName)
+    grAdventureElevator(const char* taskName) : grYakumono(taskName)
     {
         elevatorPosGround = NULL;
         state = Elevator_State_Rest;
@@ -71,5 +71,5 @@ public:
 
     void prepareElevatorData(Vec2f* areaOffsetPos, Vec2f* areaRange, float speed, float deltaSpeed, u8 posMdlIndex);
 
-    static grAdventureElevator* create(int mdlIndex, char* taskName);
+    static grAdventureElevator* create(int mdlIndex, const char* taskName);
 };

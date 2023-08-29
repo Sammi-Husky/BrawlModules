@@ -5,7 +5,7 @@
 #include <gr/gr_visible_production_effect.h>
 #include <memory.h>
 
-grAdventure2* grAdventure2::create(int mdlIndex, char* taskName)
+grAdventure2* grAdventure2::create(int mdlIndex, const char* taskName)
 {
     grAdventure2* ground = new (Heaps::StageInstance) grAdventure2(taskName);
     ground->setMdlIndex(mdlIndex);

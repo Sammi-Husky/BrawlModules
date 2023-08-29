@@ -18,7 +18,7 @@ class grPlatform : public grMadein
         grGimmickMotionPathData motionPathData;
 
     public:
-        grPlatform(char* taskName) : grMadein(taskName) {
+        grPlatform(const char* taskName) : grMadein(taskName) {
             yakumonoData.m_numHitGroups = 1;
             yakumonoData.m_hitGroupsInfo = NULL;
             timer = 0;
@@ -38,6 +38,6 @@ class grPlatform : public grMadein
         virtual void setupHitPoint(float maxDamage, float respawnFrame);
         virtual void setupLanding(float maxLandings, float respawnFrame);
 
-        static grPlatform* create(int mdlIndex, char* tgtNodeName, char* taskName);
+        static grPlatform* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
 
 };

@@ -3,7 +3,7 @@
 #include "gr_platform.h"
 #include <OS/OSError.h>
 
-grPlatform* grPlatform::create(int mdlIndex, char* tgtNodeName, char* taskName)
+grPlatform* grPlatform::create(int mdlIndex, const char* tgtNodeName, const char* taskName)
 {
     grPlatform* ground = new (Heaps::StageInstance) grPlatform(taskName);
     ground->setupMelee();

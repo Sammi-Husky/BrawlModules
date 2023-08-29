@@ -4,7 +4,7 @@
 #include <OS/OSError.h>
 #include <ft/ft_manager.h>
 
-grTargetSmashDisk* grTargetSmashDisk::create(int mdlIndex, char* tgtNodeName, char* taskName)
+grTargetSmashDisk* grTargetSmashDisk::create(int mdlIndex, const char* tgtNodeName, const char* taskName)
 {
     grTargetSmashDisk* disk = new (Heaps::StageInstance) grTargetSmashDisk(taskName);
     disk->setupMelee();

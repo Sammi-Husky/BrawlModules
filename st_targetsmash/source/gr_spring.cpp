@@ -3,7 +3,7 @@
 #include "gr_spring.h"
 #include <snd/snd_system.h>
 
-grSpring* grSpring::create(int mdlIndex, char* taskName) {
+grSpring* grSpring::create(int mdlIndex, const char* taskName) {
     grSpring* spring = new (Heaps::StageInstance) grSpring(taskName);
     spring->setMdlIndex(mdlIndex);
     return spring;

@@ -5,7 +5,7 @@
 #include <gr/gr_visible_production_effect.h>
 #include <memory.h>
 
-grAdventureDoor* grAdventureDoor::create(int mdlIndex, u32 jumpData, char* taskName)
+grAdventureDoor* grAdventureDoor::create(int mdlIndex, u32 jumpData, const char* taskName)
 {
     grAdventureDoor* door = new (Heaps::StageInstance) grAdventureDoor(taskName);
     door->setJumpData(jumpData);

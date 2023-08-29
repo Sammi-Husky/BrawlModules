@@ -88,7 +88,7 @@ protected:
     ykAreaData areaInfo;
 
 public:
-    grAdventureDoor(char* taskName) : grYakumono(taskName)
+    grAdventureDoor(const char* taskName) : grYakumono(taskName)
     {
         state = Door_State_Closed;
         framesSinceOpened = 0.0;
@@ -109,5 +109,5 @@ public:
     virtual void openTheDoor();
     virtual void EachDoorTypeEffect();
 
-    static grAdventureDoor* create(int mdlIndex, u32 jumpData, char* taskName);
+    static grAdventureDoor* create(int mdlIndex, u32 jumpData, const char* taskName);
 };

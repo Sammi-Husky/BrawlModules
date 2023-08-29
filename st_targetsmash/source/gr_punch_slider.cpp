@@ -5,7 +5,7 @@
 #include <string.h>
 #include <st/st_trigger.h>
 
-grPunchSlider* grPunchSlider::create(int mdlIndex, char* taskName) {
+grPunchSlider* grPunchSlider::create(int mdlIndex, const char* taskName) {
     grPunchSlider* slider = new (Heaps::StageInstance) grPunchSlider(taskName);
     slider->setMdlIndex(mdlIndex);
     return slider;

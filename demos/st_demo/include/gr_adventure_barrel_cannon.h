@@ -104,7 +104,7 @@ protected:
     ykAreaData areaInfo;
 
 public:
-    grAdventureBarrelCannon(char* taskName) : grYakumono(taskName) {
+    grAdventureBarrelCannon(const char* taskName) : grYakumono(taskName) {
         this->shootMotionPath = NULL;
         this->nodeIndex = 0;
         this->isRotate = 0;
@@ -131,7 +131,7 @@ public:
     virtual void createMotionPath();
     virtual void updateMove(float frameDiff);
 
-    static grAdventureBarrelCannon* create(int mdlIndex, BarrelCannonKind cannonType, char* taskName);
+    static grAdventureBarrelCannon* create(int mdlIndex, BarrelCannonKind cannonType, const char* taskName);
     void presentShootEvent(int playerCannonIndex);
     void eraseSendID(int sendID);
 
