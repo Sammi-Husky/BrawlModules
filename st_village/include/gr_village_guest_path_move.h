@@ -20,9 +20,9 @@ protected:
     snd3DGenerator m_sndGenerator;       // 0x5C
 
 public:
-    static grVillageGuestPathMove* create(int mdlIndex, char* tgtNodeName, char* taskName);
+    static grVillageGuestPathMove* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
 
-    inline grVillageGuestPathMove(char* taskName);
+    inline grVillageGuestPathMove(const char* taskName);
     virtual void updateYakumono(float deltaFrame);
     virtual void updateMove(float deltaFrame);
     virtual void updateCallback(float deltaFrame);

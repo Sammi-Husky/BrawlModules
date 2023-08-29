@@ -2,7 +2,7 @@
 
 #include "gr_village_guest_path_move.h"
 
-grVillageGuestPathMove* grVillageGuestPathMove::create(int mdlIndex, char* tgtNodeName, char* taskName)
+grVillageGuestPathMove* grVillageGuestPathMove::create(int mdlIndex, const char* tgtNodeName, const char* taskName)
 {
     grVillageGuestPathMove* guest = new (Heaps::StageInstance) grVillageGuestPathMove(taskName);
     guest->setMdlIndex(mdlIndex);
@@ -10,7 +10,7 @@ grVillageGuestPathMove* grVillageGuestPathMove::create(int mdlIndex, char* tgtNo
     return guest;
 }
 
-inline grVillageGuestPathMove::grVillageGuestPathMove(char* taskName)
+inline grVillageGuestPathMove::grVillageGuestPathMove(const char* taskName)
     : grVillage(taskName)
 {
     this->m_type = 5;

@@ -1,7 +1,7 @@
 #include "gr_village.h"
 #include <memory.h>
 
-grVillage* grVillage::create(int mdlIndex, char* tgtNodeName, char* taskName)
+grVillage* grVillage::create(int mdlIndex, const char* tgtNodeName, const char* taskName)
 {
     grVillage* ground = new (Heaps::StageInstance) grVillage(taskName);
     ground->setupMelee();

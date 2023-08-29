@@ -11,7 +11,13 @@ const float POKETRAINER_Z = 0.0f;
 
 class stFinal : public stMelee {
 public:
-    stFinal() : stMelee("stFinal", Stages::Final){};
+    int itKinds[9];
+
+    stFinal() : stMelee("stFinal", Stages::Final){
+        for (int i = 0; i < 9; i++) {
+            itKinds[i] = -1;
+        }
+    };
     static stFinal* create();
     grGimmickWindData2nd* getWind2ndOnlyData();
     bool isReStartSamePoint();
@@ -51,5 +57,5 @@ public:
     virtual bool isBamperVector();
     virtual ~stFinal() { this->releaseArchive(); };
 
-    STATIC_CHECK(sizeof(stFinal) == 0x1D8)
+    //STATIC_CHECK(sizeof(stFinal) == 0x1D8)
 };

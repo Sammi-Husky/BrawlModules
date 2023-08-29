@@ -226,7 +226,7 @@ void stVillage::selectScene()
     {
         return;
     }
-    switch (globalMode->m_meleeInitData.m_subStageID)
+    switch (globalMode->m_meleeInitData.m_subStageKind)
     {
     case 0:
         this->scene = 0;

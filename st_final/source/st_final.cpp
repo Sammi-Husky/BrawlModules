@@ -2,6 +2,9 @@
 #include "gr_final.h"
 #include <memory.h>
 #include <st/st_class_info.h>
+#include <OS/OSError.h>
+#include <it/it_manager.h>
+#include <ft/ft_manager.h>
 
 static stClassInfoImpl<Stages::Final, stFinal> classInfo = stClassInfoImpl<Stages::Final, stFinal>();
 
@@ -16,6 +19,38 @@ bool stFinal::loading()
 }
 void stFinal::update(float deltaFrame)
 {
+//    bool hasChanged = false;
+//    for (int i = 0; i < itManager::getInstance()->m_pokemonItKindArrayList.size(); i++) {
+//        if (itKinds[i] != (*itManager::getInstance()->m_pokemonItKindArrayList.at(i) & 0xffff)) {
+//            hasChanged = true;
+//        }
+//        itKinds[i] = (*itManager::getInstance()->m_pokemonItKindArrayList.at(i) & 0xffff);
+//    }
+//
+//    if (hasChanged) {
+//        OSReport("----------------------\n");
+//        for (int i = 0; i < itManager::getInstance()->m_pokemonItKindArrayList.size(); i++) {
+//            OSReport("%d \n", *itManager::getInstance()->m_pokemonItKindArrayList.at(i) & 0xffff);
+//        }
+//        OSReport("Num itArchives: %d \n", itManager::getInstance()->m_itArchiveArrayList.size());
+//    }
+
+//    for (int i = 0; i < g_ftManager->getEntryCount(); i++) {
+//        int entryId = g_ftManager->getEntryIdFromIndex(i);
+//        if (g_ftManager->isFighterActivate(entryId, -1)) {
+//            Fighter* fighter = g_ftManager->getFighter(entryId, -1);
+//            OSReport("%d Status: %d \n", i, fighter->m_moduleAccesser->getStatusModule()->getStatusKind());
+//        }
+//    }
+
+//    for (int i = 0; i < g_ftManager->getEntryCount(); i++) {
+//        int entryId = g_ftManager->getEntryIdFromIndex(i);
+//        if (g_ftManager->isFighterActivate(entryId, -1)) {
+//            Fighter* fighter = g_ftManager->getFighter(entryId, -1);
+//            OSReport("%d Flag: %d \n", i, fighter->m_moduleAccesser->getWorkManageModule()->isFlag(0x1200003d));
+//        }
+//    }
+
     return;
 }
 

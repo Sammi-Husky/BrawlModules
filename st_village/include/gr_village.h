@@ -15,7 +15,7 @@ protected:
     u32* m_posGuestWork;
 
 public:
-    grVillage(char* taskName) : grYakumono(taskName)
+    grVillage(const char* taskName) : grYakumono(taskName)
     {
         m_sceneWork = 0;
         m_stateWork = 0;
@@ -35,7 +35,7 @@ public:
         // TODO
     };
 
-    static grVillage* create(int mdlIndex, char* tgtNodeName, char* taskName);
+    static grVillage* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
     int adventureEventGetItem();
     int getInitializeInfo();
     void setInitializeInfo();

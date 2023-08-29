@@ -6,7 +6,7 @@
 
 using namespace nw4r::g3d;
 
-grVillageSky* grVillageSky::create(int mdlIndex, char* tgtNodeName, char* taskName)
+grVillageSky* grVillageSky::create(int mdlIndex, const char* tgtNodeName, const char* taskName)
 {
     grVillageSky* sky = new (Heaps::StageInstance) grVillageSky(taskName);
     sky->setMdlIndex(mdlIndex);

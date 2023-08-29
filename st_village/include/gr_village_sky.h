@@ -7,9 +7,9 @@ private:
     u32 unk1;
 
 public:
-    grVillageSky(char* taskName) : grVillage(taskName) { unk1 = 5; };
+    grVillageSky(const char* taskName) : grVillage(taskName) { unk1 = 5; };
 
-    static grVillageSky* create(int mdlIndex, char* tgtNodeName, char* taskName);
+    static grVillageSky* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
     virtual void changeColor();
     virtual ~grVillageSky();
 };
