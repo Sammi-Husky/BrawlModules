@@ -2,7 +2,7 @@
 #include <ec/ec_mgr.h>
 #include <memory.h>
 
-grFinal* grFinal::create(int mdlIndex, const char* tgtNodeName, const har* taskName)
+grFinal* grFinal::create(int mdlIndex, const char* tgtNodeName, const char* taskName)
 {
     grFinal* ground = new (Heaps::StageInstance) grFinal(taskName);
     ground->setupMelee();
