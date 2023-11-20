@@ -2,6 +2,10 @@
 #include "gr_final.h"
 #include <memory.h>
 #include <st/st_class_info.h>
+#include <ft/ft_manager.h>
+#include <mu/mu_msg.h>
+#include <OS/OSError.h>
+#include <so/posture/so_posture_module_builder.h>
 
 static stClassInfoImpl<Stages::Final, stFinal> classInfo = stClassInfoImpl<Stages::Final, stFinal>();
 
@@ -16,6 +20,38 @@ bool stFinal::loading()
 }
 void stFinal::update(float deltaFrame)
 {
+    for (int i = 0; i < g_ftManager->getEntryCount(); i++) {
+        int entryId = g_ftManager->getEntryIdFromIndex(i);
+        if (g_ftManager->isFighterActivate(entryId, -1)) {
+//            ftOwner* owner = g_ftManager->getOwner(entryId);
+//            OSReport("Entry %d: %f \n", i, owner->getHitPoint());
+            Fighter* fighter = g_ftManager->getFighter(entryId, -1);
+            OSReport("Entry %d: %d \n", i, fighter->m_moduleAccesser->getStatusModule()->getStatusKind());
+        }
+    }
+
+//    MuMsg* muMsg = MuMsg::create(1, Heaps::MenuInstance, 0x2b);
+//    muMsg->allocMsgBuf(0x100, 3);
+//    muMsg->setMsgData(NULL);
+//    muMsg->attachScnMdlSimple(0, NULL, 0, 1.0);
+//    muMsg->setFontWidthModeAuto(0);
+//    muMsg->setAlignMode(0, MuMsg::Align_Center);
+//    muMsg->setFontColor(0, 0xff, 0xff, 0xff, 0xff);
+//    muMsg->FUN_800b9448(0, 1);
+//    muMsg->FUN_800b9460(0, 0x97, 0x1b, 0x31, 2.0);
+//    muMsg->printf(0, "", "");
+//    muMsg->printIndex(0, 0, 0);
+//    muMsg->getMsgData(0, 0);
+//    muMsg->initWindowSetting(0);
+//    muMsg->setHSpace(0,0);
+//    muMsg->setWScale(0,0);
+//    muMsg->getWScale(0,0);
+//    muMsg->setHScale(0,0);
+//    muMsg->getHScale(0,0);
+//    muMsg->setDelayPrint(0, 0, 0, 0, 0);
+//    muMsg->isEndDelayPrint(0);
+//    muMsg->beginPrint(0);
+
     return;
 }
 

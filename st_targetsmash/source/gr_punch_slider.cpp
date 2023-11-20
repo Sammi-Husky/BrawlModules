@@ -51,7 +51,7 @@ void grPunchSlider::setCulcCallback(gfArchive* archive) {
         this->setCalcuCallbackRoot(3);
         this->m_calcWorldCallBack.m_nodeCallbackDatas[1].m_nodeIndex = this->m_ballNodeIndex;
         this->m_calcWorldCallBack.m_nodeCallbackDatas[1].m_flags = 3;
-        grGimmickMotionPathInfo motionPathInfo = { archive, &this->m_sliderData->m_motionPathData, 0x3000000, 0, 0, 0, 0, 0, 0 };
+        grGimmickMotionPathInfo motionPathInfo = { archive, &this->m_sliderData->m_motionPathData, true, true, 0, 0, 0, 0, 0, 0 };
         this->createAttachMotionPath(&motionPathInfo, NULL, "MoveNode");
     }
 }

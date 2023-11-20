@@ -130,7 +130,7 @@ void stDemo::createObj()
     this->doorData.motionPathData.m_index = 0;
     this->doorData.motionPathData.m_pathMode = MotionPathMode_Loop;
     this->doorData.motionPathData.m_mdlIndex = 0xFF;
-    this->doorData.motionPathData._padding = 0x0;
+    this->doorData.motionPathData.m_7 = 0x0;
     this->doorData._spacer[7] = 0x12;
     this->doorData.areaOffsetPos = (Vec2f){0, 10.0};
     this->doorData.areaRange = (Vec2f){20.0, 20.0};
@@ -154,7 +154,7 @@ void stDemo::createObj()
     this->cannonData.motionPathData.m_index = 0;
     this->cannonData.motionPathData.m_pathMode = MotionPathMode_Loop;
     this->cannonData.motionPathData.m_mdlIndex = 0xFF;
-    this->cannonData.motionPathData._padding = 0x0;
+    this->cannonData.motionPathData.m_7 = 0x0;
     this->cannonData._spacer[7] = 0x12;
     this->cannonData.areaRange = (Vec2f){20.0, 15.0};
     this->cannonData.pos.m_x = 0.0;

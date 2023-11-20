@@ -28,7 +28,7 @@ void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->m_soundEffects[0].m_0x1c = 0.0;
     this->m_soundEffects[0].m_0x20 = 0.0;
 
-    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, 0x01000000, 0, 0, 0, 0, 0, 0 };
+    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
     stTriggerData triggerData = {0,0,1,0};
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 
@@ -55,7 +55,7 @@ void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex, u3
     this->motionPathData.m_index = 0;
     this->motionPathData.m_pathMode = MotionPathMode_Loop;
     this->motionPathData.m_mdlIndex = motionPathIndex;
-    this->motionPathData._padding = 0x0;
+    this->motionPathData.m_7 = 0x0;
 
     this->effectIndex = effectIndex;
 
