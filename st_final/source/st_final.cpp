@@ -2,10 +2,6 @@
 #include "gr_final.h"
 #include <memory.h>
 #include <st/st_class_info.h>
-#include <ft/ft_manager.h>
-#include <mu/mu_msg.h>
-#include <OS/OSError.h>
-#include <so/posture/so_posture_module_builder.h>
 
 static stClassInfoImpl<Stages::Final, stFinal> classInfo = stClassInfoImpl<Stages::Final, stFinal>();
 
