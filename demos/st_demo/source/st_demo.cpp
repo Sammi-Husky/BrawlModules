@@ -64,11 +64,11 @@ void stDemo::update(float frameDiff)
             emManager* enemyManager = emManager::getInstance();
             emCreate create;
             create.m_8 = 10000;
-            create.m_difficultyLevel = 15;
+            create.m_difficulty = 15;
             create.m_enemyKind = Enemy_Killer;
             create.m_startStatusKind = 6;
             create.m_startLr = 1.0;
-            create.m_32 = 2; //1;
+            create.m_level = 2; //1;
             create.m_36 = 0.0;
             create.m_posX1 = -create.m_startPos.m_x;
             create.m_posX2 = -create.m_startPos.m_x;
