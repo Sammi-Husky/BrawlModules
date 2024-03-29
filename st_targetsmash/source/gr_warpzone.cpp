@@ -37,7 +37,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
         if (this->connectedWarp != NULL) {
             warpDest = this->connectedWarp->getPos();
         }
-        Fighter* fighter = g_ftManager->getFighter(entryId, 0);
+        Fighter* fighter = g_ftManager->getFighter(entryId, -1);
         Vec3f currentPos = soExternalValueAccesser::getPos(fighter);
         float currentLr = soExternalValueAccesser::getLr(fighter);
         int correct = fighter->m_moduleAccesser->getGroundModule()->getCorrect(0);
