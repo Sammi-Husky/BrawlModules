@@ -135,13 +135,13 @@ $(OFILES_SOURCES) : $(HFILES)
 	@echo compiling ... $(notdir $<)
 	$(SILENTMSG) $(notdir $<)
 	$(SILENTCMD)$(CXX) $(CXXFLAGS) -MMD $< $(INCLUDE) -o $(DEPSDIR)/$*.d
-	$(SILENTCMD)$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) -o $@)
+	$(SILENTCMD)$(CXX) $(CXXFLAGS) -c $< $(INCLUDE) -o $@
 
 %.o: %.c
 	@echo compiling ... $(notdir $<)
 	$(SILENTMSG) $(notdir $<)
 	$(SILENTCMD)$(CC) $(CCFLAGS) -MMD $< $(INCLUDE) -o $(DEPSDIR)/$*.d
-	$(SILENTCMD)$(CC) $(CCFLAGS) -c $< $(INCLUDE) -o $@)
+	$(SILENTCMD)$(CC) $(CCFLAGS) -c $< $(INCLUDE) -o $@
 
 -include $(DEPENDS)
 
