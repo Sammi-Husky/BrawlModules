@@ -7,22 +7,23 @@
 
 class grGreenHillBg : public grYakumono {
 protected:
-    u8 m_areNodeIndicesRetrieved;
+    u8 m_state;
     float m_timer;
     Vec3f* m_posGimmickWork;
     grGreenHill::BreakInfo* m_breakInfo;
-    int m_nodeIndices[NUM_COLLISION_JOINTS];
+    u32 m_jointNodeIndices[NUM_COLLISION_JOINTS];
+    u32 m_breakNodeIndices[2];
     grCollisionJoint* m_collisionJoints[NUM_COLLISION_JOINTS];
 
 public:
     grGreenHillBg(const char* taskName) : grYakumono(taskName)
     {
-        m_areNodeIndicesRetrieved = 0;
+        m_state = 0;
         m_timer = 0;
         this->setupMelee();
         m_posGimmickWork = NULL;
         m_breakInfo = NULL;
-        __memfill(&m_nodeIndices, 0, sizeof(m_collisionJoints));
+        __memfill(&m_jointNodeIndices, 0, sizeof(m_collisionJoints));
         for (int i = 0; i < NUM_COLLISION_JOINTS; i ++) {
             m_collisionJoints[i] == NULL;
         }
