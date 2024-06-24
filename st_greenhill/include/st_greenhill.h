@@ -3,7 +3,10 @@
 #include <StaticAssert.h>
 #include <st/st_melee.h>
 #include <types.h>
+#include "st_greenhill_data.h"
 #include "gr_greenhill_bg.h"
+#include "gr_greenhill_guest_line.h"
+
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;

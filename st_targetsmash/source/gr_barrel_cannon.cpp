@@ -71,11 +71,11 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
 
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->cannonData->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
     this->createAttachMotionPath(&motionPathInfo, &this->cannonData->motionPathTriggerData, "MoveNode");
-    nw4r::g3d::CHR0* anmChr = this->m_resFile.GetResAnmChr(0);
+    nw4r::g3d::ResAnmChrData* anmChr = this->m_resFile.GetResAnmChr(0).ptr();
     if (anmChr != NULL) {
         this->animSetLength = anmChr->m_animLength;
     }
-    anmChr = this->m_resFile.GetResAnmChr(1);
+    anmChr = this->m_resFile.GetResAnmChr(1).ptr();
     if (anmChr != NULL) {
         this->animFireLength = anmChr->m_animLength;
     }
