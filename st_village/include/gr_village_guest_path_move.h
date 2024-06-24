@@ -10,7 +10,7 @@ class grVillageGuestPathMove : public grVillage {
 protected:
     char m_type;                         // 0x00
     char field_0x01;                     // 0x01
-    char field_0x02;                     // 0x02
+    char curAnimId;                      // 0x02
     char _0;                             // 0x03
     float field_0x04;                    // 0x04
     float field_0x08;                    // 0x08
@@ -22,13 +22,15 @@ protected:
 public:
     static grVillageGuestPathMove* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
 
-    inline grVillageGuestPathMove(const char* taskName);
+    grVillageGuestPathMove(const char* taskName);
     virtual void updateYakumono(float deltaFrame);
     virtual void updateMove(float deltaFrame);
     virtual void updateCallback(float deltaFrame);
-    virtual void setMotion(u32 unk1, u32 unk2, u32 unk3, float* unkFloat);
+    virtual void setMotion(int animId, bool shouldLoop, u32 unk3, float* unkFloat);
     virtual void setType(u32 unk);
-    virtual ~grVillageGuestPathMove();
+    virtual ~grVillageGuestPathMove(){
+
+    };
 
     void update(float frameDelta);
     void setMotionRatio(float speedMult);

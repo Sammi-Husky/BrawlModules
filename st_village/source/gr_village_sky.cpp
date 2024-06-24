@@ -13,6 +13,10 @@ grVillageSky* grVillageSky::create(int mdlIndex, const char* tgtNodeName, const 
     sky->setTgtNode(tgtNodeName);
     return sky;
 }
+void grVillageSky::update(float deltaFrame)
+{
+    grVillage::update(deltaFrame);
+}
 
 void grVillageSky::changeColor()
 {

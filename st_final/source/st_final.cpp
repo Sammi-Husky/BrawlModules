@@ -41,7 +41,7 @@ void stFinal::createObj()
         ground->setType(1);
         ground->setDontMoveGround();
     }
-    createCollision(m_fileData, 2, NULL);
+    this->createCollision(m_fileData, 2, NULL);
     initCameraParam();
     nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x64, 0xfffe));
     if (posData.ptr() == NULL)

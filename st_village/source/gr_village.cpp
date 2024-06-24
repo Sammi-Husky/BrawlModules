@@ -1,15 +1,32 @@
 #include "gr_village.h"
 #include <memory.h>
 
+grVillage::grVillage(const char* taskName) : grYakumono(taskName)
+{
+    m_sceneWork = 0;
+    m_stateWork = 0;
+    m_guestPositionsWork = NULL;
+    m_sceneBit = 0;
+    m_unk1 = 0;
+    m_unkFloat = UNK_FLOAT;
+}
+grVillage::~grVillage()
+{
+    // TODO
+}
+
 grVillage* grVillage::create(int mdlIndex, const char* tgtNodeName, const char* taskName)
 {
     grVillage* ground = new (Heaps::StageInstance) grVillage(taskName);
-    ground->setupMelee();
-    ground->setMdlIndex(mdlIndex);
-    ground->setTgtNode(tgtNodeName);
+    if (ground != NULL)
+    {
+        ground->setupMelee();
+        ground->setMdlIndex(mdlIndex);
+        ground->setTgtNode(tgtNodeName);
+    }
     return ground;
 }
-void grVillage::setSceneWork(u32* sceneWork)
+void grVillage::setSceneWork(char* sceneWork)
 {
     m_sceneWork = sceneWork;
 }
@@ -17,13 +34,13 @@ void grVillage::setSceneBit(char sceneBit)
 {
     m_sceneBit = sceneBit;
 }
-void grVillage::setStateWork(u32* stateWork)
+void grVillage::setStateWork(char* stateWork)
 {
     m_stateWork = stateWork;
 }
-void grVillage::setPosGuestWork(u32* posGuestWork)
+void grVillage::setPosGuestWork(stVillageGuestPos* villageGuestPositions)
 {
-    m_posGuestWork = posGuestWork;
+    m_guestPositionsWork = villageGuestPositions;
 }
 bool grVillage::isSceneBit()
 {
@@ -36,25 +53,26 @@ bool grVillage::isSceneBit()
         return true;
     }
 
-    return *m_sceneWork > 0;
+    return m_sceneBit & (*m_sceneWork << 1) >> 0x1F;
 }
 void grVillage::update(float deltaFrame)
 {
     grGimmick::update(deltaFrame);
 
-    if (unk3)
+    if (m_isUpdate)
     {
-        this->updateVisible(m_unk1);
+        this->updateVisible(deltaFrame);
     }
 }
 void grVillage::updateVisible(float unk1)
 {
     if (m_sceneWork == NULL)
         return;
+
     if (m_sceneBit == 0)
         return;
 
-    if ((*m_sceneWork * 2) & m_sceneBit)
+    if (m_sceneBit & (*m_sceneWork << 1))
     {
         this->setVisibility(1);
         return;
@@ -85,15 +103,15 @@ void grVillage::setInitializeFlag()
 }
 void grVillage::disableCalcCollision()
 {
-    this->m_calcCollisionEnable &= 0xf7;
+    this->m_visibilityFlags &= 0xf7;
 }
 void grVillage::enableCalcCollision()
 {
-    this->m_calcCollisionEnable |= 8;
+    this->m_visibilityFlags |= 8;
 }
 bool grVillage::isEnableCalcCollision()
 {
-    return this->m_calcCollisionEnable >> 3 & 1;
+    return this->m_visibilityFlags >> 3 & 1;
 }
 short grVillage::getMdlIndex()
 {

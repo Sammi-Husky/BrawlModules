@@ -3,37 +3,32 @@
 #include <StaticAssert.h>
 #include <gr/gr_yakumono.h>
 
+#include "st_village_guest_pos.h"
+
 const float UNK_FLOAT = 0.0f;
 class grVillage : public grYakumono {
 protected:
-    u32 m_unk1;
+    char _0x0;
+    char _0x1;
+    char _0x2;
+    char _0x3;
     float m_unkFloat;
-    u32* m_sceneWork;
+    char* m_sceneWork;
     unsigned char m_sceneBit;
     char padding[3];
-    u32* m_stateWork;
-    u32* m_posGuestWork;
+    char* m_stateWork;
+    stVillageGuestPos* m_guestPositionsWork;
 
 public:
-    grVillage(const char* taskName) : grYakumono(taskName)
-    {
-        m_sceneWork = 0;
-        m_stateWork = 0;
-        m_posGuestWork = 0;
-        m_sceneBit = 0;
-        m_unk1 = 0;
-        m_unkFloat = UNK_FLOAT;
-    };
+    grVillage(const char* taskName);
     virtual void update(float deltaFrame);
     virtual void updateVisible(float deltaFrame);
-    virtual void setSceneWork(u32* sceneWork);
+    virtual void setSceneWork(char* sceneWork);
     virtual void setSceneBit(char sceneBit);
-    virtual void setStateWork(u32* stateWork);
-    virtual void setPosGuestWork(u32* posGuestWork);
+    virtual void setStateWork(char* stateWork);
+    virtual void setPosGuestWork(stVillageGuestPos* guestPositions);
     virtual bool isSceneBit();
-    virtual ~grVillage(){
-        // TODO
-    };
+    virtual ~grVillage();
 
     static grVillage* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
     int adventureEventGetItem();
