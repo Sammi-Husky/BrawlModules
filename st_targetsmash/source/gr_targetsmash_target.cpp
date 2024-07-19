@@ -53,7 +53,7 @@ void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex, u3
 
     this->motionPathData.m_motionRatio = 1.0;
     this->motionPathData.m_index = 0;
-    this->motionPathData.m_pathMode = MotionPathMode_Loop;
+    this->motionPathData.m_pathMode = MotionPath_Loop;
     this->motionPathData.m_mdlIndex = motionPathIndex;
     this->motionPathData.m_7 = 0x0;
 

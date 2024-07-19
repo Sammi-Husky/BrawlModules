@@ -16,6 +16,7 @@
 #include "gr_punch_slider.h"
 #include "gr_warpzone.h"
 #include "gr_catapult.h"
+#include "gr_item.h"
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
@@ -106,7 +107,7 @@ public:
     void createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float speed, bool isRightDirection);
     void createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, bool canDrown);
     void createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle);
-    void putItem(int itemID, u32 variantID, Vec3f* pos);
+    void putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex);
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(itemCommonParam))
 };

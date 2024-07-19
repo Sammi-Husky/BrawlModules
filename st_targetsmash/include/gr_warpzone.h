@@ -6,7 +6,7 @@
 #include "st_targetsmash_data.h"
 
 class grWarpZone : public grGimmickWarpZone {
-
+    bool isRotateMotionPath;
     grGimmickMotionPathData motionPathData;
     float deactivateFrames;
     grWarpZone* connectedWarp;
@@ -25,7 +25,7 @@ public:
 
     static grWarpZone* create(int mdlIndex, const char* taskName);
 
-    void prepareWarpData(int motionPathIndex, float deactivateFrames);
+    void prepareWarpData(int motionPathIndex, float deactivateFrames, bool isRotateMotionPath);
 
 
 };

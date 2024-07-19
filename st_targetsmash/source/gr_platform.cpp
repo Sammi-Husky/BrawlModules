@@ -18,7 +18,7 @@ grPlatform* grPlatform::create(int mdlIndex, const char* tgtNodeName, const char
 void grPlatform::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grMadein::startup(archive, unk1, unk2);
 
-    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
+    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, this->isRotateMotionPath, true, 0, 0, 0, 0, 0, 0 };
     stTriggerData triggerData = {0,0,1,0};
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "MovePlatformNode");
 
@@ -62,6 +62,16 @@ void grPlatform::update(float deltaFrame)
             }
         }
     }
+
+    Vec3f pos;
+    this->getNodePosition(&pos, 0, "CollisionNode");
+    if (pos.m_z >= 0) {
+        this->setEnableCollisionStatus(true);
+    }
+    else {
+        this->setEnableCollisionStatus(false);
+    }
+
 }
 
 void grPlatform::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
@@ -109,12 +119,13 @@ void grPlatform::receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoi
     }
 }
 
-void grPlatform::setMotionPathData(int mdlIndex) {
+void grPlatform::setMotionPathData(int mdlIndex, bool isRotateMotionPath) {
     this->motionPathData.m_motionRatio = 1.0;
     this->motionPathData.m_index = 0;
-    this->motionPathData.m_pathMode = MotionPathMode_Loop;
+    this->motionPathData.m_pathMode = MotionPath_Loop;
     this->motionPathData.m_mdlIndex = mdlIndex;
     this->motionPathData.m_7 = 0x0;
+    this->isRotateMotionPath = isRotateMotionPath;
 }
 
 void grPlatform::setupHitPoint(float maxDamage, float respawnFrames) {

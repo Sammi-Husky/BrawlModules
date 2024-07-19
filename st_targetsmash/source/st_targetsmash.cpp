@@ -26,7 +26,7 @@ void stTargetSmash::update(float deltaFrame)
         u32 endIndex = ground->getNodeIndex(0, "End");
         for (int i = itemsIndex + 1; i < endIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->putItem(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, &resNodeData->m_translation);
+            this->putItem(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, &resNodeData->m_translation.m_xy, resNodeData->m_translation.m_z);
         }
         this->isItemsInitialized = true;
     }
@@ -38,6 +38,8 @@ void stTargetSmash::createObj()
     this->patchInstructions();
     // TODO: Look into switching UI to stock icon and number left if more than certain amount of targets (check IfCenter createModel functions)
 
+    // TODO: Enemies?
+    // TODO: Variable number of custom stage items to load?
     int nodeSize;
     void* data = m_fileData->getData(Data_Type_Misc, 0x2711, &nodeSize, 0xfffe);
     if (data != NULL) {
@@ -147,8 +149,8 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
             this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             this->createObjDisk(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
-                                  resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x, resNodeData->m_scale.m_y,
-                                  resNodeData->m_translation.m_z, resNodeData->m_rotation.m_y, resNodeData->m_scale.m_z);
+                                resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x, resNodeData->m_scale.m_y,
+                                resNodeData->m_translation.m_z, resNodeData->m_rotation.m_y, resNodeData->m_scale.m_z);
         }
         for (int i = platformsIndex + 1; i < slidersIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
@@ -288,7 +290,7 @@ void stTargetSmash::createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float
     if(platform != NULL){
         addGround(platform);
         platform->setStageData(m_stageData);
-        platform->setMotionPathData(motionPathIndex);
+        platform->setMotionPathData(motionPathIndex, rot >= 360);
         platform->startup(this->m_fileData,0,0);
         platform->setPos(pos->m_x, pos->m_y, 0.0);
         platform->setScale(scale, scale, scale);
@@ -304,7 +306,7 @@ void stTargetSmash::createObjBreak(int mdlIndex, Vec2f* pos, float rot, int moti
     if(platform != NULL){
         addGround(platform);
         platform->setStageData(m_stageData);
-        platform->setMotionPathData(motionPathIndex);
+        platform->setMotionPathData(motionPathIndex, rot >= 360);
         platform->startup(this->m_fileData,0,0);
         platform->setupHitPoint(maxDamage, respawnTime);
         platform->initializeEntity();
@@ -322,7 +324,7 @@ void stTargetSmash::createObjLand(int mdlIndex, Vec2f* pos, float rot, int motio
     if(platform != NULL){
         addGround(platform);
         platform->setStageData(m_stageData);
-        platform->setMotionPathData(motionPathIndex);
+        platform->setMotionPathData(motionPathIndex, rot >= 360);
         platform->startup(this->m_fileData,0,0);
         platform->setupLanding(maxLandings, respawnTime);
         platform->setPos(pos->m_x, pos->m_y, 0.0);
@@ -362,7 +364,7 @@ void stTargetSmash::createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, flo
         springData.m_rot = rot;
         springData.m_areaRange = *range;
         springData.m_bounce = bounce;
-        spring->setMotionPathData(motionPathIndex);
+        spring->setMotionPathData(motionPathIndex, rot >= 360);
         spring->setGimmickData(&springData); // Note: gimmickData will only apply in next function since was allocated on the stack
         spring->startup(this->m_fileData,0,0);
         this->createGimmickCollision(collIndex, spring, this->m_fileData);
@@ -417,7 +419,7 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
         warpData.m_areaRange = *range;
         warpData.m_sndIDs[0] = snd_se_ADVstage_common_FIGHTER_IN;
         warpZone->setStageData(m_stageData);
-        warpZone->prepareWarpData(motionPathIndex, deactivateFrames);
+        warpZone->prepareWarpData(motionPathIndex, deactivateFrames, rot >= 360);
         warpZone->setWarpAttrData(&(Vec3f){warpDest->m_x, warpDest->m_y, 0.0}, warpType, isNotAuto);
         warpZone->setGimmickData(&warpData); // Note: gimmickData will only apply in next function since was allocated on the stack
         warpZone->startup(m_fileData, 0, 0);
@@ -428,7 +430,7 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
             if (toWarpZone != NULL) {
                 warpData.m_pos = *warpDest;
                 toWarpZone->setStageData(m_stageData);
-                toWarpZone->prepareWarpData(connectedMotionPathIndex, deactivateFrames);
+                toWarpZone->prepareWarpData(connectedMotionPathIndex, deactivateFrames, rot >= 360);
                 toWarpZone->setWarpAttrData(&(Vec3f){pos->m_x, pos->m_y, 0.0}, warpType, isNotAuto);
                 toWarpZone->setGimmickData(&warpData); // Note: gimmickData will only apply in next function since was allocated on the stack
                 toWarpZone->startup(m_fileData, 0, 0);
@@ -490,13 +492,26 @@ void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength
     this->createGimmickWind2(&windAreaData);
 }
 
-void stTargetSmash::putItem(int itemID, u32 variantID, Vec3f* pos) {
+void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex) {
     itManager *itemManager = itManager::getInstance();
     if (itemManager->isCompItemKindArchive((itKind) itemID, variantID, true)) {
         BaseItem *item = itemManager->createItem((itKind) itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
         if (item != NULL) {
-            item->warp(pos);
+            Vec3f warpPos = (Vec3f){pos->m_x, pos->m_y, 0.0};
+            item->warp(&warpPos);
             item->setVanishMode(false);
+            if (startStatus > 1) {
+                item->changeStatus(startStatus);
+            }
+            if (motionPathIndex != 0) {
+                grItem* ground = grItem::create(motionPathIndex, "MoveNode", "grItem", item->m_instanceId);
+                if (ground != NULL) {
+                    addGround(ground);
+                    ground->startup(m_fileData, 0, 0);
+                    ground->startMove();
+                }
+            }
+
         }
     }
 }

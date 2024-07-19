@@ -15,7 +15,7 @@ void grPunchSlider::prepareSliderData(int motionPathIndex, int sliderPathIndex, 
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->getStageData());
     __memfill(&this->_sliderData, 0, sizeof(grGimmickPunchSliderData));
     this->_sliderData.m_motionPathData.m_motionRatio = 1.0;
-    this->_sliderData.m_motionPathData.m_pathMode = MotionPathMode_Loop;
+    this->_sliderData.m_motionPathData.m_pathMode = MotionPath_Loop;
     this->_sliderData.m_motionPathData.m_mdlIndex = motionPathIndex;
     this->_sliderData.m_sliderPathData.m_motionRatio = 1.0;
     this->_sliderData.m_sliderPathData.m_mdlIndex = sliderPathIndex;

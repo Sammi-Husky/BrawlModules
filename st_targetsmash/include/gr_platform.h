@@ -15,6 +15,7 @@ class grPlatform : public grMadein
         float timer;
         bool isLandActivated;
         bool isOn;
+        bool isRotateMotionPath;
         grGimmickMotionPathData motionPathData;
 
     public:
@@ -34,7 +35,7 @@ class grPlatform : public grMadein
         virtual void onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo);
         virtual void receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoint* collisionJoint, bool unk3);
 
-        virtual void setMotionPathData(int mdlIndex);
+        virtual void setMotionPathData(int mdlIndex, bool isRotateMotionPath);
         virtual void setupHitPoint(float maxDamage, float respawnFrame);
         virtual void setupLanding(float maxLandings, float respawnFrame);
 
