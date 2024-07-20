@@ -24,12 +24,11 @@ const float SCROLL_DIR = 0.0f;
 const float POKETRAINER_Z = 0.0f;
 const float UNK_FLOAT1 = 0.0f;
 
+#define NUM_ITEM_PACS 0x40
+
 class stTargetSmash : public stMelee {
 protected:
-    gfArchive itemBrres;
-    gfArchive itemParam;
-//    gfArchive itemBrres;
-//    gfArchive itemParam;
+    gfArchive* itemPacs[NUM_ITEM_PACS];
     char _476[848 - 728];
     u32 level; // 848 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
@@ -38,11 +37,11 @@ protected:
     char _860[912 - 861];
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
-    gfArchive itemCommonParam;
 
 public:
     stTargetSmash() : stMelee("stTargetSmash", Stages::TBreak)
     {
+        __memfill(&itemPacs, 0, sizeof(itemPacs));
         isItemsInitialized = false;
         targetsLeft = 0;
         targetsHit = 0;
@@ -87,7 +86,14 @@ public:
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
     virtual void getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer);
-    virtual ~stTargetSmash() { this->releaseArchive(); };
+    virtual ~stTargetSmash() {
+        this->releaseArchive();
+        for (u32 i = 0; i < NUM_ITEM_PACS; i++) {
+            if (this->itemPacs[i] != NULL) {
+                delete this->itemPacs[i];
+            }
+        }
+    };
 
     void patchInstructions();
     void createObjAshiba(int mdlIndex);
@@ -107,7 +113,8 @@ public:
     void createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float speed, bool isRightDirection);
     void createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, bool canDrown);
     void createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle);
+    void createItemPac(u32 index);
     void putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex);
 
-    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(itemCommonParam))
+    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4)
 };

@@ -39,20 +39,6 @@ void stTargetSmash::createObj()
     // TODO: Look into switching UI to stock icon and number left if more than certain amount of targets (check IfCenter createModel functions)
 
     // TODO: Enemies?
-    // TODO: Variable number of custom stage items to load?
-    int nodeSize;
-    void* data = m_fileData->getData(Data_Type_Misc, 0x2711, &nodeSize, 0xfffe);
-    if (data != NULL) {
-        itemBrres.setFileImage(data, nodeSize, Heaps::StageResource);
-    }
-    data = m_fileData->getData(Data_Type_Misc, 0x2712, &nodeSize, 0xfffe);
-    if (data != NULL) {
-        itemParam.setFileImage(data, nodeSize, Heaps::StageResource);
-    }
-    data = m_fileData->getData(Data_Type_Misc, 0x2713, &nodeSize, 0xfffe);
-    if (data != NULL) {
-        itemCommonParam.setFileImage(data, nodeSize, Heaps::StageResource);
-    }
 
     this->level = 0; // TODO
 
@@ -84,12 +70,45 @@ void stTargetSmash::createObj()
     this->setStageAttackData(&stageData->damageFloor, 0);
 }
 
+void stTargetSmash::createItemPac(u32 index) {
+    gfArchive* archive = new(Heaps::StageInstance) gfArchive();
+    int nodeSize;
+    void* data = m_fileData->getData(Data_Type_Misc, 10001 + index, &nodeSize, 0xfffe);
+    if (data != NULL) {
+        archive->setFileImage(data, nodeSize, Heaps::StageResource);
+    }
+    this->itemPacs[index] = archive;
+}
+
 void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer) {
-    if (itemID == Item_MarioBros_Sidestepper) {
-        *brres = &this->itemBrres;
-        *param = &this->itemParam;
-        if (variantID == 0) {
-            *commonParam = &this->itemCommonParam;
+    Ground* ground = this->getGround(0);
+    u32 itemsIndex = ground->getNodeIndex(0, "Items");
+    u32 endIndex = ground->getNodeIndex(0, "End");
+    for (int i = itemsIndex + 1; i < endIndex; i++) {
+        nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+        if (itemID == resNodeData->m_scale.m_x && variantID == resNodeData->m_scale.m_y) {
+            int index = resNodeData->m_rotation.m_x - 1;
+            if (index >= 0) {
+                if (this->itemPacs[index] == NULL) {
+                    this->createItemPac(index);
+                }
+                *brres = this->itemPacs[index];
+            }
+            index = resNodeData->m_rotation.m_y - 1;
+            if (index >= 0) {
+                if (this->itemPacs[index] == NULL) {
+                    this->createItemPac(index);
+                }
+                *param = this->itemPacs[index];
+            }
+            index = resNodeData->m_rotation.m_z - 1;
+            if (index >= 0) {
+                if (this->itemPacs[index] == NULL) {
+                    this->createItemPac(index);
+                }
+                *commonParam = this->itemPacs[index];
+            }
+            return;
         }
     }
 }
