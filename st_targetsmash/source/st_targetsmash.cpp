@@ -67,7 +67,10 @@ void stTargetSmash::createObj()
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
 
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->m_stageData);
-    this->setStageAttackData(&stageData->damageFloor, 0);
+    this->setStageAttackData(&stageData->damageFloors[0], 0);
+    this->setStageAttackData(&stageData->damageFloors[1], 1);
+    this->setStageAttackData(&stageData->damageFloors[2], 2);
+
 }
 
 void stTargetSmash::createItemPac(u32 index) {

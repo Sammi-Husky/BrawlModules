@@ -16,8 +16,8 @@ struct stTargetSmashData {
     float cannonShootSpeed;
     float cannonShootTimerSpeed;
     float cannonShootStunTimerSpeed;
-    grGimmickDamageFloor damageFloor;
+    grGimmickDamageFloor damageFloors[3];
 
-    STATIC_CHECK(sizeof(stTargetSmashData) == 300)
+    STATIC_CHECK(sizeof(stTargetSmashData) == 500)
 
 };
