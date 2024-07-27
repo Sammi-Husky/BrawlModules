@@ -5,6 +5,11 @@
 #include <memory.h>
 #include <OS/OSError.h>
 #include <gm/gm_global.h>
+#include <gf/gf_module.h>
+#include <gf/gf_heap_manager.h>
+#include <em/em_manager.h>
+#include <em/em_weapon_manager.h>
+#include <mt/mt_prng.h>
 #include <OS/__ppc_eabi_init.h>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
@@ -18,32 +23,85 @@ bool stTargetSmash::loading()
 {
     return true;
 }
+
 void stTargetSmash::update(float deltaFrame)
 {
     if (!this->isItemsInitialized && itManager::getInstance()->isCompItemKindArchive(Item_Hammer, 0, true)) {
         Ground* ground = this->getGround(0);
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
-        u32 endIndex = ground->getNodeIndex(0, "End");
+        u32 endIndex = ground->getNodeIndex(0, "Enemies");
         for (int i = itemsIndex + 1; i < endIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             this->putItem(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, &resNodeData->m_translation.m_xy, resNodeData->m_translation.m_z);
         }
         this->isItemsInitialized = true;
     }
-}
 
+    gfModuleManager* moduleManager = gfModuleManager::getInstance();
+    if (moduleManager->isLoaded("sora_enemy.rel")) {
+        emManager *enemyManager = emManager::getInstance();
+        if (!this->isEnemiesInitialized && enemyManager->isCompArchiveAll()) {
+            Ground* ground = this->getGround(0);
+            u32 itemsIndex = ground->getNodeIndex(0, "Enemies");
+            u32 endIndex = ground->getNodeIndex(0, "End");
+            for (int i = itemsIndex + 1; i < endIndex; i++) {
+                nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+                this->putEnemy(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, &resNodeData->m_translation.m_xy, resNodeData->m_translation.m_z, resNodeData->m_rotation.m_z);
+            }
+
+            this->isEnemiesInitialized = true;
+        }
+    }
+}
 void stTargetSmash::createObj()
 {
     // TODO: check if target smash
     this->patchInstructions();
     // TODO: Look into switching UI to stock icon and number left if more than certain amount of targets (check IfCenter createModel functions)
 
-    // TODO: Enemies?
-
     this->level = 0; // TODO
+
+    // TODO: Look into using PokemonResource/AssistResource for Enemy spawns?
 
     testStageParamInit(m_fileData, 0xA);
     testStageDataInit(m_fileData, 0x14, 1);
+
+    gfModuleManager* moduleManager = gfModuleManager::getInstance();
+    int size;
+    gfModuleHeader* moduleHeader = static_cast<gfModuleHeader*>(m_secondaryFileData->getData(Data_Type_Misc, 301, &size, 0xfffe));
+    if (moduleHeader != NULL) {
+        moduleManager->loadModuleRequestOnImage("sora_enemy.rel", Heaps::OverlayStage, moduleHeader, &size);
+        emManager::create(0x1e,0x14,0);
+        //gfHeapManager::dumpList();
+        emWeaponManager::create();
+        emWeaponManager* weaponManager = emWeaponManager::getInstance();
+        weaponManager->clean();
+        weaponManager->m_list1.m_last = NULL;
+        weaponManager->m_list1.m_first = NULL;
+        weaponManager->m_list1.m_length = 0;
+        weaponManager->m_list2.m_last = NULL;
+        weaponManager->m_list2.m_first = NULL;
+        weaponManager->m_list2.m_length = 0;
+        weaponManager->m_numStageObjects = NUM_WEAPON_STAGE_OBJECTS
+        weaponManager->m_stageObjects = new (Heaps::StageInstance) wnemSimple[weaponManager->m_numStageObjects];
+        for (int i = 0; i < weaponManager->m_numStageObjects; i++) {
+            weaponManager->m_list1.addTail(&weaponManager->m_stageObjects[i]);
+        }
+        weaponManager->m_32 = false;
+
+        emManager *enemyManager = emManager::getInstance();
+        for (u32 i = 0; i < NUM_ENEMY_TYPES; i++) {
+            gfArchive* brres;
+            gfArchive* param;
+            gfArchive* enmCommon;
+            gfArchive* primFaceBrres;
+            this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, (EnemyKind)i);
+            if (brres != NULL) {
+                int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, (EnemyKind) i, true);
+            }
+        }
+
+    }
 
     this->createObjAshiba(0);
     createCollision(m_fileData, 2, NULL);
@@ -72,21 +130,30 @@ void stTargetSmash::createObj()
     this->setStageAttackData(&stageData->damageFloors[2], 2);
 
 }
-
 void stTargetSmash::createItemPac(u32 index) {
-    gfArchive* archive = new(Heaps::StageInstance) gfArchive();
     int nodeSize;
     void* data = m_fileData->getData(Data_Type_Misc, 10001 + index, &nodeSize, 0xfffe);
     if (data != NULL) {
+        gfArchive* archive = new(Heaps::StageInstance) gfArchive();
         archive->setFileImage(data, nodeSize, Heaps::StageResource);
+        this->itemPacs[index] = archive;
     }
-    this->itemPacs[index] = archive;
+}
+
+void stTargetSmash::createEnemyPac(u32 index) {
+    int nodeSize;
+    void* data = m_secondaryFileData->getData(Data_Type_Misc, index, &nodeSize, 0xfffe);
+    if (data != NULL) {
+        gfArchive* archive = new(Heaps::StageInstance) gfArchive();
+        archive->setFileImage(data, nodeSize, Heaps::StageResource);
+        this->enemyPacs[index] = archive;
+    }
 }
 
 void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer) {
     Ground* ground = this->getGround(0);
     u32 itemsIndex = ground->getNodeIndex(0, "Items");
-    u32 endIndex = ground->getNodeIndex(0, "End");
+    u32 endIndex = ground->getNodeIndex(0, "Enemies");
     for (int i = itemsIndex + 1; i < endIndex; i++) {
         nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
         if (itemID == resNodeData->m_scale.m_x && variantID == resNodeData->m_scale.m_y) {
@@ -114,6 +181,86 @@ void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind item
             return;
         }
     }
+}
+
+void stTargetSmash::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyID) {
+    int fileIndex = enemyID * 2;
+    int nodeSize;
+    *primFaceBrres = NULL;
+
+    if (this->enemyPacs[fileIndex + 1] == NULL) {
+        this->createEnemyPac(fileIndex + 1);
+    }
+    *brres = this->enemyPacs[fileIndex + 1];
+
+    if (this->enemyPacs[fileIndex] == NULL) {
+        this->createEnemyPac(fileIndex);
+    }
+    *param = this->enemyPacs[fileIndex];
+
+    if (this->enemyCommonPac == NULL) {
+        void* enmCommonData = this->m_secondaryFileData->getData(Data_Type_Misc, 300, &nodeSize, (u32)0xfffe);
+        *enmCommon = new (Heaps::StageInstance) gfArchive();
+        (*enmCommon)->setFileImage(enmCommonData, nodeSize, Heaps::StageResource);
+        this->enemyCommonPac = *enmCommon;
+    }
+    else {
+        *enmCommon = this->enemyCommonPac;
+    }
+
+    if (*brres != NULL && (enemyID == Enemy_Prim || enemyID == Enemy_Prim_Metal || enemyID == Enemy_Prim_Big || enemyID == Enemy_Prim_Boomerang || enemyID == Enemy_Prim_SuperScope || enemyID == Enemy_Prim_Sword)) {
+        if (this->primFacePac == NULL) {
+            void* primFaceData = this->m_secondaryFileData->getData(Data_Type_Misc, 200 + randi(NUM_PRIM_FACES), &nodeSize, (u32)0xfffe);
+            if (primFaceData == NULL) {
+                primFaceData = this->m_secondaryFileData->getData(Data_Type_Misc, 200, &nodeSize, (u32)0xfffe);
+            }
+            *primFaceBrres = new (Heaps::StageInstance) gfArchive();
+            (*primFaceBrres)->setFileImage(primFaceData, nodeSize, Heaps::StageResource);
+            this->primFacePac = *primFaceBrres;
+        }
+        else {
+            *primFaceBrres = this->primFacePac;
+        }
+    }
+}
+
+void stTargetSmash::clearHeap() {
+    for (u32 i = 0; i < NUM_ITEM_PACS; i++) {
+        if (this->itemPacs[i] != NULL) {
+            delete this->itemPacs[i];
+        }
+    }
+
+    emWeaponManager* weaponManager = emWeaponManager::getInstance();
+    if (weaponManager != NULL) {
+        weaponManager->reset();
+        weaponManager->m_32 = true;
+        emWeaponManager::remove();
+    }
+    emManager* enemyManager = emManager::getInstance();
+    if (enemyManager != NULL) {
+        emManager* enemyManager = emManager::getInstance();
+        enemyManager->removeEnemyAll();
+        enemyManager->removeArchiveAll();
+        emManager::remove();
+    }
+
+    for (int i = 0; i < NUM_ENEMY_TYPES*2; i++) {
+        if (this->enemyPacs[i] != NULL) {
+            delete this->enemyPacs[i];
+            this->enemyPacs[i] = NULL;
+        }
+    }
+    if (this->enemyCommonPac != NULL) {
+        delete this->enemyCommonPac;
+        this->enemyCommonPac = NULL;
+    }
+    if (this->primFacePac != NULL) {
+        delete this->primFacePac;
+        this->primFacePac = NULL;
+    }
+
+    gfModuleManager::getInstance()->destroy("sora_enemy.rel");
 }
 
 void stTargetSmash::patchInstructions() {
@@ -159,7 +306,6 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
         u32 windsIndex = ground->getNodeIndex(0, "Winds");
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
 
-        // TODO: Ground object with collision that kos you above certain %
         // TODO: Optional targets (can select max targets in STDT)
         for (int i = targetsIndex + 1; i < disksIndex; i++) {
             this->targetsLeft++;
@@ -537,6 +683,38 @@ void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* p
         }
     }
 }
+
+void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f* pos, int motionPathIndex, float lr) {
+    emManager* enemyManager = emManager::getInstance();
+
+    emCreate create;
+    create.m_8 = 10000;
+    create.m_difficulty = difficulty;
+    create.m_enemyKind = (EnemyKind)enemyId;
+    create.m_startStatusKind = startStatus;
+
+    create.m_startPos = (Vec3f){pos->m_x, pos->m_y, 0.0};
+
+    create.m_startLr = lr;
+    create.m_level = 1;
+    create.m_36 = 0.0;
+    create.m_posX1 = -create.m_startPos.m_x;
+    create.m_posX2 = -create.m_startPos.m_x;
+    create.m_posY1 = -create.m_startPos.m_y;
+    create.m_posY1 = -create.m_startPos.m_y;
+    create.m_connectedTriggerId = 0;
+    create.m_epbm = NULL;
+    create.m_motionPath = NULL;
+    create.m_epsp = NULL;
+    create.m_72 = 0xFFFF;
+    //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
+
+    int result = enemyManager->createEnemy(&create);
+    OSReport("Enemy Create result: %d \n", result);
+
+    // TODO: Disable camera focus on enemies
+}
+
 void Ground::setStageData(void* stageData)
 {
     this->m_stageData = stageData;

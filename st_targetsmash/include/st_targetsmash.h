@@ -24,25 +24,35 @@ const float SCROLL_DIR = 0.0f;
 const float POKETRAINER_Z = 0.0f;
 const float UNK_FLOAT1 = 0.0f;
 
-#define NUM_ITEM_PACS 0x40
-
 class stTargetSmash : public stMelee {
 protected:
+
     gfArchive* itemPacs[NUM_ITEM_PACS];
     char _476[848 - 728];
+    // gfArchive* enemyPacs[NUM_ENEMY_TYPES*2];
     u32 level; // 848 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsLeft; // 856 (Required offset for stOperatorRuleTargetBreak!)
     bool isItemsInitialized;
-    char _860[912 - 861];
+    bool isEnemiesInitialized;
+    char _[2];
+    gfArchive* enemyCommonPac;
+    gfArchive* primFacePac;
+    char _860[912 - 872];
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
+    gfArchive* enemyPacs[NUM_ENEMY_TYPES*2];
+
 
 public:
     stTargetSmash() : stMelee("stTargetSmash", Stages::TBreak)
     {
         __memfill(&itemPacs, 0, sizeof(itemPacs));
+        __memfill(&enemyPacs, 0, sizeof(enemyPacs));
+        enemyCommonPac = NULL;
+        primFacePac = NULL;
         isItemsInitialized = false;
+        isEnemiesInitialized = false;
         targetsLeft = 0;
         targetsHit = 0;
         totalDamage = 0.0;
@@ -86,13 +96,10 @@ public:
     virtual int getFinalTechniqColor();
     virtual bool isBamperVector();
     virtual void getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer);
+    virtual void getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyID);
     virtual ~stTargetSmash() {
+        this->clearHeap();
         this->releaseArchive();
-        for (u32 i = 0; i < NUM_ITEM_PACS; i++) {
-            if (this->itemPacs[i] != NULL) {
-                delete this->itemPacs[i];
-            }
-        }
     };
 
     void patchInstructions();
@@ -114,7 +121,10 @@ public:
     void createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, bool canDrown);
     void createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle);
     void createItemPac(u32 index);
+    void createEnemyPac(u32 index);
     void putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex);
+    void putEnemy(int enemyId, int difficulty, int startStatus, Vec2f* pos, int motionPathIndex, float lr);
+    void clearHeap();
 
-    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4)
+    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(enemyPacs))
 };
