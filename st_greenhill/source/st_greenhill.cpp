@@ -157,7 +157,7 @@ int stGreenHill::getDefaultLightSetIndex()
 {
     return 0x14;
 }
-stRange* stGreenHill::getAIRange()
+Rect2D* stGreenHill::getAIRange()
 {
     return &this->m_aiRange;
 }

@@ -688,7 +688,7 @@ void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f
     emManager* enemyManager = emManager::getInstance();
 
     emCreate create;
-    create.m_8 = 10000;
+    create.m_teamNo = 10000;
     create.m_difficulty = difficulty;
     create.m_enemyKind = (EnemyKind)enemyId;
     create.m_startStatusKind = startStatus;
@@ -706,13 +706,15 @@ void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f
     create.m_epbm = NULL;
     create.m_motionPath = NULL;
     create.m_epsp = NULL;
-    create.m_72 = 0xFFFF;
+    create.m_parentCreateId = 0xFFFF;
     //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
 
-    int result = enemyManager->createEnemy(&create);
-    OSReport("Enemy Create result: %d \n", result);
+    int id = enemyManager->createEnemy(&create);
+    Enemy* enemy = enemyManager->getEnemyPtrFromId(id);
+    enemy->m_moduleAccesser->getCameraModule()->setEnableCamera(0, -1);
 
-    // TODO: Disable camera focus on enemies
+    // TODO: Change death to use similar explosion as fighter ko
+    // TODO: Fix death so that 2p doesn't get hit by it
 }
 
 void Ground::setStageData(void* stageData)
@@ -812,7 +814,7 @@ int stTargetSmash::getDefaultLightSetIndex()
 {
     return 0x14;
 }
-stRange* stTargetSmash::getAIRange()
+Rect2D* stTargetSmash::getAIRange()
 {
     return &this->m_aiRange;
 }

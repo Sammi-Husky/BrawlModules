@@ -63,7 +63,7 @@ void stDemo::update(float frameDiff)
             this->testCreated = true;
             emManager* enemyManager = emManager::getInstance();
             emCreate create;
-            create.m_8 = 10000;
+            create.m_teamNo = 10000;
             create.m_difficulty = 15;
             create.m_enemyKind = Enemy_Killer;
             create.m_startStatusKind = 6;
@@ -78,7 +78,7 @@ void stDemo::update(float frameDiff)
             create.m_epbm = NULL;
             create.m_motionPath = NULL;
             create.m_epsp = NULL;
-            create.m_72 = 0xFFFF;
+            create.m_parentCreateId = 0xFFFF;
             create.m_startPos = (Vec3f){positions[0].m_x, positions[0].m_y, 0.0};//{0.0, 5.0};
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
             //int result = enemyManager->createEnemy(&create);
@@ -432,7 +432,7 @@ int stDemo::getDefaultLightSetIndex()
 {
     return 0x14;
 }
-stRange* stDemo::getAIRange()
+Rect2D* stDemo::getAIRange()
 {
     return &this->m_aiRange;
 }

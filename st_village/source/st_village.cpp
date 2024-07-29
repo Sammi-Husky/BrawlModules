@@ -471,7 +471,7 @@ int stVillage::getDefaultLightSetIndex()
 {
     return 0x14;
 }
-stRange* stVillage::getAIRange()
+Rect2D* stVillage::getAIRange()
 {
     return &this->m_aiRange;
 }
