@@ -413,9 +413,9 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
     attackData.m_bits.isCollisionPartRegion2 = true;
     attackData.m_bits.isCollisionPartRegion1 = true;
     attackData.m_bits.isCollisionPartRegion0 = true;
-    attackData.m_bits.elementType = Element_Type_Slash;
-    attackData.m_bits.hitSoundLevel = Hit_Sound_Level_Small;
-    attackData.m_bits.hitSoundType = Hit_Sound_Type_Slash;
+    attackData.m_bits.elementType = soCollisionAttackData::Element_Slash;
+    attackData.m_bits.hitSoundLevel = soCollisionAttackData::Hit_Sound_Small;
+    attackData.m_bits.hitSoundType = soCollisionAttackData::Hit_Sound_Slash;
     attackData.m_bits.isClankable = false;
     attackData.m_bits.field_0x34_3 = false;
     attackData.m_bits.field_0x34_4 = false;

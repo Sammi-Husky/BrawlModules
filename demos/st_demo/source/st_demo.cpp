@@ -182,15 +182,15 @@ void stDemo::createObj()
     this->cannonData.attackData.m_reactionFix = 0;
     this->cannonData.attackData.m_reactionAdd = 0x5;
     //char _spacer[4];
-    this->cannonData.attackData.m_elementType = Element_Type_Normal;
+    this->cannonData.attackData.m_elementType = soCollisionAttackData::Element_Normal;
     this->cannonData.attackData.m_isClankable = false;
     this->cannonData.attackData.m_unk2 = false;
     this->cannonData.attackData.m_unk3 = true;
     this->cannonData.attackData.m_unk4 = true;
     //char _spacer2[0xC];
     this->cannonData.attackData.m_detectionRate = 0x3c;
-    this->cannonData.attackData.m_hitSoundLevel = Hit_Sound_Level_Medium;
-    this->cannonData.attackData.m_hitSoundType = Hit_Sound_Type_Punch;
+    this->cannonData.attackData.m_hitSoundLevel = soCollisionAttackData::Hit_Sound_Medium;
+    this->cannonData.attackData.m_hitSoundType = soCollisionAttackData::Hit_Sound_Punch;
     this->cannonData.attackData.m_unk5 = false;
     this->cannonData.attackData.m_isShapeCapsule = false;
     //char _spacer3[6];
