@@ -407,7 +407,7 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
     attackData.m_bits.isClankable = false;
     attackData.m_bits.field_0x34_3 = false;
     attackData.m_bits.field_0x34_4 = false;
-    attackData.m_bits.isBlockable = true;
+    attackData.m_bits.isShieldable = true;
     attackData.m_bits.isReflectable = true;
     attackData.m_bits.isAbsorbable = false;
     attackData.m_bits.region = soCollisionAttackData::Region_None;
