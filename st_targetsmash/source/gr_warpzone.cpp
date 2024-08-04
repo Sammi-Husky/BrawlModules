@@ -15,7 +15,7 @@ grWarpZone* grWarpZone::create(int mdlIndex, const char* taskName) {
 void grWarpZone::prepareWarpData(int motionPathIndex, float deactivateFrames, bool isRotateMotionPath) {
     this->motionPathData.m_motionRatio = 1.0;
     this->motionPathData.m_index = 0;
-    this->motionPathData.m_pathMode = MotionPath_Loop;
+    this->motionPathData.m_pathMode = grGimmickMotionPathData::Path_Loop;
     this->motionPathData.m_mdlIndex = motionPathIndex;
     this->motionPathData.m_7 = 0x0;
 

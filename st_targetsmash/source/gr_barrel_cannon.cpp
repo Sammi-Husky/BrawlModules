@@ -20,7 +20,7 @@ void grAdventureBarrelCannon::prepareCannonData(Vec2f* pos, float rot, float rot
 
     this->_cannonData.motionPathData.m_motionRatio = 1.0;
     this->_cannonData.motionPathData.m_index = 0;
-    this->_cannonData.motionPathData.m_pathMode = MotionPath_Loop;
+    this->_cannonData.motionPathData.m_pathMode = grGimmickMotionPathData::Path_Loop;
     this->_cannonData.motionPathData.m_mdlIndex = motionPathIndex;
     this->_cannonData.motionPathData.m_7 = 0x0;
     this->_cannonData.pos = *pos;

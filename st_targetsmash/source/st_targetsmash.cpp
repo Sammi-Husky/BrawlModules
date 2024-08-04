@@ -704,8 +704,17 @@ void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f
     create.m_36 = 0.0;
     create.m_territoryRange = (Rect2D){0.0, 0.0, 0.0, 0.0};
     create.m_connectedTriggerId = 0;
-    create.m_epbm = NULL;
+
     create.m_motionPath = NULL;
+    if (motionPathIndex != 0) {
+        grMotionPath* ground = grMotionPath::create(motionPathIndex, "MoveNode", "grMotionPath");
+        if (ground != NULL) {
+            addGround(ground);
+            ground->startup(m_fileData, 0, 0);
+        }
+        create.m_motionPath = ground;
+    }
+    create.m_epbm = NULL;
     create.m_epsp = NULL;
     create.m_parentCreateId = 0xFFFF;
     //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));

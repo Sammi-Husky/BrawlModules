@@ -1,16 +1,15 @@
 #pragma once
 
-#include <gr/gr_yakumono.h>
-#include <gr/gr_gimmick_motion_path.h>
 #include <it/it_manager.h>
+#include "gr_motion_path.h"
 
-class grItem : public grGimmickMotionPath {
+class grItem : public grMotionPath {
     int itemInstanceId;
     bool isActive;
     grGimmickMotionPathData motionPathData;
 
 public:
-    grItem(const char* taskName, const char* nodeName) : grGimmickMotionPath(taskName, nodeName) {
+    grItem(const char* taskName, const char* nodeName) : grMotionPath(taskName, nodeName) {
         isActive = true;
     };
     virtual ~grItem() {};
