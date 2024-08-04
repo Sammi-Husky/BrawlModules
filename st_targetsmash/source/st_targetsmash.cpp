@@ -231,19 +231,21 @@ void stTargetSmash::clearHeap() {
         }
     }
 
-    emWeaponManager* weaponManager = emWeaponManager::getInstance();
-    if (weaponManager != NULL) {
-        weaponManager->reset();
-        weaponManager->m_32 = true;
-        emWeaponManager::remove();
-    }
-    emManager* enemyManager = emManager::getInstance();
-    if (enemyManager != NULL) {
-        emManager* enemyManager = emManager::getInstance();
-        enemyManager->removeEnemyAll();
-        enemyManager->removeArchiveAll();
-        emManager::remove();
-    }
+   if (gfModuleManager::getInstance()->isLoaded("sora_enemy.rel")) {
+       emWeaponManager* weaponManager = emWeaponManager::getInstance();
+       if (weaponManager != NULL) {
+           weaponManager->reset();
+           weaponManager->m_32 = true;
+           emWeaponManager::remove();
+       }
+       emManager* enemyManager = emManager::getInstance();
+       if (enemyManager != NULL) {
+           emManager* enemyManager = emManager::getInstance();
+           enemyManager->removeEnemyAll();
+           enemyManager->removeArchiveAll();
+           emManager::remove();
+       }
+   }
 
     for (int i = 0; i < NUM_ENEMY_TYPES*2; i++) {
         if (this->enemyPacs[i] != NULL) {
@@ -685,6 +687,8 @@ void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* p
 }
 
 void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f* pos, int motionPathIndex, float lr) {
+    // TODO: MotionPath index
+
     emManager* enemyManager = emManager::getInstance();
 
     emCreate create;
