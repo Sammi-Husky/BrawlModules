@@ -61,7 +61,7 @@ void stTargetSmash::createObj()
 
     this->level = 0; // TODO
 
-    // TODO: Look into using PokemonResource/AssistResource for Enemy spawns?
+    // TODO: Look into using PokemonResource/AssistResource for Enemy spawns as an option if no Pokemon/Assist is loaded?
 
     testStageParamInit(m_fileData, 0xA);
     testStageDataInit(m_fileData, 0x14, 1);
@@ -689,14 +689,14 @@ void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f
 
     emCreate create;
     create.m_teamNo = 10000;
-    create.m_difficulty = difficulty;
+    create.m_difficulty = difficulty % 15;
     create.m_enemyKind = (EnemyKind)enemyId;
     create.m_startStatusKind = startStatus;
 
     create.m_startPos = (Vec3f){pos->m_x, pos->m_y, 0.0};
 
     create.m_startLr = lr;
-    create.m_level = 1;
+    create.m_level = 1 + difficulty / 15;
     create.m_36 = 0.0;
     create.m_territoryRange = (Rect2D){0.0, 0.0, 0.0, 0.0};
     create.m_connectedTriggerId = 0;
