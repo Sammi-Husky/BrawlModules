@@ -624,7 +624,7 @@ void stTargetSmash::createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, floa
         damage = -damage;
     }
     hitPointEffectData.m_damage = damage;
-    hitPointEffectData.m_detectionRate = detectionRate;
+    hitPointEffectData.m_serialHitFrame = detectionRate;
     this->createGimmickHitPointEffectArea(&hitPointEffectData);
 }
 
@@ -634,7 +634,7 @@ void stTargetSmash::createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float spee
     beltConveyorAreaData.m_conveyorPos = (Vec3f){0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0};
     beltConveyorAreaData.m_range = (Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y};
     beltConveyorAreaData.m_speed = speed;
-    beltConveyorAreaData.m_isRightDirection = isRightDirection;
+    beltConveyorAreaData.m_isRight = isRightDirection;
 
     this->createGimmickBeltConveyor2(&beltConveyorAreaData);
 }
@@ -646,7 +646,7 @@ void stTargetSmash::createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, 
     waterAreaData.m_range = (Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y};
     waterAreaData.m_swimHeight = posNE->m_y;
     waterAreaData.m_canDrown = canDrown;
-    waterAreaData.m_currentSpeed = speed;
+    waterAreaData.m_speed = speed;
 
     this->createGimmickWaterArea(&waterAreaData);
 }
@@ -656,8 +656,8 @@ void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength
     __memfill(&windAreaData, 0, sizeof(windAreaData));
     windAreaData.m_windPos = (Vec3f){0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0};
     windAreaData.m_range = (Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y};
-    windAreaData.m_strength = strength;
-    windAreaData.m_angle = angle;
+    windAreaData.m_speed = strength;
+    windAreaData.m_vector = angle;
 
     this->createGimmickWind2(&windAreaData);
 }

@@ -366,12 +366,12 @@ void grAdventureBarrelCannon::setInitializeFlag()
 {
     if (!g_stTriggerMng->getTriggerFlag(&this->cannonData->isValidTriggerData, true))
     {
-        if (this->cannonData->isValidTriggerData.m_isValidFlag)
+        if (this->cannonData->isValidTriggerData.m_isValid)
         {
             this->setValid(false);
         }
     }
-    else if (!this->cannonData->isValidTriggerData.m_isValidFlag)
+    else if (!this->cannonData->isValidTriggerData.m_isValid)
     {
         this->setValid(false);
     }
@@ -394,27 +394,26 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
     attackData.m_vector = 90;
     attackData.m_size = 1;
     attackData.m_offsetPos = (Vec3f){0.0, 0.0, 0.0};
-    attackData.m_hitstopMultiplier = 1.0;
-    attackData.m_tripRate = 1.0;
-    attackData.m_sdiMultiplier = 1.0;
+    attackData.m_hitStopFrame = 1.0;
+    attackData.m_slipChance = 1.0;
+    attackData.m_hitStopDelay = 1.0;
     attackData.m_bits.nodeIndex = 0x0;
-    attackData.m_masks.category = COLLISION_CATEGORY_MASK_NO_GIMMICK;
-    attackData.m_bits.field_0x30_3 = false;
-    attackData.m_masks.part = COLLISION_PART_MASK_ALL;
+    attackData.m_masks.targetCategory = COLLISION_CATEGORY_MASK_NO_GIMMICK;
+    attackData.m_bits.targetLr = false;
+    attackData.m_masks.targetPart = COLLISION_PART_MASK_ALL;
     attackData.m_bits.attribute = soCollisionAttackData::Attribute_Cutup;
     attackData.m_bits.soundLevel = soCollisionAttackData::Sound_Level_Small;
     attackData.m_bits.soundAttribute = soCollisionAttackData::Sound_Attribute_Cutup;
-    attackData.m_bits.isClankable = false;
-    attackData.m_bits.field_0x34_3 = false;
-    attackData.m_bits.field_0x34_4 = false;
+    attackData.m_bits.setOffKind = soCollisionAttackData::SetOff_Off;
+    attackData.m_bits.noScale = false;
     attackData.m_bits.isShieldable = true;
     attackData.m_bits.isReflectable = true;
     attackData.m_bits.isAbsorbable = false;
     attackData.m_bits.region = soCollisionAttackData::Region_None;
     this->setSoCollisionAttackData(&attackData, &this->cannonData->attackData, 0);
-    attackData.m_bits.isSituationODD = true;
-    attackData.m_bits.isSituationAir = true;
-    attackData.m_bits.isSituationGround = true;
+    attackData.m_bits.targetSituationODD = true;
+    attackData.m_bits.targetSituationAir = true;
+    attackData.m_bits.targetSituationGround = true;
 
     grGimmickEventBarrelCannonInfo cannonEventInfo;
     cannonEventInfo.m_state = 4;
