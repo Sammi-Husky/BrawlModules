@@ -40,6 +40,15 @@ void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 
 void grTargetSmashTarget::update(float deltaFrame) {
     grMadein::update(deltaFrame);
+
+    Vec3f pos;
+    this->getNodePosition(&pos, 0, "CollisionNode");
+    if (pos.m_z >= 0) {
+        this->setEnableCollisionStatus(true);
+    }
+    else {
+        this->setEnableCollisionStatus(false);
+    }
 }
 
 void grTargetSmashTarget::setupHitPoint() {
