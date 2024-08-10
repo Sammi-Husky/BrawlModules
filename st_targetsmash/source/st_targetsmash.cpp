@@ -61,6 +61,7 @@ void stTargetSmash::createObj()
 
     this->level = 0; // TODO
 
+    // TODO: Check mythical Pokemon loading 1 minute in?
     // TODO: Look into using PokemonResource/AssistResource for Enemy spawns as an option if no Pokemon/Assist is loaded?
 
     testStageParamInit(m_fileData, 0xA);
@@ -425,11 +426,15 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
 }
 
 void stTargetSmash::createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int motionPathIndex, int effectIndex, int collIndex) {
+    stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->m_stageData);
     grTargetSmashTarget* target = grTargetSmashTarget::create(mdlIndex, "", "grTargetSmashTarget");
-    if(target != NULL){
+    if(target != NULL) {
         addGround(target);
         target->setStageData(m_stageData);
         target->setTargetInfo(motionPathIndex, effectIndex, &this->targetsHit, &this->targetsLeft, this->numTargetsHitPerPlayer, &this->totalDamage, 0);
+        if (collIndex < 0) {
+            target->setupAttack(&stageData->damageFloors[(-collIndex) - 1].m_attackData);
+        }
         target->startup(this->m_fileData,0,0);
         target->setPos(pos->m_x, pos->m_y, 0);
         target->setScale(scale);
@@ -472,6 +477,7 @@ void stTargetSmash::createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float
 }
 
 void stTargetSmash::createObjBreak(int mdlIndex, Vec2f* pos, float rot, int motionPathIndex, int collIndex, float maxDamage, float respawnTime) {
+    stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->m_stageData);
     grPlatform* platform = grPlatform::create(mdlIndex, "", "grBreak");
     if(platform != NULL){
         addGround(platform);
@@ -479,6 +485,9 @@ void stTargetSmash::createObjBreak(int mdlIndex, Vec2f* pos, float rot, int moti
         platform->setMotionPathData(motionPathIndex, rot >= 360);
         platform->startup(this->m_fileData,0,0);
         platform->setupHitPoint(maxDamage, respawnTime);
+        if (collIndex < 0) {
+            platform->setupAttack(&stageData->damageFloors[(-collIndex) - 1].m_attackData);
+        }
         platform->initializeEntity();
         platform->startEntity();
         platform->setPos(pos->m_x, pos->m_y, 0.0);
@@ -687,7 +696,7 @@ void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* p
 }
 
 void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f* pos, int motionPathIndex, float lr) {
-    // TODO: MotionPath index
+    // TODO: MotionPath index investigate if can make every enemy follow it?
 
     emManager* enemyManager = emManager::getInstance();
 

@@ -39,6 +39,18 @@ void grSpring::update(float deltaFrame) {
             }
     }
     this->m_animFrame += deltaFrame;
+
+    Vec3f pos = (Vec3f){0, 0, 0};
+    this->getNodePosition(&pos, 0, "CollisionNode");
+    if (pos.m_z >= 0) {
+        this->setEnableCollisionStatus(true);
+        this->enableArea();
+    }
+    else {
+        this->setEnableCollisionStatus(false);
+        this->disableArea();
+    }
+
     this->updateCallback(0);
 }
 

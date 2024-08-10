@@ -37,6 +37,7 @@ class grPlatform : public grMadein
 
         virtual void setMotionPathData(int mdlIndex, bool isRotateMotionPath);
         virtual void setupHitPoint(float maxDamage, float respawnFrame);
+        virtual void setupAttack(AttackData* attackData);
         virtual void setupLanding(float maxLandings, float respawnFrame);
 
         static grPlatform* create(int mdlIndex, const char* tgtNodeName, const char* taskName);

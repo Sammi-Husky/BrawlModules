@@ -20,6 +20,7 @@ class grTargetSmashTarget : public grMadein
         virtual void update(float deltaFrame);
         virtual void onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo);
         virtual void setupHitPoint();
+        virtual void setupAttack(AttackData* attackData);
         virtual void setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
                                    u32* numTargetsHitPerPlayerWork, float* totalDamageWork, int mode);
 

@@ -30,8 +30,6 @@ void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     stTriggerData triggerData = {0,0,1,0};
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "TargetNode");
 
-    this->m_useCollisionCategory1 = true;
-
     this->initializeEntity();
     this->startEntity();
 }
@@ -66,6 +64,15 @@ void grTargetSmashDisk::update(float deltaFrame) {
         }
         this->prevIsLandedOn = this->isLandedOn;
         this->isLandedOn = false;
+    }
+
+    Vec3f pos = (Vec3f){0, 0, 0};
+    this->getNodePosition(&pos, 0, "CollisionNode");
+    if (pos.m_z >= 0) {
+        this->setEnableCollisionStatus(true);
+    }
+    else {
+        this->setEnableCollisionStatus(false);
     }
 }
 

@@ -63,7 +63,7 @@ void grPlatform::update(float deltaFrame)
         }
     }
 
-    Vec3f pos;
+    Vec3f pos = (Vec3f){0, 0, 0};
     this->getNodePosition(&pos, 0, "CollisionNode");
     if (pos.m_z >= 0) {
         this->setEnableCollisionStatus(true);
@@ -137,6 +137,18 @@ void grPlatform::setupHitPoint(float maxDamage, float respawnFrames) {
     Vec3f endOffsetPos;
     this->getNodePosition(&startOffsetPos, 0, "HitboxOffsetEnd");
     this->setHitPoint(1.0, &startOffsetPos, &endOffsetPos, 1, this->getNodeIndex(0, "HitboxNode"));
+}
+
+void grPlatform::setupAttack(AttackData* attackData) {
+
+    float size = 5.0;
+    Vec3f offsetPos = {0.0, 0.0, 0.0};
+    this->setAttack(size, &offsetPos);
+    this->m_attackInfo->m_preset = 4;
+
+    soCollisionAttackData* overwriteAttackData = this->getOverwriteAttackData();
+    this->createAttackPointNormal(overwriteAttackData);
+    this->setSoCollisionAttackData(overwriteAttackData, attackData, NULL);
 }
 
 void grPlatform::setupLanding(float maxLandings, float respawnFrame) {

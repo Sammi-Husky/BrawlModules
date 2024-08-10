@@ -32,7 +32,7 @@ void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     stTriggerData triggerData = {0,0,1,0};
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 
-    this->m_useCollisionCategory1 = true;
+    this->m_category = grMadein::Category_Enemy;
 
     this->initializeEntity();
     this->startEntity();
@@ -41,7 +41,7 @@ void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 void grTargetSmashTarget::update(float deltaFrame) {
     grMadein::update(deltaFrame);
 
-    Vec3f pos;
+    Vec3f pos = (Vec3f){0, 0, 0};
     this->getNodePosition(&pos, 0, "CollisionNode");
     if (pos.m_z >= 0) {
         this->setEnableCollisionStatus(true);
@@ -55,6 +55,18 @@ void grTargetSmashTarget::setupHitPoint() {
     Vec3f startOffsetPos = {0,0,0};
     Vec3f endOffsetPos = {0,0,0};
     this->setHitPoint(7.0, &startOffsetPos, &endOffsetPos, true, 1);
+}
+
+void grTargetSmashTarget::setupAttack(AttackData* attackData) {
+
+    float size = 5.0;
+    Vec3f offsetPos = {0.0, 0.0, 0.0};
+    this->setAttack(size, &offsetPos);
+    this->m_attackInfo->m_preset = 4;
+
+    soCollisionAttackData* overwriteAttackData = this->getOverwriteAttackData();
+    this->createAttackPointNormal(overwriteAttackData);
+    this->setSoCollisionAttackData(overwriteAttackData, attackData, NULL);
 }
 
 void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
@@ -84,6 +96,7 @@ void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttacker
     }
 
     this->deleteHitPoint();
+    this->deleteAttackPoint();
     this->startGimmickSE(0);
     Vec3f pos = this->getPos();
     g_ecMgr->setEffect(0x12b0000 + this->effectIndex, &pos);

@@ -34,6 +34,19 @@ void grLadder::startupLadder(gfArchive* archive, u32 unk1, u32 unk2, grGimmickLa
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 }
 
+void grLadder::update(float deltaFrame) {
+    grGimmickLadder::update(deltaFrame);
+
+    Vec3f pos = (Vec3f){0, 0, 0};
+    this->getNodePosition(&pos, 0, "CollisionNode");
+    if (pos.m_z >= 0) {
+        this->enableArea();
+    }
+    else {
+        this->disableArea();
+    }
+}
+
 void grLadder::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
     grGimmickEventLadderInfo* ladderEventInfo = static_cast<grGimmickEventLadderInfo*>(eventInfo);
     switch(ladderEventInfo->m_state) {

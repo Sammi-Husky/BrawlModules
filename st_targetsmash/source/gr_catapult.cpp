@@ -18,6 +18,19 @@ void grCatapult::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->m_soundEffects[3].m_id = snd_se_Target_Catapult_shoot;
 }
 
+void grCatapult::update(float deltaFrame) {
+    grGimmickCatapult::update(deltaFrame);
+
+    Vec3f pos = (Vec3f){0, 0, 0};
+    this->getNodePosition(&pos, 0, "CollisionNode");
+    if (pos.m_z >= 0) {
+        this->enableArea();
+    }
+    else {
+        this->disableArea();
+    }
+}
+
 void grCatapult::prepareCatapultData(float vector, float motionRatio, int motionPathIndex, float framesBeforeStartMove, float unk1, float unk2) {
     __memfill(&this->_catapultData, 0, sizeof(grGimmickCatapultData));
     this->_catapultData.m_motionPathData.m_motionRatio = motionRatio; //5.4;

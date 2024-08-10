@@ -12,6 +12,7 @@ public:
 
     }
     virtual ~grLadder() { }
+    virtual void update(float deltaFrame);
     virtual void startupLadder(gfArchive* archive, u32 unk1, u32 unk2, grGimmickLadderData* ladderData);
     virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
     virtual void setMotionPathData(int mdlIndex);
