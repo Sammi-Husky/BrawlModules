@@ -133,10 +133,10 @@ void grPlatform::setupHitPoint(float maxDamage, float respawnFrames) {
     this->respawnFrames = respawnFrames;
 
     Vec3f startOffsetPos;
-    this->getNodePosition(&startOffsetPos, 0, "HitboxOffsetStart");
+    this->getNodePosition(&startOffsetPos, 0, "HurtOffsetStart");
     Vec3f endOffsetPos;
-    this->getNodePosition(&startOffsetPos, 0, "HitboxOffsetEnd");
-    this->setHitPoint(1.0, &startOffsetPos, &endOffsetPos, 1, this->getNodeIndex(0, "HitboxNode"));
+    this->getNodePosition(&endOffsetPos, 0, "HurtOffsetEnd");
+    this->setHitPoint(1.0, &startOffsetPos, &endOffsetPos, 1, this->getNodeIndex(0, "HurtNode"));
 }
 
 void grPlatform::setupAttack(AttackData* attackData) {
