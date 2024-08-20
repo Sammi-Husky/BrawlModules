@@ -335,7 +335,7 @@ Default: 2 (Element_Type_Slash)
 	/EndDescription
 1
 
-isClankable, 0x041, 0x042, 0x043
+isClankable, 0x041, isSituationoODD/Air, isSituationGround
 Default: false, false, true, true
 	/EndDescription
 6
@@ -355,10 +355,10 @@ Default: 0 (Could be int or float - be careful)
 	/EndDescription
 0
 
-Collision Hazard DetectionRate
+Collision Hazard Flags/DetectionRate
 Default: 15
 	/EndDescription
-1
+4
 
 Collision Hazard HitSoundLevel
 Default: 1 (Hit_Sound_Level_Medium)
@@ -370,8 +370,11 @@ Default: 3 (Hit_Sound_Type_Slash)
 	/EndDescription
 1
 
-0x05C, isShapeCapsule, 0x05E, 0x05F
+0x05C, isShapeCapsule*, 0x05E, 0x05F
 Default: false, false, 0, 0
+
+isShapeCapsule - Bit 0
+isDangerZone - Bit 1
 	/EndDescription
 6
 
@@ -380,10 +383,10 @@ Default: 0 (Could be int or float - be careful)
 	/EndDescription
 0
 
-Collision Hazard NodeIndex
+Collision Hazard ~Category / ~Part
 Default: 0
 	/EndDescription
-1
+4
 
 Collision Hazard Power
 Default: 10
@@ -400,7 +403,281 @@ Default: 1
 	/EndDescription
 1
 
-Collision Hazard 0x074
+Collision Hazard Team Id
+Default: -1
+	/EndDescription
+1
+
+Collision2 Hazard Damage
+Default: 10.0
+
+	/EndDescription
+0
+
+Collision2 Hazard OffsetPosX
+Default: 0.0
+	/EndDescription
+0
+
+Collision2 Hazard OffsetPosY
+Default: 0.0
+	/EndDescription
+0
+
+Collision2 Hazard OffsetPosZ
+Default: 0.0
+	/EndDescription
+0
+
+Collision2 Hazard Size
+Default: 0.0
+
+	/EndDescription
+0
+
+Collision2 Hazard Vector
+Angle
+
+Default: 361
+	/EndDescription
+1
+
+Collision2 Hazard ReactionEffect
+Knockback Growth
+
+Default: 50
+	/EndDescription
+1
+
+Collision2 Hazard ReactionFix
+Default: 0 
+
+	/EndDescription
+1
+
+Collision2 Hazard ReactionAdd
+Base Knockback
+
+Default: 100
+	/EndDescription
+1
+
+Collision2 Hazard 0x038
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+1
+
+Collision2 Hazard ElementType
+Default: 2 (Element_Type_Slash)
+	/EndDescription
+1
+
+isClankable, 0x041, 0x042, 0x043
+Default: false, false, true, true
+	/EndDescription
+6
+
+Collision2 Hazard 0x044
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision2 Hazard 0x048
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision2 Hazard 0x04C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision2 Hazard Flags/DetectionRate
+Default: 15
+	/EndDescription
+4
+
+Collision2 Hazard HitSoundLevel
+Default: 1 (Hit_Sound_Level_Medium)
+	/EndDescription
+1
+
+Collision2 Hazard HitSoundType
+Default: 3 (Hit_Sound_Type_Slash)
+	/EndDescription
+1
+
+0x05C, isShapeCapsule*, 0x05E, 0x05F
+Default: false, false, 0, 0
+
+isShapeCapsule - Bit 0
+isDangerZone - Bit 1
+	/EndDescription
+6
+
+Collision2 Hazard 0x060
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision2 Hazard ~Category / ~Part
+Default: 0
+	/EndDescription
+4
+
+Collision2 Hazard Power
+Default: 10
+	/EndDescription
+1
+
+Collision2 Hazard 0x06C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision2 Hazard Index
+Default: 1
+	/EndDescription
+1
+
+Collision2 Hazard Team Id
+Default: -1
+	/EndDescription
+1
+
+Collision3 Hazard Damage
+Default: 10.0
+
+	/EndDescription
+0
+
+Collision3 Hazard OffsetPosX
+Default: 0.0
+	/EndDescription
+0
+
+Collision3 Hazard OffsetPosY
+Default: 0.0
+	/EndDescription
+0
+
+Collision3 Hazard OffsetPosZ
+Default: 0.0
+	/EndDescription
+0
+
+Collision3 Hazard Size
+Default: 0.0
+
+	/EndDescription
+0
+
+Collision3 Hazard Vector
+Angle
+
+Default: 361
+	/EndDescription
+1
+
+Collision3 Hazard ReactionEffect
+Knockback Growth
+
+Default: 50
+	/EndDescription
+1
+
+Collision3 Hazard ReactionFix
+Default: 0 
+
+	/EndDescription
+1
+
+Collision3 Hazard ReactionAdd
+Base Knockback
+
+Default: 100
+	/EndDescription
+1
+
+Collision3 Hazard 0x038
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+1
+
+Collision3 Hazard ElementType
+Default: 2 (Element_Type_Slash)
+	/EndDescription
+1
+
+isClankable, 0x041, 0x042, 0x043
+Default: false, false, true, true
+	/EndDescription
+6
+
+Collision Hazard 0x044
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision3 Hazard 0x048
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision3 Hazard 0x04C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision3 Hazard Flags/DetectionRate
+Default: 15
+	/EndDescription
+4
+
+Collision3 Hazard HitSoundLevel
+Default: 1 (Hit_Sound_Level_Medium)
+	/EndDescription
+1
+
+Collision3 Hazard HitSoundType
+Default: 3 (Hit_Sound_Type_Slash)
+	/EndDescription
+1
+
+0x05C, isShapeCapsule*, 0x05E, 0x05F
+Default: false, false, 0, 0
+
+isShapeCapsule - Bit 0
+isDangerZone - Bit 1
+	/EndDescription
+6
+
+Collision3 Hazard 0x060
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision3 Hazard ~Category / ~Part
+Default: 0
+	/EndDescription
+4
+
+Collision3 Hazard Power
+Default: 10
+	/EndDescription
+1
+
+Collision3 Hazard 0x06C
+Default: 0 (Could be int or float - be careful)
+	/EndDescription
+0
+
+Collision3 Hazard Index
+Default: 1
+	/EndDescription
+1
+
+Collision3 Hazard Team Id
 Default: -1
 	/EndDescription
 1

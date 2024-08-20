@@ -28,7 +28,7 @@ void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
     stTriggerData triggerData = {0,0,1,0};
-    this->createAttachMotionPath(&motionPathInfo, &triggerData, "TargetNode");
+    this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 
     this->initializeEntity();
     this->startEntity();
