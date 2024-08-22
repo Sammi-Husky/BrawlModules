@@ -79,7 +79,7 @@ Hurtbox Parameters: In the target ModelData, node to follow must be called "Hurt
 
 **Translation Z** - Speed
 
-**-Scale Z** - Delta Speed
+**-Scale Z** - Acceleration
 
 ## Punch Slider
 
