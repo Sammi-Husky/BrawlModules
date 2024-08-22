@@ -31,9 +31,9 @@ void grAdventureBarrelCannon::prepareCannonData(Vec2f* pos, float rot, float rot
     this->_cannonData.fullRotate = fullRotate;
     this->_cannonData.alwaysRotate = alwaysRotate;
     this->_cannonData.field_0xce = 0x8;
-    this->_cannonData.enterCannonTriggerData = (stTriggerData){ 0, 0, 1, 0 };
-    this->_cannonData.motionPathTriggerData = (stTriggerData){ 0, 0, 1, 0 };
-    this->_cannonData.isValidTriggerData = (stTriggerData){ 0, 0, 1, 0 };
+    this->_cannonData.enterCannonTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
+    this->_cannonData.motionPathTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
+    this->_cannonData.isValidTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
     this->_cannonData.attackData = stageData->cannonAttackData;
     this->_cannonData.shootSpeed = stageData->cannonShootSpeed;
     this->_cannonData.shootTimerSpeed = stageData->cannonShootTimerSpeed;

@@ -27,7 +27,7 @@ void grPunchSlider::prepareSliderData(int motionPathIndex, int sliderPathIndex, 
     this->_sliderData.m_160 = unk4; //3.0;
     this->_sliderData.m_164 = unk5; //0.1;
     this->_sliderData.m_168 = unk6; //1.0;
-    this->_sliderData.m_triggerData = (stTriggerData){ 0, 0, 1, 0 };
+    this->_sliderData.m_triggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
     strcpy(this->_sliderData.m_ballNodeName, "Ball_01");
 
     this->setGimmickData(&this->_sliderData);
