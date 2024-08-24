@@ -54,7 +54,7 @@ void grPlatform::update(float deltaFrame)
         if (this->landTimer <= 0) {
             this->consecutiveLandings = 0;
             this->isLandActivated = false;
-            if (this->respawnFrames < 0) {
+            if (this->respawnFrames <= -1) {
                 this->setMotion(0);
             }
             if (this->m_gimmickMotionPath != NULL) {
@@ -83,10 +83,10 @@ void grPlatform::onDamage(int index, soDamage* damage, soDamageAttackerInfo* att
         }
         this->setMotion(1);
         if (this->m_gimmickMotionPath != NULL) {
-            if (this->respawnFrames < 0) {
+            if (this->respawnFrames < -1) {
                 this->m_gimmickMotionPath->setFrameUpdate(-1.0);
             }
-            else {
+            else if (this->respawnFrames == -1) {
                 this->m_gimmickMotionPath->setFrameUpdate(0);
             }
         }
@@ -108,10 +108,10 @@ void grPlatform::receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoi
             }
             this->setMotion(1);
             if (this->m_gimmickMotionPath != NULL) {
-                if (this->respawnFrames < 0) {
+                if (this->respawnFrames < -1) {
                     this->m_gimmickMotionPath->setFrameUpdate(-1.0);
                 }
-                else {
+                else if (this->respawnFrames == -1) {
                     this->m_gimmickMotionPath->setFrameUpdate(0);
                 }
             }
