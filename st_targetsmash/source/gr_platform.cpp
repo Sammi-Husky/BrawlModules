@@ -151,7 +151,7 @@ void grPlatform::setupAttack(AttackData* attackData) {
     this->setSoCollisionAttackData(overwriteAttackData, attackData, NULL);
 }
 
-void grPlatform::setupLanding(float maxLandings, float respawnFrame) {
+void grPlatform::setupLanding(float maxLandings, float respawnFrames) {
     this->maxLandings = maxLandings;
     this->respawnFrames = respawnFrames;
 }
