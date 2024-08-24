@@ -54,7 +54,7 @@ void grPlatform::update(float deltaFrame)
         if (this->landTimer <= 0) {
             this->consecutiveLandings = 0;
             this->isLandActivated = false;
-            if (this->respawnFrames <= 0) {
+            if (this->respawnFrames < 0) {
                 this->setMotion(0);
             }
             if (this->m_gimmickMotionPath != NULL) {
