@@ -68,7 +68,7 @@ void stStadium::createObj()
     __memfill(&this->m_beltConveyor1Data, 0, sizeof(this->m_beltConveyor1Data));
     this->m_beltConveyor1Data.m_conveyorPos = (Vec3f){-65.0, 0.0, 0.0};
     this->m_beltConveyor1Data.m_speed = 0.7;
-    this->m_beltConveyor1Data.m_isRightDirection = false;
+    this->m_beltConveyor1Data.m_isRight = false;
     this->m_beltConveyor1Data.m_pos = (Vec2f){0.0, 0.0};
     this->m_beltConveyor1Data.m_range = (Vec2f){75.0, 10.0};
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick_BeltConveyor, -1);
@@ -79,7 +79,7 @@ void stStadium::createObj()
     __memfill(&this->m_beltConveyor2Data, 0, sizeof(this->m_beltConveyor2Data));
     this->m_beltConveyor2Data.m_conveyorPos = (Vec3f){65.0, 0.0, 0.0};
     this->m_beltConveyor2Data.m_speed = 0.7;
-    this->m_beltConveyor2Data.m_isRightDirection = true;
+    this->m_beltConveyor2Data.m_isRight = true;
     this->m_beltConveyor2Data.m_pos = (Vec2f){0.0, 0.0};
     this->m_beltConveyor2Data.m_range = (Vec2f){75.0, 10.0};
     trigger = g_stTriggerMng->createTrigger(Gimmick_BeltConveyor, -1);
