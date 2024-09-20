@@ -55,11 +55,10 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
     for (int i = 0; i < 4; i++) {
         if (this->elevatorData->sndIDs[i] > 0) {
             this->m_soundEffects[i].m_id = this->elevatorData->sndIDs[i];
-            this->m_soundEffects[i].m_0x10 = 0;
+            this->m_soundEffects[i].m_repeatFrames = 0;
             this->m_soundEffects[i].m_nodeIndex = 0;
-            this->m_soundEffects[i].m_0x14 = 0;
-            this->m_soundEffects[i].m_0x1c = 0.0;
-            this->m_soundEffects[i].m_0x20 = 0.0;
+            this->m_soundEffects[i].m_endFrames = 0;
+            this->m_soundEffects[i].m_offsetPos = (Vec2f){0.0, 0.0};
         }
     }
 

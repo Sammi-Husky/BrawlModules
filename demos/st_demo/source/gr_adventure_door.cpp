@@ -59,12 +59,11 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     {
         this->createEffectWork(1);
         this->m_effects[0].m_id = 0x103000c;
-        this->m_effects[0].m_0x10 = 0;
+        this->m_effects[0].m_repeatFrames = 0;
         this->m_effects[0].m_nodeIndex = this->getNodeIndex(0, "effect_locator");
-        this->m_effects[0].m_0x14 = 0;
-        this->m_effects[0].m_0x1c = 0.0;
-        this->m_effects[0].m_0x20 = 0.0;
-        this->m_effects[0].m_0x24 = 1.0;
+        this->m_effects[0].m_endFrames = 0;
+        this->m_effects[0].m_offsetPos = (Vec2f){0.0, 0.0};
+        this->m_effects[0].m_scale = 1.0;
         this->screenFadeFrames = 100.0;
     }
 }
