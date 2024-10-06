@@ -345,18 +345,7 @@ void grAdventureBarrelCannon::updateMove(float frameDelta)
 {
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->getStageData());
 
-    Vec3f pos = (Vec3f){0, 0, 0};
-    Vec3f rot = (Vec3f){0, 0, 0};
-    Vec3f scale = (Vec3f){0, 0, 0};
-    if (this->m_gimmickMotionPath != NULL) {
-        this->m_gimmickMotionPath->getTRS(&pos, &rot, &scale);
-    }
-
-    if (this->cannonData->alwaysRotate && this->rotateSpeed == 0.0)
-    {
-        this->setRot(&rot);
-    }
-    else if (this->isRotate) {
+    if (this->isRotate) {
         Vec3f rot = this->getRot();
         this->setRot(rot.m_x, rot.m_y, rot.m_z += this->rotateSpeed);
         if (!this->cannonData->fullRotate) {
@@ -371,6 +360,8 @@ void grAdventureBarrelCannon::updateMove(float frameDelta)
             this->setRot(rot.m_x, rot.m_y, rot.m_z + 360.0);
         }
     }
+    Vec3f pos = this->getPos();
+
     if ((pos.m_z > stageData->cannonActiveMinZ && pos.m_z < stageData->cannonActiveMaxZ) && !(stageData->isCannonSingleRider && this->isPlayerIn) && !this->isInCooldown) {
         this->enableArea();
     }
