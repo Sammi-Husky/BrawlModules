@@ -60,7 +60,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
                 this->startGimmickSE(0);
                 fighter->m_moduleAccesser->getPostureModule()->initPos(&warpDest);
                 if (correct == 1 || correct == 2 || correct == 3) {
-                    fighter->m_moduleAccesser->getStatusModule()->changeStatusRequest(ftStatus::Fall_1, fighter->m_moduleAccesser);
+                    fighter->m_moduleAccesser->getStatusModule()->changeStatusRequest(Fighter::Status_Fall, fighter->m_moduleAccesser);
                 }
                 g_ecMgr->setEffect(0x104004e, &warpDest);
                 break;
@@ -115,7 +115,7 @@ void grWarpZone::update(float deltaFrame) {
 
 bool grWarpZone::isInHitstun(Fighter* fighter) {
     int status = fighter->m_moduleAccesser->getStatusModule()->getStatusKind();
-    if (status == ftStatus::Hitstun_Weak_Hits || status == ftStatus::Hitstun_No_Tumble || status == ftStatus::Hitstun) {
+    if (status == Fighter::Status_Damage || status == Fighter::Status_Damage_Air || status == Fighter::Status_Damage_Fly) {
         return true;
     }
     return false;
