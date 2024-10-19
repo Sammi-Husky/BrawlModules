@@ -312,7 +312,7 @@ void stStarfox::updateSceneEffectAsteroid(float deltaFrame) {
             break;
         case 1:
             if (m_scene_grounds[0]->isFrameOffset(674.0f) == 1u) {
-                u32 effect = g_ecMgr->setEffect(0x440005);
+                u32 effect = g_ecMgr->setEffect(ef_ptc_stg_starfox_inseki);
                 m_effects[0] = effect;
                 g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "clash_meteo2", 0);
                 m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
@@ -320,7 +320,7 @@ void stStarfox::updateSceneEffectAsteroid(float deltaFrame) {
             break;
         case 2:
             if (m_scene_grounds[0]->isFrameOffset(710.0f) == 1u) {
-                u32 effect = g_ecMgr->setEffect(0x440005);
+                u32 effect = g_ecMgr->setEffect(ef_ptc_stg_starfox_inseki);
                 m_effects[1] = effect;
                 g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "clash_meteo3", 0);
                 m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
@@ -339,7 +339,7 @@ void stStarfox::updateSceneEffectSpace(float deltaFrame) {
             m_effects[2] = -1;
             m_effects[1] = -1;
             m_effects[0] = -1;
-            u32 effect = g_ecMgr->setEffect(0x440002);
+            u32 effect = g_ecMgr->setEffect(ef_ptc_stg_starfox_space_enkei);
             m_effects[0] = effect;
             g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "PPP", 0);
             m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
@@ -431,14 +431,14 @@ void stStarfox::updateSceneEffectBattleship(float deltaFrame) {
             m_effects[2] = -1;
             m_effects[1] = -1;
             m_effects[0] = -1;
-            u32 effect = g_ecMgr->setEffect(0x440001);
+            u32 effect = g_ecMgr->setEffect(ef_ptc_stg_starfox_battle_ship_enkei);
             m_effects[4] = effect;
             g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "main_rotate", 0);
             m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
             break;
         case 1:
             if (m_scene_grounds[0]->isFrameOffset(680.0f) == 1u) {
-                u32 effect = g_ecMgr->setEffect(0x440003);
+                u32 effect = g_ecMgr->setEffect(ef_ptc_stg_starfox_bakuhatu);
                 m_effects[0] = effect;
                 g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "explosion_01", 0);
                 m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
@@ -446,10 +446,10 @@ void stStarfox::updateSceneEffectBattleship(float deltaFrame) {
             break;
         case 2:
             if (m_scene_grounds[0]->isFrameOffset(692.0f) == 1u) {
-                u32 effect = g_ecMgr->setEffect(0x440003);
+                u32 effect = g_ecMgr->setEffect(ef_ptc_stg_starfox_bakuhatu);
                 m_effects[1] = effect;
                 g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "explosion_02", 0);
-                effect = g_ecMgr->setEffect(0x440004);
+                effect = g_ecMgr->setEffect(ef_ptc_stg_starfox_bakuhatu_b);
                 m_effects[3] = effect;
                 g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "explosion_02", 0);
                 m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);
@@ -457,7 +457,7 @@ void stStarfox::updateSceneEffectBattleship(float deltaFrame) {
             break;
         case 3:
             if (m_scene_grounds[0]->isFrameOffset(706.0f) == 1u) {
-                u32 effect = g_ecMgr->setEffect(0x440003);
+                u32 effect = g_ecMgr->setEffect(ef_ptc_stg_starfox_bakuhatu);
                 m_effects[2] = effect;
                 g_ecMgr->setParent(effect, m_scene_grounds[0]->m_sceneModels[0], "explosion_03", 0);
                 m_curr_scene_effect.setPhase(m_curr_scene_effect.getPhase() + 1);

@@ -76,7 +76,7 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
     trigger->setObserveYakumono(this->m_yakumono);
     this->createEffectWork(1);
     SimpleEffectData simpleEffectData;
-    this->createSimpleEffectData(&simpleEffectData, 0x1030001, "FighterPos");
+    this->createSimpleEffectData(&simpleEffectData, ef_ptc_adv_cmn_cannon, "FighterPos");
     if (0 < simpleEffectData.m_id) {
         this->m_effects[0].m_id = simpleEffectData.m_id;
         this->m_effects->m_repeatFrames = simpleEffectData.m_repeatFrames;
@@ -101,7 +101,7 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->m_soundEffects[1].m_nodeIndex = 0;
     this->m_soundEffects[1].m_endFrames = 0;
     this->m_soundEffects[1].m_offsetPos = (Vec2f){0.0, 0.0};
-    this->createSimpleEffectData(&simpleEffectData, 0x1030006, "effect_locator");
+    this->createSimpleEffectData(&simpleEffectData, ef_ptc_adv_cmn_add, "effect_locator");
     u32 visProdIndex = 4;
     this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->m_visibleProductions);
     this->makeCalcuCallback(1, Heaps::StageInstance);

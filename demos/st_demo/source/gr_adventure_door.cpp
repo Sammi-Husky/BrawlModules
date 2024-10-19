@@ -51,14 +51,14 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->setPos(this->doorData->pos.m_x, this->doorData->pos.m_y, 0);
     this->setRot(0, 0, 0);
     SimpleEffectData simpleEffectData;
-    this->createSimpleEffectData(&simpleEffectData, 0x103001d, "effect_locator");
+    this->createSimpleEffectData(&simpleEffectData, ef_ptc_adv_cmn_door_add, "effect_locator");
     u32 visProdIndex = 4;
     this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->m_visibleProductions);
     this->createIsValidTrigger(&this->doorData->isValidTriggerData);
     if (this->doorData->doorType == Warp_Door)
     {
         this->createEffectWork(1);
-        this->m_effects[0].m_id = 0x103000c;
+        this->m_effects[0].m_id = ef_ptc_adv_cmn_warp;
         this->m_effects[0].m_repeatFrames = 0;
         this->m_effects[0].m_nodeIndex = this->getNodeIndex(0, "effect_locator");
         this->m_effects[0].m_endFrames = 0;

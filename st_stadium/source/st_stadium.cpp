@@ -323,7 +323,7 @@ void stStadium::updateSpecialStage(float deltaFrame) {
                     this->m_preTransformEvent.end();
                     this->m_stadiumScaleY = 1.0;
                     this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
-                    g_ecMgr->setEffect(0x450001);
+                    g_ecMgr->setEffect(ef_ptc_stg_stadium_kemuri);
                     this->m_transformEvent.start();
                     this->m_transformSfxIndex = this->playSeBasic(snd_se_stage_Stadium_01, 0);
                     this->zoomOutCamera(300.0, 310.0);
@@ -571,7 +571,7 @@ void stStadium::updateSpecialStage(float deltaFrame) {
                     this->m_preTransformEvent.end();
                     this->m_typeEvent.end();
                     this->m_phaseEvent.setPhase(this->m_phaseEvent.getPhase() + 1);
-                    g_ecMgr->setEffect(0x450001);
+                    g_ecMgr->setEffect(ef_ptc_stg_stadium_kemuri);
                     this->m_transformEvent.start();
                     this->m_transformSfxIndex = this->playSeBasic(snd_se_stage_Stadium_01, 0);
                     this->stopSeBasic(this->m_typeSfx1Index, 4.0);

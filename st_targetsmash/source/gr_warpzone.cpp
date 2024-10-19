@@ -62,7 +62,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
                 if (correct == 1 || correct == 2 || correct == 3) {
                     fighter->m_moduleAccesser->getStatusModule()->changeStatusRequest(Fighter::Status_Fall, fighter->m_moduleAccesser);
                 }
-                g_ecMgr->setEffect(0x104004e, &warpDest);
+                g_ecMgr->setEffect(ef_ptc_pokemon_enemy_in, &warpDest);
                 break;
             case 12:
                 if (this->isInHitstun(fighter)) {
@@ -71,7 +71,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
             case 2: // Keep status
                 this->startGimmickSE(0);
                 fighter->m_moduleAccesser->getPostureModule()->initPos(&warpDest);
-                g_ecMgr->setEffect(0x104004e, &warpDest);
+                g_ecMgr->setEffect(ef_ptc_pokemon_enemy_in, &warpDest);
                 break;
             case 13:
                 if (this->isInHitstun(fighter)) {

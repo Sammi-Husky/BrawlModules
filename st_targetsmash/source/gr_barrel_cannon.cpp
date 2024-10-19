@@ -105,7 +105,7 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
     trigger->setObserveYakumono(this->m_yakumono);
     this->createEffectWork(1);
     SimpleEffectData simpleEffectData;
-    this->createSimpleEffectData(&simpleEffectData, 0x1030001, "FighterPos");
+    this->createSimpleEffectData(&simpleEffectData, ef_ptc_adv_cmn_cannon, "FighterPos");
     if (0 < simpleEffectData.m_id) {
         this->m_effects[0].m_id = simpleEffectData.m_id;
         this->m_effects[0].m_repeatFrames = simpleEffectData.m_repeatFrames;
@@ -131,7 +131,7 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->m_soundEffects[1].m_nodeIndex = 0;
     this->m_soundEffects[1].m_endFrames = 0;
     this->m_soundEffects[1].m_offsetPos = (Vec2f){0.0, 0.0};
-    this->createSimpleEffectData(&simpleEffectData, 0x1030006, "effect_locator");
+    this->createSimpleEffectData(&simpleEffectData, ef_ptc_adv_cmn_add, "effect_locator");
     u32 visProdIndex = 4;
     this->createEffectVisibleProductionForExcel(&simpleEffectData, &visProdIndex, this->m_visibleProductions);
     this->makeCalcuCallback(1, Heaps::StageInstance);
@@ -250,7 +250,7 @@ void grAdventureBarrelCannon::processFixPosition() {
 
                         Vec3f pos = {0,-100,0};
                         g_ecMgr->setDrawPrio(1);
-                        this->effectIndex = g_ecMgr->setEffect(0x3c0003, &pos);
+                        this->effectIndex = g_ecMgr->setEffect((EfID)0x3c0003, &pos);
                         g_ecMgr->setDrawPrio(0xffffffff);
                     }
                     break;

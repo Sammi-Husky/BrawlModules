@@ -29,7 +29,7 @@ void grFinal::updateEff()
         {
         case 0:
             g_ecMgr->setDrawPrio(1);
-            g_ecMgr->setEffect(0x330001);
+            g_ecMgr->setEffect(ef_ptc_stg_final_zenpan);
             g_ecMgr->setDrawPrio(0xffffffff);
             unk_float = EFF_SOMETHING;
             step++;
@@ -38,7 +38,7 @@ void grFinal::updateEff()
             if (this->getMotionFrame(0) >= EFF_FRAME_MAX1)
             {
                 g_ecMgr->setDrawPrio(1);
-                u32 unk = g_ecMgr->setEffect(0x330002);
+                u32 unk = g_ecMgr->setEffect(ef_ptc_stg_final_star);
                 g_ecMgr->setDrawPrio(0xffffffff);
                 g_ecMgr->setParent(unk, this->m_sceneModels[0], "spaceB", 0); // sceneModel is actually supposed to be a wrapper of some kind
                 step++;
@@ -48,7 +48,7 @@ void grFinal::updateEff()
             if (this->getMotionFrame(0) >= EFF_FRAME_MAX2)
             {
                 g_ecMgr->setDrawPrio(1);
-                u32 unk = g_ecMgr->setEffect(0x330003);
+                u32 unk = g_ecMgr->setEffect(ef_ptc_stg_final_kirakira);
                 g_ecMgr->setDrawPrio(0xffffffff);
                 g_ecMgr->setParent(unk, this->m_sceneModels[0], "spaceF", 0); // sceneModel is actually supposed to be a wrapper of some kind
                 step++;

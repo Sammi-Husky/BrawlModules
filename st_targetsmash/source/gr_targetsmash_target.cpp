@@ -99,7 +99,7 @@ void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttacker
     this->deleteAttackPoint();
     this->startGimmickSE(0);
     Vec3f pos = this->getPos();
-    g_ecMgr->setEffect(0x12b0000 + this->effectIndex, &pos);
+    g_ecMgr->setEffect((EfID)(0x12b0000 + this->effectIndex), &pos);
     this->setMotion(1);
 }
 
