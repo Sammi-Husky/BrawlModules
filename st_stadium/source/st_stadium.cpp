@@ -817,10 +817,10 @@ void stStadium::updateVisionScreenPos() {
     cmSubject* camSubject = cmSubjectList::getSubjectByPlayerNo(this->m_focusedPlayerNo);
     if (camSubject != NULL) {
         this->m_zoom += (this->m_targetZoom - this->m_zoom) / 10.0;
-        Rect2D range = (Rect2D){camSubject->m_range.m_left*this->m_zoom, camSubject->m_range.m_right*this->m_zoom, camSubject->m_range.m_top*this->m_zoom, camSubject->m_range.m_bottom*this->m_zoom};
-        Vec3f rangePos1 = (Vec3f){camSubject->m_pos.m_x + range.m_left - this->m_cameraPos1.m_x, camSubject->m_pos.m_y + range.m_bottom - this->m_cameraPos1.m_y, camSubject->m_pos.m_z - this->m_cameraPos1.m_z}*0.25;
+        Rect2D range = (Rect2D){camSubject->m_range.m_left*this->m_zoom, camSubject->m_range.m_right*this->m_zoom, camSubject->m_range.m_up*this->m_zoom, camSubject->m_range.m_down*this->m_zoom};
+        Vec3f rangePos1 = (Vec3f){camSubject->m_pos.m_x + range.m_left - this->m_cameraPos1.m_x, camSubject->m_pos.m_y + range.m_down - this->m_cameraPos1.m_y, camSubject->m_pos.m_z - this->m_cameraPos1.m_z}*0.25;
         this->m_cameraPos1 += rangePos1;
-        Vec3f rangePos2 = (Vec3f){camSubject->m_pos.m_x + range.m_right - this->m_cameraPos2.m_x, camSubject->m_pos.m_y + range.m_top - this->m_cameraPos2.m_y, camSubject->m_pos.m_z - this->m_cameraPos2.m_z}*0.25;
+        Vec3f rangePos2 = (Vec3f){camSubject->m_pos.m_x + range.m_right - this->m_cameraPos2.m_x, camSubject->m_pos.m_y + range.m_up - this->m_cameraPos2.m_y, camSubject->m_pos.m_z - this->m_cameraPos2.m_z}*0.25;
         this->m_cameraPos2 += rangePos2;
 
         Vec2f projPos1;
