@@ -89,7 +89,7 @@ void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex, u3
 void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
     (*this->targetsHitWork)++;
     (*this->targetsLeftWork)--;
-    *this->totalDamageWork += damage->m_damage;
+    *this->totalDamageWork += damage->m_damageAdd;
     int playerNo = g_ftManager->getPlayerNo(attackerInfo->m_indirectAttackerEntryId);
     if (playerNo >= 0) {
         this->numTargetsHitPerPlayerWork[playerNo]++;
