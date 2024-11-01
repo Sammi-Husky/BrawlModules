@@ -17,12 +17,12 @@ class stGreenHill : public stMelee {
 public:
     //soArrayNull<soCollisionAttackPart> m_arrayNull;
     soArrayVector<soCollisionAttackPart, 1> m_arrayVector;
-    soCollisionAttackModuleBuilder<soCollisionAttackModuleBuildConfig<0, 5, 2, soCollisionAttackModuleImpl, 0, false, true> > collisionAttackTest;
-    soCollisionHitModuleBuilder<soCollisionHitModuleBuildConfig<0, 5, 2, soCollisionHitModuleImpl, 0, true> > collisionHitTest;
+    soCollisionAttackModuleBuilder<soCollisionAttackModuleBuildConfig<soCollision::Category_Fighter, 5, 2, soCollisionAttackModuleImpl, 0, false, true> > collisionAttackTest;
+    soCollisionHitModuleBuilder<soCollisionHitModuleBuildConfig<soCollision::Category_Fighter, 5, 2, soCollisionHitModuleImpl, 0, true> > collisionHitTest;
 
     soPostureModuleBuilder<soPostureModuleBuildConfig<1, soPostureModuleImpl> > postureModuleTest;
 
-    stGreenHill() : stMelee("stGreenHill", Stages::GreenHill), collisionAttackTest(NULL, -1, 6, NULL), collisionHitTest(NULL, -1, 6, NULL), postureModuleTest(NULL, NULL) {
+    stGreenHill() : stMelee("stGreenHill", Stages::GreenHill), collisionAttackTest(NULL, -1, gfTask::Category_Ground, NULL), collisionHitTest(NULL, -1, gfTask::Category_Ground, NULL), postureModuleTest(NULL, NULL) {
 
     };
     static stGreenHill* create();
