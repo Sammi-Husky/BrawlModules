@@ -214,7 +214,7 @@ public:
     virtual void setVision(u8 index);
     virtual ~stStadium() {
         this->releaseArchive();
-        g_GameGlobal->m_modeMelee->m_meleeInitData.m_0x7_0 = false;
+        g_GameGlobal->m_modeMelee->m_meleeInitData.m_isAmplifySongAttack = false;
     };
 
     virtual void createObjDetails();

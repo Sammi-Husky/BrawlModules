@@ -291,11 +291,16 @@ void stStadium::enableVisionScreen() {
     this->m_nextPlayerIndex++;
 
     gmGlobalModeMelee* globalModeMelee = g_GameGlobal->m_modeMelee;
-    if (globalModeMelee->m_playersInitData[this->m_focusedPlayerNo].m_characterKind == Character_Purin && globalModeMelee->m_playersInitData[this->m_focusedPlayerNo].m_state == 3) {
-        globalModeMelee->m_meleeInitData.m_0x7_0 = true;
+    if (globalModeMelee->m_playersInitData[this->m_focusedPlayerNo].m_characterKind == Character_Purin
+        && globalModeMelee->m_playersInitData[this->m_focusedPlayerNo].m_state != 0) { // Note: Changed condition to be != instead of ==
+        globalModeMelee->m_meleeInitData.m_isAmplifySongAttack = true;
+
+        // TODO: Hazard check?
+        // TODO: Make sure to turn off if no longer in vision
+        // TODO: Affects every Puff even if no in vision. Maybe write to RA bit directly instead if camera is close up and in range of camera and in the sing status? or have a different set of bits for each player that any stage can write to and any character can read
     }
     else {
-        globalModeMelee->m_meleeInitData.m_0x7_0 = false;
+        globalModeMelee->m_meleeInitData.m_isAmplifySongAttack = false;
     }
 }
 
