@@ -34,8 +34,6 @@ void grPlatform::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->m_soundEffects[1].m_nodeIndex = 0;
     this->m_soundEffects[1].m_endFrames = 0;
     this->m_soundEffects[1].m_offsetPos = (Vec2f){0.0, 0.0};
-
-    this->setMotion(0);
 }
 
 void grPlatform::update(float deltaFrame)

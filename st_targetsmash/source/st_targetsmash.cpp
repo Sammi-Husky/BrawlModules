@@ -470,6 +470,7 @@ void stTargetSmash::createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float
         platform->setPos(pos->m_x, pos->m_y, 0.0);
         platform->setScale(scale, scale, scale);
         platform->setRot(0.0, 0.0, rot);
+        platform->setMotion(0);
         if (collIndex > 0) {
             createCollision(m_fileData, collIndex, platform);
         }
@@ -492,6 +493,7 @@ void stTargetSmash::createObjBreak(int mdlIndex, Vec2f* pos, float rot, int moti
         platform->startEntity();
         platform->setPos(pos->m_x, pos->m_y, 0.0);
         platform->setRot(0.0, 0.0, rot);
+        platform->setMotion(0);
         if (collIndex > 0) {
             createCollision(m_fileData, collIndex, platform);
         }
@@ -508,6 +510,7 @@ void stTargetSmash::createObjLand(int mdlIndex, Vec2f* pos, float rot, int motio
         platform->setupLanding(maxLandings, respawnTime);
         platform->setPos(pos->m_x, pos->m_y, 0.0);
         platform->setRot(0.0, 0.0, rot);
+        platform->setMotion(0);
         createCollision(m_fileData, collIndex, platform);
     }
 }

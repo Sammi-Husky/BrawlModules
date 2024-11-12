@@ -297,7 +297,7 @@ void stStadium::enableVisionScreen() {
 
         // TODO: Hazard check?
         // TODO: Make sure to turn off if no longer in vision
-        // TODO: Affects every Puff even if no in vision. Maybe write to RA bit directly instead if camera is close up and in range of camera and in the sing status? or have a different set of bits for each player that any stage can write to and any character can read
+        // TODO: Affects every Puff even if no in vision. Maybe write to RA bit directly instead if camera is close up and in range of camera and in the sing status? or have a different set of bits for each player that any stage can write to and any character can read (or maybe use sticker system?)
     }
     else {
         globalModeMelee->m_meleeInitData.m_isAmplifySongAttack = false;

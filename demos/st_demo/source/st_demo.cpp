@@ -189,7 +189,7 @@ void stDemo::createObj()
     this->cannonData.attackData.m_soundLevel = soCollisionAttackData::Sound_Level_Medium;
     this->cannonData.attackData.m_soundAttribute = soCollisionAttackData::Sound_Attribute_Punch;
     this->cannonData.attackData.m_unk5 = false;
-    this->cannonData.attackData.m_isCapsule = false;
+    this->cannonData.attackData.m_shapeType = soCollision::Shape_Sphere;
     //char _spacer3[6];
     this->cannonData.attackData.m_nodeIndex = 0;
     this->cannonData.attackData.m_power = 0x1E;
