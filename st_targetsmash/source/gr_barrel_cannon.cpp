@@ -379,7 +379,7 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int*
     int playerNumber = this->getPlayerNumber(taskId);
     this->isPlayerIn = true;
     switch (cannonEventInfo->m_kind) {
-        case 0x2:
+        case Gimmick_Barrel_Event_In:
             this->isRotate = true;
             for (int i = 0; i < NUM_PLAYERS; i++) {
                 if (this->cannonPlayerInfos[i].isActive) {
@@ -414,7 +414,7 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int*
                 this->autoFireTimer = this->cannonData->autoFireFrames;
             }
             break;
-        case 0x3:
+        case Gimmick_Barrel_Event_Shoot_Trigger:
             this->isRotate = this->cannonData->alwaysRotate;
             for (int i = 0; i < NUM_PLAYERS; i++) {
                 if (this->cannonPlayerInfos[i].isActive && this->cannonPlayerInfos[i].state != PlayerState_Path) {
@@ -424,7 +424,7 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int*
             this->changeNodeAnim(1,0);
             this->cannonState = State_Fire;
             break;
-        case 0x33:
+        case Gimmick_Event_Exit:
             this->eraseSendID(cannonEventInfo->m_sendID);
             break;
         default:

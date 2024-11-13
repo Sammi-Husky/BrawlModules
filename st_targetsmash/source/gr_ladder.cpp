@@ -51,8 +51,8 @@ void grLadder::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
     grGimmickLadderEventInfo* ladderEventInfo = static_cast<grGimmickLadderEventInfo*>(eventInfo);
     switch(ladderEventInfo->m_kind) {
         case 0x14:
-            this->getUpperNode(&ladderEventInfo->m_upperNode);
-            this->getUnderNode(&ladderEventInfo->m_underNode);
+            this->getUpperNode(&ladderEventInfo->m_upperNodePos);
+            this->getUnderNode(&ladderEventInfo->m_underNodePos);
             ladderEventInfo->m_restrictUpExit = this->m_restrictUpExit;
             ladderEventInfo->m_33 = this->m_51;
             break;

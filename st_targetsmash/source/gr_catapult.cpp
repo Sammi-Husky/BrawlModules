@@ -38,7 +38,7 @@ void grCatapult::prepareCatapultData(float vector, float motionRatio, int motion
     this->_catapultData.m_areaOffsetPos.m_y = 3.0;
     this->_catapultData.m_areaRange.m_x = 10.0;
     this->_catapultData.m_areaRange.m_y = 5.0;
-    this->_catapultData.m_framesBeforeStartMove = framesBeforeStartMove; //30.0;
+    this->_catapultData.m_startMoveFrame = framesBeforeStartMove; //30.0;
     this->_catapultData.m_52 = unk1; //60.0;
     this->_catapultData.m_56 = unk2; //1.0;
     this->_catapultData.m_vector = vector; //15.0;
