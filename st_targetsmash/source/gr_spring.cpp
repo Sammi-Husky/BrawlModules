@@ -50,13 +50,20 @@ void grSpring::update(float deltaFrame) {
         this->setEnableCollisionStatus(false);
         this->disableArea();
     }
+    this->getNodePosition(&pos, 0, "AreaNode");
+    if (pos.m_z >= 0) {
+        this->enableArea();
+    }
+    else {
+        this->disableArea();
+    }
 
     this->updateCallback(0);
 }
 
 void grSpring::presentShootEvent() {
-    grGimmickEventSpringInfo eventInfo;
-    eventInfo.m_state = 0x18;
+    grGimmickSpringEventInfo eventInfo;
+    eventInfo.m_kind = Gimmick_Spring_Event_Shoot;
     eventInfo.m_sendID = 0;
     this->getTopNode(&eventInfo.m_topPos);
     eventInfo.m_bounce = this->m_bounce;

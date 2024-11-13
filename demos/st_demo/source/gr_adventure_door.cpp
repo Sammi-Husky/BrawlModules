@@ -20,13 +20,13 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     switch (this->doorData->doorGimmickKind)
     {
     case Door_GimmickKind_Air:
-        this->gimmickKind = Gimmick_DoorAir;
+        this->gimmickKind = Gimmick_Area_Door_Air;
         break;
     case Door_GimmickKind_GroundAuto:
-        this->gimmickKind = Gimmick_DoorGroundAuto;
+        this->gimmickKind = Gimmick_Area_Door_Auto;
         break;
     case Door_GimmickKind_AirAuto:
-        this->gimmickKind = Gimmick_DoorAirAuto;
+        this->gimmickKind = Gimmick_Area_Block;
         break;
     default:
         break;
@@ -102,18 +102,18 @@ void grAdventureDoor::update(float deltaFrame)
 
 void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 {
-    grGimmickEventDoorInfo* doorEventInfo = (grGimmickEventDoorInfo*)eventInfo;
+    grGimmickDoorEventInfo* doorEventInfo = (grGimmickDoorEventInfo*)eventInfo;
 
     // grYakumono::onGimmickEvent(state, taskId);
 
     if (this->doorData->doorGimmickKind == Door_GimmickKind_AirAuto)
     {
-        if (doorEventInfo->m_state == 0x32)
+        if (eventInfo->m_kind == 0x32)
         {
             // stAdventure2::requestStepJump(g_stAdventure2,(this->_).jumpData)
         }
     }
-    else if (doorEventInfo->m_state == 0x11)
+    else if (eventInfo->m_kind == 0x11)
     {
         doorEventInfo->m_pos = this->getPos();
         if (this->doorData->doorType == Warp_Door)
@@ -135,7 +135,7 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
         this->openTheDoor();
         // stAdventure2::notifyEntryDoor(g_stAdventure2);
         // stAreaManager::eraseAll(g_stAreaManager)
-        g_stTriggerMng->createTrigger(Gimmick_DoorGround, &this->doorData->openDoorTriggerData);
+        g_stTriggerMng->createTrigger(Gimmick_Area_Door, &this->doorData->openDoorTriggerData);
         g_stTriggerMng->setTriggerFlag(&this->doorData->openDoorTriggerData);
         this->m_motionRatio = 1.0;
         if (this->doorData->doorType == Yellow_Door || this->doorData->doorType == Factory_Yellow_Door)

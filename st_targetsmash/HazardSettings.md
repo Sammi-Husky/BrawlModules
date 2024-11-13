@@ -117,6 +117,8 @@ Hurtbox Parameters: In the target ModelData, node to follow must be called "Hurt
 
 **Scale Z** - Bounce
 
+Turn off by setting "AreaNode" to negative Pos Z
+
 ## Cannon
 
 **Rotation X** - ModelData Index
@@ -147,7 +149,7 @@ Hurtbox Parameters: In the target ModelData, node to follow must be called "Hurt
 
 **Rotation Z** - 0 or 1, unknown
 
-Turn off by setting "CollisionNode" to negative Pos Z
+Turn off by setting "AreaNode" to negative Pos Z
 
 ## Catapult
 
@@ -165,7 +167,7 @@ Turn off by setting "CollisionNode" to negative Pos Z
 
 **Rotation Z** - Unk2 (Default: 1.0)
 
-Turn off by setting "CollisionNode" to negative Pos Z
+Turn off by setting "AreaNode" to negative Pos Z
 
 ## Warp
 

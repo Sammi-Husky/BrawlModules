@@ -22,7 +22,7 @@ void grCatapult::update(float deltaFrame) {
     grGimmickCatapult::update(deltaFrame);
 
     Vec3f pos = (Vec3f){0, 0, 0};
-    this->getNodePosition(&pos, 0, "CollisionNode");
+    this->getNodePosition(&pos, 0, "AreaNode");
     if (pos.m_z >= 0) {
         this->enableArea();
     }

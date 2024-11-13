@@ -71,7 +71,7 @@ void stStadium::createObj()
     this->m_beltConveyor1Data.m_isRight = false;
     this->m_beltConveyor1Data.m_pos = (Vec2f){0.0, 0.0};
     this->m_beltConveyor1Data.m_range = (Vec2f){75.0, 10.0};
-    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick_BeltConveyor, -1);
+    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick_Area_BeltConveyor, -1);
     trigger->setBeltConveyorTrigger(&this->m_beltConveyor1Data);
     this->m_beltConveyor1Trigger = trigger;
     trigger->setAreaSleep(true);
@@ -82,7 +82,7 @@ void stStadium::createObj()
     this->m_beltConveyor2Data.m_isRight = true;
     this->m_beltConveyor2Data.m_pos = (Vec2f){0.0, 0.0};
     this->m_beltConveyor2Data.m_range = (Vec2f){75.0, 10.0};
-    trigger = g_stTriggerMng->createTrigger(Gimmick_BeltConveyor, -1);
+    trigger = g_stTriggerMng->createTrigger(Gimmick_Area_BeltConveyor, -1);
     trigger->setBeltConveyorTrigger(&this->m_beltConveyor2Data);
     this->m_beltConveyor2Trigger = trigger;
     trigger->setAreaSleep(true);
