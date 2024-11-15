@@ -13,23 +13,10 @@ grPunchSlider* grPunchSlider::create(int mdlIndex, const char* taskName) {
 
 void grPunchSlider::prepareSliderData(int motionPathIndex, int sliderPathIndex, float unk1, float unk2, float unk3, float unk4, float unk5, float unk6) {
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->getStageData());
-    __memfill(&this->_sliderData, 0, sizeof(grGimmickPunchSliderData));
-    this->_sliderData.m_motionPathData.m_motionRatio = 1.0;
-    this->_sliderData.m_motionPathData.m_pathMode = grGimmickMotionPathData::Path_Loop;
-    this->_sliderData.m_motionPathData.m_mdlIndex = motionPathIndex;
-    this->_sliderData.m_sliderPathData.m_motionRatio = 1.0;
-    this->_sliderData.m_sliderPathData.m_mdlIndex = sliderPathIndex;
-    this->_sliderData.m_hitData.m_size = 8.0;
-    this->_sliderData.m_attackData = stageData->sliderAttackData;
-    this->_sliderData.m_148 = unk1; //0.9;
-    this->_sliderData.m_152 = unk2; //0.98;
-    this->_sliderData.m_156 = unk3; //60.0;
-    this->_sliderData.m_160 = unk4; //3.0;
-    this->_sliderData.m_164 = unk5; //0.1;
-    this->_sliderData.m_168 = unk6; //1.0;
-    this->_sliderData.m_triggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
-    strcpy(this->_sliderData.m_ballNodeName, "Ball_01");
-
+    this->_sliderData.initialize(unk1, unk2, unk3, unk4, unk5, unk6, //0.9, 0.98, 60.0, 3.0, 0.1, 1.0
+                                 &stageData->sliderAttackData, 8.0, "Ball_01",
+                                 1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0,
+                                 1.0, 0, sliderPathIndex, 0);
     this->setGimmickData(&this->_sliderData);
 };
 

@@ -18,11 +18,7 @@ grAdventureBarrelCannon* grAdventureBarrelCannon::create(int mdlIndex, BarrelCan
 void grAdventureBarrelCannon::prepareCannonData(Vec2f* pos, float rot, float rotSpeed, float maxRot, int motionPathIndex, bool alwaysRotate, bool fullRotate, float autoFireFrames) {
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->getStageData());
 
-    this->_cannonData.motionPathData.m_motionRatio = 1.0;
-    this->_cannonData.motionPathData.m_index = 0;
-    this->_cannonData.motionPathData.m_pathMode = grGimmickMotionPathData::Path_Loop;
-    this->_cannonData.motionPathData.m_mdlIndex = motionPathIndex;
-    this->_cannonData.motionPathData.m_7 = 0x0;
+    this->_cannonData.motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0};
     this->_cannonData.pos = *pos;
     this->_cannonData.rot = rot;
     this->_cannonData.maxRot = maxRot;

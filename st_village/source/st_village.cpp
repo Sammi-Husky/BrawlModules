@@ -7,7 +7,6 @@
 #include "gr_village_stage_data.h"
 
 #include <gm/gm_global.h>
-#include <gr/gr_collision.h>
 #include <memory.h>
 #include <mt/mt_prng.h>
 #include <snd/snd_system.h>

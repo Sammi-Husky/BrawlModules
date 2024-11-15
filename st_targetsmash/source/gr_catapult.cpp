@@ -32,19 +32,11 @@ void grCatapult::update(float deltaFrame) {
 }
 
 void grCatapult::prepareCatapultData(float vector, float motionRatio, int motionPathIndex, float framesBeforeStartMove, float unk1, float unk2) {
-    __memfill(&this->_catapultData, 0, sizeof(grGimmickCatapultData));
-    this->_catapultData.m_motionPathData.m_motionRatio = motionRatio; //5.4;
-    this->_catapultData.m_motionPathData.m_mdlIndex = motionPathIndex;
-    this->_catapultData.m_areaOffsetPos.m_y = 3.0;
-    this->_catapultData.m_areaRange.m_x = 10.0;
-    this->_catapultData.m_areaRange.m_y = 5.0;
-    this->_catapultData.m_startMoveFrame = framesBeforeStartMove; //30.0;
-    this->_catapultData.m_52 = unk1; //60.0;
-    this->_catapultData.m_56 = unk2; //1.0;
-    this->_catapultData.m_vector = vector; //15.0;
-    if (vector > 90 && vector <= 270) {
-        this->_catapultData.m_isFaceLeft = true;
-    }
-    this->_catapultData.m_useNoHelperWarp = true;
+    this->_catapultData.initialize(
+            framesBeforeStartMove, unk1, unk2, vector, this->m_mdlIndex, (vector > 90 && vector <= 270) ? true : false, true,
+            motionRatio, 0, motionPathIndex, 0,
+            &(Vec2f){0.0, 3.0}, &(Vec2f){10.0, 5.0}
+            );
+
     this->setGimmickData(&this->_catapultData);
 }

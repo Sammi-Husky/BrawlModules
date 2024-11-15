@@ -36,11 +36,7 @@ void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 void grTargetSmashDisk::setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
                                         u32* numTargetsHitPerPlayerWork, float* totalDamageWork, int mode) {
 
-    this->motionPathData.m_motionRatio = 1.0;
-    this->motionPathData.m_index = 0;
-    this->motionPathData.m_pathMode = grGimmickMotionPathData::Path_Loop;
-    this->motionPathData.m_mdlIndex = motionPathIndex;
-    this->motionPathData.m_7 = 0x0;
+    this->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0};
 
     this->targetsHitWork = targetsHitWork;
     this->targetsLeftWork = targetsLeftWork;
