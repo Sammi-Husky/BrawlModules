@@ -54,8 +54,5 @@ public:
     virtual bool isBamperVector();
     virtual ~stFinal() { this->releaseArchive(); };
 
-    virtual void notifyEventInfoGo();
-
-
     //STATIC_CHECK(sizeof(stFinal) == 0x1D8)
 };

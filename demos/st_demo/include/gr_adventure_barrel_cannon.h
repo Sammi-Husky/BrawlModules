@@ -100,7 +100,7 @@ protected:
     unsigned int animFireLength;
     float rotThreshold;
     soAreaData areaData;
-    soAreaInit areaInit;
+    soSet<soAreaData> areaInit;
     ykAreaData areaInfo;
 
 public:

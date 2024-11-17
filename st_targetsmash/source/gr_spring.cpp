@@ -62,8 +62,8 @@ void grSpring::update(float deltaFrame) {
 }
 
 void grSpring::presentShootEvent() {
-    grGimmickSpringEventInfo eventInfo;
-    eventInfo.m_kind = Gimmick_Spring_Event_Shoot;
+    soGimmickSpringEventInfo eventInfo;
+    eventInfo.m_kind = Gimmick::Spring_Event_Shoot;
     eventInfo.m_sendID = 0;
     this->getTopNode(&eventInfo.m_topPos);
     eventInfo.m_bounce = this->m_bounce;

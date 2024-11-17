@@ -41,7 +41,7 @@ protected:
     float maxDistanceForAccel;
     float field_0x18c;
     soAreaData areaData;
-    soAreaInit areaInit;
+    soSet<soAreaData> areaInit;
     ykAreaData areaInfo;
 
 public:

@@ -73,7 +73,7 @@ void stStadium::createObj()
             &(Vec2f){75.0, 10.0},
             gfArea::Shape_Rectangle
     );
-    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick_Area_BeltConveyor, -1);
+    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_BeltConveyor, -1);
     trigger->setBeltConveyorTrigger(&this->m_beltConveyor1Data);
     this->m_beltConveyor1Trigger = trigger;
     trigger->setAreaSleep(true);
@@ -86,7 +86,7 @@ void stStadium::createObj()
             &(Vec2f){75.0, 10.0},
             gfArea::Shape_Rectangle
     );
-    trigger = g_stTriggerMng->createTrigger(Gimmick_Area_BeltConveyor, -1);
+    trigger = g_stTriggerMng->createTrigger(Gimmick::Area_BeltConveyor, -1);
     trigger->setBeltConveyorTrigger(&this->m_beltConveyor2Data);
     this->m_beltConveyor2Trigger = trigger;
     trigger->setAreaSleep(true);

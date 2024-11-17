@@ -20,13 +20,13 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     switch (this->doorData->doorGimmickKind)
     {
     case Door_GimmickKind_Air:
-        this->gimmickKind = Gimmick_Area_Door_Air;
+        this->gimmickKind = Gimmick::Area_Door_Air;
         break;
     case Door_GimmickKind_GroundAuto:
-        this->gimmickKind = Gimmick_Area_Door_Auto;
+        this->gimmickKind = Gimmick::Area_Door_Auto;
         break;
     case Door_GimmickKind_AirAuto:
-        this->gimmickKind = Gimmick_Area_Block;
+        this->gimmickKind = Gimmick::Area_Block;
         break;
     default:
         break;
@@ -102,7 +102,7 @@ void grAdventureDoor::update(float deltaFrame)
 
 void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 {
-    grGimmickDoorEventInfo* doorEventInfo = (grGimmickDoorEventInfo*)eventInfo;
+    soGimmickDoorEventInfo* doorEventInfo = (soGimmickDoorEventInfo*)eventInfo;
 
     // grYakumono::onGimmickEvent(state, taskId);
 
@@ -135,7 +135,7 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
         this->openTheDoor();
         // stAdventure2::notifyEntryDoor(g_stAdventure2);
         // stAreaManager::eraseAll(g_stAreaManager)
-        g_stTriggerMng->createTrigger(Gimmick_Area_Door, &this->doorData->openDoorTriggerData);
+        g_stTriggerMng->createTrigger(Gimmick::Area_Door, &this->doorData->openDoorTriggerData);
         g_stTriggerMng->setTriggerFlag(&this->doorData->openDoorTriggerData);
         this->m_motionRatio = 1.0;
         if (this->doorData->doorType == Yellow_Door || this->doorData->doorType == Factory_Yellow_Door)

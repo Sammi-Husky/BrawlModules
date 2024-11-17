@@ -56,7 +56,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->nextFloor = this->prevFloor;
     this->areaData = (soAreaData){ 0, 0x17, 1, 0, 0, 0, this->elevatorData.areaOffsetPos, this->elevatorData.areaRange };
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);
-    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick_Area_Elevator, -1);
+    stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Elevator, -1);
     trigger->setObserveYakumono(this->m_yakumono);
     this->createSoundWork(4,1);
     SndID sndId = snd_se_ADVstage_common_57;
@@ -92,7 +92,7 @@ void grAdventureElevator::update(float deltaFrame)
 
 void grAdventureElevator::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
 {
-    grGimmickElevatorEventInfo* elevatorEventInfo = (grGimmickElevatorEventInfo*)eventInfo;
+    soGimmickElevatorEventInfo* elevatorEventInfo = (soGimmickElevatorEventInfo*)eventInfo;
     if (this->state == Elevator_State_Rest) {
         switch(elevatorEventInfo->m_kind) {
             case 0x2b:
