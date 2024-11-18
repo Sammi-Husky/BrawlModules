@@ -21,7 +21,7 @@ void grLadder::startupLadder(gfArchive* archive, u32 unk1, u32 unk2, grGimmickLa
     Vec3f underNode;
     this->getUpperNode(&upperNode);
     this->getUnderNode(&underNode);
-    this->m_areaData = (soAreaData){ 0, 0x16, 0, 0, 0, 0, 0.0, 0.0, 10.0, upperNode.m_y - underNode.m_y};
+    this->m_areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Ladder, 0, 0, 0, 0, 0.0, 0.0, 10.0, upperNode.m_y - underNode.m_y};
     this->setAreaGimmick(&this->m_areaData, &this->m_areaDataSet, &this->m_ykData, false);
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Ladder, -1);
     trigger->setObserveYakumono(this->m_yakumono);

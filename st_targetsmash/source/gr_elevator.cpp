@@ -54,7 +54,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->elevatorPosGround->getNodePosition(&pos, 0, this->prevFloor + 1);
     this->setPos(&pos);
     this->nextFloor = this->prevFloor;
-    this->areaData = (soAreaData){ 0, 0x17, 1, 0, 0, 0, this->elevatorData.areaOffsetPos, this->elevatorData.areaRange };
+    this->areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Elevator, AREA_SHAPE_FLAG_FOLLOW_NODE, 0, 0, 0, this->elevatorData.areaOffsetPos, this->elevatorData.areaRange };
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Elevator, -1);
     trigger->setObserveYakumono(this->m_yakumono);
