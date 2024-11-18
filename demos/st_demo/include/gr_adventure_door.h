@@ -97,8 +97,6 @@ public:
         doorData = NULL;
         jumpData = 0;
         gimmickKind = Gimmick::Area_Door;
-        areaInfo.m_numHitGroups = 0;
-        areaInfo.m_hitGroupsInfo = NULL;
     };
     virtual void update(float deltaFrame);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);

@@ -53,8 +53,6 @@ public:
         numFloors = 0;
         prevFloor = 0;
         timeToNextFloor = 0.0;
-        areaInfo.m_numHitGroups = 0;
-        areaInfo.m_hitGroupsInfo = NULL;
     };
     virtual void update(float deltaFrame);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);

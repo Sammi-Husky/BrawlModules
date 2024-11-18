@@ -81,6 +81,8 @@ Hurtbox Parameters: In the target ModelData, node to follow must be called "Hurt
 
 **-Scale Z** - Acceleration
 
+Rotation Y of the first node in the Positions ModelData is the index of the node the elevator starts at
+
 ## Punch Slider
 
 **Rotation X** - ModelData Index

@@ -18,8 +18,8 @@ void grAdventureElevator::prepareElevatorData(Vec2f* areaOffsetPos, Vec2f* areaR
     this->elevatorData.areaOffsetPos = *areaOffsetPos;
     this->elevatorData.areaRange = *areaRange;
     this->elevatorData.speed = speed;
-    this->elevatorData.speed = deltaSpeed;
-    this->elevatorData.speed = posMdlIndex;
+    this->elevatorData.deltaSpeed = deltaSpeed;
+    this->elevatorData.posMdlIndex = posMdlIndex;
 }
 
 void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
@@ -52,6 +52,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
     //g_stAdventure2->getFighterStartPos(&startPos, 0);
     Vec3f pos;
     this->elevatorPosGround->getNodePosition(&pos, 0, this->prevFloor + 1);
+
     this->setPos(&pos);
     this->nextFloor = this->prevFloor;
     this->areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Elevator, AREA_SHAPE_FLAG_FOLLOW_NODE, 0, 0, 0, this->elevatorData.areaOffsetPos, this->elevatorData.areaRange };
@@ -169,7 +170,7 @@ void grAdventureElevator::getFloorData()
     nw4r::g3d::ResMdl resMdl = this->elevatorPosGround->m_sceneModels[0]->m_resMdl;
     int numEntries = resMdl.GetResNodeNumEntries();
     this->numFloors = numEntries - 1;
-    nw4r::g3d::ResNode resNode = resMdl.GetResNode((u64)0);
+    nw4r::g3d::ResNode resNode = resMdl.GetResNode(0);
     this->prevFloor = resNode.ptr()->m_rotation.m_y; // Get starting floor index from y rotation of first node
 
     //this->floorPositions = new (Heaps::StageInstance) Vec3f[this->numFloors];

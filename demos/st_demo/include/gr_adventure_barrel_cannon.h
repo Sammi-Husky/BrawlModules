@@ -118,9 +118,6 @@ public:
         this->animFrame = 0.0;
         this->animSetLength = 60;
         this->animFireLength = 60;
-        this->areaInfo.m_numHitGroups = 0;
-        this->areaInfo.m_hitGroupsInfo = NULL;
-
     };
     virtual void processFixPosition();
     virtual void update(float frameDiff);

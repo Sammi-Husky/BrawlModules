@@ -19,9 +19,7 @@ class grPlatform : public grMadein
         grGimmickMotionPathData motionPathData;
 
     public:
-        grPlatform(const char* taskName) : grMadein(taskName) {
-            yakumonoData.m_numHitGroups = 1;
-            yakumonoData.m_hitGroupsInfo = NULL;
+        grPlatform(const char* taskName) : grMadein(taskName), yakumonoData(1, NULL)  {
             timer = 0;
             isOn = false;
             isLandActivated = false;
