@@ -613,6 +613,7 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
             grWarpZone* toWarpZone = grWarpZone::create(connectedMdlIndex, "grWarpZone");
             if (toWarpZone != NULL) {
                 warpData.m_pos = *warpDest;
+                addGround(toWarpZone);
                 toWarpZone->setStageData(m_stageData);
                 toWarpZone->prepareWarpData(connectedMotionPathIndex, deactivateFrames, rot >= 360);
                 toWarpZone->setWarpAttrData(&(Vec3f){pos->m_x, pos->m_y, 0.0}, warpType, isNotAuto);
@@ -698,24 +699,21 @@ void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength
 
 void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex) {
     itManager *itemManager = itManager::getInstance();
-    if (itemManager->isCompItemKindArchive((itKind) itemID, variantID, true)) {
-        BaseItem *item = itemManager->createItem((itKind) itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
-        if (item != NULL) {
-            Vec3f warpPos = (Vec3f){pos->m_x, pos->m_y, 0.0};
-            item->warp(&warpPos);
-            item->setVanishMode(false);
-            if (startStatus > 1) {
-                item->changeStatus(startStatus);
+    BaseItem *item = itemManager->createItem((itKind) itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
+    if (item != NULL) {
+        Vec3f warpPos = (Vec3f){pos->m_x, pos->m_y, 0.0};
+        item->warp(&warpPos);
+        item->setVanishMode(false);
+        if (startStatus > 1) {
+            item->changeStatus(startStatus);
+        }
+        if (motionPathIndex != 0) {
+            grItem* ground = grItem::create(motionPathIndex, "MoveNode", "grItem", item->m_instanceId);
+            if (ground != NULL) {
+                addGround(ground);
+                ground->startup(m_fileData, 0, 0);
+                ground->startMove();
             }
-            if (motionPathIndex != 0) {
-                grItem* ground = grItem::create(motionPathIndex, "MoveNode", "grItem", item->m_instanceId);
-                if (ground != NULL) {
-                    addGround(ground);
-                    ground->startup(m_fileData, 0, 0);
-                    ground->startMove();
-                }
-            }
-
         }
     }
 }

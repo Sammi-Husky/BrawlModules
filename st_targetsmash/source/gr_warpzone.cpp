@@ -54,11 +54,10 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
                 }
             case 1: // Keep status unless on ground (i.e. destination is in the air)
                 this->startGimmickSE(0);
-                fighter->m_moduleAccesser->getPostureModule()->initPos(&warpDest);
+                g_ftManager->setWarpFighter(entryId, &warpDest, currentLr, 0x3);
                 if (correct == 1 || correct == 2 || correct == 3) {
                     fighter->m_moduleAccesser->getStatusModule()->changeStatusRequest(Fighter::Status_Fall, fighter->m_moduleAccesser);
                 }
-                g_ecMgr->setEffect(ef_ptc_pokemon_enemy_in, &warpDest);
                 break;
             case 12:
                 if (this->isInHitstun(fighter)) {
@@ -66,8 +65,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
                 }
             case 2: // Keep status
                 this->startGimmickSE(0);
-                fighter->m_moduleAccesser->getPostureModule()->initPos(&warpDest);
-                g_ecMgr->setEffect(ef_ptc_pokemon_enemy_in, &warpDest);
+                g_ftManager->setWarpFighter(entryId, &warpDest, currentLr, 0x3);
                 break;
             case 13:
                 if (this->isInHitstun(fighter)) {
@@ -75,7 +73,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
                 }
             case 3: // Horizontal wrap
                 warpDest.m_x = currentPos.m_x;
-                fighter->m_moduleAccesser->getPostureModule()->initPos(&warpDest);
+                g_ftManager->setWarpFighter(entryId, &warpDest, currentLr, 0x2);
                 break;
             case 14:
                 if (this->isInHitstun(fighter)) {
@@ -83,7 +81,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
                 }
             case 4: // Vertical wrap
                 warpDest.m_y = currentPos.m_y;
-                fighter->m_moduleAccesser->getPostureModule()->initPos(&warpDest);
+                g_ftManager->setWarpFighter(entryId, &warpDest, currentLr, 0x2);
                 break;
             default:
                 break;
@@ -125,3 +123,6 @@ void grWarpZone::deactivateWarp() {
 void grWarpZone::setConnectedWarp(grWarpZone* connectedWarp) {
     this->connectedWarp = connectedWarp;
 }
+
+
+// TODO: Option to close warp until you move away from it (negative deactivateFrames?)
