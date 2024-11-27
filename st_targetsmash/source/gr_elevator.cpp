@@ -63,9 +63,9 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
     SndID sndId = snd_se_ADVstage_common_57;
     for (int i = 0; i < 4; i++) {
         this->m_soundEffects[i].m_id = sndId + i;
-        this->m_soundEffects[i].m_repeatFrames = 0;
+        this->m_soundEffects[i].m_repeatFrame = 0;
         this->m_soundEffects[i].m_nodeIndex = 0;
-        this->m_soundEffects[i].m_endFrames = 0;
+        this->m_soundEffects[i].m_endFrame = 0;
         this->m_soundEffects[i].m_offsetPos = (Vec2f){0.0, 0.0};
     }
 

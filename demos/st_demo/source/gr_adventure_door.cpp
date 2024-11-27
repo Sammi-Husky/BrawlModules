@@ -59,9 +59,9 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     {
         this->createEffectWork(1);
         this->m_effects[0].m_id = ef_ptc_adv_cmn_warp;
-        this->m_effects[0].m_repeatFrames = 0;
+        this->m_effects[0].m_repeatFrame = 0;
         this->m_effects[0].m_nodeIndex = this->getNodeIndex(0, "effect_locator");
-        this->m_effects[0].m_endFrames = 0;
+        this->m_effects[0].m_endFrame = 0;
         this->m_effects[0].m_offsetPos = (Vec2f){0.0, 0.0};
         this->m_effects[0].m_scale = 1.0;
         this->screenFadeFrames = 100.0;

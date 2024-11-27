@@ -79,27 +79,27 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->createSimpleEffectData(&simpleEffectData, ef_ptc_adv_cmn_cannon, "FighterPos");
     if (0 < simpleEffectData.m_id) {
         this->m_effects[0].m_id = simpleEffectData.m_id;
-        this->m_effects->m_repeatFrames = simpleEffectData.m_repeatFrames;
+        this->m_effects->m_repeatFrame = simpleEffectData.m_repeatFrame;
         if (simpleEffectData.m_nodeIndex == 0) {
             this->m_effects[0].m_nodeIndex = this->getNodeIndex(0, "effect_locator");
         }
         else {
             this->m_effects[0].m_nodeIndex = simpleEffectData.m_nodeIndex;
         }
-        this->m_effects[0].m_endFrames = simpleEffectData.m_endFrames;
+        this->m_effects[0].m_endFrame = simpleEffectData.m_endFrame;
         this->m_effects[0].m_offsetPos = (Vec2f){0.0, 0.0};
         this->m_effects[0].m_scale = 1.0;
     }
     this->createSoundWork(2,1);
     this->m_soundEffects[0].m_id = 0x225d;
-    this->m_soundEffects[0].m_repeatFrames = 0;
+    this->m_soundEffects[0].m_repeatFrame = 0;
     this->m_soundEffects[0].m_nodeIndex = 0;
-    this->m_soundEffects[0].m_endFrames = 0;
+    this->m_soundEffects[0].m_endFrame = 0;
     this->m_soundEffects[0].m_offsetPos = (Vec2f){0.0, 0.0};
     this->m_soundEffects[1].m_id = 0x225e;
-    this->m_soundEffects[1].m_repeatFrames = 0;
+    this->m_soundEffects[1].m_repeatFrame = 0;
     this->m_soundEffects[1].m_nodeIndex = 0;
-    this->m_soundEffects[1].m_endFrames = 0;
+    this->m_soundEffects[1].m_endFrame = 0;
     this->m_soundEffects[1].m_offsetPos = (Vec2f){0.0, 0.0};
     this->createSimpleEffectData(&simpleEffectData, ef_ptc_adv_cmn_add, "effect_locator");
     u32 visProdIndex = 4;
