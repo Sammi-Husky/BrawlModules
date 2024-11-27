@@ -17,6 +17,10 @@ grArea* grArea::create(int mdlIndex, const char* tgtNodeName, const char* taskNa
 
 void grArea::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grMadein::startup(archive, unk1, unk2);
+
+    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, this->isRotateMotionPath, true, 0, 0, 0, 0, 0, 0 };
+    stTriggerData triggerData = {0,0,1,0};
+    this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 }
 
 void grArea::update(float deltaFrame) {
@@ -27,11 +31,19 @@ void grArea::update(float deltaFrame) {
 
     if (pos.m_z >= 0) {
         this->trigger->setAreaSleep(false);
-        //this->setEnableCollisionStatus(true);
     }
     else {
         this->trigger->setAreaSleep(true);
-        //this->setEnableCollisionStatus(false);
+    }
+
+    pos = (Vec3f){0, 0, 0};
+    this->getNodePosition(&pos, 0, "CollisionNode");
+
+    if (pos.m_z >= 0) {
+        this->setEnableCollisionStatus(true);
+    }
+    else {
+        this->setEnableCollisionStatus(false);
     }
 }
 
@@ -39,6 +51,11 @@ void grArea::setTrigger(stTrigger* trigger) {
     this->trigger = trigger;
 }
 
+void grArea::setMotionPathData(int mdlIndex, bool isRotateMotionPath) {
+    this->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0};
+
+    this->isRotateMotionPath = isRotateMotionPath;
+}
 
 
 

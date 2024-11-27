@@ -401,7 +401,8 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
             this->createTriggerHitPointEffect(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
                                               resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
-                                              resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_y);
+                                              resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
+                                              resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
         }
 
         for (int i = conveyorsIndex + 1; i < watersIndex; i += 2) {
@@ -409,21 +410,24 @@ void stTargetSmash::createObjAshiba(int mdlIndex) {
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
             this->createTriggerConveyor(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
                                         resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
-                                        resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_y);
+                                        resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
+                                        resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
         }
         for (int i = watersIndex + 1; i < windsIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
             this->createTriggerWater(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
                                      resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
-                                     resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_y);
+                                     resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
+                                     resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
         }
         for (int i = windsIndex + 1; i < itemsIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
             this->createTriggerWind(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
                                     resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
-                                    resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_y);
+                                    resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
+                                    resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
         }
     }
 }
@@ -629,7 +633,7 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
     }
 }
 
-void stTargetSmash::createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, float damage, short detectionRate, int mdlIndex, int collIndex) {
+void stTargetSmash::createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, float damage, short detectionRate, int mdlIndex, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
     Vec2f pos = {0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y)};
 
     grGimmickHitPointEffectData hitPointEffectData(
@@ -644,13 +648,16 @@ void stTargetSmash::createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, floa
     trigger->setHitPointEffectTrigger(&hitPointEffectData);
 
     if (mdlIndex > 0) {
-        grArea* ground = grArea::create(mdlIndex, "", "grArea");
+        grArea* ground = grArea::create(mdlIndex, "", "grAreaHitPointEffect");
         if (ground != NULL) {
             addGround(ground);
             ground->setTrigger(trigger);
+            ground->setMotionPathData(motionPathIndex, rot >= 360);
             ground->setStageData(m_stageData);
             ground->startup(this->m_fileData,0,0);
             ground->setPos(pos.m_x, pos.m_y, 0.0);
+            ground->setRot(0.0, 0.0, rot);
+            ground->setScale(scale);
             if (collIndex > 0) {
                 createCollision(m_fileData, collIndex, ground);
             }
@@ -658,9 +665,11 @@ void stTargetSmash::createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, floa
     }
 }
 
-void stTargetSmash::createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float speed, bool isRightDirection, int mdlIndex, int collIndex) {
+void stTargetSmash::createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float speed, bool isRightDirection, int mdlIndex, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
+    Vec3f pos = {0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0};
+
     grGimmickBeltConveyorData beltConveyorAreaData(
-            &(Vec3f){0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0},
+            &pos,
             speed,
             isRightDirection,
             &(Vec2f){0.0, 0.0},
@@ -670,24 +679,62 @@ void stTargetSmash::createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float spee
 
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_BeltConveyor, -1);
     trigger->setBeltConveyorTrigger(&beltConveyorAreaData);
+
+    if (mdlIndex > 0) {
+        grArea* ground = grArea::create(mdlIndex, "", "grAreaBeltConveyor");
+        if (ground != NULL) {
+            addGround(ground);
+            ground->setTrigger(trigger);
+            ground->setMotionPathData(motionPathIndex, rot >= 360);
+            ground->setStageData(m_stageData);
+            ground->startup(this->m_fileData,0,0);
+            ground->setPos(pos.m_x, pos.m_y, 0.0);
+            ground->setRot(0.0, 0.0, rot);
+            ground->setScale(scale);
+            if (collIndex > 0) {
+                createCollision(m_fileData, collIndex, ground);
+            }
+        }
+    }
 }
 
-void stTargetSmash::createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, bool canDrown, int mdlIndex, int collIndex) {
+void stTargetSmash::createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, bool canDrown, int mdlIndex, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
+    Vec2f pos = {0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y)};
+
     grGimmickWaterData waterAreaData(
             posNE->m_y,
             canDrown,
             speed,
-            &(Vec2f){0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y)},
+            &pos,
             &(Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y}
             );
 
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Water, -1);
     trigger->setWaterTrigger(&waterAreaData);
+
+    if (mdlIndex > 0) {
+        grArea* ground = grArea::create(mdlIndex, "", "grAreaWater");
+        if (ground != NULL) {
+            addGround(ground);
+            ground->setTrigger(trigger);
+            ground->setMotionPathData(motionPathIndex, rot >= 360);
+            ground->setStageData(m_stageData);
+            ground->startup(this->m_fileData,0,0);
+            ground->setPos(pos.m_x, pos.m_y, 0.0);
+            ground->setRot(0.0, 0.0, rot);
+            ground->setScale(scale);
+            if (collIndex > 0) {
+                createCollision(m_fileData, collIndex, ground);
+            }
+        }
+    }
 }
 
-void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle, int mdlIndex, int collIndex) {
+void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle, int mdlIndex, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
+    Vec3f pos = {0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0};
+
     grGimmickWindData windAreaData(
-                &(Vec3f){0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0},
+                &pos,
                 strength,
                 angle,
                 &(Vec2f){0.0, 0.0},
@@ -695,6 +742,23 @@ void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength
                 );
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Wind, -1);
     trigger->setWindTrigger(&windAreaData);
+
+    if (mdlIndex > 0) {
+        grArea* ground = grArea::create(mdlIndex, "", "grAreaWind");
+        if (ground != NULL) {
+            addGround(ground);
+            ground->setTrigger(trigger);
+            ground->setMotionPathData(motionPathIndex, rot >= 360);
+            ground->setStageData(m_stageData);
+            ground->startup(this->m_fileData,0,0);
+            ground->setPos(pos.m_x, pos.m_y, 0.0);
+            ground->setRot(0.0, 0.0, rot);
+            ground->setScale(scale);
+            if (collIndex > 0) {
+                createCollision(m_fileData, collIndex, ground);
+            }
+        }
+    }
 }
 
 void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex) {

@@ -207,6 +207,18 @@ NE **Scale X** - damage
 
 NE **Scale Y** - detectionRate
 
+NE **Rotation X** - ModelData Index
+
+NE **Rotation Y** - Collision Index (turn off by setting "CollisionNode" to negative Pos Z) (set to negative index to use a hitbox instead)
+
+NE **Rotation Z** - Rotation Z (set to 360 to have rotation be dictated by motion path)
+
+NE **Translation Z** - Motion Path ModelData Index (overrides position) (node to follow must be called "MoveNode")
+
+SW **Scale** - Scale
+
+Turn off by setting "AreaNode" to negative Pos Z
+
 ## Conveyor
 
 SW **Translation X, Y** - SW Corner Position
@@ -216,6 +228,18 @@ NE **Translation X, Y** - NE Corner Position
 NE **Scale X** - Speed
 
 NE **Scale Y** - isRightDirection (0 or 1)
+
+NE **Rotation X** - ModelData Index
+
+NE **Rotation Y** - Collision Index (turn off by setting "CollisionNode" to negative Pos Z) (set to negative index to use a hitbox instead)
+
+NE **Rotation Z** - Rotation Z (set to 360 to have rotation be dictated by motion path)
+
+NE **Translation Z** - Motion Path ModelData Index (overrides position) (node to follow must be called "MoveNode")
+
+SW **Scale** - Scale
+
+Turn off by setting "AreaNode" to negative Pos Z
 
 ## Water
 
@@ -227,6 +251,18 @@ NE **Scale X** - Speed
 
 NE **Scale Y** - canDrown (0 or 1)
 
+NE **Rotation X** - ModelData Index
+
+NE **Rotation Y** - Collision Index (turn off by setting "CollisionNode" to negative Pos Z) (set to negative index to use a hitbox instead)
+
+NE **Rotation Z** - Rotation Z (set to 360 to have rotation be dictated by motion path)
+
+NE **Translation Z** - Motion Path ModelData Index (overrides position) (node to follow must be called "MoveNode")
+
+SW **Scale** - Scale
+
+Turn off by setting "AreaNode" to negative Pos Z
+
 ## Wind
 
 SW **Translation X, Y** - SW Corner Position
@@ -236,6 +272,18 @@ NE **Translation X, Y** - NE Corner Position
 NE **Scale X** - Strength
 
 NE **Scale Y** - Angle
+
+NE **Rotation X** - ModelData Index
+
+NE **Rotation Y** - Collision Index (turn off by setting "CollisionNode" to negative Pos Z) (set to negative index to use a hitbox instead)
+
+NE **Rotation Z** - Rotation Z (set to 360 to have rotation be dictated by motion path)
+
+NE **Translation Z** - Motion Path ModelData Index (overrides position) (node to follow must be called "MoveNode")
+
+SW **Scale** - Scale
+
+Turn off by setting "AreaNode" to negative Pos Z
 
 ## Item
 
