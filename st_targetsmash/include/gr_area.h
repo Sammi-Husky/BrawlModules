@@ -15,6 +15,7 @@ public:
     virtual ~grArea() { }
     virtual void startup(gfArchive* archive, u32 unk1, u32 unk2);
     virtual void update(float deltaFrame);
+    virtual void updateEffect(float deltaFrame);
 
     virtual void setTrigger(stTrigger* trigger);
     virtual void setMotionPathData(int mdlIndex, bool isRotateMotionPath);
