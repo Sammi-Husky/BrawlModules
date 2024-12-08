@@ -38,6 +38,7 @@ class grPlatform : public grMadein
         virtual void setupAttack(AttackData* attackData);
         virtual void setupLanding(float maxLandings, float respawnFrame);
         virtual void updateEffect(float deltaFrame);
+        virtual void onInflictEach(soCollisionLog* collisionLog, float power);
 
         static grPlatform* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
 

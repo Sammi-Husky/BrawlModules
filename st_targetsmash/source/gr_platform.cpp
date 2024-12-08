@@ -152,6 +152,18 @@ void grPlatform::receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoi
     }
 }
 
+void grPlatform::onInflictEach(soCollisionLog* collisionLog, float power) {
+    if (this->m_modelAnims[0]->m_resFile.GetResAnmChrNumEntries() > 2
+    || this->m_modelAnims[0]->m_resFile.GetResAnmVisNumEntries() > 2
+    || this->m_modelAnims[0]->m_resFile.GetResAnmTexPatNumEntries() > 2
+    || this->m_modelAnims[0]->m_resFile.GetResAnmTexSrtNumEntries() > 2
+    || this->m_modelAnims[0]->m_resFile.GetResAnmClrNumEntries() > 2
+    || this->m_modelAnims[0]->m_resFile.GetResAnmShpNumEntries() > 2) {
+        this->setMotion(2);
+    }
+
+}
+
 void grPlatform::setMotionPathData(int mdlIndex, bool isRotateMotionPath) {
     this->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0};
 
