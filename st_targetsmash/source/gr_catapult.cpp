@@ -11,13 +11,6 @@ grCatapult* grCatapult::create(int mdlIndex, const char* taskName) {
     return catapult;
 }
 
-void grCatapult::startup(gfArchive* archive, u32 unk1, u32 unk2) {
-    grGimmickCatapult::startup(archive, unk1, unk2);
-    this->m_soundEffects[0].m_id = snd_se_Target_Catapult_on;
-    this->m_soundEffects[1].m_id = snd_se_Target_Catapult_start;
-    this->m_soundEffects[3].m_id = snd_se_Target_Catapult_shoot;
-}
-
 void grCatapult::update(float deltaFrame) {
     grGimmickCatapult::update(deltaFrame);
 

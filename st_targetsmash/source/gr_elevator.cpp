@@ -7,10 +7,16 @@
 #include <string.h>
 #include <hk/hk_math.h>
 
+#define ELEVATOR_COOLDOWN_FRAME 0.0
+
 grAdventureElevator* grAdventureElevator::create(int mdlIndex, const char* taskName)
 {
     grAdventureElevator* elevator = new (Heaps::StageInstance) grAdventureElevator(taskName);
+    elevator->setupMelee();
     elevator->setMdlIndex(mdlIndex);
+    elevator->m_heapType = Heaps::StageInstance;
+    elevator->makeCalcuCallback(1, Heaps::StageInstance);
+    elevator->setCalcuCallbackRoot(7);
     return elevator;
 }
 
@@ -68,6 +74,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
         this->m_soundEffects[i].m_endFrame = 0;
         this->m_soundEffects[i].m_offsetPos = (Vec2f){0.0, 0.0};
     }
+    this->setMotion(0);
 
 }
 
@@ -76,8 +83,9 @@ void grAdventureElevator::update(float deltaFrame)
     grGimmick::update(deltaFrame);
     switch(this->state) {
         case Elevator_State_Stop:
-            if (60.0 < this->timeSinceStartedMoving) {
+            if (ELEVATOR_COOLDOWN_FRAME < this->timeSinceStartedMoving) {
                 this->state = Elevator_State_Rest;
+                this->setMotion(0);
             }
             break;
         case Elevator_State_Move:
@@ -163,6 +171,7 @@ void grAdventureElevator::setMoveParameter(Vec3f* targetPos)
     this->startGimmickSE(0);
     this->disableArea();
     this->getNextFloorTime();
+    this->setMotion(1);
 }
 
 void grAdventureElevator::getFloorData()

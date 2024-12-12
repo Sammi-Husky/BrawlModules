@@ -15,12 +15,23 @@ void grSpring::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, this->isRotateMotionPath, true, 0, 0, 0, 0, 0, 0 };
     this->createAttachMotionPath(&motionPathInfo, NULL, "MoveNode");
+
+    this->createSoundWork(1,1);
+    this->m_soundEffects[0].m_id = snd_se_ADVstage_common_23;
+    this->m_soundEffects[0].m_repeatFrame = 0;
+    this->m_soundEffects[0].m_nodeIndex = 0;
+    this->m_soundEffects[0].m_endFrame = 0;
+    this->m_soundEffects[0].m_offsetPos = (Vec2f){0.0, 0.0};
+
 }
 
 void grSpring::update(float deltaFrame) {
     grGimmick::update(deltaFrame);
     switch(this->m_state) {
         case State_Off:
+            if (this->m_modelAnims[0]->m_anmObjChrRes != NULL) {
+                this->m_modelAnims[0]->m_anmObjChrRes->SetFrame(this->m_animFrame);
+            }
             this->m_modelAnims[0]->m_anmObjShpRes->SetFrame(this->m_animFrame);
             if (this->m_animOffLength < this->m_animFrame) {
                 this->m_modelAnims[0]->unbindShapeAnim(this->m_sceneModels[0]);
@@ -29,6 +40,9 @@ void grSpring::update(float deltaFrame) {
             }
             break;
         case State_On:
+            if (this->m_modelAnims[0]->m_anmObjChrRes != NULL) {
+                this->m_modelAnims[0]->m_anmObjChrRes->SetFrame(this->m_animFrame);
+            }
             this->m_modelAnims[0]->m_anmObjShpRes->SetFrame(this->m_animFrame);
             if (this->m_animOnLength < this->m_animFrame) {
                 this->presentPosEvent();
@@ -75,7 +89,7 @@ void grSpring::setMotionOff() {
     this->m_modelAnims[0]->unbindShapeAnim(this->m_sceneModels[0]);
     this->changeNodeAnim(0,0);
     this->changeShapeAnim(0,0);
-    g_sndSystem->playSE(snd_se_Target_Spring, -1, 0, 0, -1);
+    this->startGimmickSE(0);
     this->m_state = State_Off;
     this->m_animFrame = 0.0;
 };

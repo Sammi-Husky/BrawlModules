@@ -86,6 +86,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
             default:
                 break;
         }
+        this->changeTexSrtAnim(1,0);
         this->changeNodeAnim(1,0);
         if (this->deactivateFrames > 0) {
             this->deactivateWarp();
@@ -102,6 +103,7 @@ void grWarpZone::update(float deltaFrame) {
         this->m_frameCount -= deltaFrame;
         if (this->m_frameCount <= 0) {
             this->enableArea();
+            this->changeTexSrtAnim(0,0);
             this->changeNodeAnim(0,0);
         }
     }

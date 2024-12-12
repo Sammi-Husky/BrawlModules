@@ -1,7 +1,7 @@
 #pragma once
 
 #include <gr/gr_gimmick_motion_path.h>
-#include <gr/gr_yakumono.h>
+#include <gr/gr_madein.h>
 #include <snd/snd_system.h>
 #include <st/st_trigger.h>
 #include "gr_adventure2.h"
@@ -20,7 +20,7 @@ struct grAdventureElevatorData {
     u8 posMdlIndex;
 };
 
-class grAdventureElevator : public grYakumono {
+class grAdventureElevator : public grMadein {
 protected:
     grAdventureElevatorData elevatorData;
     grAdventure2* elevatorPosGround;
@@ -45,7 +45,7 @@ protected:
     ykAreaData areaInfo;
 
 public:
-    grAdventureElevator(const char* taskName) : grYakumono(taskName)
+    grAdventureElevator(const char* taskName) : grMadein(taskName)
     {
         elevatorPosGround = NULL;
         state = Elevator_State_Rest;

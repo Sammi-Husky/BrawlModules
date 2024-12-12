@@ -53,6 +53,8 @@ void grPlatform::startup(gfArchive* archive, u32 unk1, u32 unk2) {
             this->m_effects[i].m_scale = 1.0;
         }
     }
+
+    this->m_category = grMadein::Category_Enemy;
 }
 
 void grPlatform::update(float deltaFrame)
@@ -197,4 +199,5 @@ void grPlatform::setupLanding(float maxLandings, float respawnFrames) {
     this->maxLandings = maxLandings;
     this->respawnFrames = respawnFrames;
 }
+
 
