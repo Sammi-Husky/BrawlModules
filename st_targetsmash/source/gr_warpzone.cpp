@@ -24,6 +24,9 @@ void grWarpZone::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, this->isRotateMotionPath, true, 0, 0, 0, 0, 0, 0 };
     this->createAttachMotionPath(&motionPathInfo, NULL, "MoveNode");
+
+    this->changeTexSrtAnim(0,0);
+    this->changeNodeAnim(0,0);
 }
 
 void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
@@ -91,6 +94,8 @@ void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
         if (this->deactivateFrames > 0) {
             this->deactivateWarp();
             if (this->connectedWarp != NULL) {
+                this->connectedWarp->changeTexSrtAnim(1,0);
+                this->connectedWarp->changeNodeAnim(1,0);
                 this->connectedWarp->deactivateWarp();
             }
         }

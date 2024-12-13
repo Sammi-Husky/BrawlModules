@@ -6,8 +6,6 @@
 #include <snd/snd_system.h>
 #include "st_targetsmash_data.h"
 
-#define NUM_PLAYERS 7
-
 enum BarrelCannonKind {
     BarrelCannon_Static = 0x0,
     BarrelCannon_Path = 0x1,

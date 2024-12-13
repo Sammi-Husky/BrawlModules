@@ -4,6 +4,7 @@
 #include <StaticAssert.h>
 #include <st/st_collision_attr_param.h>
 
+#define NUM_PLAYERS 7
 #define NUM_ITEM_PACS 0x40
 #define NUM_ENEMY_TYPES 0x3D
 #define NUM_PRIM_FACES 20

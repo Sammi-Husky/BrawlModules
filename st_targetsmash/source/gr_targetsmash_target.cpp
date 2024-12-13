@@ -20,16 +20,50 @@ grTargetSmashTarget* grTargetSmashTarget::create(int mdlIndex, const char* tgtNo
 
 void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grMadein::startup(archive, unk1, unk2);
-    this->createSoundWork(1,1);
+
+    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
+    stTriggerData triggerData = {0,0,1,0};
+    this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
+
+    int endNodeIndex = this->getNodeIndex(0, "EndNode");
+    if (endNodeIndex > 0) {
+        int soundEffectNodeIndex = this->getNodeIndex(0, "SoundEffects");
+        int effectNodeIndex = this->getNodeIndex(0, "Effects");
+        int numSoundEffects = effectNodeIndex - soundEffectNodeIndex - 1;
+        this->createSoundWork(numSoundEffects + 1,1);
+        for (int i = 1; i < this->m_soundEffectNum; i++) {
+            int nodeIndex = i + soundEffectNodeIndex;
+            nw4r::g3d::ResNodeData* resNodeData = this->m_sceneModels[0]->m_resMdl.GetResNode(nodeIndex).ptr();
+
+            this->m_soundEffects[i].m_id = resNodeData->m_rotation.m_x;
+            this->m_soundEffects[i].m_repeatFrame = 0;
+            this->m_soundEffects[i].m_nodeIndex = nodeIndex;
+            this->m_soundEffects[i].m_endFrame = 0;
+            this->m_soundEffects[i].m_offsetPos = (Vec2f){0.0, 0.0};
+        }
+
+        int numEffects = endNodeIndex - effectNodeIndex - 1;
+        this->createEffectWork(numEffects);
+        for (int i = 0; i < this->m_effectNum; i++) {
+            int nodeIndex = i + effectNodeIndex + 1;
+            nw4r::g3d::ResNodeData* resNodeData = this->m_sceneModels[0]->m_resMdl.GetResNode(nodeIndex).ptr();
+
+            this->m_effects[i].m_id = resNodeData->m_rotation.m_x;
+            this->m_effects[i].m_repeatFrame = 0;
+            this->m_effects[i].m_nodeIndex = nodeIndex;
+            this->m_effects[i].m_endFrame = 0;
+            this->m_effects[i].m_offsetPos = (Vec2f){0.0, 0.0};
+            this->m_effects[i].m_scale = 1.0;
+        }
+    }
+    else {
+        this->createSoundWork(1,1);
+    }
     this->m_soundEffects[0].m_id = snd_se_ADVstage_common_15;
     this->m_soundEffects[0].m_nodeIndex = 0;
     this->m_soundEffects[0].m_repeatFrame = 0;
     this->m_soundEffects[0].m_endFrame = 0;
     this->m_soundEffects[0].m_offsetPos = (Vec2f){0.0, 0.0};
-
-    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
-    stTriggerData triggerData = {0,0,1,0};
-    this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 
     this->m_category = grMadein::Category_Enemy;
 
@@ -49,6 +83,8 @@ void grTargetSmashTarget::update(float deltaFrame) {
     else {
         this->setEnableCollisionStatus(false);
     }
+
+    this->updateEffect(deltaFrame);
 }
 
 void grTargetSmashTarget::setupHitPoint() {
@@ -79,6 +115,23 @@ void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex, u3
     this->targetsLeftWork = targetsLeftWork;
     this->numTargetsHitPerPlayerWork = numTargetsHitPerPlayerWork;
     this->totalDamageWork = totalDamageWork;
+}
+
+void grTargetSmashTarget::updateEffect(float deltaFrame) {
+    for (u32 i = 1; i < this->m_soundEffectNum; i++) {
+        Vec3f pos;
+        this->getNodePosition(&pos, 0, this->m_soundEffects[i].m_nodeIndex);
+        if (pos.m_z < 0 && this->m_soundEffects[i].m_handleId == -1) {
+            this->startGimmickSE(i);
+        }
+    }
+    for (u32 i = 0; i < this->m_effectNum; i++) {
+        Vec3f pos;
+        this->getNodePosition(&pos, 0, this->m_effects[i].m_nodeIndex);
+        if (pos.m_z < 0 && this->m_effects[i].m_handleId == -1) {
+            this->startGimmickEffect(i);
+        }
+    }
 }
 
 void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {

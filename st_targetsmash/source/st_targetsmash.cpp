@@ -10,6 +10,8 @@
 #include <mt/mt_prng.h>
 #include <OS/__ppc_eabi_init.h>
 #include <math.h>
+#include <ms/ms_message.h>
+#include <wchar.h>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
@@ -223,6 +225,29 @@ void stTargetSmash::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive 
         }
     }
 }
+
+void stTargetSmash::notifyEventInfoGo() {
+    this->applyNameCheats();
+}
+
+void stTargetSmash::applyNameCheats() {
+//    for (int i = 0; i < NUM_PLAYERS; i++) {
+//        int entryId = g_ftManager->getEntryId(i);
+//        if (g_ftManager->isFighterActivate(entryId, -1)) {
+//            Fighter* fighter = g_ftManager->getFighter(entryId, -1);
+//            ftOwner* owner = g_ftmanager->getOwner(entryId);
+//
+//            gmPlayerInitData playerInitData = g_GameGlobal->m_modeMelee->m_playersInitData[i];
+//            wchar_t name[6];
+//            if (wcscmp(playerInitData.m_name, (wchar_t*)"\xFF\x2D\xFF\x25\xFF\x34\xFF\x21\xFF\x2C") == 0) {
+//                //fighter->setMetal(true, 100000.0, -1);
+//                owner->setMetal()
+//            }
+//
+//        }
+//    }
+}
+// TODO: Potential effects: shadow clone, team attack
 
 void stTargetSmash::clearHeap() {
     for (u32 i = 0; i < NUM_ITEM_PACS; i++) {

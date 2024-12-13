@@ -98,6 +98,7 @@ public:
     virtual bool isBamperVector();
     virtual void getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer);
     virtual void getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyID);
+    virtual void notifyEventInfoGo();
     virtual ~stTargetSmash() {
         this->clearHeap();
         this->releaseArchive();
@@ -126,6 +127,7 @@ public:
     void putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex);
     void putEnemy(int enemyId, int difficulty, int startStatus, Vec2f* pos, int motionPathIndex, float lr);
     void clearHeap();
+    void applyNameCheats();
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(enemyPacs))
 };
