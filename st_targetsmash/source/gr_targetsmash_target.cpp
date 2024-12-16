@@ -124,12 +124,18 @@ void grTargetSmashTarget::updateEffect(float deltaFrame) {
         if (pos.m_z < 0 && this->m_soundEffects[i].m_handleId == -1) {
             this->startGimmickSE(i);
         }
+        else if (pos.m_z >= 1000) {
+            this->stopGimmickSE(i);
+        }
     }
     for (u32 i = 0; i < this->m_effectNum; i++) {
         Vec3f pos;
         this->getNodePosition(&pos, 0, this->m_effects[i].m_nodeIndex);
         if (pos.m_z < 0 && this->m_effects[i].m_handleId == -1) {
             this->startGimmickEffect(i);
+        }
+        else if (pos.m_z >= 1000) {
+            this->stopGimmickEffect(i);
         }
     }
 }
