@@ -31,7 +31,7 @@ LD          := $(TOPDIR)/../tools/MWCC4_1/mwldeppc.exe
 ELF2REL     := $(TOPDIR)/../tools/elf2rel.exe
 
 
-CCFLAGS     := -Cpp_exceptions off -W illpragmas -proc gekko -nostdinc -O4,p -ipa file -inline on,noauto -fp hard -u _prolog -u _epilog -u _unresolved -enum int -sdata 0 -sdata2 0 -func_align 4
+CCFLAGS     := -DMATCHING -Cpp_exceptions off -W illpragmas -proc gekko -nostdinc -O4,p -ipa file -inline on,noauto -fp hard -u _prolog -u _epilog -u _unresolved -enum int -sdata 0 -sdata2 0 -func_align 4
 CXXFLAGS    := -lang=c++ $(CCFLAGS)
 LDFLAGS     := -lcf $(LCF) -r1 -fp hard -m _prolog -g -unused
 
