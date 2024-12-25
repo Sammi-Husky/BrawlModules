@@ -235,9 +235,9 @@ void stStarfox::updateScene(float deltaFrame) {
                     m_secondaryFileData->getData(Data_Type_Scene, m_prev_scene_num*3, 0xFFFE);
                 registScnAnim(scn, 0);
                 playSeBasic(snd_se_stage_Starfox_warp_in, 0.0f);
-                m_windAreaData2nd->m_windStrength = 0.5f;
-                m_windAreaData2nd->m_horizontalWindRotation = 361.0f;
-                m_windAreaData2nd->m_verticalWindRotation = 24.0f;
+                m_windAreaData2nd->m_speed = 0.5f;
+                m_windAreaData2nd->m_vector = 361.0f;
+                m_windAreaData2nd->m_60 = 24.0f;
                 m_windAreaData2nd->m_64 = 1.0f;
                 m_windAreaData2nd->m_72 = 0x46;
                 m_wind2ndTrigger->setWindParam(m_windAreaData2nd, 0);
@@ -384,9 +384,9 @@ void stStarfox::updateSceneEffectCorneria(float deltaFrame) {
     switch (m_corneria_phase) {
         case 1:
             if (m_curr_scene.getTimeLeft() < 1900.0f) {
-                m_windAreaData2nd->m_windStrength = 0.5f;
-                m_windAreaData2nd->m_horizontalWindRotation = 90.0f;
-                m_windAreaData2nd->m_verticalWindRotation = 16.0f;
+                m_windAreaData2nd->m_speed = 0.5f;
+                m_windAreaData2nd->m_vector = 90.0f;
+                m_windAreaData2nd->m_60 = 16.0f;
                 m_windAreaData2nd->m_64 = 0.9f;
                 m_windAreaData2nd->m_72 = 0x46;
                 m_wind2ndTrigger->setWindParam(m_windAreaData2nd, 0);
@@ -402,9 +402,9 @@ void stStarfox::updateSceneEffectCorneria(float deltaFrame) {
             break;
         case 3:
             if (m_curr_scene.getTimeLeft() < 370.0f) {
-                m_windAreaData2nd->m_windStrength = 0.6f;
-                m_windAreaData2nd->m_horizontalWindRotation = 270.0f;
-                m_windAreaData2nd->m_verticalWindRotation = 24.0f;
+                m_windAreaData2nd->m_speed = 0.6f;
+                m_windAreaData2nd->m_vector = 270.0f;
+                m_windAreaData2nd->m_60 = 24.0f;
                 m_windAreaData2nd->m_64 = 0.8f;
                 m_windAreaData2nd->m_72 = 0x3C;
                 m_wind2ndTrigger->setWindParam(m_windAreaData2nd, 0);
@@ -491,7 +491,7 @@ void stStarfox::update(float deltaFrame) {
             default:
                 break;
         }
-        Matrix nodeMtx;
+        Matrix nodeMtx(true);
         m_scene_grounds[0]->getNodeMatrix(&nodeMtx, 0, "Slope");
         nodeMtx.getRotate(&m_slope_rotate);
         float f1, f2, f3;
