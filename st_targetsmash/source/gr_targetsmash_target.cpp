@@ -30,7 +30,7 @@ void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
         int soundEffectNodeIndex = this->getNodeIndex(0, "SoundEffects");
         int effectNodeIndex = this->getNodeIndex(0, "Effects");
         int numSoundEffects = effectNodeIndex - soundEffectNodeIndex - 1;
-        this->createSoundWork(numSoundEffects + 1,1);
+        this->createSoundWork(numSoundEffects + 1,numSoundEffects + 1);
         for (int i = 1; i < this->m_soundEffectNum; i++) {
             int nodeIndex = i + soundEffectNodeIndex;
             nw4r::g3d::ResNodeData* resNodeData = this->m_sceneModels[0]->m_resMdl.GetResNode(nodeIndex).ptr();
@@ -122,6 +122,7 @@ void grTargetSmashTarget::updateEffect(float deltaFrame) {
         Vec3f pos;
         this->getNodePosition(&pos, 0, this->m_soundEffects[i].m_nodeIndex);
         if (pos.m_z < 0 && this->m_soundEffects[i].m_handleId == -1) {
+            this->m_soundEffects[i].m_generatorIndex = i;
             this->startGimmickSE(i);
         }
         else if (pos.m_z >= 1000) {
