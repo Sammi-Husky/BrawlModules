@@ -17,6 +17,9 @@ class grPlatform : public grMadein
         bool isOn;
         bool isRotateMotionPath;
         grGimmickMotionPathData motionPathData;
+        soAreaData areaData;
+        soSet<soAreaData> areaInit;
+        ykAreaData areaInfo;
 
     public:
         grPlatform(const char* taskName) : grMadein(taskName), yakumonoData(1, NULL)  {
@@ -32,13 +35,16 @@ class grPlatform : public grMadein
         virtual void update(float deltaFrame);
         virtual void onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo);
         virtual void receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoint* collisionJoint, bool unk3);
+        virtual void onInflictEach(soCollisionLog* collisionLog, float power);
+        virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
 
         virtual void setMotionPathData(int mdlIndex, bool isRotateMotionPath);
         virtual void setupHitPoint(float maxDamage, float respawnFrame);
         virtual void setupAttack(AttackData* attackData);
         virtual void setupLanding(float maxLandings, float respawnFrame);
         virtual void updateEffect(float deltaFrame);
-        virtual void onInflictEach(soCollisionLog* collisionLog, float power);
+
+        virtual void initializeEntity();
 
         static grPlatform* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
 

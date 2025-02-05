@@ -739,6 +739,8 @@ void stTargetSmash::createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float
         platform->setStageData(m_stageData);
         platform->setMotionPathData(motionPathIndex, rot >= 360);
         platform->startup(this->m_fileData,0,0);
+        platform->initializeEntity();
+        platform->startEntity();
         platform->setPos(pos->m_x, pos->m_y, 0.0);
         platform->setScale(scale, scale, scale);
         platform->setRot(0.0, 0.0, rot);
@@ -779,6 +781,8 @@ void stTargetSmash::createObjLand(int mdlIndex, Vec2f* pos, float rot, int motio
         platform->setStageData(m_stageData);
         platform->setMotionPathData(motionPathIndex, rot >= 360);
         platform->startup(this->m_fileData,0,0);
+        platform->initializeEntity();
+        platform->startEntity();
         platform->setupLanding(maxLandings, respawnTime);
         platform->setPos(pos->m_x, pos->m_y, 0.0);
         platform->setRot(0.0, 0.0, rot);

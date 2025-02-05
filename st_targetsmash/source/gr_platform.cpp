@@ -83,25 +83,36 @@ void grPlatform::update(float deltaFrame)
     }
 
     Vec3f pos = (Vec3f){0, 0, 0};
-    this->getNodePosition(&pos, 0, "CollisionNode");
-    if (pos.m_z >= 0) {
-        this->setEnableCollisionStatus(true);
-    }
-    else {
-        this->setEnableCollisionStatus(false);
+    if (this->getNodePosition(&pos, 0, "CollisionNode")) {
+        if (pos.m_z >= 0) {
+            this->setEnableCollisionStatus(true);
+        }
+        else {
+            this->setEnableCollisionStatus(false);
+        }
     }
 
     Vec3f scale = (Vec3f){0, 0, 0};
-    this->getNodeScale(&scale, 0, "HurtNode");
-    if (scale.m_x > 0 || scale.m_y > 0 || scale.m_z > 0) {
-        this->enableHit(0, 0);
-    }
-    else {
-        this->disableHit(0, 0);
+    if (this->getNodeScale(&scale, 0, "HurtNode")) {
+        if (scale.m_x > 0 || scale.m_y > 0 || scale.m_z > 0) {
+            this->enableHit(0, 0);
+        }
+        else {
+            this->disableHit(0, 0);
+        }
+    };
+
+    Vec3f areaPos = (Vec3f){0, 0, 0};
+    if (this->getNodePosition(&areaPos, 0, "AreaNode")) {
+        if (areaPos.m_z >= 0) {
+            this->enableArea();
+        }
+        else {
+            this->disableArea();
+        }
     }
 
     this->updateEffect(deltaFrame);
-
 }
 
 void grPlatform::updateEffect(float deltaFrame) {
@@ -182,6 +193,10 @@ void grPlatform::onInflictEach(soCollisionLog* collisionLog, float power) {
 
 }
 
+void grPlatform::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
+    this->setMotion(2);
+}
+
 void grPlatform::setMotionPathData(int mdlIndex, bool isRotateMotionPath) {
     this->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0};
 
@@ -216,4 +231,21 @@ void grPlatform::setupLanding(float maxLandings, float respawnFrames) {
     this->respawnFrames = respawnFrames;
 }
 
+void grPlatform::initializeEntity() {
+    u32 nodeIndex;
+    if (this->getNodeIndex(&nodeIndex, 0, "AreaNode")) {
+        Vec3f areaPosSW;
+        Vec3f areaPosNE;
+        this->getNodePosition(&areaPosSW, 0, "AreaSW");
+        this->getNodePosition(&areaPosNE, 0, "AreaNE");
+        this->areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, nodeIndex, (areaPosSW + areaPosNE).m_xy / 2, (areaPosSW - areaPosNE).m_xy};
+
+        this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, true);
+        stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Common,-1);
+        trigger->setObserveYakumono(this->m_yakumono);
+    }
+    else {
+        grMadein::initializeEntity();
+    }
+}
 
