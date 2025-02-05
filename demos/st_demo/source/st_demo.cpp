@@ -325,10 +325,6 @@ void stDemo::clearHeap() {
     gfModuleManager::getInstance()->destroy("sora_enemy_vs.rel");
 }
 
-void Ground::setStageData(void* stageData)
-{
-    this->m_stageData = stageData;
-}
 void stDemo::startFighterEvent()
 {
     return;

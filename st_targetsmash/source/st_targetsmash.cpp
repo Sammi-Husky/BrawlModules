@@ -245,29 +245,248 @@ void stTargetSmash::notifyEventInfoGo() {
 }
 
 void stTargetSmash::applyNameCheatsStart() {
+    itManager* itemManager = itManager::getInstance();
+    for (int i = 0; i < g_GameGlobal->m_modeMelee->m_meleeInitData.m_numPlayers; i++) {
+        gmPlayerInitData* playerInitData = &g_GameGlobal->m_modeMelee->m_playersInitData[i];
 
-
-
+        if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x24\xFF\x14\xFF\x32\xFF\x13\00") == 0) { // "D4R3"
+            playerInitData->m_isStamina = true;
+            playerInitData->m_hitPointMax = 1;
+        }
+        else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x36\xFF\x13\xFF\x2E\xFF\x10\xFF\x2D\00") == 0) { // "V3N0M"
+            itemManager->preloadAssist(Item_Assist_Andross);
+            isAssistInitialized = false;
+        } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x37\xFF\x32\xFF\x14\xFF\x30\00") == 0) { // "WR4P"
+            playerInitData->m_isStamina = true;
+            playerInitData->m_hitPointMax = 999;
+            g_GameGlobal->m_modeMelee->m_meleeInitData.m_isStaminaKnockback = true;
+            g_GameGlobal->m_modeMelee->m_meleeInitData.m_isStaminaDeadZoneWrap = true;
+        }
+    }
 }
 
 void stTargetSmash::applyNameCheats() {
-//    for (int i = 0; i < NUM_PLAYERS; i++) {
-//        int entryId = g_ftManager->getEntryId(i);
-//        if (g_ftManager->isFighterActivate(entryId, -1)) {
-//            Fighter* fighter = g_ftManager->getFighter(entryId, -1);
-//            ftOwner* owner = g_ftmanager->getOwner(entryId);
-//
-//            gmPlayerInitData playerInitData = g_GameGlobal->m_modeMelee->m_playersInitData[i];
-//            wchar_t name[6];
-//            if (wcscmp(playerInitData.m_name, (wchar_t*)"\xFF\x2D\xFF\x25\xFF\x34\xFF\x21\xFF\x2C") == 0) {
-//                //fighter->setMetal(true, 100000.0, -1);
-//                owner->setMetal()
-//            }
-//
-//        }
-//    }
+    itManager* itemManager = itManager::getInstance();
+
+    for (int i = 0; i < NUM_PLAYERS; i++) {
+        int entryId = g_ftManager->getEntryId(i);
+        if (g_ftManager->isFighterActivate(entryId, -1)) {
+            Fighter *fighter = g_ftManager->getFighter(entryId, -1);
+            ftOwner *owner = g_ftManager->getOwner(entryId);
+
+            gmPlayerInitData* playerInitData = &g_GameGlobal->m_modeMelee->m_playersInitData[i];
+            if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x28\xFF\x14\xFF\x12\xFF\x39\00") == 0) {
+                owner->setMetal(true);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x2D\xFF\x13\xFF\x16\xFF\x14\00") == 0) {
+                owner->setInfiniteScaling(Fighter::Scaling_Kind_Kinoko, Fighter::Scaling_Type_Big);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x2D\xFF\x11\xFF\x2E\xFF\x11\00") == 0) {
+                owner->setInfiniteScaling(Fighter::Scaling_Kind_Kinoko, Fighter::Scaling_Type_Small);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x17\xFF\x14\xFF\x32\00") == 0) {
+                fighter->setSuperStar(true, INT_MAX, false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x26\xFF\x11\xFF\x2E\xFF\x14\xFF\x11\00") == 0) {
+                if (g_ftManager->m_finalEntryId == -1) {
+                    g_ftManager->setFinal(entryId, false);
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x35\xFF\x30\xFF\x13\xFF\x32\00") == 0) {
+                if (g_ftManager->m_finalEntryId == -1) {
+                    g_ftManager->setFinal(entryId, false);
+                    owner->setFinal(true, true);
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x16\xFF\x32\xFF\x10\xFF\x16\00") == 0) {
+                owner->setRabbitCap(true);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x30\xFF\x11\xFF\x30\xFF\x30\xFF\x11\00") == 0) {
+                owner->setReflector(true);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x30\xFF\x14\xFF\x2E\xFF\x13\xFF\x11\00") == 0) {
+                owner->setFlower(true);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x17\xFF\x35\xFF\x32\xFF\x18\xFF\x10\00") == 0) {
+                owner->setCurry(true);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x2E\x20\x32\xFF\x16\xFF\x13\00") == 0) { // "N'63"
+                BaseItem* item = itemManager->createItem(Item_Screw, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->attachItem(item, true);
+                item->setVanishMode(false);
+                item->m_moduleAccesser->getWorkManageModule()->onFlag(BaseItem::Instance_Work_Flag_Value_1);
+                item->m_moduleAccesser->getWorkManageModule()->setInt(-1, BaseItem::Instance_Work_Int_Counter);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x30\xFF\x11\xFF\x2B\xFF\x13\00") == 0) { // "5P1K3"
+                BaseItem* item = itemManager->createItem(Item_GoldenHammer, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, Fighter::Instance_Work_Int_Hammer_Counter);
+                item->setVanishMode(false);
+                item->changeMotion(BaseItem::Motion_Have, true);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x28\xFF\x39\xFF\x24\xFF\x32\xFF\x14\00") == 0) { // "HYD4A"
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(Item_Dragoon_Set, 0, true, false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x14\xFF\x18\xFF\x13\xFF\x32\00") == 0) { // "5483R"
+                BaseItem *item = itemManager->createItem(Item_BeamSword, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x24\xFF\x32\xFF\x13\xFF\x14\xFF\x2D\00") == 0) { // "DR43M"
+                BaseItem *item = itemManager->createItem(Item_StarRod, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+                item->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+            }else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x23\xFF\x10\xFF\x30\xFF\x13\00") == 0) { // "5C0P3"
+                BaseItem* item = itemManager->createItem(Item_SuperScope, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+                item->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x11\xFF\x14\xFF\x15\xFF\x13\xFF\x32\00") == 0) { // "L453R"
+                BaseItem* item = itemManager->createItem(Item_RayGun, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+                item->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x23\xFF\x32\xFF\x14\xFF\x23\xFF\x2B\00") == 0) { // "CR4CK"
+                BaseItem* item = itemManager->createItem(Item_Clacker, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+                item->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1); // "N0V4"
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x2E\xFF\x10\xFF\x36\xFF\x14\00") == 0) {
+                BaseItem* item = itemManager->createItem(Item_SmartBomb, 1, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x14\xFF\x18\xFF\x14\00") == 0) { // "8484"
+                BaseItem* item = itemManager->createItem(Item_DekuNut, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x2D\xFF\x10\xFF\x2B\xFF\x13\00") == 0) { // "5M0K3"
+                BaseItem* item = itemManager->createItem(Item_SmokeScreen, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x28\xFF\x10\xFF\x17\00") == 0) { // "H07"
+                BaseItem* item = itemManager->createItem(Item_Pasaran, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x10\xFF\x11\xFF\x2E\xFF\x16\00") == 0) { // "801N6"
+                BaseItem* item = itemManager->createItem(Item_Doseisan, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x2B\xFF\x10\xFF\x10\xFF\x30\xFF\x14\00") == 0) { // "K00P4"
+                BaseItem* item = itemManager->createItem(Item_GreenShell, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x35\xFF\x2D\xFF\x30\00") == 0) { // "8UMP"
+                BaseItem* item = itemManager->createItem(Item_Bumper, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x30\xFF\x14\xFF\x24\00") == 0) { // "P4D"
+                BaseItem* item = itemManager->createItem(Item_Spring, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x35\xFF\x2E\xFF\x11\xFF\x32\xFF\x14\00") == 0) { // "UN1R4"
+                BaseItem* item = itemManager->createItem(Item_Unira, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x26\xFF\x10\xFF\x10\xFF\x17\xFF\x39\00") == 0) { // "F007Y"
+                BaseItem* item = itemManager->createItem(Item_SoccerBall, 0, fighter->m_taskId);
+                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                item->setVanishMode(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x17\xFF\x37\xFF\x11\xFF\x23\xFF\x13\00") == 0) { // "7W1C3"
+                if (g_ftManager->m_finalEntryId == -1) {
+                    BaseItem *item = itemManager->createItem(Item_Link_Bomb, 0, fighter->m_taskId);
+                    Vec3f pos = soExternalValueAccesser::getPos(fighter);
+                    item->warp(&pos);
+                    item->sendTouchMessage(fighter->m_taskId, &pos, 0.0);
+                    item->remove();
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x24\xFF\x13\xFF\x14\xFF\x17\xFF\x28\00") == 0) { // "D347H"
+                fighter->m_moduleAccesser->getDamageModule()->addDamage(300.0, 0);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x17\xFF\x32\xFF\x11\xFF\x30\00") == 0) { // "7R1P"
+                owner->setSlipMul(100.0);
+                owner->setSlipInterval(false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x26\xFF\x32\xFF\x10\xFF\x15\xFF\x17\00") == 0) { // "FR057"
+                for (int i = 0; i < this->getGroundNum(); i++) {
+                    Ground* ground = this->getGround(i);
+                    if (ground->m_collision != NULL) {
+                        for (u32 i = 0; i < ground->m_collision->m_lineLen; i++) {
+                            grCollisionLine *collisionLine = ground->m_collision->getLine(i);
+                            if (collisionLine->m_materialType != grCollisionLine::Material_Ice
+                                && collisionLine->m_materialType != grCollisionLine::Material_Damage1
+                                && collisionLine->m_materialType != grCollisionLine::Material_Damage2
+                                && collisionLine->m_materialType != grCollisionLine::Material_Damage3
+                                && collisionLine->m_materialType != grCollisionLine::Material_Oil) {
+                                collisionLine->m_materialType = grCollisionLine::Material_Slippery;
+                            }
+                        }
+                    }
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x11\xFF\x14\xFF\x36\xFF\x14\00") == 0) { // "14V4"
+                grGimmick::AttackData attackData(10.0, 0, 0, 150, soCollisionAttackData::Attribute_Fire, false, false, true,
+                                                 15, soCollisionAttackData::Sound_Level_M, soCollisionAttackData::Sound_Attribute_Fire,
+                                                 false);
+                grGimmickDamageFloor damageFloor(&attackData, 3);
+                this->setStageAttackData(&damageFloor, 2);
+
+                Ground* ground = this->getGround(0);
+                if (ground->m_collision != NULL) {
+                    for (u32 i = 0; i < ground->m_collision->m_lineLen; i++) {
+                        grCollisionLine *collisionLine = ground->m_collision->getLine(i);
+                        if (collisionLine->m_materialType != grCollisionLine::Material_Damage1
+                            && collisionLine->m_materialType != grCollisionLine::Material_Damage2
+                            && collisionLine->m_isUnder) {
+                            collisionLine->m_materialType = grCollisionLine::Material_Damage3;
+                        }
+                    }
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x10\xFF\x35\xFF\x2E\xFF\x24\00") == 0) { // "80UND"
+                grGimmick::AttackData attackData(0.0, 0, 0, 130, soCollisionAttackData::Attribute_Normal, false, false, true,
+                                                 15, soCollisionAttackData::Sound_Level_S, soCollisionAttackData::Sound_Attribute_Kamehit,
+                                                 false);
+                grGimmickDamageFloor damageFloor(&attackData, 3);
+                this->setStageAttackData(&damageFloor, 2);
+
+                for (int i = 0; i < this->getGroundNum(); i++) {
+                    Ground* ground = this->getGround(i);
+                    if (ground->m_collision != NULL) {
+                        for (u32 i = 0; i < ground->m_collision->m_lineLen; i++) {
+                            grCollisionLine *collisionLine = ground->m_collision->getLine(i);
+                            if (collisionLine->m_materialType != grCollisionLine::Material_Damage1
+                                && collisionLine->m_materialType != grCollisionLine::Material_Damage2) {
+                                collisionLine->m_materialType = grCollisionLine::Material_Damage3;
+                            }
+                        }
+                    }
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x17\xFF\x10\xFF\x38\xFF\x11\xFF\x23\00") == 0) { // "70X1C"
+                grGimmick::AttackData attackData(1.0, 0, 0, 0.0, soCollisionAttackData::Attribute_Purple, false, false, true,
+                                                 5, soCollisionAttackData::Sound_Level_S, soCollisionAttackData::Sound_Attribute_Magic,
+                                                 false);
+                attackData.m_isDeath100 = true;
+                grGimmickDamageFloor damageFloor(&attackData, 3);
+                this->setStageAttackData(&damageFloor, 2);
+
+                for (int i = 0; i < this->getGroundNum(); i++) {
+                    Ground* ground = this->getGround(i);
+                    if (ground->m_collision != NULL) {
+                        for (u32 i = 0; i < ground->m_collision->m_lineLen; i++) {
+                            grCollisionLine *collisionLine = ground->m_collision->getLine(i);
+                            if (collisionLine->m_materialType != grCollisionLine::Material_Damage1
+                                && collisionLine->m_materialType != grCollisionLine::Material_Damage2
+                                && collisionLine->m_isUnder) {
+                                collisionLine->m_materialType = grCollisionLine::Material_Damage3;
+                            }
+                        }
+                    }
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x30\xFF\x14\xFF\x15\xFF\x15\00") == 0) { // "P455"
+                for (int i = 0; i < this->getGroundNum(); i++) {
+                    Ground* ground = this->getGround(i);
+                    if (ground->m_collision != NULL) {
+                        for (u32 i = 0; i < ground->m_collision->m_lineLen; i++) {
+                            grCollisionLine *collisionLine = ground->m_collision->getLine(i);
+                            collisionLine->m_isThroughable = true;
+                        }
+                    }
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x11\xFF\x11\xFF\x2E\xFF\x24\00") == 0) { // "811ND"
+                g_efScreen->requestFill(6.0, 7, 0, &(GXColor){0, 0, 0, 0xFF});
+                fighter->m_moduleAccesser->getWorkManageModule()->offFlag(Fighter::Instance_Work_Flag_Name_Cursor);
+
+            }
+
+            fighter->setupEquipment();
+        }
+    }
 }
-// TODO: Potential effects: shadow clone, team attack
+// TODO: Potential effects: shadow clone, team attack, targets explode, invisible targets/floor/player, beat block, reverse control, zoom in on player, wind/conveyor, warp back to spawn after every target, swap fighter every target
+// TODO: Setup alt itmparam with no bounce limit?
 
 void stTargetSmash::clearHeap() {
     for (u32 i = 0; i < NUM_ITEM_PACS; i++) {

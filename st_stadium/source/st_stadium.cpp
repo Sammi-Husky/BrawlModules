@@ -916,10 +916,6 @@ void stStadium::updateVisionScreenPos() {
 
 }
 
-void Ground::setStageData(void* stageData)
-{
-    this->m_stageData = stageData;
-}
 void stStadium::startFighterEvent()
 {
     return;

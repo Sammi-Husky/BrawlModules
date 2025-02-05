@@ -373,10 +373,6 @@ void stVillage::setLive(u32 live)
 {
     this->live = live;
 }
-void Ground::setStageData(void* stageData)
-{
-    this->m_stageData = stageData;
-}
 void stVillage::startFighterEvent()
 {
     return;
