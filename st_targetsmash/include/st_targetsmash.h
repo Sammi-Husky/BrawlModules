@@ -27,7 +27,6 @@ const float UNK_FLOAT1 = 0.0f;
 
 class stTargetSmash : public stMelee {
 protected:
-
     gfArchive* itemPacs[NUM_ITEM_PACS];
     char _476[848 - 728];
     // gfArchive* enemyPacs[NUM_ENEMY_TYPES*2];
@@ -36,7 +35,8 @@ protected:
     u32 targetsLeft; // 856 (Required offset for stOperatorRuleTargetBreak!)
     bool isItemsInitialized;
     bool isEnemiesInitialized;
-    char _[2];
+    bool isAssistInitialized;
+    char _[1];
     gfArchive* enemyCommonPac;
     gfArchive* primFacePac;
     char _860[912 - 872];
@@ -54,6 +54,7 @@ public:
         primFacePac = NULL;
         isItemsInitialized = false;
         isEnemiesInitialized = false;
+        isAssistInitialized = true;
         targetsLeft = 0;
         targetsHit = 0;
         totalDamage = 0.0;
@@ -105,7 +106,7 @@ public:
     };
 
     void patchInstructions();
-    void createObjAshiba(int mdlIndex);
+    void createObjAshiba(int mdlIndex, int collIndex);
     void createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int motionPathIndex, int effectIndex, int collIndex);
     void createObjDisk(int mdlIndex, Vec2f* pos, float rot, float scaleX, float scaleZ, int motionPathIndex, int collIndex, int mode);
     void createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float scale, int motionPathIndex, int collIndex);
@@ -127,6 +128,7 @@ public:
     void putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex);
     void putEnemy(int enemyId, int difficulty, int startStatus, Vec2f* pos, int motionPathIndex, float lr);
     void clearHeap();
+    void applyNameCheatsStart();
     void applyNameCheats();
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(enemyPacs))

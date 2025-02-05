@@ -8,10 +8,14 @@
 #include <em/em_manager.h>
 #include <em/em_weapon_manager.h>
 #include <mt/mt_prng.h>
-#include <OS/__ppc_eabi_init.h>
+#include <MetroTRK.h>
 #include <math.h>
 #include <ms/ms_message.h>
 #include <wchar.h>
+#include <ft/ft_manager.h>
+#include <so/so_external_value_accesser.h>
+#include <st/loader/st_loader_manager.h>
+#include <ef/ef_screen.h>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
@@ -27,7 +31,8 @@ bool stTargetSmash::loading()
 
 void stTargetSmash::update(float deltaFrame)
 {
-    if (!this->isItemsInitialized && itManager::getInstance()->isCompItemKindArchive(Item_Hammer, 0, true)) {
+    itManager* itemManager = itManager::getInstance();
+    if (!this->isItemsInitialized && itemManager->isCompItemKindArchive(Item_Hammer, 0, true)) {
         Ground* ground = this->getGround(0);
         u32 itemsIndex = ground->getNodeIndex(0, "Items");
         u32 endIndex = ground->getNodeIndex(0, "Enemies");
@@ -52,6 +57,15 @@ void stTargetSmash::update(float deltaFrame)
 
             this->isEnemiesInitialized = true;
         }
+    }
+
+    if (!this->isAssistInitialized && itemManager->isCompItemKindArchive(itemManager->m_nextAssistInfo.m_kind, itemManager->m_nextAssistInfo.m_variation, true)) {
+        Vec3f pos;
+        this->m_stagePositions->getCameraCenter(&pos);
+        BaseItem* item = itemManager->createItem(itemManager->m_nextAssistInfo.m_kind, itemManager->m_nextAssistInfo.m_variation);
+        item->warp(&pos);
+        item->setVanishMode(false);
+        this->isAssistInitialized = true;
     }
 }
 void stTargetSmash::createObj()
@@ -105,8 +119,7 @@ void stTargetSmash::createObj()
 
     }
 
-    this->createObjAshiba(0);
-    createCollision(m_fileData, 2, NULL);
+    this->createObjAshiba(0, 2);
 
     initCameraParam();
     nw4r::g3d::ResFile posData(m_fileData->getData(Data_Type_Model, 0x64, 0xfffe));
@@ -131,6 +144,7 @@ void stTargetSmash::createObj()
     this->setStageAttackData(&stageData->damageFloors[1], 1);
     this->setStageAttackData(&stageData->damageFloors[2], 2);
 
+    this->applyNameCheatsStart();
 }
 void stTargetSmash::createItemPac(u32 index) {
     int nodeSize;
@@ -230,6 +244,12 @@ void stTargetSmash::notifyEventInfoGo() {
     this->applyNameCheats();
 }
 
+void stTargetSmash::applyNameCheatsStart() {
+
+
+
+}
+
 void stTargetSmash::applyNameCheats() {
 //    for (int i = 0; i < NUM_PLAYERS; i++) {
 //        int entryId = g_ftManager->getEntryId(i);
@@ -298,26 +318,27 @@ void stTargetSmash::patchInstructions() {
 
     int *instructionAddr = (int*)0x8095d198;
     *instructionAddr = 0x9421FC40; // stwu sp, -0x3C0(sp) Original: stwu sp, -0x60(sp)
-    __flush_cache(instructionAddr - 4, 0x8);
+    TRK_flush_cache(instructionAddr - 4, 0x8);
     instructionAddr = (int*)0x8095d1a4;
     *instructionAddr = 0x900103C4; // stw r0, 0x3C4(sp) Original: stw r0, 0x64(sp)
-    __flush_cache(instructionAddr - 4, 0x8);
+    TRK_flush_cache(instructionAddr - 4, 0x8);
 
     instructionAddr = (int*)0x8095d2e0;
     *instructionAddr = 0x800103C4; // lwz r0, 0x3C4(sp) Original: lwz r0, 0x64(sp)
-    __flush_cache(instructionAddr - 4, 0x8);
+    TRK_flush_cache(instructionAddr - 4, 0x8);
     instructionAddr = (int*)0x8095d2e8;
     *instructionAddr = 0x382103C0; // addi sp, sp, 0x3C0 Original: addi sp, sp, 0x60
-    __flush_cache(instructionAddr - 4, 0x8);
+    TRK_flush_cache(instructionAddr - 4, 0x8);
 }
 
-void stTargetSmash::createObjAshiba(int mdlIndex) {
+void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
     grFinal* ground = grFinal::create(mdlIndex, "", "grTargetSmashAshiba");
     if (ground != NULL)
     {
         addGround(ground);
         ground->startup(m_fileData, 0, 0);
         ground->setStageData(m_stageData);
+        createCollision(m_fileData, collIndex, ground);
         u32 targetsIndex = ground->getNodeIndex(0, "Targets");
         u32 disksIndex = ground->getNodeIndex(0, "Disks");
         u32 platformsIndex = ground->getNodeIndex(0, "Platforms");
@@ -793,6 +814,7 @@ void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* p
         Vec3f warpPos = (Vec3f){pos->m_x, pos->m_y, 0.0};
         item->warp(&warpPos);
         item->setVanishMode(false);
+        item->m_moduleAccesser->getCameraModule()->setEnableCamera(0, -1);
         if (startStatus > 1) {
             item->changeStatus(startStatus);
         }
@@ -848,10 +870,6 @@ void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f
     // TODO: Fix death so that 2p doesn't get hit by it
 }
 
-void Ground::setStageData(void* stageData)
-{
-    this->m_stageData = stageData;
-}
 void stTargetSmash::startFighterEvent()
 {
     return;
