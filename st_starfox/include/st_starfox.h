@@ -16,8 +16,8 @@ public:
     virtual ~stClassInfo();
     static stClassInfo* getClassInfo(int);
     void setClassInfo(srStageKind p1, stClassInfo* p2);
-    STATIC_CHECK(sizeof(stClassInfo) == 0x4);
 };
+static_assert(sizeof(stClassInfo) == 0x4, "Class is wrong size!");
 
 template <srStageKind I, class T>
 class stClassInfoImpl : public stClassInfo {

@@ -34,6 +34,5 @@ public:
 
     void update(float frameDelta);
     void setMotionRatio(float speedMult);
-
-    STATIC_CHECK(sizeof(grVillageGuestPathMove) == 0x1CC)
 };
+static_assert(sizeof(grVillageGuestPathMove) == 0x1CC, "Class is wrong size!");

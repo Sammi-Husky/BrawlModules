@@ -45,6 +45,5 @@ public:
     void* getGimmickData();
     void setGimmickData(void* data);
     int getModelCount();
-
-    STATIC_CHECK(sizeof(grVillage) == 0x168)
 };
+static_assert(sizeof(grVillage) == 0x168, "Class is wrong size!");

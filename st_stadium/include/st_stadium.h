@@ -44,9 +44,9 @@ struct stStadiumData {
     float m_0x60;
     float m_0x64;
     float m_0x68;
-
-    STATIC_CHECK(sizeof(stStadiumData) == 108)
 };
+static_assert(sizeof(stStadiumData) == 108, "Class is wrong size!");
+
 
 class stStadium : public stMelee {
     enum Type {
@@ -225,6 +225,5 @@ public:
     void updateVisionScreenPos();
 
     void enableVisionScreen();
-
-    STATIC_CHECK(sizeof(stStadium) == 0x848)
 };
+static_assert(sizeof(stStadium) == 0x848, "Class is wrong size!");
