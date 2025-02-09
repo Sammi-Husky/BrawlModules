@@ -3,7 +3,7 @@
 #include <ec/ec_mgr.h>
 #include <gr/gr_visible_production_effect.h>
 #include <memory.h>
-#include <hk/hk_math.h>
+#include <hkmath/hkMath.h>
 #include <gf/gf_heap_manager.h>
 #include <ft/ft_manager.h>
 

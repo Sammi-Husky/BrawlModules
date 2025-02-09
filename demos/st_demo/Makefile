@@ -83,6 +83,7 @@ export INCLUDE	:=	$(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
 			-I$(CURDIR)/../../lib/PowerPC_EABI_Support/Runtime/Inc \
 			-I$(CURDIR)/../../lib/BrawlHeaders/Brawl/Include \
 			-I$(CURDIR)/../../lib/BrawlHeaders/nw4r/include \
+			-I$(CURDIR)/../../lib/BrawlHeaders/hk410/include \
 			-I$(CURDIR)/../../lib/BrawlHeaders/OpenRVL/include/ \
 			-I$(CURDIR)/../../lib/BrawlHeaders/OpenRVL/include/MetroTRK \
 			-I$(CURDIR)/../../lib/BrawlHeaders/OpenRVL/include/revolution \

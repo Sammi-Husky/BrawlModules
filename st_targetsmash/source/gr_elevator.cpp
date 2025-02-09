@@ -5,7 +5,7 @@
 #include <gr/gr_visible_production_effect.h>
 #include <memory.h>
 #include <string.h>
-#include <hk/hk_math.h>
+#include <hkmath/hkMath.h>
 
 #define ELEVATOR_COOLDOWN_FRAME 0.0
 
