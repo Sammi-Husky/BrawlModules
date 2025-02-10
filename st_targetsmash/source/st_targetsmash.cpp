@@ -80,6 +80,28 @@ void stTargetSmash::update(float deltaFrame)
         item->setVanishMode(false);
         this->isAssistInitialized = true;
     }
+
+    if (targetsLeft == 0) {
+        if (this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResAnmChrNumEntries() > 1) {
+            this->pokeTrainerGround->changeNodeAnim(1, 0);
+        }
+        if (this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResAnmVisNumEntries() > 1) {
+            this->pokeTrainerGround->changeVisibleAnim(1, 0);
+        }
+        if (this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResAnmTexPatNumEntries() > 1) {
+            this->pokeTrainerGround->changeTexAnim(1, 0);
+        }
+        if (this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResAnmTexSrtNumEntries() > 1) {
+            this->pokeTrainerGround->changeTexSrtAnim(1, 0);
+        }
+        if (this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResAnmClrNumEntries() > 1) {
+            this->pokeTrainerGround->changeMatColAnim(1, 0);
+        }
+        if (this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResAnmShpNumEntries() > 1) {
+            this->pokeTrainerGround->changeShapeAnim(1, 0);
+        }
+    }
+
 }
 void stTargetSmash::createObj()
 {
@@ -151,6 +173,7 @@ void stTargetSmash::createObj()
     registScnAnim(scnData, 0);
     initPosPokeTrainer(1, 0);
     createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", this->m_unk, 0x0);
+    this->pokeTrainerGround = static_cast<grPokeTrainer*>(this->getGround(this->getGroundNum() - 1));
 
     stTargetSmashData* stageData = static_cast<stTargetSmashData*>(this->m_stageData);
     this->setStageAttackData(&stageData->damageFloors[0], 0);
@@ -755,7 +778,12 @@ void stTargetSmash::createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float
         platform->initializeEntity();
         platform->startEntity();
         platform->setPos(pos->m_x, pos->m_y, 0.0);
-        platform->setScale(scale, scale, scale);
+        if (scale >= 0) {
+            platform->setScale(scale, scale, scale);
+        }
+        else {
+            platform->setScale(-scale, 1.0, 1.0);
+        }
         platform->setRot(0.0, 0.0, rot);
         platform->setMotion(0);
         if (collIndex > 0) {

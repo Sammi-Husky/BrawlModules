@@ -4,6 +4,7 @@
 #include <st/st_data_container.h>
 #include <st/st_melee.h>
 #include <types.h>
+#include <gr/gr_poke_trainer.h>
 #include <mt/mt_vector.h>
 #include "gr_final.h"
 #include "gr_targetsmash_target.h"
@@ -39,7 +40,8 @@ protected:
     char _[1];
     gfArchive* enemyCommonPac;
     gfArchive* primFacePac;
-    char _860[912 - 872];
+    char _860[908 - 872];
+    grPokeTrainer* pokeTrainerGround;
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
     gfArchive* enemyPacs[NUM_ENEMY_TYPES*2];
