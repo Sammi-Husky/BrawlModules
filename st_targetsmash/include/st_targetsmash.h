@@ -132,6 +132,7 @@ public:
     void clearHeap();
     void applyNameCheatsStart();
     void applyNameCheats();
+    void applySeed();
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(enemyPacs))
 };

@@ -181,6 +181,7 @@ void stTargetSmash::createObj()
     this->setStageAttackData(&stageData->damageFloors[2], 2);
 
     this->applyNameCheatsStart();
+    this->applySeed();
 }
 void stTargetSmash::createItemPac(u32 index) {
     int nodeSize;
@@ -513,7 +514,7 @@ void stTargetSmash::applyNameCheats() {
                 }
             } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x11\xFF\x11\xFF\x2E\xFF\x24\00") == 0) { // "811ND"
                 g_efScreen->requestFill(6.0, 7, 0, &(GXColor){0, 0, 0, 0xFF});
-                fighter->m_moduleAccesser->getWorkManageModule()->offFlag(Fighter::Instance_Work_Flag_Name_Cursor);
+                fighter->m_moduleAccesser->getWorkManageModule()->offFlag(Fighter::Instance_Work_Flag_Name_Cursor); // TODO: Figure out removing the cursor
 
             }
 
@@ -521,8 +522,15 @@ void stTargetSmash::applyNameCheats() {
         }
     }
 }
-// TODO: Potential effects: shadow clone, team attack, targets explode, invisible targets/floor/player, beat block, reverse control, zoom in on player, wind/conveyor, warp back to spawn after every target, swap fighter every target
+// TODO: Potential effects: shadow clone, team attack, targets explode, invisible targets/floor/player, beat block, reverse control, zoom in on player, wind/conveyor, warp back to spawn after every target, swap fighter every target, randomizer, bomb rain, item drop
 // TODO: Setup alt itmparam with no bounce limit?
+
+void stTargetSmash::applySeed() {
+    wchar_t* name = g_GameGlobal->m_modeMelee->m_playersInitData[0].m_name;
+    if (name[0] == 0xFF1A) {
+        srandi(((name[1] & 0xFF) << 24) + ((name[2] & 0xFF) << 16) + ((name[3] & 0xFF) << 8) + ((name[4] & 0xFF)));
+    }
+}
 
 void stTargetSmash::clearHeap() {
     for (u32 i = 0; i < NUM_ITEM_PACS; i++) {
@@ -566,24 +574,7 @@ void stTargetSmash::clearHeap() {
 }
 
 void stTargetSmash::patchInstructions() {
-    // stOperatorRuleTargetBreak::checkExtraRule
-    // Give enough room on stack for increased number of targets
 
-    // TODO: Use rel addresses
-
-    int *instructionAddr = (int*)0x8095d198;
-    *instructionAddr = 0x9421FC40; // stwu sp, -0x3C0(sp) Original: stwu sp, -0x60(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
-    instructionAddr = (int*)0x8095d1a4;
-    *instructionAddr = 0x900103C4; // stw r0, 0x3C4(sp) Original: stw r0, 0x64(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
-
-    instructionAddr = (int*)0x8095d2e0;
-    *instructionAddr = 0x800103C4; // lwz r0, 0x3C4(sp) Original: lwz r0, 0x64(sp)
-    TRK_flush_cache(instructionAddr - 4, 0x8);
-    instructionAddr = (int*)0x8095d2e8;
-    *instructionAddr = 0x382103C0; // addi sp, sp, 0x3C0 Original: addi sp, sp, 0x60
-    TRK_flush_cache(instructionAddr - 4, 0x8);
 }
 
 void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
