@@ -423,7 +423,10 @@ void stTargetSmash::applyNameCheats() {
                     item->sendTouchMessage(fighter->m_taskId, &pos, 0.0);
                     item->remove();
                 }
-            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x24\xFF\x13\xFF\x14\xFF\x17\xFF\x28\00") == 0) { // "D347H"
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x32\xFF\x14\xFF\x11\xFF\x2E\00") == 0) { // "R41N"
+                g_GameGlobal->m_modeMelee->m_meleeInitData.m_itemFrequency = gmItSwitch::Frequency_BombRain;
+            }
+            else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x24\xFF\x13\xFF\x14\xFF\x17\xFF\x28\00") == 0) { // "D347H"
                 fighter->m_moduleAccesser->getDamageModule()->addDamage(300.0, 0);
             } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x17\xFF\x32\xFF\x11\xFF\x30\00") == 0) { // "7R1P"
                 owner->setSlipMul(100.0);
@@ -526,9 +529,11 @@ void stTargetSmash::applyNameCheats() {
 // TODO: Setup alt itmparam with no bounce limit?
 
 void stTargetSmash::applySeed() {
-    wchar_t* name = g_GameGlobal->m_modeMelee->m_playersInitData[0].m_name;
-    if (name[0] == 0xFF1A) {
-        srandi(((name[1] & 0xFF) << 24) + ((name[2] & 0xFF) << 16) + ((name[3] & 0xFF) << 8) + ((name[4] & 0xFF)));
+    for (int i = 0; i < g_GameGlobal->m_modeMelee->m_meleeInitData.m_numPlayers; i++) {
+        wchar_t* name = g_GameGlobal->m_modeMelee->m_playersInitData[i].m_name;
+        if (name[0] == 0xFF1A) {
+            srandi(((name[1] & 0xFF) << 24) + ((name[2] & 0xFF) << 16) + ((name[3] & 0xFF) << 8) + ((name[4] & 0xFF)));
+        }
     }
 }
 

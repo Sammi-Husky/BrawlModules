@@ -142,10 +142,15 @@ void grTargetSmashTarget::updateEffect(float deltaFrame) {
 }
 
 void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
+    if (attackerInfo->m_directSoKind == StageObject_Item && attackerInfo->m_directSoSubKind == Item_Bombhei && attackerInfo->m_indirectSoKind == StageObject_Invalid) {
+        // Don't break target if bob-omb explodes by itself
+        return;
+    }
+
     (*this->targetsHitWork)++;
     (*this->targetsLeftWork)--;
     *this->totalDamageWork += damage->m_damageAdd;
-    int playerNo = g_ftManager->getPlayerNo(attackerInfo->m_indirectAttackerEntryId);
+    int playerNo = g_ftManager->getPlayerNo(attackerInfo->m_indirectEntryId);
     if (playerNo >= 0) {
         this->numTargetsHitPerPlayerWork[playerNo]++;
     }
