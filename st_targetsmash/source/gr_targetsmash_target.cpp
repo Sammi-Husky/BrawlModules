@@ -142,8 +142,10 @@ void grTargetSmashTarget::updateEffect(float deltaFrame) {
 }
 
 void grTargetSmashTarget::onDamage(int index, soDamage* damage, soDamageAttackerInfo* attackerInfo) {
-    if (attackerInfo->m_directSoKind == StageObject_Item && attackerInfo->m_directSoSubKind == Item_Bombhei && attackerInfo->m_indirectSoKind == StageObject_Invalid) {
-        // Don't break target if bob-omb explodes by itself
+    if (attackerInfo->m_directSoKind == StageObject_Item &&
+        ((attackerInfo->m_directSoSubKind == Item_Bombhei || attackerInfo->m_directSoSubKind == Item_Bumper) &&
+        attackerInfo->m_indirectSoKind == StageObject_Invalid)) {
+        // Bob-ombs and bumpers/flippers don't break target unless thrown by player
         return;
     }
 

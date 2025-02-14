@@ -16,6 +16,11 @@
 #include <so/so_external_value_accesser.h>
 #include <st/loader/st_loader_manager.h>
 #include <ef/ef_screen.h>
+#include <sc/sc_melee.h>
+#include <st/operator/st_operator_info.h>
+#include <so/so_world.h>
+#include <gf/gf_application.h>
+#include <gf/gf_slow_manager.h>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
@@ -111,7 +116,6 @@ void stTargetSmash::createObj()
 
     this->level = 0; // TODO
 
-    // TODO: Check mythical Pokemon loading 1 minute in?
     // TODO: Look into using PokemonResource/AssistResource for Enemy spawns as an option if no Pokemon/Assist is loaded?
 
     testStageParamInit(m_fileData, 0xA);
@@ -293,11 +297,30 @@ void stTargetSmash::applyNameCheatsStart() {
         else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x36\xFF\x13\xFF\x2E\xFF\x10\xFF\x2D\00") == 0) { // "V3N0M"
             itemManager->preloadAssist(Item_Assist_Andross);
             isAssistInitialized = false;
+        } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x11\xFF\x17\xFF\x13\xFF\x2D\00") == 0) { // "173M"
+            g_GameGlobal->m_modeMelee->m_meleeInitData.m_itemFrequency = gmItSwitch::Frequency_Intense;
+            scMelee* scene = static_cast<scMelee*>(gfSceneManager::getInstance()->searchScene("scMelee"));
+            stOperatorDropItem* operatorDropItem = scene->m_operatorDropItem;
+            stOperatorDropItemMelee* operatorDropItemMelee = dynamic_cast<stOperatorDropItemMelee*>(operatorDropItem);
+            if (operatorDropItemMelee != NULL) {
+                operatorDropItemMelee->m_frequency = stOperatorDropItem::Frequency_Intense;
+            }
+        } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x32\xFF\x14\xFF\x11\xFF\x2E\00") == 0) { // "R41N"
+            g_GameGlobal->m_modeMelee->m_meleeInitData.m_itemFrequency = gmItSwitch::Frequency_BombRain;
+            scMelee* scene = static_cast<scMelee*>(gfSceneManager::getInstance()->searchScene("scMelee"));
+            stOperatorDropItem* operatorDropItem = scene->m_operatorDropItem;
+            stOperatorDropItemMelee* operatorDropItemMelee = dynamic_cast<stOperatorDropItemMelee*>(operatorDropItem);
+            if (operatorDropItemMelee != NULL) {
+                operatorDropItemMelee->m_frequency = stOperatorDropItem::Frequency_BombRain;
+            }
         } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x37\xFF\x32\xFF\x14\xFF\x30\00") == 0) { // "WR4P"
             playerInitData->m_isStamina = true;
             playerInitData->m_hitPointMax = 999;
             g_GameGlobal->m_modeMelee->m_meleeInitData.m_isStaminaKnockback = true;
             g_GameGlobal->m_modeMelee->m_meleeInitData.m_isStaminaDeadZoneWrap = true;
+        } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x23\xFF\x11\xFF\x10\xFF\x14\xFF\x2B\00") == 0) { // "C104K"
+            playerInitData->m_isSpycloak = true;
+            g_stLoaderManager->m_loaderPlayers[i]->m_state = 0;
         }
     }
 }
@@ -423,10 +446,7 @@ void stTargetSmash::applyNameCheats() {
                     item->sendTouchMessage(fighter->m_taskId, &pos, 0.0);
                     item->remove();
                 }
-            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x32\xFF\x14\xFF\x11\xFF\x2E\00") == 0) { // "R41N"
-                g_GameGlobal->m_modeMelee->m_meleeInitData.m_itemFrequency = gmItSwitch::Frequency_BombRain;
-            }
-            else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x24\xFF\x13\xFF\x14\xFF\x17\xFF\x28\00") == 0) { // "D347H"
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x24\xFF\x13\xFF\x14\xFF\x17\xFF\x28\00") == 0) { // "D347H"
                 fighter->m_moduleAccesser->getDamageModule()->addDamage(300.0, 0);
             } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x17\xFF\x32\xFF\x11\xFF\x30\00") == 0) { // "7R1P"
                 owner->setSlipMul(100.0);
@@ -515,17 +535,95 @@ void stTargetSmash::applyNameCheats() {
                         }
                     }
                 }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x13\xFF\x2D\xFF\x30\xFF\x17\xFF\x39\00") == 0) { // "3MP7Y"
+                Ground *ground = this->getGround(0);
+                int numModels = ground->getModelCount();
+                for (u32 i = 0; i < numModels; i++) {
+                    ground->setNodeVisibilityAll(false, i);
+                }
+                if (ground->m_collision != NULL) {
+                    for (u32 i = 0; i < ground->m_collision->m_lineLen; i++) {
+                        grCollisionLine *collisionLine = ground->m_collision->getLine(i);
+                        collisionLine->m_isTargetAll = false;
+                        collisionLine->m_isTargetItem = false;
+                        collisionLine->m_isTargetOther = false;
+                    }
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x2D\xFF\x11\xFF\x2D\xFF\x13\00") == 0) { // "M1M3"
+                for (int i = 0; i < this->getGroundNum(); i++) {
+                    Ground* ground = this->getGround(i);
+                    if (dynamic_cast<grTargetSmashTarget*>(ground) == NULL && dynamic_cast<grTargetSmashDisk*>(ground) == NULL ) {
+                        int numModels = ground->getModelCount();
+                        for (u32 i = 0; i < numModels; i++) {
+                            ground->setNodeVisibilityAll(false, i);
+                        }
+                    }
+                }
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x16\xFF\x28\xFF\x10\xFF\x15\xFF\x17\00") == 0) { // "6H057"
+                for (int i = 0; i < this->getGroundNum(); i++) {
+                    Ground* ground = this->getGround(i);
+                    if (dynamic_cast<grTargetSmashTarget*>(ground) != NULL || dynamic_cast<grTargetSmashDisk*>(ground) != NULL ) {
+                        ground->setNodeVisibilityAll(false, 0);
+                    }
+                }
             } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x11\xFF\x11\xFF\x2E\xFF\x24\00") == 0) { // "811ND"
                 g_efScreen->requestFill(6.0, 7, 0, &(GXColor){0, 0, 0, 0xFF});
-                fighter->m_moduleAccesser->getWorkManageModule()->offFlag(Fighter::Instance_Work_Flag_Name_Cursor); // TODO: Figure out removing the cursor
-
+                scMelee* scene = static_cast<scMelee*>(gfSceneManager::getInstance()->searchScene("scMelee"));
+                scene->m_operatorInfo->setPlayerCursorClear(i);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x16\xFF\x35\xFF\x15\xFF\x17\x21\x92\00") == 0) { // "6U57->"
+                Rect2D* range = &this->m_deadRange;
+                Vec2f posSW = {range->m_left, range->m_down};
+                Vec2f posNE = {range->m_right, range->m_up};
+                this->createTriggerWind(&posSW, &posNE, 0.8, 0);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x16\xFF\x35\xFF\x15\xFF\x17\x21\x90\00") == 0) { // "6U57<-"
+                Rect2D* range = &this->m_deadRange;
+                Vec2f posSW = {range->m_left, range->m_down};
+                Vec2f posNE = {range->m_right, range->m_up};
+                this->createTriggerWind(&posSW, &posNE, 0.8, 180);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x16\xFF\x35\xFF\x15\xFF\x17\x21\x91\00") == 0) { // "6U57^"
+                Rect2D* range = &this->m_deadRange;
+                Vec2f posSW = {range->m_left, range->m_down};
+                Vec2f posNE = {range->m_right, range->m_up};
+                this->createTriggerWind(&posSW, &posNE, 0.8, 90);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x16\xFF\x35\xFF\x15\xFF\x17\x21\x93\00") == 0) { // "6U57v"
+                Rect2D* range = &this->m_deadRange;
+                Vec2f posSW = {range->m_left, range->m_down};
+                Vec2f posNE = {range->m_right, range->m_up};
+                this->createTriggerWind(&posSW, &posNE, 0.8, 270);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x13\xFF\x11\xFF\x17\x21\x92\00") == 0) { // "8317->"
+                Rect2D* range = &this->m_deadRange;
+                Vec2f posSW = {range->m_left, range->m_down};
+                Vec2f posNE = {range->m_right, range->m_up};
+                this->createTriggerConveyor(&posSW, &posNE, 1.5, true);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x18\xFF\x13\xFF\x11\xFF\x17\x21\x90\00") == 0) { // "8317<-"
+                Rect2D* range = &this->m_deadRange;
+                Vec2f posSW = {range->m_left, range->m_down};
+                Vec2f posNE = {range->m_right, range->m_up};
+                this->createTriggerConveyor(&posSW, &posNE, 1.5, false);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x2D\xFF\x10\xFF\x10\xFF\x2E\00") == 0) { // "M00N"
+                this->setGravityHalf();
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x11\xFF\x10\xFF\x36\xFF\x11\xFF\x15\00") == 0) { // "10V15"
+                g_soWorld->m_gravityUp = 2.0;
+                g_soWorld->m_gravityDown = 2.0;
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x30\xFF\x13\xFF\x13\xFF\x24\00") == 0) { // "5P33D"
+                g_gfApplication->m_frameRate = 60*2;
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x14\xFF\x2D\xFF\x18\xFF\x11\xFF\x13\00") == 0) { // "4M813"
+                gfSlowManager::requestSlow(2);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x26\xFF\x14\xFF\x15\xFF\x17\00") == 0) { // "F457"
+                g_GameGlobal->m_stageData->m_motionRatio = 3.0;
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x11\xFF\x10\xFF\x37\00") == 0) { // "510W"
+                g_GameGlobal->m_stageData->m_motionRatio = 0.5;
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x17\xFF\x10\xFF\x30\00") == 0) { // "570P"
+                g_GameGlobal->m_stageData->m_motionRatio = 0;
             }
 
             fighter->setupEquipment();
         }
     }
 }
-// TODO: Potential effects: shadow clone, team attack, targets explode, invisible targets/floor/player, beat block, reverse control, zoom in on player, wind/conveyor, warp back to spawn after every target, swap fighter every target, randomizer, bomb rain, item drop
+// TODO: Potential effects: shadow clone, team attack, targets explode, beat block, reverse control, zoom in on player/other camera stuff like inverted, warp back to spawn after every target, swap fighter every target, randomizer, Helirin, infinite jumps/single jump, wild/game speed, rotate entire stage
+// TODO: Signify cheat tag somehow (maybe with colour?)
+
 // TODO: Setup alt itmparam with no bounce limit?
 
 void stTargetSmash::applySeed() {
