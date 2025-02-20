@@ -21,6 +21,8 @@
 #include <so/so_world.h>
 #include <gf/gf_application.h>
 #include <gf/gf_slow_manager.h>
+#include <mt/mt_trig.h>
+#include <gf/gf_3d_scene.h>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
@@ -615,13 +617,17 @@ void stTargetSmash::applyNameCheats() {
                 g_GameGlobal->m_stageData->m_motionRatio = 0.5;
             } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x17\xFF\x10\xFF\x30\00") == 0) { // "570P"
                 g_GameGlobal->m_stageData->m_motionRatio = 0;
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x26\xFF\x11\xFF\x11\xFF\x30\00") == 0) { // "F11P"
+                g_gfSceneRoot->m_transformFlag.m_reverseLr = true;
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x17\xFF\x35\xFF\x32\xFF\x2E\00") == 0) { // "7URN"
+                gfCamera* camera = gfCameraManager::getManager()->getCamera(0);
+                camera->m_rot.m_z = mtConvDegToRad(180.0);
             }
-
             fighter->setupEquipment();
         }
     }
 }
-// TODO: Potential effects: shadow clone, team attack, targets explode, beat block, reverse control, zoom in on player/other camera stuff like inverted, warp back to spawn after every target, swap fighter every target, randomizer, Helirin, infinite jumps/single jump, wild/game speed, rotate entire stage
+// TODO: Potential effects: shadow clone, targets explode, beat block, reverse control, zoom in on player/other camera stuff like quake, warp back to spawn after every target, swap fighter every target, randomizer, Helirin, infinite jumps/single jump, targets grant jumps, rotate entire stage, endless/get (versus between players -> increment coin score)
 // TODO: Signify cheat tag somehow (maybe with colour?)
 
 // TODO: Setup alt itmparam with no bounce limit?

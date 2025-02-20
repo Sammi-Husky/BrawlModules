@@ -247,7 +247,7 @@ void stStadium::update(float deltaFrame)
             this->m_transformEvent.end();
         }
         else {
-            cmReqQuake(1, &(Vec3f){0.0, 0.0, 0.0});
+            cmReqQuake(cmQuake::Amplitude_Middle, &(Vec3f){0.0, 0.0, 0.0});
         }
     }
     this->updateSymbol(deltaFrame);
