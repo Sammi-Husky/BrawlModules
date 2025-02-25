@@ -9,6 +9,9 @@
 #define NUM_ENEMY_TYPES 0x3D
 #define NUM_PRIM_FACES 20
 #define NUM_WEAPON_STAGE_OBJECTS 0xf; //0x1e;
+#define NUM_SHADES 2
+#define SHADE_FRAME_LENGTH 60
+#define SHADE_SIZE_MULTIPLIER 0.5
 
 struct stTargetSmashData {
     grGimmick::AttackData sliderAttackData;

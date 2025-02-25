@@ -19,6 +19,7 @@
 #include "gr_catapult.h"
 #include "gr_item.h"
 #include "gr_area.h"
+#include "st_targetsmash_shade.h"
 
 const float BGM_PLAY_OFFSET_FRAME = 0.0f;
 const float BGM_VOLUME = 1.0f;
@@ -40,7 +41,8 @@ protected:
     char _[1];
     gfArchive* enemyCommonPac;
     gfArchive* primFacePac;
-    char _860[908 - 872];
+    char _860[900 - 872];
+    stTargetSmashShade<SHADE_FRAME_LENGTH>* shades[NUM_SHADES];
     grPokeTrainer* pokeTrainerGround;
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
@@ -61,6 +63,9 @@ public:
         targetsHit = 0;
         totalDamage = 0.0;
         __memfill(&numTargetsHitPerPlayer, 0, sizeof(numTargetsHitPerPlayer));
+        __memfill(&shades, 0, sizeof(shades));
+
+
     };
     static stTargetSmash* create();
     grGimmickWindData2nd* getWind2ndOnlyData();

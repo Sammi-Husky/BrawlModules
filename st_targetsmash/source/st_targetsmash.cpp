@@ -109,6 +109,11 @@ void stTargetSmash::update(float deltaFrame)
         }
     }
 
+    for (u32 i = 0; i < NUM_SHADES; i++) {
+        if (this->shades[i] != NULL) {
+            this->shades[i]->update(deltaFrame);
+        }
+    }
 }
 void stTargetSmash::createObj()
 {
@@ -622,12 +627,16 @@ void stTargetSmash::applyNameCheats() {
             } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x17\xFF\x35\xFF\x32\xFF\x2E\00") == 0) { // "7URN"
                 gfCamera* camera = gfCameraManager::getManager()->getCamera(0);
                 camera->m_rot.m_z = mtConvDegToRad(180.0);
+            } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x28\xFF\x14\xFF\x24\xFF\x13\00") == 0) { // "5H4D3"
+                if (g_GameGlobal->m_modeMelee->m_meleeInitData.m_numPlayers < 2 && i < 2) {
+                    this->shades[i] = new (Heaps::StageInstance) stTargetSmashShade<SHADE_FRAME_LENGTH>(playerInitData->m_characterKind, playerInitData->m_costumeId, playerInitData->m_colorFileIdx, i, i + 2);
+                }
             }
             fighter->setupEquipment();
         }
     }
 }
-// TODO: Potential effects: shadow clone, targets explode, beat block, reverse control, zoom in on player/other camera stuff like quake, warp back to spawn after every target, swap fighter every target, randomizer, Helirin, infinite jumps/single jump, targets grant jumps, rotate entire stage, endless/get (versus between players -> increment coin score)
+// TODO: Potential effects: targets explode, beat block, reverse control, zoom in on player/other camera stuff like quake, warp back to spawn after every target, swap fighter every target, randomizer, Helirin, infinite jumps/single jump, targets grant jumps, rotate entire stage, endless/get (versus between players -> increment coin score)
 // TODO: Signify cheat tag somehow (maybe with colour?)
 
 // TODO: Setup alt itmparam with no bounce limit?
@@ -680,6 +689,13 @@ void stTargetSmash::clearHeap() {
     }
 
     gfModuleManager::getInstance()->destroy("sora_enemy.rel");
+
+    for (u32 i = 0; i < NUM_SHADES; i++) {
+        if (this->shades[i] != NULL) {
+            delete this->shades[i];
+            this->shades[i] = NULL;
+        }
+    }
 }
 
 void stTargetSmash::patchInstructions() {
