@@ -8,6 +8,7 @@
 #include <if/if_mngr.h>
 #include <ft/ft_manager.h>
 #include <sc/sc_melee.h>
+#include <mt/mt_prng.h>
 #include <stdio.h>
 #include <OS/OSError.h>
 
@@ -81,23 +82,39 @@ public:
 
                 case State_Follow: {
                     FrameInfo frameInfo = this->getFrameInfo(this->currentFrame);
+
+                    const char* motionName = fighter->m_moduleAccesser->getMotionModule()->getName(frameInfo.motionKind, true);
+                    int statusKind = followFighter->m_moduleAccesser->getStatusModule()->getStatusKind();
+                    if (statusKind == Fighter::Status_Dead || statusKind == Fighter::Status_Standby) {
+                        frameInfo.pos = fighter->m_moduleAccesser->getPostureModule()->getPos();
+                        frameInfo.rot = fighter->m_moduleAccesser->getPostureModule()->getRot(0);
+                        frameInfo.lr = fighter->m_moduleAccesser->getPostureModule()->getLr();
+                        frameInfo.motionKind = fighter->m_moduleAccesser->getMotionModule()->getKind();
+                        if (frameInfo.motionKind < Fighter::Motion_Appeal_Hi_R || frameInfo.motionKind > Fighter::Motion_Appeal_Lw_L) {
+                            frameInfo.motionKind = ((frameInfo.lr >= 0.0) ? Fighter::Motion_Appeal_Hi_R : Fighter::Motion_Appeal_Hi_L) + randi(3)*2;
+                        }
+                        frameInfo.motionFrame = -1;
+                    }
+                    else if (motionName == NULL || strcmp(motionName, "NONE") == 0 || strcmp(motionName, "") == 0) {
+                        frameInfo.motionKind = Fighter::Motion_Catapult;
+                        frameInfo.motionFrame = 1.0;
+                    }
                     fighter->m_moduleAccesser->getPostureModule()->setPos(&frameInfo.pos);
                     fighter->m_moduleAccesser->getPostureModule()->setRot(&frameInfo.rot, 0);
                     fighter->m_moduleAccesser->getPostureModule()->setLr(frameInfo.lr);
                     fighter->m_moduleAccesser->getPostureModule()->updateRotYLr();
-                    const char* motionName = fighter->m_moduleAccesser->getMotionModule()->getName(frameInfo.motionKind, true);
-                    if (motionName == NULL || strcmp(motionName, "NONE") == 0 || strcmp(motionName, "") == 0) {
-                        frameInfo.motionKind = Fighter::Motion_Catapult;
-                        frameInfo.motionFrame = 1.0;
-                    }
-
                     if (fighter->m_moduleAccesser->getMotionModule()->getKind() != frameInfo.motionKind) {
-                        soMotionChangeParam changeParam = {frameInfo.motionKind, frameInfo.motionFrame, 0.0, 0, 0,
+                        soMotionChangeParam changeParam = {frameInfo.motionKind, (frameInfo.motionFrame >= 0) ? frameInfo.motionFrame : 0.0, (frameInfo.motionFrame >= 0) ? 0.0 : 1.0, 0, 0,
                                         true, 0};
                         fighter->m_moduleAccesser->getMotionModule()->changeMotion(&changeParam);
                         fighter->m_moduleAccesser->getAnimCmdModule()->deactivate(fighter->m_moduleAccesser);
                     } else {
-                        fighter->m_moduleAccesser->getMotionModule()->setFrame(frameInfo.motionFrame);
+                        if (frameInfo.motionFrame >= 0) {
+                            fighter->m_moduleAccesser->getMotionModule()->setFrame(frameInfo.motionFrame);
+                        }
+                        else {
+                            fighter->m_moduleAccesser->getMotionModule()->setRate(1.0);
+                        }
                     }
                     break;
                 }
@@ -111,15 +128,7 @@ public:
             frameInfo.pos = followFighter->m_moduleAccesser->getPostureModule()->getPos();
             frameInfo.rot = followFighter->m_moduleAccesser->getPostureModule()->getRot(0);
             frameInfo.lr = followFighter->m_moduleAccesser->getPostureModule()->getLr();
-//            if (followFighter->m_moduleAccesser->getStatusModule()->getStatusKind() == Fighter::Status_Dead) {
-//                frameInfo.motionKind = (frameInfo.lr >= 0.0) ? Fighter::Motion_Appeal_Lw_R : Fighter::Motion_Appeal_Lw_L;
-//                if (followFighter->m_moduleAccesser->getStatusModule()->getPrevStatusKind(0) != Fighter::Status_Dead) {
-//                    frameInfo.motionFrame = 0;
-//                }
-//                else {
-//                    frameInfo.motionFrame += deltaFrame;
-//                }
-            } else if (followFighter->m_moduleAccesser->getVisibilityModule()->getWhole() == true) {
+            if (followFighter->m_moduleAccesser->getVisibilityModule()->getWhole() == true) {
                 frameInfo.motionKind = followFighter->m_moduleAccesser->getMotionModule()->getKind();
                 frameInfo.motionFrame = followFighter->m_moduleAccesser->getMotionModule()->getFrame();
             } else {
@@ -156,8 +165,8 @@ public:
                     attackData.m_isDeath100 = true;
                     fighter->m_moduleAccesser->getCollisionAttackModule()->set(0, 0, &attackData);
 
+                    // TODO: Handle turning off effects/color overlays
                     // TODO: Make sure ignore invincible moves can't detect hurtbox and things can't detect shade?
-                    // TODO: Keep track of visibility, change anim to something other than tpose
                 }
             }
 
