@@ -699,9 +699,11 @@ void stTargetSmash::clearHeap() {
             this->shades[i] = NULL;
         }
     }
+
+    g_gfSceneRoot->m_transformFlag.m_reverseLr = false;
 }
 
-void stTargetSmash::patchInstructions() {
+void stTargetSmash::patchInstructions() {U
 
 }
 
