@@ -108,6 +108,8 @@ public:
                                         true, 0};
                         fighter->m_moduleAccesser->getMotionModule()->changeMotion(&changeParam);
                         fighter->m_moduleAccesser->getAnimCmdModule()->deactivate(fighter->m_moduleAccesser);
+                        fighter->m_moduleAccesser->getEffectModule()->removeAll(0);
+                        fighter->m_moduleAccesser->getColorBlendModule()->offAll(true);
                     } else {
                         if (frameInfo.motionFrame >= 0) {
                             fighter->m_moduleAccesser->getMotionModule()->setFrame(frameInfo.motionFrame);
@@ -208,6 +210,6 @@ public:
 
 };
 
-// TODO: Handle turning off effects/color overlays
+// TODO: Ensure any hitbox/grab box/search box is turned off / also sounds?
 // TODO: Make sure ignore invincible moves can't detect hurtbox and things can't detect shade?
 // TODO: Handle transforming characters like Sheik/Zelda? and Ice Climbers
