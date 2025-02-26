@@ -111,6 +111,9 @@ void stTargetSmash::update(float deltaFrame)
 
     for (u32 i = 0; i < NUM_SHADES; i++) {
         if (this->shades[i] != NULL) {
+            if (this->targetsLeft == 0) {
+                this->shades[i]->setComplete();
+            }
             this->shades[i]->update(deltaFrame);
         }
     }

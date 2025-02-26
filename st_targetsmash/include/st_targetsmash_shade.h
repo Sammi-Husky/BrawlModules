@@ -17,7 +17,8 @@ public:
     enum State {
         State_Inactive = 0x0,
         State_Start = 0x1,
-        State_Follow = 0x2
+        State_Follow = 0x2,
+        State_Finish = 0x3,
     };
 
     struct FrameInfo {
@@ -37,7 +38,7 @@ public:
     virtual FrameInfo getFrameInfo(int frame);
     virtual u32 getFollowLength();
 
-    virtual void initialize(gmCharacterKind charKind, u8 costumeId, u8 colorFileIdx, u8 followPlayerId, u8 playerId) {
+    void initialize(gmCharacterKind charKind, u8 costumeId, u8 colorFileIdx, u8 followPlayerId, u8 playerId) {
         this->currentFrame = 0;
         this->followPlayerId = followPlayerId;
         this->playerId = playerId;
@@ -50,7 +51,7 @@ public:
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_teamNo = 5;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_isNoVoice = true;
     }
-    virtual void update(float deltaFrame) {
+    void update(float deltaFrame) {
         //g_stLoaderManager->m_loaderPlayers[this->playerId]->removeInfo();
         if (g_IfMngr != NULL) {
             g_IfMngr->m_ifPlayers[this->playerId]->disappear();
@@ -90,10 +91,9 @@ public:
                         frameInfo.rot = fighter->m_moduleAccesser->getPostureModule()->getRot(0);
                         frameInfo.lr = fighter->m_moduleAccesser->getPostureModule()->getLr();
                         frameInfo.motionKind = fighter->m_moduleAccesser->getMotionModule()->getKind();
-                        if (frameInfo.motionKind < Fighter::Motion_Appeal_Hi_R || frameInfo.motionKind > Fighter::Motion_Appeal_Lw_L) {
-                            frameInfo.motionKind = ((frameInfo.lr >= 0.0) ? Fighter::Motion_Appeal_Hi_R : Fighter::Motion_Appeal_Hi_L) + randi(3)*2;
-                        }
+                        frameInfo.motionKind = ((frameInfo.lr >= 0.0) ? Fighter::Motion_Appeal_Hi_R : Fighter::Motion_Appeal_Hi_L) + randi(3)*2;
                         frameInfo.motionFrame = -1;
+                        this->state = State_Finish;
                     }
                     else if (motionName == NULL || strcmp(motionName, "NONE") == 0 || strcmp(motionName, "") == 0) {
                         frameInfo.motionKind = Fighter::Motion_Catapult;
@@ -136,11 +136,9 @@ public:
                 frameInfo.motionFrame = 1.0;
             }
 
-
-
             this->setFrameInfo(this->currentFrame, &frameInfo);
 
-            if (this->state != State_Inactive) {
+            if (this->state != State_Inactive && this->state != State_Finish) {
                 this->currentFrame++;
                 if (this->currentFrame >= this->getFollowLength()) {
                     fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
@@ -165,14 +163,25 @@ public:
                     attackData.m_isDeath100 = true;
                     fighter->m_moduleAccesser->getCollisionAttackModule()->set(0, 0, &attackData);
 
-                    // TODO: Handle turning off effects/color overlays
-                    // TODO: Make sure ignore invincible moves can't detect hurtbox and things can't detect shade?
+
                 }
             }
 
             scMelee* scene = static_cast<scMelee*>(gfSceneManager::getInstance()->searchScene("scMelee"));
             scene->m_operatorInfo->setPlayerCursorClear(this->playerId);
 
+        }
+    }
+
+    void setComplete() {
+        int entryId = g_ftManager->getEntryId(this->playerId);
+        if (g_ftManager->isFighterActivate(entryId, -1)) {
+            Fighter *fighter = g_ftManager->getFighter(entryId, -1);
+            int statusKind = fighter->m_moduleAccesser->getStatusModule()->getStatusKind();
+            if (this->state != State_Finish) {
+                fighter->toKnockOut();
+                this->state = State_Finish;
+            }
         }
     }
 
@@ -199,4 +208,6 @@ public:
 
 };
 
+// TODO: Handle turning off effects/color overlays
+// TODO: Make sure ignore invincible moves can't detect hurtbox and things can't detect shade?
 // TODO: Handle transforming characters like Sheik/Zelda? and Ice Climbers
