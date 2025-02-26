@@ -703,7 +703,7 @@ void stTargetSmash::clearHeap() {
     g_gfSceneRoot->m_transformFlag.m_reverseLr = false;
 }
 
-void stTargetSmash::patchInstructions() {U
+void stTargetSmash::patchInstructions() {
 
 }
 
