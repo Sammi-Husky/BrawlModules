@@ -38,7 +38,7 @@ protected:
     bool isItemsInitialized;
     bool isEnemiesInitialized;
     bool isAssistInitialized;
-    char _[1];
+    bool isEndSfxPlayed;
     gfArchive* enemyCommonPac;
     gfArchive* primFacePac;
     char _860[900 - 872];
@@ -59,6 +59,7 @@ public:
         isItemsInitialized = false;
         isEnemiesInitialized = false;
         isAssistInitialized = true;
+        isEndSfxPlayed = false;
         targetsLeft = 0;
         targetsHit = 0;
         totalDamage = 0.0;

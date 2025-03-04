@@ -158,6 +158,7 @@ void grPlatform::onDamage(int index, soDamage* damage, soDamageAttackerInfo* att
 
 }
 
+// TODO: Option to detect side and top collision
 void grPlatform::receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoint* collisionJoint, bool unk3) {
     if (this->maxLandings >= 0) {
         this->consecutiveLandings++;

@@ -18,6 +18,7 @@
 #include <ef/ef_screen.h>
 #include <sc/sc_melee.h>
 #include <st/operator/st_operator_info.h>
+#include <st/operator/st_operator_rule_melee.h>
 #include <so/so_world.h>
 #include <gf/gf_application.h>
 #include <gf/gf_slow_manager.h>
@@ -109,14 +110,36 @@ void stTargetSmash::update(float deltaFrame)
         }
     }
 
+    if (!this->isEndSfxPlayed) {
+        if (g_GameGlobal->m_resultInfo->m_decisionKind == gmResultInfo::Decision_Complete) {
+            this->isEndSfxPlayed = true;
+            nw4r::g3d::ResNodeData* resNodeData = this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResNode("End").ptr();
+            if (resNodeData->m_rotation.m_x > 0) {
+                this->playSeBasic((SndID)resNodeData->m_rotation.m_x, 0);
+            }
+        }
+        else if (g_GameGlobal->m_resultInfo->m_decisionKind == gmResultInfo::Decision_Failure) {
+            this->isEndSfxPlayed = true;
+            nw4r::g3d::ResNodeData* resNodeData = this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResNode("End").ptr();
+            if (resNodeData->m_rotation.m_y > 0) {
+                this->playSeBasic((SndID)resNodeData->m_rotation.m_y, 0);
+            }
+        }
+    }
+
+
     for (u32 i = 0; i < NUM_SHADES; i++) {
         if (this->shades[i] != NULL) {
-            if (this->targetsLeft == 0) {
+            if (g_GameGlobal->m_resultInfo->m_decisionKind == gmResultInfo::Decision_Complete) {
                 this->shades[i]->setComplete();
             }
             this->shades[i]->update(deltaFrame);
         }
     }
+
+
+
+
 }
 void stTargetSmash::createObj()
 {
@@ -639,7 +662,7 @@ void stTargetSmash::applyNameCheats() {
         }
     }
 }
-// TODO: Potential effects: targets explode, beat block, reverse control, zoom in on player/other camera stuff like quake, warp back to spawn after every target, swap fighter every target, randomizer, Helirin, infinite jumps/single jump, targets grant jumps, rotate entire stage, endless/get (versus between players -> increment coin score)
+// TODO: Potential effects: targets explode, beat block, reverse control, zoom in on player/other camera stuff like quake, warp back to spawn after every target, swap fighter every target, randomizer (could be switching the position of every object or could be randomly placing targets), switch targets with board platforms, Helirin, infinite jumps/single jump, targets grant jumps, rotate entire stage, pinball (have to hit with soccer ball/custom bouncy item), endless/get (versus between players -> increment coin score), random effect
 // TODO: Signify cheat tag somehow (maybe with colour?)
 
 // TODO: Setup alt itmparam with no bounce limit?
