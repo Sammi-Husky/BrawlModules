@@ -31,19 +31,6 @@ public:
     virtual ~grVillage();
 
     static grVillage* create(int mdlIndex, const char* tgtNodeName, const char* taskName);
-    int adventureEventGetItem();
-    int getInitializeInfo();
-    void setInitializeInfo();
-    void setInitializeFlag();
-    void disableCalcCollision();
-    void enableCalcCollision();
-    bool isEnableCalcCollision();
-    short getMdlIndex();
-    void initStageData();
-    void* getStageData();
-    char getTransparencyFlag();
-    void* getGimmickData();
-    void setGimmickData(void* data);
-    int getModelCount();
+
 };
 static_assert(sizeof(grVillage) == 0x168, "Class is wrong size!");

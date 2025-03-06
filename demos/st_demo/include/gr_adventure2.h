@@ -15,7 +15,7 @@ public:
         backgrounds[1] = NULL;
         backgrounds[2] = NULL;
         backgrounds[3] = NULL;
-        m_visibilityFlag0 = true;
+        m_isUseMdlNameForStartAnim = true;
         m_transparencySettings = 0;
     };
     virtual void renderPre();
