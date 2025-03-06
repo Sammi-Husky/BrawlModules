@@ -84,7 +84,7 @@ void grVillageGuestPathMove::updateMove(float deltaFrame)
     }
     else if (this->m_unk1 == 4)
     {
-        if (this->isSceneBit() && !this->m_visibilityFlag7)
+        if (this->isSceneBit() && !this->m_isVisible)
             this->setVisibility(1);
 
         if (this->m_type == 3)

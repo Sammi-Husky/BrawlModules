@@ -263,7 +263,8 @@ public:
 
         gfFileIORequest request;
         char buffer[64];
-        sprintf(&buffer, "%ssaves/tBreak/ghosts/%s_%d.gst" MOD_PATCH_DIR, INTERNAL_FIGHTER_NAMES[kinds[0]], g_GameGlobal->g_globalModeMelee->m_meleeInitData.m_subStageKind);
+//        // TODO: Turn getting INTERNAL_FIGHTER_NAMES into a function
+//        sprintf(&buffer, "%ssaves/tBreak/ghosts/%s_%d.gst" MOD_PATCH_DIR, INTERNAL_FIGHTER_NAMES[kinds[0]], g_GameGlobal->g_globalModeMelee->m_meleeInitData.m_subStageKind);
         //request.setWriteParam();
     }
 
