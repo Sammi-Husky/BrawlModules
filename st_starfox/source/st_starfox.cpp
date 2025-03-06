@@ -95,7 +95,7 @@ void stStarfox::createObj() {
     m_not_first_scene = 0;
     loadStageAttrParam(m_fileData, 0x1E);
     initPosPokeTrainer(1, 0);
-    createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", m_unk, 0);
+    createObjPokeTrainer(m_fileData, 0x65, "PokeTrainer00", m_pokeTrainerPos, 0);
     m_prev_scene_num = -1;
     m_show_dogfight = 0;
     m_se_player.registId(data_loc_11A0, SndIDTableSize);

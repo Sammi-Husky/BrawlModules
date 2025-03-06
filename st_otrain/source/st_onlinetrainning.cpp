@@ -129,7 +129,7 @@ void stOnlineTrainning::createObj() {
     createWind2ndOnly();
     loadStageAttrParam(m_fileData, 0x1E);
     initPosPokeTrainer(1, 0);
-    createObjPokeTrainer(m_fileData, 101, "PokeTrainer00", m_unk, 0);
+    createObjPokeTrainer(m_fileData, 101, "PokeTrainer00", m_pokeTrainerPos, 0);
     nw4r::g3d::ResFileData* scn = (nw4r::g3d::ResFileData*) m_fileData->getData(Data_Type_Scene, 0, 0xFFFE);
     registScnAnim(scn, 0);
 
