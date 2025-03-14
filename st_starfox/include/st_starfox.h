@@ -66,16 +66,6 @@ public:
     float getTimeLeft() { return m_time_left; }
 };
 
-class IfFoxSmashAppearTask : public IfSmashAppearTask {
-public:
-    virtual void processDefault();
-    virtual ~IfFoxSmashAppearTask();
-    virtual void start(s32 p1);
-    virtual void onClose();
-    virtual void onChangeFace();
-    static IfFoxSmashAppearTask* create(gfArchive *);
-};
-
 class stStarfox : public stMelee {
     grTenganEvent m_scene_lifecycle;
     grTenganEvent m_curr_scene;

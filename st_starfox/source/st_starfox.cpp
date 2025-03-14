@@ -235,12 +235,12 @@ void stStarfox::updateScene(float deltaFrame) {
                     m_secondaryFileData->getData(Data_Type_Scene, m_prev_scene_num*3, 0xFFFE);
                 registScnAnim(scn, 0);
                 playSeBasic(snd_se_stage_Starfox_warp_in, 0.0f);
-                m_windAreaData2nd->m_speed = 0.5f;
-                m_windAreaData2nd->m_vector = 361.0f;
-                m_windAreaData2nd->m_60 = 24.0f;
-                m_windAreaData2nd->m_64 = 1.0f;
-                m_windAreaData2nd->m_72 = 0x46;
-                m_wind2ndTrigger->setWindParam(m_windAreaData2nd, 0);
+                m_wind2ndData->m_speed = 0.5f;
+                m_wind2ndData->m_vector = 361.0f;
+                m_wind2ndData->m_60 = 24.0f;
+                m_wind2ndData->m_64 = 1.0f;
+                m_wind2ndData->m_72 = 0x46;
+                m_wind2ndTrigger->setWindParam(m_wind2ndData, 0);
                 m_wind2ndTrigger->setAreaSleep(0);
                 static_cast<grMadein*>(getGround(3))->endEntity();
                 static_cast<grMadein*>(getGround(3))->setMotion(3);
@@ -384,12 +384,12 @@ void stStarfox::updateSceneEffectCorneria(float deltaFrame) {
     switch (m_corneria_phase) {
         case 1:
             if (m_curr_scene.getTimeLeft() < 1900.0f) {
-                m_windAreaData2nd->m_speed = 0.5f;
-                m_windAreaData2nd->m_vector = 90.0f;
-                m_windAreaData2nd->m_60 = 16.0f;
-                m_windAreaData2nd->m_64 = 0.9f;
-                m_windAreaData2nd->m_72 = 0x46;
-                m_wind2ndTrigger->setWindParam(m_windAreaData2nd, 0);
+                m_wind2ndData->m_speed = 0.5f;
+                m_wind2ndData->m_vector = 90.0f;
+                m_wind2ndData->m_60 = 16.0f;
+                m_wind2ndData->m_64 = 0.9f;
+                m_wind2ndData->m_72 = 0x46;
+                m_wind2ndTrigger->setWindParam(m_wind2ndData, 0);
                 m_wind2ndTrigger->setAreaSleep(0);
                 m_corneria_phase++;
             }
@@ -402,12 +402,12 @@ void stStarfox::updateSceneEffectCorneria(float deltaFrame) {
             break;
         case 3:
             if (m_curr_scene.getTimeLeft() < 370.0f) {
-                m_windAreaData2nd->m_speed = 0.6f;
-                m_windAreaData2nd->m_vector = 270.0f;
-                m_windAreaData2nd->m_60 = 24.0f;
-                m_windAreaData2nd->m_64 = 0.8f;
-                m_windAreaData2nd->m_72 = 0x3C;
-                m_wind2ndTrigger->setWindParam(m_windAreaData2nd, 0);
+                m_wind2ndData->m_speed = 0.6f;
+                m_wind2ndData->m_vector = 270.0f;
+                m_wind2ndData->m_60 = 24.0f;
+                m_wind2ndData->m_64 = 0.8f;
+                m_wind2ndData->m_72 = 0x3C;
+                m_wind2ndTrigger->setWindParam(m_wind2ndData, 0);
                 m_wind2ndTrigger->setAreaSleep(0);
                 m_corneria_phase++;
             }
