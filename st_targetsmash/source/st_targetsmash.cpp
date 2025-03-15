@@ -655,7 +655,7 @@ void stTargetSmash::applyNameCheats() {
                 camera->m_rot.m_z = mtConvDegToRad(180.0);
             } else if (wcscmp(playerInitData->m_name, (wchar_t *) "\xFF\x15\xFF\x28\xFF\x14\xFF\x24\xFF\x13\00") == 0) { // "5H4D3"
                 if (g_GameGlobal->m_modeMelee->m_meleeInitData.m_numPlayers < 2 && i < 2) {
-                    this->shades[i] = new (Heaps::StageInstance) stTargetSmashShade<SHADE_FRAME_LENGTH>(playerInitData->m_characterKind, playerInitData->m_costumeId, playerInitData->m_colorFileIdx, i, i + 2);
+                    this->shades[i] = new (Heaps::StageInstance) stTargetSmashShade<SHADE_FRAME_LENGTH>(playerInitData->m_characterKind, playerInitData->m_colorNo, playerInitData->m_colorFileNo, i, i + 2);
                 }
             }
             fighter->setupEquipment();

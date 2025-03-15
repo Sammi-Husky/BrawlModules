@@ -61,8 +61,8 @@ public:
         this->playerId = playerId;
         this->state = State_Inactive;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_characterKind = charKind;
-        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_costumeId = costumeId;
-        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorFileIdx = colorFileIdx;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorNo = costumeId;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorFileNo = colorFileIdx;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_state = 0;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_stockCount = 1;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_teamNo = 5;
