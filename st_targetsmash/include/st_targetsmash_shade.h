@@ -19,9 +19,10 @@ class stTargetSmashShadeInterface {
 public:
     enum State {
         State_Inactive = 0x0,
-        State_Start = 0x1,
-        State_Follow = 0x2,
-        State_Finish = 0x3,
+        State_Initialize = 0x1,
+        State_Start = 0x2,
+        State_Follow = 0x3,
+        State_Finish = 0x4,
     };
 
     struct FrameInfo {
@@ -32,11 +33,14 @@ public:
         float motionFrame;
     };
 
+    bool isRecord;
     s8 playerId;
     s8 followPlayerId;
     State state : 8;
     int currentFrame;
 
+    stTargetSmashShadeInterface() : playerId(-1), followPlayerId(-1), isRecord(false), currentFrame(0), state(State_Inactive) {};
+    stTargetSmashShadeInterface(int playerId, int followPlayerId) : playerId(playerId), followPlayerId(followPlayerId), isRecord(false), currentFrame(0), state(State_Inactive) {};
     virtual void setFrameInfo(int frame, FrameInfo* frameInfo);
     virtual FrameInfo getFrameInfo(int frame);
     virtual u32 getFollowLength();
@@ -52,21 +56,23 @@ public:
             frameInfo.motionKind = Fighter::Motion_Catapult;
             frameInfo.motionFrame = 1.0;
         }
-        this->setFrameInfo(this->currentFrame, &frameInfo);
+        this->setFrameInfo(currentFrame, &frameInfo);
     };
 
-    void initialize(gmCharacterKind charKind, u8 costumeId, u8 colorFileIdx, u8 followPlayerId, u8 playerId) {
-        this->currentFrame = 0;
-        this->followPlayerId = followPlayerId;
-        this->playerId = playerId;
-        this->state = State_Inactive;
-        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_characterKind = charKind;
-        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorNo = costumeId;
-        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorFileNo = colorFileIdx;
+    void initialize() {
+        this->state = State_Initialize;
+
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_characterKind = g_GameGlobal->m_modeMelee->m_playersInitData[followPlayerId].m_characterKind;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorNo = g_GameGlobal->m_modeMelee->m_playersInitData[followPlayerId].m_colorNo;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorFileNo = g_GameGlobal->m_modeMelee->m_playersInitData[followPlayerId].m_colorFileNo;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_state = 0;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_stockCount = 1;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_teamNo = 5;
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_isNoVoice = true;
+    }
+
+    void startRecord() {
+        this->isRecord = true;
     }
 
     virtual void begin(Fighter* fighter, Fighter* followFighter) {
@@ -121,8 +127,10 @@ public:
         }
     }
 
-    virtual void loop(Fighter* fighter) {
+    virtual void loop() {
         if (this->state == State_Start) {
+            int entryId = g_ftManager->getEntryId(this->playerId);
+            Fighter *fighter = g_ftManager->getFighter(entryId, -1);
 
             fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
             soCollisionAttackData attackData(300,
@@ -161,21 +169,27 @@ public:
     }
 
     void update(float deltaFrame) {
-        //g_stLoaderManager->m_loaderPlayers[this->playerId]->removeInfo();
-        if (g_IfMngr != NULL) {
-            g_IfMngr->m_ifPlayers[this->playerId]->disappear();
-        }
 
         int entryId = g_ftManager->getEntryId(this->playerId);
         int followEntryId = g_ftManager->getEntryId(this->followPlayerId);
+        if (this->state == State_Inactive && g_ftManager->isFighterActivate(followEntryId, -1)) {
+            this->initialize();
+        }
+
         if (g_ftManager->isFighterActivate(entryId, -1) && g_ftManager->isFighterActivate(followEntryId, -1)) {
+            //g_stLoaderManager->m_loaderPlayers[this->playerId]->removeInfo();
+            if (g_IfMngr != NULL) {
+                g_IfMngr->m_ifPlayers[this->playerId]->disappear();
+            }
+
             Fighter *fighter = g_ftManager->getFighter(entryId, -1);
             Fighter *followFighter = g_ftManager->getFighter(followEntryId, -1);
 
             switch (this->state) {
-                case State_Inactive: {
+                case State_Initialize: {
                     this->begin(fighter, followFighter);
                     this->state = State_Start;
+                    this->isRecord = true;
                 }
                     break;
 
@@ -189,19 +203,35 @@ public:
             int statusKind = fighter->m_moduleAccesser->getStatusModule()->getStatusKind();
             fighter->m_moduleAccesser->getGroundModule()->setCorrect(soGroundShapeImpl::Correct_None, 0);
 
+//            this->record(this->currentFrame, followFighter);
+//
+//            if (this->state != State_Initialize && this->state != State_Finish) {
+//                this->currentFrame++;
+//                if (this->currentFrame >= this->getFollowLength()) {
+//                    this->currentFrame = 0;
+//                    this->loop();
+//                }
+//            }
+//
+//            scMelee* scene = static_cast<scMelee*>(gfSceneManager::getInstance()->searchScene("scMelee"));
+//            scene->m_operatorInfo->setPlayerCursorClear(this->playerId);
+
+        }
+
+        if (g_ftManager->isFighterActivate(followEntryId, -1)) {
+            Fighter *followFighter = g_ftManager->getFighter(followEntryId, -1);
             this->record(this->currentFrame, followFighter);
 
-            if (this->state != State_Inactive && this->state != State_Finish) {
+            if (this->isRecord) {
                 this->currentFrame++;
                 if (this->currentFrame >= this->getFollowLength()) {
                     this->currentFrame = 0;
-                    this->loop(fighter);
+                    this->loop();
                 }
             }
 
             scMelee* scene = static_cast<scMelee*>(gfSceneManager::getInstance()->searchScene("scMelee"));
             scene->m_operatorInfo->setPlayerCursorClear(this->playerId);
-
         }
     }
 
@@ -213,6 +243,7 @@ public:
             if (this->state != State_Finish) {
                 fighter->toKnockOut();
                 this->state = State_Finish;
+                this->isRecord = false;
             }
         }
     }
@@ -221,12 +252,16 @@ public:
 
 template <u32 L>
 class stTargetSmashShade : public stTargetSmashShadeInterface {
+protected:
     int infoLength;
     FrameInfo frameInfos[L];
 
 public:
-    stTargetSmashShade(gmCharacterKind charKind, u8 costumeId,  u8 colorFileIdx, u8 followPlayerId, u8 playerId) {
-        this->initialize(charKind, costumeId, colorFileIdx, followPlayerId, playerId);
+    stTargetSmashShade() {
+
+    };
+    stTargetSmashShade(int playerId, int followPlayerId) : stTargetSmashShadeInterface(playerId, followPlayerId) {
+
     };
     virtual void setFrameInfo(int frame, FrameInfo* frameInfo) {
         this->frameInfos[frame] = *frameInfo;
@@ -243,29 +278,32 @@ public:
 
 template <u32 L>
 class stTargetSmashGhost : public stTargetSmashShade<L> {
-
-    stTargetSmashShadeInterface::FrameInfo recordingFrameInfos[L];
+    gfFileIOHandle handle;
 
 public:
-    stTargetSmashGhost(gmCharacterKind charKind, u8 costumeId,  u8 colorFileIdx, u8 followPlayerId, u8 playerId) {
-        recordingFrameInfos = new (Heaps::StageInstance) stTargetSmashShadeInterface::FrameInfo[L];
-        this->initialize(charKind, costumeId, colorFileIdx, followPlayerId, playerId);
+    stTargetSmashGhost(int playerId, int followPlayerId) : stTargetSmashShade<L>(playerId, followPlayerId){
+
     };
 
-    virtual void setFrameInfo(int frame, stTargetSmashShadeInterface::FrameInfo* frameInfo) {
-        this->recordingFrameInfos[frame] = *frameInfo;
+    void loadGhostFile(int playerId, int level) {
+
     }
 
     virtual void setComplete() {
-        ftKind kinds[4];
-        ftKindConversion::convertKind(g_GameGlobal->g_globalModeMelee->m_playersInitDatathis->playerId, kinds);
+        if (this->state != State_Finish) {
+            ftKind kinds[4];
+            ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[this->followPlayerId].m_characterKind, kinds);
 
 
-        gfFileIORequest request;
-        char buffer[64];
-//        // TODO: Turn getting INTERNAL_FIGHTER_NAMES into a function
-//        sprintf(&buffer, "%ssaves/tBreak/ghosts/%s_%d.gst" MOD_PATCH_DIR, INTERNAL_FIGHTER_NAMES[kinds[0]], g_GameGlobal->g_globalModeMelee->m_meleeInitData.m_subStageKind);
-        //request.setWriteParam();
+            char path[64];
+
+            //sprintf(path, "sd:%ssaves/%s_%d.gst", MOD_PATCH_DIR, ftInfo::getInstance()->getNamePtr(kinds[0]), g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
+            //handle.writeRequest(path, frameInfos, L, 0);
+            sprintf(path, "sd:%ssaves/tBreak/ghosts/%s_%d.gst", MOD_PATCH_DIR, ftInfo::getInstance()->getNamePtr(kinds[0]), g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
+            handle.writeRequest(path, frameInfos, L, 0);
+            this->state = State_Finish;
+            this->isRecord = false;
+        }
     }
 
 };

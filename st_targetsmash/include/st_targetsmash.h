@@ -41,8 +41,9 @@ protected:
     bool isEndSfxPlayed;
     gfArchive* enemyCommonPac;
     gfArchive* primFacePac;
-    char _860[900 - 872];
+    char _860[896 - 872];
     stTargetSmashShade<SHADE_FRAME_LENGTH>* shades[NUM_SHADES];
+    stTargetSmashGhost<GHOST_FRAME_LENGTH>* ghost;
     grPokeTrainer* pokeTrainerGround;
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
     u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
@@ -65,7 +66,7 @@ public:
         totalDamage = 0.0;
         __memfill(&numTargetsHitPerPlayer, 0, sizeof(numTargetsHitPerPlayer));
         __memfill(&shades, 0, sizeof(shades));
-
+        ghost = NULL;
 
     };
     static stTargetSmash* create();
@@ -106,6 +107,8 @@ public:
     void putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex);
     void putEnemy(int enemyId, int difficulty, int startStatus, Vec2f* pos, int motionPathIndex, float lr);
     void clearHeap();
+    void startGhost();
+    void initializeGhost();
     void applyNameCheatsStart();
     void applyNameCheats();
     void applySeed();

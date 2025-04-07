@@ -12,6 +12,7 @@
 #define NUM_SHADES 2
 #define SHADE_FRAME_LENGTH 60
 #define SHADE_SIZE_MULTIPLIER 0.5
+#define GHOST_FRAME_LENGTH 1800
 
 struct stTargetSmashData {
     grGimmick::AttackData sliderAttackData;
