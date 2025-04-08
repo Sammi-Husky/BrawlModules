@@ -320,7 +320,7 @@ void stTargetSmash::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive 
 
 void stTargetSmash::notifyEventInfoGo() {
     this->applyNameCheats();
-    //this->initializeGhost();
+    this->initializeGhost();
 }
 
 void stTargetSmash::applyNameCheatsStart() {

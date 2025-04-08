@@ -59,7 +59,7 @@ public:
         this->setFrameInfo(currentFrame, &frameInfo);
     };
 
-    void initialize() {
+    virtual void initialize() {
         this->state = State_Initialize;
 
         g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_characterKind = g_GameGlobal->m_modeMelee->m_playersInitData[followPlayerId].m_characterKind;
@@ -86,6 +86,10 @@ public:
         fighter->m_moduleAccesser->getAreaModule()->enableArea(-1, false, 0);
         Vec3f pos = followFighter->m_moduleAccesser->getPostureModule()->getPos();
         fighter->m_moduleAccesser->getPostureModule()->setPos(&pos);
+    }
+
+    virtual bool shouldAppear() {
+        return false;
     }
 
     virtual void follow(Fighter* fighter, Fighter* followFighter) {
@@ -127,43 +131,47 @@ public:
         }
     }
 
+    virtual void appear() {
+        int entryId = g_ftManager->getEntryId(this->playerId);
+        Fighter *fighter = g_ftManager->getFighter(entryId, -1);
+
+        fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
+        soCollisionAttackData attackData(300,
+                                         &(Vec3f) {soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
+                                                                                     ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_X,
+                                                                                     0),
+                                                   soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
+                                                                                     ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_Y,
+                                                                                     0),
+                                                   soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
+                                                                                     ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_Z,
+                                                                                     0)},
+                                         soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
+                                                                           ftValueAccesser::Customize_Param_Float_Barrel_Attack_Size,
+                                                                           0) * SHADE_SIZE_MULTIPLIER,
+                                         361,
+                                         0, 0, 0,
+                                         0.0, 1.0, 1.0,
+                                         soValueAccesser::getConstantInt(fighter->m_moduleAccesser,
+                                                                         ftValueAccesser::Customize_Param_Int_Barrel_Attack_Node_Index,
+                                                                         0),
+                                         COLLISION_CATEGORY_MASK_FIGHTER, COLLISION_SITUATION_MASK_GA, false,
+                                         COLLISION_PART_MASK_ALL,
+                                         soCollisionAttackData::Attribute_Purple,
+                                         soCollisionAttackData::Sound_Level_Small,
+                                         soCollisionAttackData::Sound_Attribute_Magic,
+                                         soCollisionAttackData::SetOff_Off, false,
+                                         false, false, false, 0,
+                                         1, true, true, true,
+                                         soCollisionAttackData::Lr_Check_Pos, false, true, true, false,
+                                         false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
+        attackData.m_isDeath100 = true;
+        fighter->m_moduleAccesser->getCollisionAttackModule()->set(0, 0, &attackData);
+    }
+
     virtual void loop() {
         if (this->state == State_Start) {
-            int entryId = g_ftManager->getEntryId(this->playerId);
-            Fighter *fighter = g_ftManager->getFighter(entryId, -1);
-
-            fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
-            soCollisionAttackData attackData(300,
-                                             &(Vec3f) {soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
-                                                                                         ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_X,
-                                                                                         0),
-                                                       soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
-                                                                                         ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_Y,
-                                                                                         0),
-                                                       soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
-                                                                                         ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_Z,
-                                                                                         0)},
-                                             soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
-                                                                               ftValueAccesser::Customize_Param_Float_Barrel_Attack_Size,
-                                                                               0) * SHADE_SIZE_MULTIPLIER,
-                                             361,
-                                             0, 0, 0,
-                                             0.0, 1.0, 1.0,
-                                             soValueAccesser::getConstantInt(fighter->m_moduleAccesser,
-                                                                             ftValueAccesser::Customize_Param_Int_Barrel_Attack_Node_Index,
-                                                                             0),
-                                             COLLISION_CATEGORY_MASK_FIGHTER, COLLISION_SITUATION_MASK_GA, false,
-                                             COLLISION_PART_MASK_ALL,
-                                             soCollisionAttackData::Attribute_Purple,
-                                             soCollisionAttackData::Sound_Level_Small,
-                                             soCollisionAttackData::Sound_Attribute_Magic,
-                                             soCollisionAttackData::SetOff_Off, false,
-                                             false, false, false, 0,
-                                             1, true, true, true,
-                                             soCollisionAttackData::Lr_Check_Pos, false, true, true, false,
-                                             false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
-            attackData.m_isDeath100 = true;
-            fighter->m_moduleAccesser->getCollisionAttackModule()->set(0, 0, &attackData);
+            this->appear();
         }
         this->state = State_Follow;
     }
@@ -189,10 +197,15 @@ public:
                 case State_Initialize: {
                     this->begin(fighter, followFighter);
                     this->state = State_Start;
-                    this->isRecord = true;
                 }
                     break;
-
+                case State_Start: {
+                    if (this->shouldAppear()) {
+                        this->appear();
+                        this->state = State_Follow;
+                    }
+                    break;
+                }
                 case State_Follow: {
                     this->follow(fighter, followFighter);
                     break;
@@ -260,9 +273,13 @@ public:
     stTargetSmashShade() {
 
     };
-    stTargetSmashShade(int playerId, int followPlayerId) : stTargetSmashShadeInterface(playerId, followPlayerId) {
+    stTargetSmashShade(int playerId, int followPlayerId) : stTargetSmashShadeInterface(playerId, followPlayerId), infoLength(L) {
 
     };
+    virtual bool shouldAppear() {
+        return this->infoLength != L;
+    }
+
     virtual void setFrameInfo(int frame, FrameInfo* frameInfo) {
         this->frameInfos[frame] = *frameInfo;
     }
@@ -285,22 +302,51 @@ public:
 
     };
 
-    void loadGhostFile(int playerId, int level) {
+    void loadGhostFile() {
+        char path[64];
 
+        ftKind kinds[4];
+        ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[this->playerId].m_characterKind, kinds);
+
+        sprintf(path, "sd:%ssaves/tBreak/ghosts/%s_%d.gst", MOD_PATCH_DIR, ftInfo::getInstance()->getNamePtr(kinds[0]), g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
+        handle.readRequest(path, &this->infoLength, 0, 0);
+    }
+
+    void writeGhostFile() {
+        char path[64];
+
+        ftKind kinds[4];
+        ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[this->followPlayerId].m_characterKind, kinds);
+
+        sprintf(path, "sd:%ssaves/tBreak/ghosts/%s_%d.gst", MOD_PATCH_DIR, ftInfo::getInstance()->getNamePtr(kinds[0]), g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
+        handle.writeRequest(path, &this->infoLength, this->infoLength + 1, 0);
+    }
+
+    virtual void appear() {
+        int entryId = g_ftManager->getEntryId(this->playerId);
+        Fighter *fighter = g_ftManager->getFighter(entryId, -1);
+
+        fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
+    }
+
+    virtual void initialize() {
+        this->state = State_Initialize;
+
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_characterKind = g_GameGlobal->m_modeMelee->m_playersInitData[followPlayerId].m_characterKind;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorNo = g_GameGlobal->m_modeMelee->m_playersInitData[followPlayerId].m_colorNo;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_colorFileNo = g_GameGlobal->m_modeMelee->m_playersInitData[followPlayerId].m_colorFileNo;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_state = 0;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_stockCount = 1;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_teamNo = 5;
+        g_GameGlobal->m_modeMelee->m_playersInitData[playerId].m_isNoVoice = true;
+
+        this->loadGhostFile();
     }
 
     virtual void setComplete() {
         if (this->state != State_Finish) {
-            ftKind kinds[4];
-            ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[this->followPlayerId].m_characterKind, kinds);
-
-
-            char path[64];
-
-            //sprintf(path, "sd:%ssaves/%s_%d.gst", MOD_PATCH_DIR, ftInfo::getInstance()->getNamePtr(kinds[0]), g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
-            //handle.writeRequest(path, frameInfos, L, 0);
-            sprintf(path, "sd:%ssaves/tBreak/ghosts/%s_%d.gst", MOD_PATCH_DIR, ftInfo::getInstance()->getNamePtr(kinds[0]), g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
-            handle.writeRequest(path, frameInfos, L, 0);
+            this->infoLength = this->currentFrame;
+            this->writeGhostFile();
             this->state = State_Finish;
             this->isRecord = false;
         }
