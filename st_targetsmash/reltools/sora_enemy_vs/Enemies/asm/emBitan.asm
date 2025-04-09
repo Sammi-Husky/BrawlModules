@@ -218,8 +218,8 @@ emBitanParamAccesser__getParamFloat:
     /* 000503B8: */    li r4,0x8
     /* 000503BC: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 000503C0: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 000503C4: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 000503C8: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 000503C4: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 000503C8: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 000503CC: */    li r0,0x1
     /* 000503D0: */    extsh r7,r0
     /* 000503D4: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -263,8 +263,8 @@ emBitanParamAccesser__getParamInt:
     /* 00050450: */    li r4,0x8
     /* 00050454: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00050458: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 0005045C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00050460: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 0005045C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00050460: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00050464: */    li r0,0x1
     /* 00050468: */    extsh r7,r0
     /* 0005046C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -294,8 +294,8 @@ emBitanParamAccesser__getParamIndefinite:
     /* 000504BC: */    li r4,0x8
     /* 000504C0: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 000504C4: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 000504C8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 000504CC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 000504C8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 000504CC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 000504D0: */    li r0,0x1
     /* 000504D4: */    extsh r7,r0
     /* 000504D8: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]

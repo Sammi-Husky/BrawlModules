@@ -86,7 +86,7 @@ wnemSimple____ct:
     /* 0002D660: */    addi r3,r29,0x2178
     /* 0002D664: */    extsh r4,r0
     /* 0002D668: */    extsb r5,r31
-    /* 0002D66C: */    bl soCollisionSearchEventObserver____ct
+    /* 0002D66C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soCollisionSearchEventObserver____ct")] #bl soCollisionSearchEventObserver____ct
     /* 0002D670: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5370")]
     /* 0002D674: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5370")]
     /* 0002D678: */    stw r3,0x8(r29)
@@ -189,7 +189,7 @@ loc_2D784:
     /* 0002D7F8: */    lis r8,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E2C")]
     /* 0002D7FC: */    lfs f1,0x0(r8)                           [R_PPC_ADDR16_LO(41, 4, "loc_E2C")]
     /* 0002D800: */    addi r8,r1,0x28
-    /* 0002D804: */    bl soAnimCmdInterpreter____ct
+    /* 0002D804: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____ct")] #bl soAnimCmdInterpreter____ct
     /* 0002D808: */    addi r3,r29,0x22BC
     /* 0002D80C: */    li r4,0x0
     /* 0002D810: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soArrayVector_25acCmdInterpreterStackData_8_____ct")]
@@ -241,8 +241,8 @@ soDamageEventObserver____ct:
     /* 0002D8B0: */    li r0,0x6
     /* 0002D8B4: */    extsh r4,r0
     /* 0002D8B8: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soEventObserver_21soDamageEventObserver_____ct")]
-    /* 0002D8BC: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5F50")]
-    /* 0002D8C0: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5F50")]
+    /* 0002D8BC: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_2A278")]
+    /* 0002D8C0: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_2A278")]
     /* 0002D8C4: */    stw r3,0x0(r29)
     /* 0002D8C8: */    mr r3,r29
     /* 0002D8CC: */    extsh r4,r30
@@ -280,32 +280,32 @@ loc_2D934:
     /* 0002D944: */    mtlr r0
     /* 0002D948: */    addi r1,r1,0x10
     /* 0002D94C: */    blr
-soCollisionSearchEventObserver____ct:
-    /* 0002D950: */    stwu r1,-0x20(r1)
-    /* 0002D954: */    mflr r0
-    /* 0002D958: */    stw r0,0x24(r1)
-    /* 0002D95C: */    addi r11,r1,0x20
-    /* 0002D960: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___savegpr_29")]
-    /* 0002D964: */    mr r29,r3
-    /* 0002D968: */    mr r30,r4
-    /* 0002D96C: */    mr r31,r5
-    /* 0002D970: */    li r0,0x11
-    /* 0002D974: */    extsh r4,r0
-    /* 0002D978: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soEventObserver_30soCollisionSearchEventObserver_____ct")]
-    /* 0002D97C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_D7C")]
-    /* 0002D980: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_D7C")]
-    /* 0002D984: */    stw r3,0x0(r29)
-    /* 0002D988: */    mr r3,r29
-    /* 0002D98C: */    extsh r4,r30
-    /* 0002D990: */    extsb r5,r31
-    /* 0002D994: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soEventObserver_30soCollisionSearchEventObserver___initialize")]
-    /* 0002D998: */    mr r3,r29
-    /* 0002D99C: */    addi r11,r1,0x20
-    /* 0002D9A0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___restgpr_29")]
-    /* 0002D9A4: */    lwz r0,0x24(r1)
-    /* 0002D9A8: */    mtlr r0
-    /* 0002D9AC: */    addi r1,r1,0x20
-    /* 0002D9B0: */    blr
+# soCollisionSearchEventObserver____ct:
+#     /* 0002D950: */    stwu r1,-0x20(r1)
+#     /* 0002D954: */    mflr r0
+#     /* 0002D958: */    stw r0,0x24(r1)
+#     /* 0002D95C: */    addi r11,r1,0x20
+#     /* 0002D960: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___savegpr_29")]
+#     /* 0002D964: */    mr r29,r3
+#     /* 0002D968: */    mr r30,r4
+#     /* 0002D96C: */    mr r31,r5
+#     /* 0002D970: */    li r0,0x11
+#     /* 0002D974: */    extsh r4,r0
+#     /* 0002D978: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soEventObserver_30soCollisionSearchEventObserver_____ct")]
+#     /* 0002D97C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_7270")]
+#     /* 0002D980: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_7270")]
+#     /* 0002D984: */    stw r3,0x0(r29)
+#     /* 0002D988: */    mr r3,r29
+#     /* 0002D98C: */    extsh r4,r30
+#     /* 0002D990: */    extsb r5,r31
+#     /* 0002D994: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soEventObserver_30soCollisionSearchEventObserver___initialize")]
+#     /* 0002D998: */    mr r3,r29
+#     /* 0002D99C: */    addi r11,r1,0x20
+#     /* 0002D9A0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___restgpr_29")]
+#     /* 0002D9A4: */    lwz r0,0x24(r1)
+#     /* 0002D9A8: */    mtlr r0
+#     /* 0002D9AC: */    addi r1,r1,0x20
+#     /* 0002D9B0: */    blr
 wnemSimple_Data____ct:
     /* 0002D9B4: */    li r0,0x0
     /* 0002D9B8: */    stw r0,0x0(r3)
@@ -633,8 +633,8 @@ wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig_____ct:
     /* 0002DEB8: */    mr r3,r24
     /* 0002DEBC: */    li r4,0x0
     /* 0002DEC0: */    bl soNullable____ct
-    /* 0002DEC4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5ACC")]
-    /* 0002DEC8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5ACC")]
+    /* 0002DEC4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_2BEE8")]
+    /* 0002DEC8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_2BEE8")]
     /* 0002DECC: */    stw r3,0x0(r24)
     /* 0002DED0: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
     /* 0002DED4: */    lfs f0,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
@@ -662,8 +662,8 @@ wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig_____ct:
     /* 0002DF2C: */    mr r3,r29
     /* 0002DF30: */    li r4,0x0
     /* 0002DF34: */    bl soNullable____ct
-    /* 0002DF38: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_FE8")]
-    /* 0002DF3C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_FE8")]
+    /* 0002DF38: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_465C0")]
+    /* 0002DF3C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_465C0")]
     /* 0002DF40: */    stw r3,0x0(r29)
     /* 0002DF44: */    stw r24,0x8(r29)
     /* 0002DF48: */    stw r24,0xC(r29)
@@ -870,10 +870,10 @@ loc_2E104:
     /* 0002E258: */    addi r24,r30,0xD08
     /* 0002E25C: */    mr r3,r24
     /* 0002E260: */    mr r4,r29
-    /* 0002E264: */    bl soTeamImpl____ct
+    /* 0002E264: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soTeamImpl____ct")] #bl soTeamImpl____ct
     /* 0002E268: */    addi r3,r24,0x10
     /* 0002E26C: */    mr r4,r29
-    /* 0002E270: */    bl soTeamImpl____ct
+    /* 0002E270: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soTeamImpl____ct")] #bl soTeamImpl____ct
     /* 0002E274: */    addi r3,r24,0x20
     /* 0002E278: */    mr r4,r24
     /* 0002E27C: */    addi r5,r24,0x10
@@ -916,7 +916,7 @@ loc_2E104:
     /* 0002E310: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soArrayNull_25soCollisionAttackAbsolute_____ct")]
     /* 0002E314: */    addi r3,r1,0x1C4
     /* 0002E318: */    extsh r4,r24
-    /* 0002E31C: */    bl soCollisionAttackAbsolute____dt
+    /* 0002E31C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soCollisionAttackAbsolute____dt")] #bl soCollisionAttackAbsolute____dt
     /* 0002E320: */    stw r26,0x8(r1)
     /* 0002E324: */    addi r3,r29,0x2BC
     /* 0002E328: */    addi r4,r30,0x51C
@@ -1124,8 +1124,8 @@ loc_2E5D0:
     /* 0002E64C: */    mr r3,r24
     /* 0002E650: */    li r4,0x0
     /* 0002E654: */    bl soNullable____ct
-    /* 0002E658: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_69A0")]
-    /* 0002E65C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_69A0")]
+    /* 0002E658: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_84D70")]
+    /* 0002E65C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_84D70")]
     /* 0002E660: */    stw r3,0x0(r24)
     /* 0002E664: */    addi r0,r3,0x34
     /* 0002E668: */    stw r0,0x8(r24)
@@ -1151,8 +1151,8 @@ loc_2E5D0:
     /* 0002E6B8: */    mr r3,r26
     /* 0002E6BC: */    li r4,0x0
     /* 0002E6C0: */    bl soNullable____ct
-    /* 0002E6C4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_7F8")]
-    /* 0002E6C8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_7F8")]
+    /* 0002E6C4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_13C50")]
+    /* 0002E6C8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_13C50")]
     /* 0002E6CC: */    stw r3,0x8(r26)
     /* 0002E6D0: */    addi r0,r3,0x8
     /* 0002E6D4: */    stw r0,0x0(r26)
@@ -1386,7 +1386,7 @@ loc_2E948:
     /* 0002EA5C: */    addi r4,r25,0x0                          [R_PPC_ADDR16_LO(27, 6, "loc_D8C")]
     /* 0002EA60: */    mr r5,r4
     /* 0002EA64: */    mr r6,r4
-    /* 0002EA68: */    bl soAnimCmdAddressPackArraySeparate____ct
+    /* 0002EA68: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdAddressPackArraySeparate____ct")] #bl soAnimCmdAddressPackArraySeparate____ct
     /* 0002EA6C: */    li r26,0x0
     /* 0002EA70: */    stb r26,0xC2(r1)
     /* 0002EA74: */    lwz r3,0x5F4(r30)
@@ -1404,7 +1404,7 @@ loc_2E948:
     /* 0002EAA4: */    lis r31,0x0                              [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
     /* 0002EAA8: */    lfs f1,0x0(r31)                          [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
     /* 0002EAAC: */    addi r8,r1,0xC2
-    /* 0002EAB0: */    bl soAnimCmdInterpreter____ct
+    /* 0002EAB0: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____ct")] #bl soAnimCmdInterpreter____ct
     /* 0002EAB4: */    li r29,0x2
     /* 0002EAB8: */    sth r29,0xC8(r1)
     /* 0002EABC: */    addi r0,r24,0xCC
@@ -1448,7 +1448,7 @@ loc_2E948:
     /* 0002EB54: */    addi r4,r25,0x0                          [R_PPC_ADDR16_LO(27, 6, "loc_D8C")]
     /* 0002EB58: */    mr r5,r4
     /* 0002EB5C: */    mr r6,r4
-    /* 0002EB60: */    bl soAnimCmdAddressPackArraySeparate____ct
+    /* 0002EB60: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdAddressPackArraySeparate____ct")] #bl soAnimCmdAddressPackArraySeparate____ct
     /* 0002EB64: */    stb r26,0xC1(r1)
     /* 0002EB68: */    lwz r3,0x5F4(r30)
     /* 0002EB6C: */    lwz r3,0x80(r3)
@@ -1464,7 +1464,7 @@ loc_2E948:
     /* 0002EB94: */    li r7,0x1
     /* 0002EB98: */    lfs f1,0x0(r31)                          [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
     /* 0002EB9C: */    addi r8,r1,0xC1
-    /* 0002EBA0: */    bl soAnimCmdInterpreter____ct
+    /* 0002EBA0: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____ct")] #bl soAnimCmdInterpreter____ct
     /* 0002EBA4: */    sth r29,0xC6(r1)
     /* 0002EBA8: */    addi r0,r24,0xCC
     /* 0002EBAC: */    stw r0,0xD8(r1)
@@ -1495,7 +1495,7 @@ loc_2E948:
     /* 0002EC10: */    li r7,0x1
     /* 0002EC14: */    lfs f1,0x0(r31)                          [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
     /* 0002EC18: */    addi r8,r1,0xC0
-    /* 0002EC1C: */    bl soAnimCmdInterpreter____ct
+    /* 0002EC1C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____ct")] #bl soAnimCmdInterpreter____ct
     /* 0002EC20: */    addi r3,r24,0x50
     /* 0002EC24: */    li r4,0x0
     /* 0002EC28: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soArrayVector_25acCmdInterpreterStackData_8_____ct")]
@@ -1650,31 +1650,31 @@ loc_2EE58:
     /* 0002EE64: */    mtlr r0
     /* 0002EE68: */    addi r1,r1,0x10
     /* 0002EE6C: */    blr
-soParamCustomizeModuleImpl____dt:
-    /* 0002EE70: */    stwu r1,-0x10(r1)
-    /* 0002EE74: */    mflr r0
-    /* 0002EE78: */    stw r0,0x14(r1)
-    /* 0002EE7C: */    stw r31,0xC(r1)
-    /* 0002EE80: */    stw r30,0x8(r1)
-    /* 0002EE84: */    mr r30,r3
-    /* 0002EE88: */    mr r31,r4
-    /* 0002EE8C: */    cmpwi r3,0x0
-    /* 0002EE90: */    beq- loc_2EEB0
-    /* 0002EE94: */    li r0,0x0
-    /* 0002EE98: */    extsh r4,r0
-    /* 0002EE9C: */    bl soParamCustomizeModule____dt
-    /* 0002EEA0: */    extsh. r0,r31
-    /* 0002EEA4: */    ble- loc_2EEB0
-    /* 0002EEA8: */    mr r3,r30
-    /* 0002EEAC: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_2EEB0:
-    /* 0002EEB0: */    mr r3,r30
-    /* 0002EEB4: */    lwz r31,0xC(r1)
-    /* 0002EEB8: */    lwz r30,0x8(r1)
-    /* 0002EEBC: */    lwz r0,0x14(r1)
-    /* 0002EEC0: */    mtlr r0
-    /* 0002EEC4: */    addi r1,r1,0x10
-    /* 0002EEC8: */    blr
+# soParamCustomizeModuleImpl____dt:
+#     /* 0002EE70: */    stwu r1,-0x10(r1)
+#     /* 0002EE74: */    mflr r0
+#     /* 0002EE78: */    stw r0,0x14(r1)
+#     /* 0002EE7C: */    stw r31,0xC(r1)
+#     /* 0002EE80: */    stw r30,0x8(r1)
+#     /* 0002EE84: */    mr r30,r3
+#     /* 0002EE88: */    mr r31,r4
+#     /* 0002EE8C: */    cmpwi r3,0x0
+#     /* 0002EE90: */    beq- loc_2EEB0
+#     /* 0002EE94: */    li r0,0x0
+#     /* 0002EE98: */    extsh r4,r0
+#     /* 0002EE9C: */    bl soParamCustomizeModule____dt
+#     /* 0002EEA0: */    extsh. r0,r31
+#     /* 0002EEA4: */    ble- loc_2EEB0
+#     /* 0002EEA8: */    mr r3,r30
+#     /* 0002EEAC: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_2EEB0:
+#     /* 0002EEB0: */    mr r3,r30
+#     /* 0002EEB4: */    lwz r31,0xC(r1)
+#     /* 0002EEB8: */    lwz r30,0x8(r1)
+#     /* 0002EEBC: */    lwz r0,0x14(r1)
+#     /* 0002EEC0: */    mtlr r0
+#     /* 0002EEC4: */    addi r1,r1,0x10
+#     /* 0002EEC8: */    blr
 soParamCustomizeModuleBuilder_63soParamCustomizeModuleBuildConfig_26soParamCustomizeModuleImpl______dt:
     /* 0002EECC: */    stwu r1,-0x10(r1)
     /* 0002EED0: */    mflr r0
@@ -1857,7 +1857,7 @@ soTransitionModuleBuilder_107soTransitionModuleBuildConfig_49soTypeList_14soIntT
     /* 0002F158: */    li r31,-0x1
     /* 0002F15C: */    extsh r4,r31
     /* 0002F160: */    addi r3,r3,0x6C
-    /* 0002F164: */    bl soTransitionModuleImpl____dt
+    /* 0002F164: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soTransitionModuleImpl____dt")] #bl soTransitionModuleImpl____dt
     /* 0002F168: */    addi r3,r29,0x20
     /* 0002F16C: */    extsh r4,r31
     /* 0002F170: */    bl soJagArray_46soInstanceUnitFullProperty_16soTransitionTerm__49soTypeList_14soIntToType_4__18soTyp_______dt
@@ -2050,29 +2050,29 @@ loc_2F414:
     /* 0002F424: */    mtlr r0
     /* 0002F428: */    addi r1,r1,0x10
     /* 0002F42C: */    blr
-soTeamImpl____ct:
-    /* 0002F430: */    stwu r1,-0x10(r1)
-    /* 0002F434: */    mflr r0
-    /* 0002F438: */    stw r0,0x14(r1)
-    /* 0002F43C: */    stw r31,0xC(r1)
-    /* 0002F440: */    stw r30,0x8(r1)
-    /* 0002F444: */    mr r30,r3
-    /* 0002F448: */    mr r31,r4
-    /* 0002F44C: */    li r4,0x0
-    /* 0002F450: */    bl soNullable____ct
-    /* 0002F454: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_DFC")]
-    /* 0002F458: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_DFC")]
-    /* 0002F45C: */    stw r3,0x0(r30)
-    /* 0002F460: */    stw r31,0x8(r30)
-    /* 0002F464: */    li r0,-0x1
-    /* 0002F468: */    stw r0,0xC(r30)
-    /* 0002F46C: */    mr r3,r30
-    /* 0002F470: */    lwz r31,0xC(r1)
-    /* 0002F474: */    lwz r30,0x8(r1)
-    /* 0002F478: */    lwz r0,0x14(r1)
-    /* 0002F47C: */    mtlr r0
-    /* 0002F480: */    addi r1,r1,0x10
-    /* 0002F484: */    blr
+# soTeamImpl____ct:
+#     /* 0002F430: */    stwu r1,-0x10(r1)
+#     /* 0002F434: */    mflr r0
+#     /* 0002F438: */    stw r0,0x14(r1)
+#     /* 0002F43C: */    stw r31,0xC(r1)
+#     /* 0002F440: */    stw r30,0x8(r1)
+#     /* 0002F444: */    mr r30,r3
+#     /* 0002F448: */    mr r31,r4
+#     /* 0002F44C: */    li r4,0x0
+#     /* 0002F450: */    bl soNullable____ct
+#     /* 0002F454: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_46568")]
+#     /* 0002F458: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_46568")]
+#     /* 0002F45C: */    stw r3,0x0(r30)
+#     /* 0002F460: */    stw r31,0x8(r30)
+#     /* 0002F464: */    li r0,-0x1
+#     /* 0002F468: */    stw r0,0xC(r30)
+#     /* 0002F46C: */    mr r3,r30
+#     /* 0002F470: */    lwz r31,0xC(r1)
+#     /* 0002F474: */    lwz r30,0x8(r1)
+#     /* 0002F478: */    lwz r0,0x14(r1)
+#     /* 0002F47C: */    mtlr r0
+#     /* 0002F480: */    addi r1,r1,0x10
+#     /* 0002F484: */    blr
 soTeamModuleBuilder_56soTeamModuleBuildConfig_10soTeamImpl_16soTeamModuleImpl______dt:
     /* 0002F488: */    stwu r1,-0x20(r1)
     /* 0002F48C: */    mflr r0
@@ -2089,7 +2089,7 @@ soTeamModuleBuilder_56soTeamModuleBuildConfig_10soTeamImpl_16soTeamModuleImpl___
     /* 0002F4B8: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soTeamModuleImpl____dt")]
     /* 0002F4BC: */    addi r3,r29,0x10
     /* 0002F4C0: */    extsh r4,r31
-    /* 0002F4C4: */    bl soTeamImpl____dt
+    /* 0002F4C4: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soTeamImpl____dt")] #bl soTeamImpl____dt
     /* 0002F4C8: */    cmpwi r29,0x0
     /* 0002F4CC: */    beq- loc_2F4E0
     /* 0002F4D0: */    mr r3,r29
@@ -2109,24 +2109,24 @@ loc_2F4F0:
     /* 0002F500: */    mtlr r0
     /* 0002F504: */    addi r1,r1,0x20
     /* 0002F508: */    blr
-soCollisionAttackAbsolute____dt:
-    /* 0002F50C: */    stwu r1,-0x10(r1)
-    /* 0002F510: */    mflr r0
-    /* 0002F514: */    stw r0,0x14(r1)
-    /* 0002F518: */    stw r31,0xC(r1)
-    /* 0002F51C: */    mr r31,r3
-    /* 0002F520: */    cmpwi r3,0x0
-    /* 0002F524: */    beq- loc_2F534
-    /* 0002F528: */    extsh. r0,r4
-    /* 0002F52C: */    ble- loc_2F534
-    /* 0002F530: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_2F534:
-    /* 0002F534: */    mr r3,r31
-    /* 0002F538: */    lwz r31,0xC(r1)
-    /* 0002F53C: */    lwz r0,0x14(r1)
-    /* 0002F540: */    mtlr r0
-    /* 0002F544: */    addi r1,r1,0x10
-    /* 0002F548: */    blr
+# soCollisionAttackAbsolute____dt:
+#     /* 0002F50C: */    stwu r1,-0x10(r1)
+#     /* 0002F510: */    mflr r0
+#     /* 0002F514: */    stw r0,0x14(r1)
+#     /* 0002F518: */    stw r31,0xC(r1)
+#     /* 0002F51C: */    mr r31,r3
+#     /* 0002F520: */    cmpwi r3,0x0
+#     /* 0002F524: */    beq- loc_2F534
+#     /* 0002F528: */    extsh. r0,r4
+#     /* 0002F52C: */    ble- loc_2F534
+#     /* 0002F530: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_2F534:
+#     /* 0002F534: */    mr r3,r31
+#     /* 0002F538: */    lwz r31,0xC(r1)
+#     /* 0002F53C: */    lwz r0,0x14(r1)
+#     /* 0002F540: */    mtlr r0
+#     /* 0002F544: */    addi r1,r1,0x10
+#     /* 0002F548: */    blr
 soCollisionAttackModuleBuilder_77soCollisionAttackModuleBuildConfig_1_3_0_27soCollisionAttackModu_______dt:
     /* 0002F54C: */    stwu r1,-0x20(r1)
     /* 0002F550: */    mflr r0
@@ -2334,7 +2334,7 @@ soSoundModuleBuilder_80soSoundModuleBuildConfig_0_30soSound3dGeneratorAccesserIm
     /* 0002F840: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soSoundModuleImpl____dt")]
     /* 0002F844: */    mr r3,r29
     /* 0002F848: */    extsh r4,r31
-    /* 0002F84C: */    bl soSound3dGeneratorAccesserImpl____dt
+    /* 0002F84C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soSound3dGeneratorAccesserImpl____dt")] #bl soSound3dGeneratorAccesserImpl____dt
     /* 0002F850: */    extsh. r0,r30
     /* 0002F854: */    ble- loc_2F860
     /* 0002F858: */    mr r3,r29
@@ -2498,7 +2498,7 @@ soAnimCmdModuleBuilder_51soAnimCmdModuleBuildConfig_7_19soAnimCmdModuleImpl_____
     /* 0002FAA0: */    bl soInstanceManagerFullPropertyVector_20soAnimCmdControlUnit_7_____dt
     /* 0002FAA4: */    mr r3,r29
     /* 0002FAA8: */    extsh r4,r31
-    /* 0002FAAC: */    bl soAnimCmdModuleImpl____dt
+    /* 0002FAAC: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdModuleImpl____dt")] #bl soAnimCmdModuleImpl____dt
     /* 0002FAB0: */    extsh. r0,r30
     /* 0002FAB4: */    ble- loc_2FAC0
     /* 0002FAB8: */    mr r3,r29
@@ -2524,7 +2524,7 @@ soGeneralWorkBuilder_31soGeneralWorkBuildConfig_7_6_1______dt:
     /* 0002FB00: */    li r0,-0x1
     /* 0002FB04: */    extsh r4,r0
     /* 0002FB08: */    addi r3,r3,0x38
-    /* 0002FB0C: */    bl soGeneralWorkSimple____dt
+    /* 0002FB0C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soGeneralWorkSimple____dt")] #bl soGeneralWorkSimple____dt
     /* 0002FB10: */    extsh. r0,r31
     /* 0002FB14: */    ble- loc_2FB20
     /* 0002FB18: */    mr r3,r30
@@ -2848,10 +2848,10 @@ soAnimCmdControlUnitBuilder_48soAnimCmdControlUnitBuildConfig_2_2_0_0_0_1_0_8___
     /* 0002FFC4: */    li r31,-0x1
     /* 0002FFC8: */    extsh r4,r31
     /* 0002FFCC: */    addi r3,r3,0xCC
-    /* 0002FFD0: */    bl soAnimCmdInterpreter____dt
+    /* 0002FFD0: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____dt")] #bl soAnimCmdInterpreter____dt
     /* 0002FFD4: */    addi r3,r29,0xB0
     /* 0002FFD8: */    extsh r4,r31
-    /* 0002FFDC: */    bl soAnimCmdAddressPackArraySeparate____dt
+    /* 0002FFDC: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdAddressPackArraySeparate____dt")] #bl soAnimCmdAddressPackArraySeparate____dt
     /* 0002FFE0: */    addi r3,r29,0x4
     /* 0002FFE4: */    extsh r4,r31
     /* 0002FFE8: */    bl soArraySelectHolder_1_44soArrayVector_25acCmdInterpreterStackData_8__61soSingletonHolder_40soArra_______dt
@@ -2880,10 +2880,10 @@ soAnimCmdControlUnitBuilder_48soAnimCmdControlUnitBuildConfig_3_2_0_0_0_1_0_8___
     /* 0003003C: */    li r31,-0x1
     /* 00030040: */    extsh r4,r31
     /* 00030044: */    addi r3,r3,0xCC
-    /* 00030048: */    bl soAnimCmdInterpreter____dt
+    /* 00030048: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____dt")] #bl soAnimCmdInterpreter____dt
     /* 0003004C: */    addi r3,r29,0xB0
     /* 00030050: */    extsh r4,r31
-    /* 00030054: */    bl soAnimCmdAddressPackArraySeparate____dt
+    /* 00030054: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdAddressPackArraySeparate____dt")] #bl soAnimCmdAddressPackArraySeparate____dt
     /* 00030058: */    addi r3,r29,0x4
     /* 0003005C: */    extsh r4,r31
     /* 00030060: */    bl soArraySelectHolder_1_44soArrayVector_25acCmdInterpreterStackData_8__61soSingletonHolder_40soArra_______dt
@@ -2915,7 +2915,7 @@ soAnimCmdControlUnitBuilder_40soAnimCmdControlUnitBuildConfigUniq_4_8______dt:
     /* 000300C0: */    bl soArraySelectHolder_1_44soArrayVector_25acCmdInterpreterStackData_8__61soSingletonHolder_40soArra_______dt
     /* 000300C4: */    mr r3,r29
     /* 000300C8: */    extsh r4,r31
-    /* 000300CC: */    bl soAnimCmdInterpreter____dt
+    /* 000300CC: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____dt")] #bl soAnimCmdInterpreter____dt
     /* 000300D0: */    extsh. r0,r30
     /* 000300D4: */    ble- loc_300E0
     /* 000300D8: */    mr r3,r29
@@ -3104,7 +3104,7 @@ wnemSimple____ct1:
     /* 00030394: */    addi r3,r29,0x2178
     /* 00030398: */    extsh r4,r0
     /* 0003039C: */    extsb r5,r31
-    /* 000303A0: */    bl soCollisionSearchEventObserver____ct
+    /* 000303A0: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soCollisionSearchEventObserver____ct")] #bl soCollisionSearchEventObserver____ct
     /* 000303A4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5370")]
     /* 000303A8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5370")]
     /* 000303AC: */    stw r3,0x8(r29)
@@ -3207,7 +3207,7 @@ loc_304B8:
     /* 0003052C: */    lis r8,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E2C")]
     /* 00030530: */    lfs f1,0x0(r8)                           [R_PPC_ADDR16_LO(41, 4, "loc_E2C")]
     /* 00030534: */    addi r8,r1,0x28
-    /* 00030538: */    bl soAnimCmdInterpreter____ct
+    /* 00030538: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____ct")] #bl soAnimCmdInterpreter____ct
     /* 0003053C: */    addi r3,r29,0x22BC
     /* 00030540: */    li r4,0x0
     /* 00030544: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soArrayVector_25acCmdInterpreterStackData_8_____ct")]
@@ -3236,7 +3236,7 @@ wnemSimple____dt:
     /* 0003059C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soArrayVector_25acCmdInterpreterStackData_8_____dt")]
     /* 000305A0: */    addi r3,r29,0x226C
     /* 000305A4: */    extsh r4,r31
-    /* 000305A8: */    bl soAnimCmdInterpreter____dt
+    /* 000305A8: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdInterpreter____dt")] #bl soAnimCmdInterpreter____dt
     /* 000305AC: */    addi r3,r29,0x224C
     /* 000305B0: */    extsh r4,r31
     /* 000305B4: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soArrayVector_f_5_____dt")]
@@ -3246,7 +3246,7 @@ wnemSimple____dt:
     /* 000305C4: */    addi r3,r29,0x2178
     /* 000305C8: */    li r31,0x0
     /* 000305CC: */    extsh r4,r31
-    /* 000305D0: */    bl soCollisionSearchEventObserver____dt
+    /* 000305D0: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soCollisionSearchEventObserver____dt")] #bl soCollisionSearchEventObserver____dt
     /* 000305D4: */    addi r3,r29,0x216C
     /* 000305D8: */    extsh r4,r31
     /* 000305DC: */    bl soDamageEventObserver____dt
@@ -3311,10 +3311,10 @@ loc_30680:
     /* 000306BC: */    lwz r3,0xD8(r3)
     /* 000306C0: */    lwz r3,0x88(r3)
     /* 000306C4: */    li r4,0x0
-    /* 000306C8: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6320")]
-    /* 000306CC: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6320")]
-    /* 000306D0: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6478")]
-    /* 000306D4: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6478")]
+    /* 000306C8: */    lis r5,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_14898")]
+    /* 000306CC: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_14898")]
+    /* 000306D0: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_AEB8")]
+    /* 000306D4: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_AEB8")]
     /* 000306D8: */    extsh r7,r29
     /* 000306DC: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
     /* 000306E0: */    addi r0,r31,0x236C
@@ -3324,7 +3324,7 @@ loc_30680:
     /* 000306F0: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(27, 6, "loc_8B4")]
     /* 000306F4: */    mr r5,r4
     /* 000306F8: */    mr r6,r4
-    /* 000306FC: */    bl soAnimCmdAddressPackArraySeparate____ct
+    /* 000306FC: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdAddressPackArraySeparate____ct")] #bl soAnimCmdAddressPackArraySeparate____ct
     /* 00030700: */    li r0,0x10
     /* 00030704: */    sth r0,0x8(r1)
     /* 00030708: */    addi r0,r31,0x226C
@@ -3347,7 +3347,7 @@ loc_30680:
     /* 0003074C: */    mr r3,r30
     /* 00030750: */    li r0,-0x1
     /* 00030754: */    extsh r4,r0
-    /* 00030758: */    bl soAnimCmdAddressPackArraySeparate____dt
+    /* 00030758: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soAnimCmdAddressPackArraySeparate____dt")] #bl soAnimCmdAddressPackArraySeparate____dt
     /* 0003075C: */    addi r11,r1,0x40
     /* 00030760: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___restgpr_29")]
     /* 00030764: */    lwz r0,0x44(r1)
@@ -3548,22 +3548,22 @@ loc_30A24:
     /* 00030A4C: */    lfs f2,0x0(r30)
     /* 00030A50: */    li r5,0x1
     /* 00030A54: */    bl __unresolved                          [R_PPC_REL24(27, 1, "StageObject__activate")]
-    /* 00030A58: */    addi r3,r31,0xD0
-    /* 00030A5C: */    crclr 6
-    /* 00030A60: */    bl wnemreport__wnemReport
+    /* 00030A58: */    #addi r3,r31,0xD0
+    /* 00030A5C: */    #crclr 6
+    /* 00030A60: */    #bl wnemreport__wnemReport
     /* 00030A64: */    addi r3,r20,0xC
     /* 00030A68: */    lwz r12,0x48(r20)
     /* 00030A6C: */    lwz r12,0x1E4(r12)
     /* 00030A70: */    mtctr r12
     /* 00030A74: */    bctrl
-    /* 00030A78: */    mr r4,r3
-    /* 00030A7C: */    addi r3,r31,0x111
-    /* 00030A80: */    mr r5,r29
-    /* 00030A84: */    crclr 6
-    /* 00030A88: */    bl wnemreport__wnemReport
-    /* 00030A8C: */    addi r3,r31,0x152
-    /* 00030A90: */    crclr 6
-    /* 00030A94: */    bl wnemreport__wnemReport
+    /* 00030A78: */    #mr r4,r3
+    /* 00030A7C: */    #addi r3,r31,0x111
+    /* 00030A80: */    #mr r5,r29
+    /* 00030A84: */    #crclr 6
+    /* 00030A88: */    #bl wnemreport__wnemReport
+    /* 00030A8C: */    #addi r3,r31,0x152
+    /* 00030A90: */    #crclr 6
+    /* 00030A94: */    #bl wnemreport__wnemReport
     /* 00030A98: */    lwz r0,0x21B0(r20)
     /* 00030A9C: */    cmpwi r0,0x0
     /* 00030AA0: */    beq- loc_30AE8
@@ -3571,10 +3571,10 @@ loc_30A24:
     /* 00030AA8: */    lwz r3,0xD8(r3)
     /* 00030AAC: */    lwz r3,0x6C(r3)
     /* 00030AB0: */    li r4,0x0
-    /* 00030AB4: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6174")]
-    /* 00030AB8: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6174")]
-    /* 00030ABC: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6220")]
-    /* 00030AC0: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6220")]
+    /* 00030AB4: */    lis r5,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_8308")]
+    /* 00030AB8: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_8308")]
+    /* 00030ABC: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_8388")]
+    /* 00030AC0: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_8388")]
     /* 00030AC4: */    li r0,0x1
     /* 00030AC8: */    extsh r7,r0
     /* 00030ACC: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3627,8 +3627,8 @@ loc_30B70:
     /* 00030B7C: */    li r4,0x8
     /* 00030B80: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_3F14")]
     /* 00030B84: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_3F14")]
-    /* 00030B88: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00030B8C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00030B88: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00030B8C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00030B90: */    li r0,0x1
     /* 00030B94: */    extsh r7,r0
     /* 00030B98: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3730,9 +3730,9 @@ loc_30CF4:
     /* 00030D08: */    bl wnemSimple__setupGroundData
     /* 00030D0C: */    b loc_30D40
 loc_30D10:
-    /* 00030D10: */    addi r3,r31,0x194
-    /* 00030D14: */    crclr 6
-    /* 00030D18: */    bl wnemreport__wnemReport
+    /* 00030D10: */    #addi r3,r31,0x194
+    /* 00030D14: */    #crclr 6
+    /* 00030D18: */    #bl wnemreport__wnemReport
     /* 00030D1C: */    lwz r3,0x6C(r20)
     /* 00030D20: */    lwz r3,0xD8(r3)
     /* 00030D24: */    lwz r3,0x10(r3)
@@ -3785,10 +3785,10 @@ loc_30DCC:
     /* 00030DD0: */    lwz r3,0xD8(r3)
     /* 00030DD4: */    lwz r3,0x88(r3)
     /* 00030DD8: */    li r4,0x0
-    /* 00030DDC: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6320")]
-    /* 00030DE0: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6320")]
-    /* 00030DE4: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6478")]
-    /* 00030DE8: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6478")]
+    /* 00030DDC: */    lis r5,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_14898")]
+    /* 00030DE0: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_14898")]
+    /* 00030DE4: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_AEB8")]
+    /* 00030DE8: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_AEB8")]
     /* 00030DEC: */    li r0,0x1
     /* 00030DF0: */    extsh r7,r0
     /* 00030DF4: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3964,9 +3964,9 @@ loc_31054:
     /* 00031080: */    li r6,0x1
     /* 00031084: */    bl wnemSimple__executeAnimCmd
 loc_31088:
-    /* 00031088: */    addi r3,r31,0x1D4
-    /* 0003108C: */    crclr 6
-    /* 00031090: */    bl wnemreport__wnemReport
+    /* 00031088: */    #addi r3,r31,0x1D4
+    /* 0003108C: */    #crclr 6
+    /* 00031090: */    #bl wnemreport__wnemReport
 loc_31094:
     /* 00031094: */    psq_l f31,0x88(r1),0,0
     /* 00031098: */    lfd f31,0x80(r1)
@@ -3985,22 +3985,22 @@ wnemSimple__onDeactivate:
     /* 000310C8: */    addi r11,r1,0x20
     /* 000310CC: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___savegpr_29")]
     /* 000310D0: */    mr r29,r3
-    /* 000310D4: */    lis r30,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
-    /* 000310D8: */    addi r30,r30,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
+    /* 000310D4: */    #lis r30,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
+    /* 000310D8: */    #addi r30,r30,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
     /* 000310DC: */    lbz r0,0x21B4(r3)
     /* 000310E0: */    cmpwi r0,0x0
     /* 000310E4: */    beq- loc_311F4
-    /* 000310E8: */    addi r3,r30,0x1F4
-    /* 000310EC: */    crclr 6
-    /* 000310F0: */    bl wnemreport__wnemReport
+    /* 000310E8: */    #addi r3,r30,0x1F4
+    /* 000310EC: */    #crclr 6
+    /* 000310F0: */    #bl wnemreport__wnemReport
     /* 000310F4: */    mr r3,r29
     /* 000310F8: */    bl wnemSimple__resetAnimCmd
     /* 000310FC: */    lwz r0,0x2208(r29)
     /* 00031100: */    cmpwi r0,0x0
     /* 00031104: */    beq- loc_31150
-    /* 00031108: */    addi r3,r30,0x224
-    /* 0003110C: */    crclr 6
-    /* 00031110: */    bl wnemreport__wnemReport
+    /* 00031108: */    #addi r3,r30,0x224
+    /* 0003110C: */    #crclr 6
+    /* 00031110: */    #bl wnemreport__wnemReport
     /* 00031114: */    lwz r3,0x2208(r29)
     /* 00031118: */    lwz r12,0x0(r3)
     /* 0003111C: */    lwz r12,0x8(r12)
@@ -4021,9 +4021,9 @@ loc_31150:
     /* 00031150: */    lbz r0,0x221A(r29)
     /* 00031154: */    cmpwi r0,0x0
     /* 00031158: */    beq- loc_3118C
-    /* 0003115C: */    addi r3,r30,0x25C
-    /* 00031160: */    crclr 6
-    /* 00031164: */    bl wnemreport__wnemReport
+    /* 0003115C: */    #addi r3,r30,0x25C
+    /* 00031160: */    #crclr 6
+    /* 00031164: */    #bl wnemreport__wnemReport
     /* 00031168: */    addi r3,r29,0xC
     /* 0003116C: */    lwz r12,0x48(r29)
     /* 00031170: */    lwz r12,0x1E4(r12)
@@ -4037,9 +4037,9 @@ loc_3118C:
     /* 0003118C: */    lbz r0,0x221B(r29)
     /* 00031190: */    cmpwi r0,0x0
     /* 00031194: */    beq- loc_311C4
-    /* 00031198: */    addi r3,r30,0x2A1
-    /* 0003119C: */    crclr 6
-    /* 000311A0: */    bl wnemreport__wnemReport
+    /* 00031198: */    #addi r3,r30,0x2A1
+    /* 0003119C: */    #crclr 6
+    /* 000311A0: */    #bl wnemreport__wnemReport
     /* 000311A4: */    bl emWeaponManager__getInstance
     /* 000311A8: */    mr r4,r29
     /* 000311AC: */    lwz r12,0x24(r3)
@@ -4079,10 +4079,10 @@ wnemSimple__setupGroundData:
     /* 00031228: */    lwz r3,0xD8(r3)
     /* 0003122C: */    lwz r3,0x10(r3)
     /* 00031230: */    li r4,0x8
-    /* 00031234: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_11F0")]
-    /* 00031238: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_11F0")]
-    /* 0003123C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_12A4")]
-    /* 00031240: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_12A4")]
+    /* 00031234: */    lis r5,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_2BA0")]
+    /* 00031238: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_2BA0")]
+    /* 0003123C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_2E60")]
+    /* 00031240: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_2E60")]
     /* 00031244: */    li r0,0x1
     /* 00031248: */    extsh r7,r0
     /* 0003124C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -4110,10 +4110,10 @@ wnemSimple__setupGroundData:
     /* 000312A4: */    lwz r12,0x190(r12)
     /* 000312A8: */    mtctr r12
     /* 000312AC: */    bctrl
-    /* 000312B0: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4302")]
-    /* 000312B4: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4302")]
-    /* 000312B8: */    crclr 6
-    /* 000312BC: */    bl wnemreport__wnemReport
+    /* 000312B0: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4302")]
+    /* 000312B4: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4302")]
+    /* 000312B8: */    #crclr 6
+    /* 000312BC: */    #bl wnemreport__wnemReport
     /* 000312C0: */    b loc_312F0
 loc_312C4:
     /* 000312C4: */    cmpwi r0,0x1
@@ -4382,15 +4382,15 @@ wnemSimple__setupGlowModule:
     /* 000316B8: */    lwz r12,0x18(r12)
     /* 000316BC: */    mtctr r12
     /* 000316C0: */    bctrl
-    /* 000316C4: */    mr r4,r3
-    /* 000316C8: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4340")]
-    /* 000316CC: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4340")]
-    /* 000316D0: */    mr r5,r31
-    /* 000316D4: */    fmr f1,f31
-    /* 000316D8: */    fmr f2,f30
-    /* 000316DC: */    fmr f3,f29
-    /* 000316E0: */    crset 6
-    /* 000316E4: */    bl wnemreport__wnemReport
+    /* 000316C4: */    #mr r4,r3
+    /* 000316C8: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4340")]
+    /* 000316CC: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4340")]
+    /* 000316D0: */    #mr r5,r31
+    /* 000316D4: */    #fmr f1,f31
+    /* 000316D8: */    #fmr f2,f30
+    /* 000316DC: */    #fmr f3,f29
+    /* 000316E0: */    #crset 6
+    /* 000316E4: */    #bl wnemreport__wnemReport
 loc_316E8:
     /* 000316E8: */    addi r11,r1,0x30
     /* 000316EC: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___restfpr_29")]
@@ -4514,24 +4514,24 @@ wnemSimple__executeAnimCmd1:
     /* 000318AC: */    stwu r1,-0x10(r1)
     /* 000318B0: */    mflr r0
     /* 000318B4: */    stw r0,0x14(r1)
-    /* 000318B8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
-    /* 000318BC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
+    /* 000318B8: */    #lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
+    /* 000318BC: */    #addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
     /* 000318C0: */    lwz r5,0x2184(r3)
     /* 000318C4: */    lwz r7,0x70(r5)
     /* 000318C8: */    cmpwi r7,0x0
     /* 000318CC: */    bne- loc_318E4
-    /* 000318D0: */    addi r3,r6,0x457
-    /* 000318D4: */    crclr 6
-    /* 000318D8: */    bl wnemreport__wnemReport
+    /* 000318D0: */    #addi r3,r6,0x457
+    /* 000318D4: */    #crclr 6
+    /* 000318D8: */    #bl wnemreport__wnemReport
     /* 000318DC: */    li r3,0x0
     /* 000318E0: */    b loc_31950
 loc_318E4:
     /* 000318E4: */    lwz r5,0x4(r7)
     /* 000318E8: */    cmplw r4,r5
     /* 000318EC: */    blt- loc_31904
-    /* 000318F0: */    addi r3,r6,0x49D
-    /* 000318F4: */    crclr 6
-    /* 000318F8: */    bl wnemreport__wnemReport
+    /* 000318F0: */    #addi r3,r6,0x49D
+    /* 000318F4: */    #crclr 6
+    /* 000318F8: */    #bl wnemreport__wnemReport
     /* 000318FC: */    li r3,0x0
     /* 00031900: */    b loc_31950
 loc_31904:
@@ -4540,9 +4540,9 @@ loc_31904:
     /* 0003190C: */    lwzx r7,r5,r0
     /* 00031910: */    cmpwi r7,0x0
     /* 00031914: */    bne- loc_3192C
-    /* 00031918: */    addi r3,r6,0x4F4
-    /* 0003191C: */    crclr 6
-    /* 00031920: */    bl wnemreport__wnemReport
+    /* 00031918: */    #addi r3,r6,0x4F4
+    /* 0003191C: */    #crclr 6
+    /* 00031920: */    #bl wnemreport__wnemReport
     /* 00031924: */    li r3,0x0
     /* 00031928: */    b loc_31950
 loc_3192C:
@@ -4575,10 +4575,10 @@ loc_31984:
     /* 00031984: */    lwz r5,0x4(r3)
     /* 00031988: */    cmplw r4,r5
     /* 0003198C: */    blt- loc_319A8
-    /* 00031990: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_455E")]
-    /* 00031994: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_455E")]
-    /* 00031998: */    crclr 6
-    /* 0003199C: */    bl wnemreport__wnemReport
+    /* 00031990: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_455E")]
+    /* 00031994: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_455E")]
+    /* 00031998: */    #crclr 6
+    /* 0003199C: */    #bl wnemreport__wnemReport
     /* 000319A0: */    li r3,0x0
     /* 000319A4: */    b loc_319BC
 loc_319A8:
@@ -4611,21 +4611,21 @@ wnemSimple__constraint:
     /* 00031A08: */    lwz r30,0x218C(r31)
     /* 00031A0C: */    addis r0,r3,0x1
     /* 00031A10: */    cmplwi r0,0xFFFF
-    /* 00031A14: */    beq- loc_31A38
+    /* 00031A14: */    beq- loc_31B1C #loc_31A38
     /* 00031A18: */    lwz r3,0x2184(r31)
     /* 00031A1C: */    lwz r3,0x20(r3)
     /* 00031A20: */    addis r0,r3,0x1
     /* 00031A24: */    cmplwi r0,0xFFFF
-    /* 00031A28: */    beq- loc_31A38
+    /* 00031A28: */    beq- loc_31B1C #loc_31A38
     /* 00031A2C: */    addis r0,r30,0x1
     /* 00031A30: */    cmplwi r0,0xFFFF
     /* 00031A34: */    bne- loc_31A4C
 loc_31A38:
-    /* 00031A38: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4608")]
-    /* 00031A3C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4608")]
-    /* 00031A40: */    crclr 6
-    /* 00031A44: */    bl wnemreport__wnemReport
-    /* 00031A48: */    b loc_31B1C
+    /* 00031A38: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4608")]
+    /* 00031A3C: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4608")]
+    /* 00031A40: */    #crclr 6
+    /* 00031A44: */    #bl wnemreport__wnemReport
+    /* 00031A48: */    # b loc_31B1C
 loc_31A4C:
     /* 00031A4C: */    lwz r0,0x21DC(r31)
     /* 00031A50: */    cmpwi r0,0x2
@@ -4667,10 +4667,10 @@ loc_31A80:
     /* 00031ADC: */    lwz r12,0x194(r12)
     /* 00031AE0: */    mtctr r12
     /* 00031AE4: */    bctrl
-    /* 00031AE8: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4636")]
-    /* 00031AEC: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4636")]
-    /* 00031AF0: */    crclr 6
-    /* 00031AF4: */    bl wnemreport__wnemReport
+    /* 00031AE8: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4636")]
+    /* 00031AEC: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4636")]
+    /* 00031AF0: */    #crclr 6
+    /* 00031AF4: */    #bl wnemreport__wnemReport
 loc_31AF8:
     /* 00031AF8: */    lwz r3,0x6C(r31)
     /* 00031AFC: */    lwz r3,0xD8(r3)
@@ -4695,10 +4695,10 @@ wnemSimple__removeConstraint:
     /* 00031B40: */    addi r11,r1,0x30
     /* 00031B44: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___savegpr_28")]
     /* 00031B48: */    mr r31,r3
-    /* 00031B4C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4684")]
-    /* 00031B50: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4684")]
-    /* 00031B54: */    crclr 6
-    /* 00031B58: */    bl wnemreport__wnemReport
+    /* 00031B4C: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4684")]
+    /* 00031B50: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4684")]
+    /* 00031B54: */    #crclr 6
+    /* 00031B58: */    #bl wnemreport__wnemReport
     /* 00031B5C: */    lwz r3,0x6C(r31)
     /* 00031B60: */    lwz r3,0xD8(r3)
     /* 00031B64: */    lwz r3,0x54(r3)
@@ -4707,12 +4707,12 @@ wnemSimple__removeConstraint:
     /* 00031B70: */    mtctr r12
     /* 00031B74: */    bctrl
     /* 00031B78: */    cmpwi r3,0x0
-    /* 00031B7C: */    bne- loc_31B94
-    /* 00031B80: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_46A3")]
-    /* 00031B84: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_46A3")]
-    /* 00031B88: */    crclr 6
-    /* 00031B8C: */    bl wnemreport__wnemReport
-    /* 00031B90: */    b loc_31CEC
+    /* 00031B7C: */    beq+ loc_31CEC #bne- loc_31B94
+    /* 00031B80: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_46A3")]
+    /* 00031B84: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_46A3")]
+    /* 00031B88: */    #crclr 6
+    /* 00031B8C: */    #bl wnemreport__wnemReport
+    /* 00031B90: */    #b loc_31CEC
 loc_31B94:
     /* 00031B94: */    lwz r3,0x6C(r31)
     /* 00031B98: */    lwz r3,0xD8(r3)
@@ -4921,10 +4921,10 @@ wnemSimple__changeProcFnc1:
     /* 00031E98: */    lwz r0,0x220C(r3)
     /* 00031E9C: */    cmplw r0,r4
     /* 00031EA0: */    bne- loc_31EBC
-    /* 00031EA4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_46E5")]
-    /* 00031EA8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_46E5")]
-    /* 00031EAC: */    crclr 6
-    /* 00031EB0: */    bl wnemreport__wnemReport
+    /* 00031EA4: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_46E5")]
+    /* 00031EA8: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_46E5")]
+    /* 00031EAC: */    #crclr 6
+    /* 00031EB0: */    #bl wnemreport__wnemReport
     /* 00031EB4: */    li r3,0x1
     /* 00031EB8: */    b loc_31F34
 loc_31EBC:
@@ -4951,10 +4951,10 @@ loc_31EBC:
     /* 00031F0C: */    stw r0,0x21C0(r31)
     /* 00031F10: */    stw r0,0x21C4(r31)
     /* 00031F14: */    stw r0,0x21C8(r31)
-    /* 00031F18: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4722")]
-    /* 00031F1C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4722")]
-    /* 00031F20: */    crclr 6
-    /* 00031F24: */    bl wnemreport__wnemReport
+    /* 00031F18: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4722")]
+    /* 00031F1C: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4722")]
+    /* 00031F20: */    #crclr 6
+    /* 00031F24: */    #bl wnemreport__wnemReport
     /* 00031F28: */    li r3,0x1
     /* 00031F2C: */    b loc_31F34
 loc_31F30:
@@ -5168,17 +5168,17 @@ loc_32168:
     /* 0003221C: */    bctrl
     /* 00032220: */    b loc_3223C
 loc_32224:
-    /* 00032224: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4768")]
-    /* 00032228: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4768")]
-    /* 0003222C: */    crclr 6
-    /* 00032230: */    bl wnemreport__wnemReport
+    /* 00032224: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4768")]
+    /* 00032228: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4768")]
+    /* 0003222C: */    #crclr 6
+    /* 00032230: */    #bl wnemreport__wnemReport
     /* 00032234: */    li r3,0x0
     /* 00032238: */    b loc_32250
 loc_3223C:
-    /* 0003223C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_479D")]
-    /* 00032240: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_479D")]
-    /* 00032244: */    crclr 6
-    /* 00032248: */    bl wnemreport__wnemReport
+    /* 0003223C: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_479D")]
+    /* 00032240: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_479D")]
+    /* 00032244: */    #crclr 6
+    /* 00032248: */    #bl wnemreport__wnemReport
     /* 0003224C: */    li r3,0x1
 loc_32250:
     /* 00032250: */    addi r11,r1,0x50
@@ -5211,12 +5211,12 @@ loc_322B4:
     /* 000322B4: */    mr r3,r30
     /* 000322B8: */    li r4,0x0
     /* 000322BC: */    bl wnemSimple__getFrameCounter
-    /* 000322C0: */    mr r4,r3
-    /* 000322C4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_47D4")]
-    /* 000322C8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_47D4")]
-    /* 000322CC: */    lwz r5,0x21D0(r30)
-    /* 000322D0: */    crclr 6
-    /* 000322D4: */    bl wnemreport__wnemReport
+    /* 000322C0: */    #mr r4,r3
+    /* 000322C4: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_47D4")]
+    /* 000322C8: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_47D4")]
+    /* 000322CC: */    #lwz r5,0x21D0(r30)
+    /* 000322D0: */    #crclr 6
+    /* 000322D4: */    #bl wnemreport__wnemReport
 loc_322D8:
     /* 000322D8: */    lwz r31,0xC(r1)
     /* 000322DC: */    lwz r30,0x8(r1)
@@ -5233,17 +5233,17 @@ wnemSimple__updateStatusProcFunc:
     /* 00032304: */    mr r27,r3
     /* 00032308: */    lis r30,0x0                              [R_PPC_ADDR16_HA(41, 4, "loc_E28")]
     /* 0003230C: */    addi r30,r30,0x0                         [R_PPC_ADDR16_LO(41, 4, "loc_E28")]
-    /* 00032310: */    lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
-    /* 00032314: */    addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
+    /* 00032310: */    #lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
+    /* 00032314: */    #addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
     /* 00032318: */    li r29,0x0
     /* 0003231C: */    lwz r3,0x6C(r3)
     /* 00032320: */    lwz r3,0xD8(r3)
     /* 00032324: */    lwz r3,0x10(r3)
     /* 00032328: */    li r4,0x8
-    /* 0003232C: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_11F0")]
-    /* 00032330: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_11F0")]
-    /* 00032334: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_12A4")]
-    /* 00032338: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_12A4")]
+    /* 0003232C: */    lis r5,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_2BA0")]
+    /* 00032330: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_2BA0")]
+    /* 00032334: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_2E60")]
+    /* 00032338: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_2E60")]
     /* 0003233C: */    li r0,0x1
     /* 00032340: */    extsh r7,r0
     /* 00032344: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -5267,9 +5267,9 @@ wnemSimple__updateStatusProcFunc:
     /* 0003238C: */    bne- loc_323A4
 loc_32390:
     /* 00032390: */    li r29,0x1
-    /* 00032394: */    addi r3,r31,0x7E8
-    /* 00032398: */    crclr 6
-    /* 0003239C: */    bl wnemreport__wnemReport
+    /* 00032394: */    #addi r3,r31,0x7E8
+    /* 00032398: */    #crclr 6
+    /* 0003239C: */    #bl wnemreport__wnemReport
     /* 000323A0: */    b loc_32434
 loc_323A4:
     /* 000323A4: */    lfs f1,0x21F8(r27)
@@ -5286,9 +5286,9 @@ loc_323A4:
     /* 000323D0: */    bctrl
     /* 000323D4: */    cmplwi r3,0x1
     /* 000323D8: */    bne- loc_32434
-    /* 000323DC: */    addi r3,r31,0x820
-    /* 000323E0: */    crclr 6
-    /* 000323E4: */    bl wnemreport__wnemReport
+    /* 000323DC: */    #addi r3,r31,0x820
+    /* 000323E0: */    #crclr 6
+    /* 000323E4: */    #bl wnemreport__wnemReport
     /* 000323E8: */    li r29,0x1
     /* 000323EC: */    b loc_32434
 loc_323F0:
@@ -5305,9 +5305,9 @@ loc_323F0:
     /* 00032418: */    bctrl
     /* 0003241C: */    cmplwi r3,0x1
     /* 00032420: */    bne- loc_32434
-    /* 00032424: */    addi r3,r31,0x856
-    /* 00032428: */    crclr 6
-    /* 0003242C: */    bl wnemreport__wnemReport
+    /* 00032424: */    #addi r3,r31,0x856
+    /* 00032428: */    #crclr 6
+    /* 0003242C: */    #bl wnemreport__wnemReport
     /* 00032430: */    li r29,0x1
 loc_32434:
     /* 00032434: */    cmpwi r29,0x0
@@ -5318,9 +5318,9 @@ loc_32434:
     /* 00032448: */    lbz r0,0x21BB(r27)
     /* 0003244C: */    cmpwi r0,0x0
     /* 00032450: */    beq- loc_324C8
-    /* 00032454: */    addi r3,r31,0x88B
-    /* 00032458: */    crclr 6
-    /* 0003245C: */    bl wnemreport__wnemReport
+    /* 00032454: */    #addi r3,r31,0x88B
+    /* 00032458: */    #crclr 6
+    /* 0003245C: */    #bl wnemreport__wnemReport
     /* 00032460: */    lfs f0,0x0(r30)
     /* 00032464: */    stfs f0,0x21FC(r27)
     /* 00032468: */    stfs f0,0x21F8(r27)
@@ -5332,9 +5332,9 @@ loc_32434:
     /* 00032480: */    bctrl
     /* 00032484: */    b loc_32590
 loc_32488:
-    /* 00032488: */    addi r3,r31,0x8CD
-    /* 0003248C: */    crclr 6
-    /* 00032490: */    bl wnemreport__wnemReport
+    /* 00032488: */    #addi r3,r31,0x8CD
+    /* 0003248C: */    #crclr 6
+    /* 00032490: */    #bl wnemreport__wnemReport
     /* 00032494: */    mr r3,r27
     /* 00032498: */    lwz r4,0x21C4(r27)
     /* 0003249C: */    li r5,0x1
@@ -5342,9 +5342,9 @@ loc_32488:
     /* 000324A4: */    lwz r0,0x21DC(r27)
     /* 000324A8: */    cmpwi r0,0x1
     /* 000324AC: */    bne- loc_324C8
-    /* 000324B0: */    addi r3,r31,0x923
-    /* 000324B4: */    crclr 6
-    /* 000324B8: */    bl wnemreport__wnemReport
+    /* 000324B0: */    #addi r3,r31,0x923
+    /* 000324B4: */    #crclr 6
+    /* 000324B8: */    #bl wnemreport__wnemReport
     /* 000324BC: */    lfs f0,0x0(r30)
     /* 000324C0: */    stfs f0,0x21FC(r27)
     /* 000324C4: */    stfs f0,0x21F8(r27)
@@ -5359,9 +5359,9 @@ loc_324C8:
     /* 000324E4: */    lbz r0,0x2219(r27)
     /* 000324E8: */    cmpwi r0,0x0
     /* 000324EC: */    beq- loc_32518
-    /* 000324F0: */    addi r3,r31,0x96D
-    /* 000324F4: */    crclr 6
-    /* 000324F8: */    bl wnemreport__wnemReport
+    /* 000324F0: */    #addi r3,r31,0x96D
+    /* 000324F4: */    #crclr 6
+    /* 000324F8: */    #bl wnemreport__wnemReport
     /* 000324FC: */    addi r3,r27,0xC
     /* 00032500: */    li r4,0x0
     /* 00032504: */    lwz r12,0x48(r27)
@@ -5383,9 +5383,9 @@ loc_32518:
     /* 00032540: */    lwz r0,0x21C0(r27)
     /* 00032544: */    cmpwi r0,0x0
     /* 00032548: */    bne- loc_32574
-    /* 0003254C: */    addi r3,r31,0x9AD
-    /* 00032550: */    crclr 6
-    /* 00032554: */    bl wnemreport__wnemReport
+    /* 0003254C: */    #addi r3,r31,0x9AD
+    /* 00032550: */    #crclr 6
+    /* 00032554: */    #bl wnemreport__wnemReport
     /* 00032558: */    addi r3,r27,0xC
     /* 0003255C: */    li r4,0x0
     /* 00032560: */    lwz r12,0x48(r27)
@@ -5394,9 +5394,9 @@ loc_32518:
     /* 0003256C: */    bctrl
     /* 00032570: */    b loc_32590
 loc_32574:
-    /* 00032574: */    addi r3,r31,0x9E1
-    /* 00032578: */    crclr 6
-    /* 0003257C: */    bl wnemreport__wnemReport
+    /* 00032574: */    #addi r3,r31,0x9E1
+    /* 00032578: */    #crclr 6
+    /* 0003257C: */    #bl wnemreport__wnemReport
     /* 00032580: */    mr r3,r27
     /* 00032584: */    lwz r4,0x21C0(r27)
     /* 00032588: */    li r5,0x1
@@ -5681,10 +5681,10 @@ wnemSimple__processHit:
     /* 000329B0: */    bctrl
     /* 000329B4: */    cmplwi r3,0x1
     /* 000329B8: */    bne- loc_329E4
-    /* 000329BC: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4A54")]
-    /* 000329C0: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4A54")]
-    /* 000329C4: */    crclr 6
-    /* 000329C8: */    bl wnemreport__wnemReport
+    /* 000329BC: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4A54")]
+    /* 000329C0: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4A54")]
+    /* 000329C4: */    #crclr 6
+    /* 000329C8: */    #bl wnemreport__wnemReport
     /* 000329CC: */    addi r3,r30,0xC
     /* 000329D0: */    li r4,0x0
     /* 000329D4: */    lwz r12,0x48(r30)
@@ -5743,8 +5743,8 @@ wnemSimple__reflect:
     /* 00032A88: */    addi r11,r1,0x40
     /* 00032A8C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___savegpr_28")]
     /* 00032A90: */    mr r28,r3
-    /* 00032A94: */    lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
-    /* 00032A98: */    addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
+    /* 00032A94: */    #lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
+    /* 00032A98: */    #addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
     /* 00032A9C: */    lwz r3,0x6C(r3)
     /* 00032AA0: */    lwz r3,0xD8(r3)
     /* 00032AA4: */    lwz r3,0xBC(r3)
@@ -5781,22 +5781,22 @@ wnemSimple__reflect:
     /* 00032B20: */    lfs f0,0x2200(r28)
     /* 00032B24: */    fmuls f0,f0,f2
     /* 00032B28: */    stfs f0,0x2200(r28)
-    /* 00032B2C: */    addi r3,r31,0xA79
-    /* 00032B30: */    frsp f1,f1
-    /* 00032B34: */    frsp f2,f5
-    /* 00032B38: */    frsp f3,f4
-    /* 00032B3C: */    crset 6
-    /* 00032B40: */    bl wnemreport__wnemReport
-    /* 00032B44: */    addi r3,r31,0xAAA
-    /* 00032B48: */    lfs f1,0x21F8(r28)
-    /* 00032B4C: */    lfs f2,0x21FC(r28)
-    /* 00032B50: */    crset 6
-    /* 00032B54: */    bl wnemreport__wnemReport
-    /* 00032B58: */    addi r3,r31,0xAD5
-    /* 00032B5C: */    lfs f1,0x2200(r28)
-    /* 00032B60: */    lfs f2,0x2204(r28)
-    /* 00032B64: */    crset 6
-    /* 00032B68: */    bl wnemreport__wnemReport
+    /* 00032B2C: */    #addi r3,r31,0xA79
+    /* 00032B30: */    #frsp f1,f1
+    /* 00032B34: */    #frsp f2,f5
+    /* 00032B38: */    #frsp f3,f4
+    /* 00032B3C: */    #crset 6
+    /* 00032B40: */    #bl wnemreport__wnemReport
+    /* 00032B44: */    #addi r3,r31,0xAAA
+    /* 00032B48: */    #lfs f1,0x21F8(r28)
+    /* 00032B4C: */    #lfs f2,0x21FC(r28)
+    /* 00032B50: */    #crset 6
+    /* 00032B54: */    #bl wnemreport__wnemReport
+    /* 00032B58: */    #addi r3,r31,0xAD5
+    /* 00032B5C: */    #lfs f1,0x2200(r28)
+    /* 00032B60: */    #lfs f2,0x2204(r28)
+    /* 00032B64: */    #crset 6
+    /* 00032B68: */    #bl wnemreport__wnemReport
     /* 00032B6C: */    lwz r3,0x2184(r28)
     /* 00032B70: */    lwz r30,0x10(r3)
     /* 00032B74: */    lwz r29,0x21D0(r28)
@@ -5823,12 +5823,12 @@ wnemSimple__reflect:
     /* 00032BC8: */    mr r4,r3
     /* 00032BCC: */    mr r3,r28
     /* 00032BD0: */    bl wnemSimple__SetLifeLimit
-    /* 00032BD4: */    addi r3,r31,0xB00
-    /* 00032BD8: */    mr r4,r30
-    /* 00032BDC: */    mr r5,r29
-    /* 00032BE0: */    lwz r6,0x21D0(r28)
-    /* 00032BE4: */    crclr 6
-    /* 00032BE8: */    bl wnemreport__wnemReport
+    /* 00032BD4: */    #addi r3,r31,0xB00
+    /* 00032BD8: */    #mr r4,r30
+    /* 00032BDC: */    #mr r5,r29
+    /* 00032BE0: */    #lwz r6,0x21D0(r28)
+    /* 00032BE4: */    #crclr 6
+    /* 00032BE8: */    #bl wnemreport__wnemReport
 loc_32BEC:
     /* 00032BEC: */    li r3,0x1
     /* 00032BF0: */    addi r11,r1,0x40
@@ -5877,12 +5877,12 @@ loc_32C6C:
     /* 00032C90: */    lwz r12,0xB0(r12)
     /* 00032C94: */    mtctr r12
     /* 00032C98: */    bctrl
-    /* 00032C9C: */    lwz r0,0x38(r3)
-    /* 00032CA0: */    rlwinm r4,r0,25,31,31
-    /* 00032CA4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4B5E")]
-    /* 00032CA8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4B5E")]
-    /* 00032CAC: */    crclr 6
-    /* 00032CB0: */    bl wnemreport__wnemReport
+    /* 00032C9C: */    #lwz r0,0x38(r3)
+    /* 00032CA0: */    #rlwinm r4,r0,25,31,31
+    /* 00032CA4: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4B5E")]
+    /* 00032CA8: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4B5E")]
+    /* 00032CAC: */    #crclr 6
+    /* 00032CB0: */    #bl wnemreport__wnemReport
     /* 00032CB4: */    lwz r3,0x6C(r30)
     /* 00032CB8: */    lwz r3,0xD8(r3)
     /* 00032CBC: */    lwz r3,0x1C(r3)
@@ -5895,11 +5895,11 @@ loc_32C6C:
     /* 00032CD8: */    lwz r0,0x38(r3)
     /* 00032CDC: */    rlwinm. r0,r0,25,31,31
     /* 00032CE0: */    bne- loc_32CFC
-    /* 00032CE4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4BE3")]
-    /* 00032CE8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4BE3")]
-    /* 00032CEC: */    lfs f1,0x21E4(r30)
-    /* 00032CF0: */    crset 6
-    /* 00032CF4: */    bl wnemreport__wnemReport
+    /* 00032CE4: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_4BE3")]
+    /* 00032CE8: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_4BE3")]
+    /* 00032CEC: */    #lfs f1,0x21E4(r30)
+    /* 00032CF0: */    #crset 6
+    /* 00032CF4: */    #bl wnemreport__wnemReport
     /* 00032CF8: */    stfs f31,0x21E4(r30)
 loc_32CFC:
     /* 00032CFC: */    psq_l f31,0x18(r1),0,0
@@ -5918,8 +5918,8 @@ wnemSimple__notifyEventCollisionAttackCheck:
     /* 00032D2C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___savegpr_28")]
     /* 00032D30: */    mr r30,r3
     /* 00032D34: */    mr r28,r4
-    /* 00032D38: */    lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
-    /* 00032D3C: */    addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
+    /* 00032D38: */    #lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
+    /* 00032D3C: */    #addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
     /* 00032D40: */    lwz r0,0x21DC(r3)
     /* 00032D44: */    cmpwi r0,0x1
     /* 00032D48: */    beq- loc_32D60
@@ -5932,16 +5932,16 @@ loc_32D54:
 loc_32D60:
     /* 00032D60: */    andi. r0,r4,0x17
     /* 00032D64: */    beq- loc_32E34
-    /* 00032D68: */    addi r3,r31,0xC1A
-    /* 00032D6C: */    crclr 6
-    /* 00032D70: */    bl wnemreport__wnemReport
+    /* 00032D68: */    #addi r3,r31,0xC1A
+    /* 00032D6C: */    #crclr 6
+    /* 00032D70: */    #bl wnemreport__wnemReport
     /* 00032D74: */    li r29,0x1
     /* 00032D78: */    stb r29,0x2215(r30)
     /* 00032D7C: */    rlwinm. r0,r28,0,31,31
     /* 00032D80: */    beq- loc_32DA8
-    /* 00032D84: */    addi r3,r31,0xC6A
-    /* 00032D88: */    crclr 6
-    /* 00032D8C: */    bl wnemreport__wnemReport
+    /* 00032D84: */    #addi r3,r31,0xC6A
+    /* 00032D88: */    #crclr 6
+    /* 00032D8C: */    #bl wnemreport__wnemReport
     /* 00032D90: */    mr r3,r30
     /* 00032D94: */    li r4,0x17
     /* 00032D98: */    bl wnemSimple__reqCommonEffect
@@ -5951,9 +5951,9 @@ loc_32D60:
 loc_32DA8:
     /* 00032DA8: */    rlwinm. r0,r28,0,27,27
     /* 00032DAC: */    beq- loc_32DC8
-    /* 00032DB0: */    addi r3,r31,0xCE3
-    /* 00032DB4: */    crclr 6
-    /* 00032DB8: */    bl wnemreport__wnemReport
+    /* 00032DB0: */    #addi r3,r31,0xCE3
+    /* 00032DB4: */    #crclr 6
+    /* 00032DB8: */    #bl wnemreport__wnemReport
     /* 00032DBC: */    stb r29,0x2219(r30)
     /* 00032DC0: */    li r3,0x1
     /* 00032DC4: */    b loc_32F94
@@ -5965,9 +5965,9 @@ loc_32DC8:
     /* 00032DD8: */    cmpwi r0,0x0
     /* 00032DDC: */    bne- loc_32E2C
     /* 00032DE0: */    stb r29,0x2219(r30)
-    /* 00032DE4: */    addi r3,r31,0xD55
-    /* 00032DE8: */    crclr 6
-    /* 00032DEC: */    bl wnemreport__wnemReport
+    /* 00032DE4: */    #addi r3,r31,0xD55
+    /* 00032DE8: */    #crclr 6
+    /* 00032DEC: */    #bl wnemreport__wnemReport
     /* 00032DF0: */    b loc_32E2C
 loc_32DF4:
     /* 00032DF4: */    lwz r3,0x6C(r30)
@@ -5981,9 +5981,9 @@ loc_32DF4:
     /* 00032E14: */    lwz r4,0x21C8(r30)
     /* 00032E18: */    li r5,0x1
     /* 00032E1C: */    bl wnemSimple__changeProcFnc1
-    /* 00032E20: */    addi r3,r31,0xDB0
-    /* 00032E24: */    crclr 6
-    /* 00032E28: */    bl wnemreport__wnemReport
+    /* 00032E20: */    #addi r3,r31,0xDB0
+    /* 00032E24: */    #crclr 6
+    /* 00032E28: */    #bl wnemreport__wnemReport
 loc_32E2C:
     /* 00032E2C: */    li r3,0x1
     /* 00032E30: */    b loc_32F94
@@ -6013,16 +6013,16 @@ loc_32E34:
 loc_32E8C:
     /* 00032E8C: */    andi. r0,r4,0x17
     /* 00032E90: */    beq- loc_32F90
-    /* 00032E94: */    addi r3,r31,0xE09
-    /* 00032E98: */    crclr 6
-    /* 00032E9C: */    bl wnemreport__wnemReport
+    /* 00032E94: */    #addi r3,r31,0xE09
+    /* 00032E98: */    #crclr 6
+    /* 00032E9C: */    #bl wnemreport__wnemReport
     /* 00032EA0: */    li r0,0x1
     /* 00032EA4: */    stb r0,0x2215(r30)
     /* 00032EA8: */    rlwinm. r0,r28,0,31,31
     /* 00032EAC: */    beq- loc_32EE0
-    /* 00032EB0: */    addi r3,r31,0xE59
-    /* 00032EB4: */    crclr 6
-    /* 00032EB8: */    bl wnemreport__wnemReport
+    /* 00032EB0: */    #addi r3,r31,0xE59
+    /* 00032EB4: */    #crclr 6
+    /* 00032EB8: */    #bl wnemreport__wnemReport
     /* 00032EBC: */    lwz r3,0x6C(r30)
     /* 00032EC0: */    lwz r3,0xD8(r3)
     /* 00032EC4: */    lwz r3,0x1C(r3)
@@ -6074,9 +6074,9 @@ loc_32EE0:
     /* 00032F78: */    lbz r0,0xC(r1)
     /* 00032F7C: */    cmplwi r0,0x1
     /* 00032F80: */    bne- loc_32F90
-    /* 00032F84: */    addi r3,r31,0xED2
-    /* 00032F88: */    crclr 6
-    /* 00032F8C: */    bl wnemreport__wnemReport
+    /* 00032F84: */    #addi r3,r31,0xED2
+    /* 00032F88: */    #crclr 6
+    /* 00032F8C: */    #bl wnemreport__wnemReport
 loc_32F90:
     /* 00032F90: */    li r3,0x0
 loc_32F94:
@@ -6176,8 +6176,8 @@ wnemSimple__notifyEventLink:
     /* 000330F4: */    mr r29,r3
     /* 000330F8: */    mr r30,r4
     /* 000330FC: */    mr r26,r5
-    /* 00033100: */    lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
-    /* 00033104: */    addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
+    /* 00033100: */    #lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
+    /* 00033104: */    #addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
     /* 00033108: */    lwz r0,0x0(r4)
     /* 0003310C: */    cmpwi r0,0x2
     /* 00033110: */    beq- loc_331A0
@@ -6296,9 +6296,9 @@ loc_332A8:
     /* 000332AC: */    mr r4,r27
     /* 000332B0: */    li r5,0x1
     /* 000332B4: */    bl wnemSimple__changeProcFnc
-    /* 000332B8: */    addi r3,r31,0xF25
-    /* 000332BC: */    crclr 6
-    /* 000332C0: */    bl wnemreport__wnemReport
+    /* 000332B8: */    #addi r3,r31,0xF25
+    /* 000332BC: */    #crclr 6
+    /* 000332C0: */    #bl wnemreport__wnemReport
     /* 000332C4: */    b loc_33470
 loc_332C8:
     /* 000332C8: */    lwz r28,0xC(r30)
@@ -6325,12 +6325,12 @@ loc_33300:
     /* 00033318: */    fmr f31,f1
     /* 0003331C: */    mr r3,r29
     /* 00033320: */    bl wnemSimple__setDamage
-    /* 00033324: */    addi r3,r31,0xF6E
-    /* 00033328: */    lfs f1,0x21D4(r29)
-    /* 0003332C: */    lfs f2,0x21D8(r29)
-    /* 00033330: */    fmr f3,f31
-    /* 00033334: */    crset 6
-    /* 00033338: */    bl wnemreport__wnemReport
+    /* 00033324: */    #addi r3,r31,0xF6E
+    /* 00033328: */    #lfs f1,0x21D4(r29)
+    /* 0003332C: */    #lfs f2,0x21D8(r29)
+    /* 00033330: */    #fmr f3,f31
+    /* 00033334: */    #crset 6
+    /* 00033338: */    #bl wnemreport__wnemReport
     /* 0003333C: */    b loc_33470
 loc_33340:
     /* 00033340: */    lwz r28,0xC(r30)
@@ -6355,10 +6355,10 @@ loc_33340:
     /* 0003338C: */    lwz r12,0x3C(r12)
     /* 00033390: */    mtctr r12
     /* 00033394: */    bctrl
-    /* 00033398: */    addi r3,r31,0xFCB
-    /* 0003339C: */    mr r4,r26
-    /* 000333A0: */    crclr 6
-    /* 000333A4: */    bl wnemreport__wnemReport
+    /* 00033398: */    #addi r3,r31,0xFCB
+    /* 0003339C: */    #mr r4,r26
+    /* 000333A0: */    #crclr 6
+    /* 000333A4: */    #bl wnemreport__wnemReport
     /* 000333A8: */    mr r3,r29
     /* 000333AC: */    bl wnemSimple__setupGlowModule
     /* 000333B0: */    b loc_33470
@@ -6381,11 +6381,11 @@ loc_333B4:
     /* 000333F0: */    mtctr r12
     /* 000333F4: */    bctrl
     /* 000333F8: */    stw r27,0x0(r3)
-    /* 000333FC: */    addi r3,r31,0x101C
-    /* 00033400: */    mr r4,r26
-    /* 00033404: */    mr r5,r27
-    /* 00033408: */    crclr 6
-    /* 0003340C: */    bl wnemreport__wnemReport
+    /* 000333FC: */    #addi r3,r31,0x101C
+    /* 00033400: */    #mr r4,r26
+    /* 00033404: */    #mr r5,r27
+    /* 00033408: */    #crclr 6
+    /* 0003340C: */    #bl wnemreport__wnemReport
     /* 00033410: */    b loc_33470
 loc_33414:
     /* 00033414: */    lwz r28,0xC(r30)
@@ -6406,11 +6406,11 @@ loc_33414:
     /* 00033450: */    mtctr r12
     /* 00033454: */    bctrl
     /* 00033458: */    stfs f31,0x0(r3)
-    /* 0003345C: */    addi r3,r31,0x107A
-    /* 00033460: */    mr r4,r26
-    /* 00033464: */    fmr f1,f31
-    /* 00033468: */    crset 6
-    /* 0003346C: */    bl wnemreport__wnemReport
+    /* 0003345C: */    #addi r3,r31,0x107A
+    /* 00033460: */    #mr r4,r26
+    /* 00033464: */    #fmr f1,f31
+    /* 00033468: */    #crset 6
+    /* 0003346C: */    #bl wnemreport__wnemReport
 loc_33470:
     /* 00033470: */    lwz r0,0x0(r30)
     /* 00033474: */    cmpwi r0,0x13F5
@@ -6427,9 +6427,9 @@ loc_33498:
     /* 00033498: */    lwz r26,0xC(r30)
     /* 0003349C: */    cmpwi r26,0x0
     /* 000334A0: */    beq- loc_33524
-    /* 000334A4: */    addi r3,r31,0x10DA
-    /* 000334A8: */    crclr 6
-    /* 000334AC: */    bl wnemreport__wnemReport
+    /* 000334A4: */    #addi r3,r31,0x10DA
+    /* 000334A8: */    #crclr 6
+    /* 000334AC: */    #bl wnemreport__wnemReport
     /* 000334B0: */    mr r3,r29
     /* 000334B4: */    mr r4,r26
     /* 000334B8: */    li r5,0x4
@@ -6440,9 +6440,9 @@ loc_334C8:
     /* 000334C8: */    lwz r26,0xC(r30)
     /* 000334CC: */    cmpwi r26,0x0
     /* 000334D0: */    beq- loc_33524
-    /* 000334D4: */    addi r3,r31,0x112E
-    /* 000334D8: */    crclr 6
-    /* 000334DC: */    bl wnemreport__wnemReport
+    /* 000334D4: */    #addi r3,r31,0x112E
+    /* 000334D8: */    #crclr 6
+    /* 000334DC: */    #bl wnemreport__wnemReport
     /* 000334E0: */    mr r3,r29
     /* 000334E4: */    mr r4,r26
     /* 000334E8: */    li r5,0x2
@@ -6453,9 +6453,9 @@ loc_334F8:
     /* 000334F8: */    lwz r26,0xC(r30)
     /* 000334FC: */    cmpwi r26,0x0
     /* 00033500: */    beq- loc_33524
-    /* 00033504: */    addi r3,r31,0x117F
-    /* 00033508: */    crclr 6
-    /* 0003350C: */    bl wnemreport__wnemReport
+    /* 00033504: */    #addi r3,r31,0x117F
+    /* 00033508: */    #crclr 6
+    /* 0003350C: */    #bl wnemreport__wnemReport
     /* 00033510: */    mr r3,r29
     /* 00033514: */    mr r4,r26
     /* 00033518: */    li r5,0x3
@@ -6591,24 +6591,24 @@ loc_336E4:
     /* 000336F0: */    mtlr r0
     /* 000336F4: */    addi r1,r1,0x10
     /* 000336F8: */    blr
-Weapon__isObserv:
-    /* 000336FC: */    extsb r3,r4
-    /* 00033700: */    li r0,0xC
-    /* 00033704: */    extsb r0,r0
-    /* 00033708: */    sub r0,r3,r0
-    /* 0003370C: */    cntlzw r0,r0
-    /* 00033710: */    rlwinm r3,r0,27,5,31
-    /* 00033714: */    blr
+# Weapon__isObserv:
+#     /* 000336FC: */    extsb r3,r4
+#     /* 00033700: */    li r0,0xC
+#     /* 00033704: */    extsb r0,r0
+#     /* 00033708: */    sub r0,r3,r0
+#     /* 0003370C: */    cntlzw r0,r0
+#     /* 00033710: */    rlwinm r3,r0,27,5,31
+#     /* 00033714: */    blr
 wnemSimple__OnDead:
     /* 00033718: */    stwu r1,-0x10(r1)
     /* 0003371C: */    mflr r0
     /* 00033720: */    stw r0,0x14(r1)
     /* 00033724: */    stw r31,0xC(r1)
     /* 00033728: */    mr r31,r3
-    /* 0003372C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5210")]
-    /* 00033730: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5210")]
-    /* 00033734: */    crclr 6
-    /* 00033738: */    bl wnemreport__wnemReport
+    /* 0003372C: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5210")]
+    /* 00033730: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5210")]
+    /* 00033734: */    #crclr 6
+    /* 00033738: */    #bl wnemreport__wnemReport
     /* 0003373C: */    lwz r3,0x6C(r31)
     /* 00033740: */    lwz r3,0xD8(r3)
     /* 00033744: */    lwz r3,0x1C(r3)
@@ -6641,10 +6641,10 @@ loc_3379C:
     /* 000337AC: */    stb r0,0x2219(r31)
     /* 000337B0: */    b loc_337D4
 loc_337B4:
-    /* 000337B4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5239")]
-    /* 000337B8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5239")]
-    /* 000337BC: */    crclr 6
-    /* 000337C0: */    bl wnemreport__wnemReport
+    /* 000337B4: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5239")]
+    /* 000337B8: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5239")]
+    /* 000337BC: */    #crclr 6
+    /* 000337C0: */    #bl wnemreport__wnemReport
     /* 000337C4: */    mr r3,r31
     /* 000337C8: */    lwz r4,0x21BC(r31)
     /* 000337CC: */    li r5,0x1
@@ -6678,14 +6678,14 @@ wnemSimple__notifyEventOnDamage:
     /* 00033834: */    mr r29,r6
     /* 00033838: */    lis r30,0x0                              [R_PPC_ADDR16_HA(41, 4, "loc_E28")]
     /* 0003383C: */    addi r30,r30,0x0                         [R_PPC_ADDR16_LO(41, 4, "loc_E28")]
-    /* 00033840: */    lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
-    /* 00033844: */    addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
+    /* 00033840: */    #lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_4018")]
+    /* 00033844: */    #addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_4018")]
     /* 00033848: */    lbz r0,0x21B8(r3)
     /* 0003384C: */    cmpwi r0,0x0
     /* 00033850: */    beq- loc_339F4
-    /* 00033854: */    addi r3,r31,0x1259
-    /* 00033858: */    crclr 6
-    /* 0003385C: */    bl wnemreport__wnemReport
+    /* 00033854: */    #addi r3,r31,0x1259
+    /* 00033858: */    #crclr 6
+    /* 0003385C: */    #bl wnemreport__wnemReport
     /* 00033860: */    lfs f31,0xC(r28)
     /* 00033864: */    lfs f1,0x4(r30)
     /* 00033868: */    lfs f0,0x7C(r28)
@@ -6731,7 +6731,9 @@ wnemSimple__notifyEventOnDamage:
     /* 00033908: */    fmr f5,f27
     /* 0003390C: */    fmr f6,f26
     /* 00033910: */    #li r7,0x0
-    b __unresolved                                             [R_PPC_REL24(41, 7, "loc_wnemSimple__notifyEventOnDamage_passConnectedHitboxForSpecialAngles")]
+    #b __unresolved                                             [R_PPC_REL24(41, 7, "loc_wnemSimple__notifyEventOnDamage_passConnectedHitboxForSpecialAngles")]
+    li r7,0x0                # Original operation
+    mr r8, r28
 loc_passExtraParamForNotifyEventOnDamageFinished:
     /* 00033914: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soDamageUtil__getDamageAngle")]
     /* 00033918: */    fmr f26,f1
@@ -6770,25 +6772,25 @@ loc_passExtraParamForNotifyEventOnDamageFinished:
     /* 0003399C: */    bctrl
     /* 000339A0: */    lfs f0,0x0(r30)
     /* 000339A4: */    stfs f0,0x0(r3)
-    /* 000339A8: */    addi r3,r31,0x1289
-    /* 000339AC: */    fmr f1,f26
-    /* 000339B0: */    crset 6
-    /* 000339B4: */    bl wnemreport__wnemReport
-    /* 000339B8: */    addi r3,r31,0x12BE
-    /* 000339BC: */    fmr f1,f30
-    /* 000339C0: */    crset 6
-    /* 000339C4: */    bl wnemreport__wnemReport
+    /* 000339A8: */    #addi r3,r31,0x1289
+    /* 000339AC: */    #fmr f1,f26
+    /* 000339B0: */    #crset 6
+    /* 000339B4: */    #bl wnemreport__wnemReport
+    /* 000339B8: */    #addi r3,r31,0x12BE
+    /* 000339BC: */    #fmr f1,f30
+    /* 000339C0: */    #crset 6
+    /* 000339C4: */    #bl wnemreport__wnemReport
     /* 000339C8: */    li r0,0x1
     /* 000339CC: */    stb r0,0x2216(r27)
     /* 000339D0: */    mr r3,r27
     /* 000339D4: */    lfs f1,0x4(r28)
     /* 000339D8: */    bl wnemSimple__setDamage
-    /* 000339DC: */    addi r3,r31,0x12F3
-    /* 000339E0: */    lfs f1,0x21D4(r27)
-    /* 000339E4: */    lfs f2,0x21D8(r27)
-    /* 000339E8: */    lfs f3,0x4(r28)
-    /* 000339EC: */    crset 6
-    /* 000339F0: */    bl wnemreport__wnemReport
+    /* 000339DC: */    #addi r3,r31,0x12F3
+    /* 000339E0: */    #lfs f1,0x21D4(r27)
+    /* 000339E4: */    #lfs f2,0x21D8(r27)
+    /* 000339E8: */    #lfs f3,0x4(r28)
+    /* 000339EC: */    #crset 6
+    /* 000339F0: */    #bl wnemreport__wnemReport
 loc_339F4:
     /* 000339F4: */    psq_l f31,0x88(r1),0,0
     /* 000339F8: */    lfd f31,0x80(r1)
@@ -6816,10 +6818,10 @@ wnemSimple__reqCommonEffect:
     /* 00033A4C: */    stw r30,0x8(r1)
     /* 00033A50: */    mr r30,r3
     /* 00033A54: */    mr r31,r4
-    /* 00033A58: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5348")]
-    /* 00033A5C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5348")]
-    /* 00033A60: */    crclr 6
-    /* 00033A64: */    bl wnemreport__wnemReport
+    /* 00033A58: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5348")]
+    /* 00033A5C: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5348")]
+    /* 00033A60: */    #crclr 6
+    /* 00033A64: */    #bl wnemreport__wnemReport
     /* 00033A68: */    lwz r5,0x6C(r30)
     /* 00033A6C: */    lwz r3,0xD8(r5)
     /* 00033A70: */    lwz r3,0x6C(r3)
@@ -6919,206 +6921,206 @@ loc_33BB8:
 wnemSimple__soGetKind:
     /* 00033BD8: */    li r3,0x2
     /* 00033BDC: */    blr
-Weapon__getArticleId:
-    /* 00033BE0: */    lwz r3,0xC0(r3)
-    /* 00033BE4: */    blr
-Weapon__isActiveArticle:
-    /* 00033BE8: */    lwz r12,0x3C(r3)
-    /* 00033BEC: */    lwz r12,0xAC(r12)
-    /* 00033BF0: */    mtctr r12
-    /* 00033BF4: */    bctr
-Weapon__isSyncOwnerStatus:
-    /* 00033BF8: */    lbz r0,0xA4(r3)
-    /* 00033BFC: */    rlwinm r3,r0,26,31,31
-    /* 00033C00: */    subic r0,r3,0x1
-    /* 00033C04: */    subfe r3,r0,r3
-    /* 00033C08: */    blr
-Weapon__setSyncOwnerStatus:
-    /* 00033C0C: */    lbz r0,0xA4(r3)
-    /* 00033C10: */    rlwimi r0,r4,6,25,25
-    /* 00033C14: */    stb r0,0xA4(r3)
-    /* 00033C18: */    blr
-StageObject__isTreadPassive:
-    /* 00033C1C: */    li r3,0x0
-    /* 00033C20: */    blr
-StageObject__processGameProc:
-    /* 00033C24: */    blr
-Weapon__soGetSubKind:
-    /* 00033C28: */    lwz r3,0xB8(r3)
-    /* 00033C2C: */    blr
-soDamageEventObserver__notifyEventAddDamage:
-    /* 00033C30: */    blr
-soDamageEventObserver__addObserver:
-    /* 00033C34: */    extsh r4,r4
-    /* 00033C38: */    mr r0,r5
-    /* 00033C3C: */    mr r5,r3
-    /* 00033C40: */    extsb r6,r0
-    /* 00033C44: */    b __unresolved                           [R_PPC_REL24(27, 1, "soEventObserver_21soDamageEventObserver___addObserverSub")]
-Weapon__onDeactivate:
-    /* 00033C48: */    blr
-Weapon__soGetKind:
-    /* 00033C4C: */    li r3,0x2
-    /* 00033C50: */    blr
+# Weapon__getArticleId:
+#     /* 00033BE0: */    lwz r3,0xC0(r3)
+#     /* 00033BE4: */    blr
+# Weapon__isActiveArticle:
+#     /* 00033BE8: */    lwz r12,0x3C(r3)
+#     /* 00033BEC: */    lwz r12,0xAC(r12)
+#     /* 00033BF0: */    mtctr r12
+#     /* 00033BF4: */    bctr
+# Weapon__isSyncOwnerStatus:
+#     /* 00033BF8: */    lbz r0,0xA4(r3)
+#     /* 00033BFC: */    rlwinm r3,r0,26,31,31
+#     /* 00033C00: */    subic r0,r3,0x1
+#     /* 00033C04: */    subfe r3,r0,r3
+#     /* 00033C08: */    blr
+# Weapon__setSyncOwnerStatus:
+#     /* 00033C0C: */    lbz r0,0xA4(r3)
+#     /* 00033C10: */    rlwimi r0,r4,6,25,25
+#     /* 00033C14: */    stb r0,0xA4(r3)
+#     /* 00033C18: */    blr
+# StageObject__isTreadPassive:
+#     /* 00033C1C: */    li r3,0x0
+#     /* 00033C20: */    blr
+# StageObject__processGameProc:
+#     /* 00033C24: */    blr
+# Weapon__soGetSubKind:
+#     /* 00033C28: */    lwz r3,0xB8(r3)
+#     /* 00033C2C: */    blr
+# soDamageEventObserver__notifyEventAddDamage:
+#     /* 00033C30: */    blr
+# soDamageEventObserver__addObserver:
+#     /* 00033C34: */    extsh r4,r4
+#     /* 00033C38: */    mr r0,r5
+#     /* 00033C3C: */    mr r5,r3
+#     /* 00033C40: */    extsb r6,r0
+#     /* 00033C44: */    b __unresolved                           [R_PPC_REL24(27, 1, "soEventObserver_21soDamageEventObserver___addObserverSub")]
+# Weapon__onDeactivate:
+#     /* 00033C48: */    blr
+# Weapon__soGetKind:
+#     /* 00033C4C: */    li r3,0x2
+#     /* 00033C50: */    blr
 utWeaponObjectBase__setDeactivate:
     /* 00033C54: */    blr
-soParamCustomizeModuleImpl__getAttackPowerMulArticle:
-    /* 00033C58: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
-    /* 00033C5C: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
-    /* 00033C60: */    blr
-soParamCustomizeModuleImpl__getParamIndefinite:
-    /* 00033C64: */    li r3,0x0
-    /* 00033C68: */    blr
-soParamCustomizeModuleImpl__getParamFloat:
-    /* 00033C6C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E28")]
-    /* 00033C70: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E28")]
-    /* 00033C74: */    blr
-soParamCustomizeModuleImpl__getParamInt:
-    /* 00033C78: */    li r3,0x0
-    /* 00033C7C: */    blr
-soParamCustomizeModuleImpl__getWalkSpeedMul:
-    /* 00033C80: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
-    /* 00033C84: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
-    /* 00033C88: */    blr
-soParamCustomizeModuleImpl__getAttackReactionMul:
-    /* 00033C8C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
-    /* 00033C90: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
-    /* 00033C94: */    blr
-soParamCustomizeModuleImpl__isCustomize:
-    /* 00033C98: */    li r3,0x0
-    /* 00033C9C: */    blr
-soParamCustomizeModuleImpl__removeCustomize:
-    /* 00033CA0: */    blr
-soParamCustomizeModuleImpl__addCustomize:
-    /* 00033CA4: */    blr
-soParamCustomizeModuleImpl__setDefault:
-    /* 00033CA8: */    blr
-soParamCustomizeModuleImpl__activate:
-    /* 00033CAC: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
-    /* 00033CB0: */    lfs f0,0x0(r4)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
-    /* 00033CB4: */    stfs f0,0xC(r3)
-    /* 00033CB8: */    stfs f0,0x8(r3)
-    /* 00033CBC: */    blr
-soParamCustomizeModuleImpl__getAttackPowerMulScale:
-    /* 00033CC0: */    lfs f1,0xC(r3)
-    /* 00033CC4: */    blr
-soParamCustomizeModuleImpl__setAttackPowerMulScale:
-    /* 00033CC8: */    stfs f1,0xC(r3)
-    /* 00033CCC: */    blr
-soParamCustomizeModuleImpl__getAttackPowerMulPattern:
-    /* 00033CD0: */    lfs f1,0x8(r3)
-    /* 00033CD4: */    blr
-soParamCustomizeModuleImpl__setAttackPowerMulPattern:
-    /* 00033CD8: */    stfs f1,0x8(r3)
-    /* 00033CDC: */    blr
-soParamCustomizeModuleImpl__getAttackPowerMul:
-    /* 00033CE0: */    lfs f1,0x8(r3)
-    /* 00033CE4: */    lfs f0,0xC(r3)
-    /* 00033CE8: */    fmuls f1,f1,f0
-    /* 00033CEC: */    blr
-soArticleMediatorNull____dt:
-    /* 00033CF0: */    stwu r1,-0x10(r1)
-    /* 00033CF4: */    mflr r0
-    /* 00033CF8: */    stw r0,0x14(r1)
-    /* 00033CFC: */    stw r31,0xC(r1)
-    /* 00033D00: */    stw r30,0x8(r1)
-    /* 00033D04: */    mr r30,r3
-    /* 00033D08: */    mr r31,r4
-    /* 00033D0C: */    cmpwi r3,0x0
-    /* 00033D10: */    beq- loc_33D30
-    /* 00033D14: */    li r0,0x0
-    /* 00033D18: */    extsh r4,r0
-    /* 00033D1C: */    bl soArticleMediator____dt
-    /* 00033D20: */    extsh. r0,r31
-    /* 00033D24: */    ble- loc_33D30
-    /* 00033D28: */    mr r3,r30
-    /* 00033D2C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_33D30:
-    /* 00033D30: */    mr r3,r30
-    /* 00033D34: */    lwz r31,0xC(r1)
-    /* 00033D38: */    lwz r30,0x8(r1)
-    /* 00033D3C: */    lwz r0,0x14(r1)
-    /* 00033D40: */    mtlr r0
-    /* 00033D44: */    addi r1,r1,0x10
-    /* 00033D48: */    blr
-soArticleMediator____dt:
-    /* 00033D4C: */    stwu r1,-0x10(r1)
-    /* 00033D50: */    mflr r0
-    /* 00033D54: */    stw r0,0x14(r1)
-    /* 00033D58: */    stw r31,0xC(r1)
-    /* 00033D5C: */    mr r31,r3
-    /* 00033D60: */    cmpwi r3,0x0
-    /* 00033D64: */    beq- loc_33D74
-    /* 00033D68: */    extsh. r0,r4
-    /* 00033D6C: */    ble- loc_33D74
-    /* 00033D70: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_33D74:
-    /* 00033D74: */    mr r3,r31
-    /* 00033D78: */    lwz r31,0xC(r1)
-    /* 00033D7C: */    lwz r0,0x14(r1)
-    /* 00033D80: */    mtlr r0
-    /* 00033D84: */    addi r1,r1,0x10
-    /* 00033D88: */    blr
-soArticleOperator____dt:
-    /* 00033D8C: */    stwu r1,-0x10(r1)
-    /* 00033D90: */    mflr r0
-    /* 00033D94: */    stw r0,0x14(r1)
-    /* 00033D98: */    stw r31,0xC(r1)
-    /* 00033D9C: */    mr r31,r3
-    /* 00033DA0: */    cmpwi r3,0x0
-    /* 00033DA4: */    beq- loc_33DB4
-    /* 00033DA8: */    extsh. r0,r4
-    /* 00033DAC: */    ble- loc_33DB4
-    /* 00033DB0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_33DB4:
-    /* 00033DB4: */    mr r3,r31
-    /* 00033DB8: */    lwz r31,0xC(r1)
-    /* 00033DBC: */    lwz r0,0x14(r1)
-    /* 00033DC0: */    mtlr r0
-    /* 00033DC4: */    addi r1,r1,0x10
-    /* 00033DC8: */    blr
-soArticleGenerator____dt:
-    /* 00033DCC: */    stwu r1,-0x10(r1)
-    /* 00033DD0: */    mflr r0
-    /* 00033DD4: */    stw r0,0x14(r1)
-    /* 00033DD8: */    stw r31,0xC(r1)
-    /* 00033DDC: */    mr r31,r3
-    /* 00033DE0: */    cmpwi r3,0x0
-    /* 00033DE4: */    beq- loc_33DF4
-    /* 00033DE8: */    extsh. r0,r4
-    /* 00033DEC: */    ble- loc_33DF4
-    /* 00033DF0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_33DF4:
-    /* 00033DF4: */    mr r3,r31
-    /* 00033DF8: */    lwz r31,0xC(r1)
-    /* 00033DFC: */    lwz r0,0x14(r1)
-    /* 00033E00: */    mtlr r0
-    /* 00033E04: */    addi r1,r1,0x10
-    /* 00033E08: */    blr
-soArticleMediatorNull__shoot:
-    /* 00033E0C: */    li r3,0x1
-    /* 00033E10: */    blr
-soArticleMediatorNull__setAutoRecycle:
-    /* 00033E14: */    blr
-soArticleMediatorNull__getMediateNum:
-    /* 00033E18: */    li r3,0x0
-    /* 00033E1C: */    blr
-soArticleMediatorNull__getGenerateMaxNum:
-    /* 00033E20: */    li r3,0x0
-    /* 00033E24: */    blr
-soArticleMediatorNull__getActiveNum:
-    /* 00033E28: */    li r3,0x0
-    /* 00033E2C: */    blr
-soArticleMediatorNull__isGeneratable:
-    /* 00033E30: */    li r3,0x0
-    /* 00033E34: */    blr
-soArticleMediatorNull__deactivate:
-    /* 00033E38: */    blr
-soArticleMediatorNull__generate:
-    /* 00033E3C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 6, "loc_1CC")]
-    /* 00033E40: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 6, "loc_1CC")]
-    /* 00033E44: */    blr
-soDamageEventObserver__notifyEventOnDamage:
-    /* 00033E48: */    blr
+# soParamCustomizeModuleImpl__getAttackPowerMulArticle:
+#     /* 00033C58: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
+#     /* 00033C5C: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
+#     /* 00033C60: */    blr
+# soParamCustomizeModuleImpl__getParamIndefinite:
+#     /* 00033C64: */    li r3,0x0
+#     /* 00033C68: */    blr
+# soParamCustomizeModuleImpl__getParamFloat:
+#     /* 00033C6C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E28")]
+#     /* 00033C70: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E28")]
+#     /* 00033C74: */    blr
+# soParamCustomizeModuleImpl__getParamInt:
+#     /* 00033C78: */    li r3,0x0
+#     /* 00033C7C: */    blr
+# soParamCustomizeModuleImpl__getWalkSpeedMul:
+#     /* 00033C80: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
+#     /* 00033C84: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
+#     /* 00033C88: */    blr
+# soParamCustomizeModuleImpl__getAttackReactionMul:
+#     /* 00033C8C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
+#     /* 00033C90: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
+#     /* 00033C94: */    blr
+# soParamCustomizeModuleImpl__isCustomize:
+#     /* 00033C98: */    li r3,0x0
+#     /* 00033C9C: */    blr
+# soParamCustomizeModuleImpl__removeCustomize:
+#     /* 00033CA0: */    blr
+# soParamCustomizeModuleImpl__addCustomize:
+#     /* 00033CA4: */    blr
+# soParamCustomizeModuleImpl__setDefault:
+#     /* 00033CA8: */    blr
+# soParamCustomizeModuleImpl__activate:
+#     /* 00033CAC: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_E30")]
+#     /* 00033CB0: */    lfs f0,0x0(r4)                           [R_PPC_ADDR16_LO(41, 4, "loc_E30")]
+#     /* 00033CB4: */    stfs f0,0xC(r3)
+#     /* 00033CB8: */    stfs f0,0x8(r3)
+#     /* 00033CBC: */    blr
+# soParamCustomizeModuleImpl__getAttackPowerMulScale:
+#     /* 00033CC0: */    lfs f1,0xC(r3)
+#     /* 00033CC4: */    blr
+# soParamCustomizeModuleImpl__setAttackPowerMulScale:
+#     /* 00033CC8: */    stfs f1,0xC(r3)
+#     /* 00033CCC: */    blr
+# soParamCustomizeModuleImpl__getAttackPowerMulPattern:
+#     /* 00033CD0: */    lfs f1,0x8(r3)
+#     /* 00033CD4: */    blr
+# soParamCustomizeModuleImpl__setAttackPowerMulPattern:
+#     /* 00033CD8: */    stfs f1,0x8(r3)
+#     /* 00033CDC: */    blr
+# soParamCustomizeModuleImpl__getAttackPowerMul:
+#     /* 00033CE0: */    lfs f1,0x8(r3)
+#     /* 00033CE4: */    lfs f0,0xC(r3)
+#     /* 00033CE8: */    fmuls f1,f1,f0
+#     /* 00033CEC: */    blr
+# soArticleMediatorNull____dt:
+#     /* 00033CF0: */    stwu r1,-0x10(r1)
+#     /* 00033CF4: */    mflr r0
+#     /* 00033CF8: */    stw r0,0x14(r1)
+#     /* 00033CFC: */    stw r31,0xC(r1)
+#     /* 00033D00: */    stw r30,0x8(r1)
+#     /* 00033D04: */    mr r30,r3
+#     /* 00033D08: */    mr r31,r4
+#     /* 00033D0C: */    cmpwi r3,0x0
+#     /* 00033D10: */    beq- loc_33D30
+#     /* 00033D14: */    li r0,0x0
+#     /* 00033D18: */    extsh r4,r0
+#     /* 00033D1C: */    bl soArticleMediator____dt
+#     /* 00033D20: */    extsh. r0,r31
+#     /* 00033D24: */    ble- loc_33D30
+#     /* 00033D28: */    mr r3,r30
+#     /* 00033D2C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_33D30:
+#     /* 00033D30: */    mr r3,r30
+#     /* 00033D34: */    lwz r31,0xC(r1)
+#     /* 00033D38: */    lwz r30,0x8(r1)
+#     /* 00033D3C: */    lwz r0,0x14(r1)
+#     /* 00033D40: */    mtlr r0
+#     /* 00033D44: */    addi r1,r1,0x10
+#     /* 00033D48: */    blr
+# soArticleMediator____dt:
+#     /* 00033D4C: */    stwu r1,-0x10(r1)
+#     /* 00033D50: */    mflr r0
+#     /* 00033D54: */    stw r0,0x14(r1)
+#     /* 00033D58: */    stw r31,0xC(r1)
+#     /* 00033D5C: */    mr r31,r3
+#     /* 00033D60: */    cmpwi r3,0x0
+#     /* 00033D64: */    beq- loc_33D74
+#     /* 00033D68: */    extsh. r0,r4
+#     /* 00033D6C: */    ble- loc_33D74
+#     /* 00033D70: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_33D74:
+#     /* 00033D74: */    mr r3,r31
+#     /* 00033D78: */    lwz r31,0xC(r1)
+#     /* 00033D7C: */    lwz r0,0x14(r1)
+#     /* 00033D80: */    mtlr r0
+#     /* 00033D84: */    addi r1,r1,0x10
+#     /* 00033D88: */    blr
+# soArticleOperator____dt:
+#     /* 00033D8C: */    stwu r1,-0x10(r1)
+#     /* 00033D90: */    mflr r0
+#     /* 00033D94: */    stw r0,0x14(r1)
+#     /* 00033D98: */    stw r31,0xC(r1)
+#     /* 00033D9C: */    mr r31,r3
+#     /* 00033DA0: */    cmpwi r3,0x0
+#     /* 00033DA4: */    beq- loc_33DB4
+#     /* 00033DA8: */    extsh. r0,r4
+#     /* 00033DAC: */    ble- loc_33DB4
+#     /* 00033DB0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_33DB4:
+#     /* 00033DB4: */    mr r3,r31
+#     /* 00033DB8: */    lwz r31,0xC(r1)
+#     /* 00033DBC: */    lwz r0,0x14(r1)
+#     /* 00033DC0: */    mtlr r0
+#     /* 00033DC4: */    addi r1,r1,0x10
+#     /* 00033DC8: */    blr
+# soArticleGenerator____dt:
+#     /* 00033DCC: */    stwu r1,-0x10(r1)
+#     /* 00033DD0: */    mflr r0
+#     /* 00033DD4: */    stw r0,0x14(r1)
+#     /* 00033DD8: */    stw r31,0xC(r1)
+#     /* 00033DDC: */    mr r31,r3
+#     /* 00033DE0: */    cmpwi r3,0x0
+#     /* 00033DE4: */    beq- loc_33DF4
+#     /* 00033DE8: */    extsh. r0,r4
+#     /* 00033DEC: */    ble- loc_33DF4
+#     /* 00033DF0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_33DF4:
+#     /* 00033DF4: */    mr r3,r31
+#     /* 00033DF8: */    lwz r31,0xC(r1)
+#     /* 00033DFC: */    lwz r0,0x14(r1)
+#     /* 00033E00: */    mtlr r0
+#     /* 00033E04: */    addi r1,r1,0x10
+#     /* 00033E08: */    blr
+# soArticleMediatorNull__shoot:
+#     /* 00033E0C: */    li r3,0x1
+#     /* 00033E10: */    blr
+# soArticleMediatorNull__setAutoRecycle:
+#     /* 00033E14: */    blr
+# soArticleMediatorNull__getMediateNum:
+#     /* 00033E18: */    li r3,0x0
+#     /* 00033E1C: */    blr
+# soArticleMediatorNull__getGenerateMaxNum:
+#     /* 00033E20: */    li r3,0x0
+#     /* 00033E24: */    blr
+# soArticleMediatorNull__getActiveNum:
+#     /* 00033E28: */    li r3,0x0
+#     /* 00033E2C: */    blr
+# soArticleMediatorNull__isGeneratable:
+#     /* 00033E30: */    li r3,0x0
+#     /* 00033E34: */    blr
+# soArticleMediatorNull__deactivate:
+#     /* 00033E38: */    blr
+# soArticleMediatorNull__generate:
+#     /* 00033E3C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 6, "loc_1CC")]
+#     /* 00033E40: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 6, "loc_1CC")]
+#     /* 00033E44: */    blr
+# soDamageEventObserver__notifyEventOnDamage:
+#     /* 00033E48: */    blr
 wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig___deactivateDescendantForce:
     /* 00033E4C: */    stwu r1,-0x10(r1)
     /* 00033E50: */    mflr r0
@@ -7128,26 +7130,26 @@ wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig___deactivateDescendantFor
     /* 00033E60: */    lbz r0,0x0(r31)                          [R_PPC_ADDR16_LO(41, 6, "loc_238")]
     /* 00033E64: */    extsb. r0,r0
     /* 00033E68: */    bne- loc_33ED0
-    /* 00033E6C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5CDC")]
-    /* 00033E70: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5CDC")]
+    /* 00033E6C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_A138")]
+    /* 00033E70: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_A138")]
     /* 00033E74: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 6, "loc_23C")]
     /* 00033E78: */    stw r3,0x0(r5)                           [R_PPC_ADDR16_LO(41, 6, "loc_23C")]
-    /* 00033E7C: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5CB0")]
-    /* 00033E80: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5CB0")]
+    /* 00033E7C: */    lis r4,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_A108")]
+    /* 00033E80: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_A108")]
     /* 00033E84: */    addi r3,r5,0x0                           [R_PPC_ADDR16_LO(41, 6, "loc_23C")]
     /* 00033E88: */    stw r4,0x4(r3)
-    /* 00033E8C: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5C48")]
-    /* 00033E90: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5C48")]
+    /* 00033E8C: */    lis r4,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_A0A0")]
+    /* 00033E90: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_A0A0")]
     /* 00033E94: */    stw r4,0x0(r5)                           [R_PPC_ADDR16_LO(41, 6, "loc_23C")]
     /* 00033E98: */    addi r0,r4,0x10
     /* 00033E9C: */    stw r0,0x4(r3)
-    /* 00033EA0: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_5BD0")]
-    /* 00033EA4: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_5BD0")]
+    /* 00033EA0: */    lis r4,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_A028")]
+    /* 00033EA4: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_A028")]
     /* 00033EA8: */    stw r4,0x0(r5)                           [R_PPC_ADDR16_LO(41, 6, "loc_23C")]
     /* 00033EAC: */    addi r0,r4,0x10
     /* 00033EB0: */    stw r0,0x4(r3)
-    /* 00033EB4: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 1, "soArticleMediatorNull____dt")]
-    /* 00033EB8: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(41, 1, "soArticleMediatorNull____dt")]
+    /* 00033EB4: */    lis r4,0x0                               [R_PPC_ADDR16_HA(27, 1, "soArticleMediatorNull____dt")]
+    /* 00033EB8: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(27, 1, "soArticleMediatorNull____dt")]
     /* 00033EBC: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 6, "loc_1F4")]
     /* 00033EC0: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 6, "loc_1F4")]
     /* 00033EC4: */    bl globaldestructorchain____register_global_object
@@ -7379,7 +7381,7 @@ loc_341E4:
     /* 000341F4: */    mr r5,r25
     /* 000341F8: */    addi r6,r1,0x8
     /* 000341FC: */    extsh r7,r31
-    /* 00034200: */    bl soInstanceUnitFullProperty_20soAnimCmdControlUnit_____ct
+    /* 00034200: */    bl __unresolved                           [R_PPC_REL24(27, 1, "soInstanceUnitFullProperty_20soAnimCmdControlUnit_____ct1")] #bl soInstanceUnitFullProperty_20soAnimCmdControlUnit_____ct
     /* 00034204: */    addi r3,r28,0x10
     /* 00034208: */    mr r4,r27
     /* 0003420C: */    addi r5,r1,0xC
@@ -7390,7 +7392,7 @@ loc_341E4:
     /* 00034220: */    addi r3,r1,0xC
     /* 00034224: */    li r0,-0x1
     /* 00034228: */    extsh r4,r0
-    /* 0003422C: */    bl soInstanceUnitFullProperty_20soAnimCmdControlUnit_____dt
+    /* 0003422C: */    bl __unresolved                           [R_PPC_REL24(27, 1, "soInstanceUnitFullProperty_20soAnimCmdControlUnit_____dt")] #bl soInstanceUnitFullProperty_20soAnimCmdControlUnit_____dt
     /* 00034230: */    mr r3,r25
 loc_34234:
     /* 00034234: */    addi r11,r1,0x40
@@ -7529,7 +7531,7 @@ loc_34400:
     /* 00034414: */    bctrl
     /* 00034418: */    mr r4,r3
     /* 0003441C: */    addi r3,r1,0x8
-    /* 00034420: */    bl soInstanceUnitFullProperty_20soAnimCmdControlUnit___getAttribute
+    /* 00034420: */    bl __unresolved                           [R_PPC_REL24(27, 1, "soInstanceUnitFullProperty_20soAnimCmdControlUnit___getAttribute")] #bl soInstanceUnitFullProperty_20soAnimCmdControlUnit___getAttribute
     /* 00034424: */    lha r3,0x0(r28)
     /* 00034428: */    lha r0,0x8(r1)
     /* 0003442C: */    and r3,r0,r3
@@ -7586,7 +7588,7 @@ loc_344D8:
     /* 000344E8: */    bctrl
     /* 000344EC: */    mr r4,r3
     /* 000344F0: */    mr r3,r30
-    /* 000344F4: */    bl soInstanceUnitFullProperty_20soAnimCmdControlUnit___getAttribute
+    /* 000344F4: */    bl __unresolved                           [R_PPC_REL24(27, 1, "soInstanceUnitFullProperty_20soAnimCmdControlUnit___getAttribute")] #bl soInstanceUnitFullProperty_20soAnimCmdControlUnit___getAttribute
 loc_344F8:
     /* 000344F8: */    lwz r31,0xC(r1)
     /* 000344FC: */    lwz r30,0x8(r1)
@@ -7704,38 +7706,38 @@ loc_34678:
     /* 00034684: */    mtlr r0
     /* 00034688: */    addi r1,r1,0x20
     /* 0003468C: */    blr
-soInstanceUnitFullProperty_20soAnimCmdControlUnit_____ct:
-    /* 00034690: */    lwz r0,0x0(r4)
-    /* 00034694: */    stw r0,0x0(r3)
-    /* 00034698: */    lwz r0,0x4(r4)
-    /* 0003469C: */    stw r0,0x4(r3)
-    /* 000346A0: */    stw r5,0x8(r3)
-    /* 000346A4: */    lha r0,0x0(r6)
-    /* 000346A8: */    sth r0,0xC(r3)
-    /* 000346AC: */    sth r7,0xE(r3)
-    /* 000346B0: */    blr
-soInstanceUnitFullProperty_20soAnimCmdControlUnit_____dt:
-    /* 000346B4: */    stwu r1,-0x10(r1)
-    /* 000346B8: */    mflr r0
-    /* 000346BC: */    stw r0,0x14(r1)
-    /* 000346C0: */    stw r31,0xC(r1)
-    /* 000346C4: */    mr r31,r3
-    /* 000346C8: */    cmpwi r3,0x0
-    /* 000346CC: */    beq- loc_346DC
-    /* 000346D0: */    extsh. r0,r4
-    /* 000346D4: */    ble- loc_346DC
-    /* 000346D8: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_346DC:
-    /* 000346DC: */    mr r3,r31
-    /* 000346E0: */    lwz r31,0xC(r1)
-    /* 000346E4: */    lwz r0,0x14(r1)
-    /* 000346E8: */    mtlr r0
-    /* 000346EC: */    addi r1,r1,0x10
-    /* 000346F0: */    blr
-soInstanceUnitFullProperty_20soAnimCmdControlUnit___getAttribute:
-    /* 000346F4: */    lha r0,0xC(r4)
-    /* 000346F8: */    sth r0,0x0(r3)
-    /* 000346FC: */    blr
+# soInstanceUnitFullProperty_20soAnimCmdControlUnit_____ct:
+#     /* 00034690: */    lwz r0,0x0(r4)
+#     /* 00034694: */    stw r0,0x0(r3)
+#     /* 00034698: */    lwz r0,0x4(r4)
+#     /* 0003469C: */    stw r0,0x4(r3)
+#     /* 000346A0: */    stw r5,0x8(r3)
+#     /* 000346A4: */    lha r0,0x0(r6)
+#     /* 000346A8: */    sth r0,0xC(r3)
+#     /* 000346AC: */    sth r7,0xE(r3)
+#     /* 000346B0: */    blr
+# soInstanceUnitFullProperty_20soAnimCmdControlUnit_____dt:
+#     /* 000346B4: */    stwu r1,-0x10(r1)
+#     /* 000346B8: */    mflr r0
+#     /* 000346BC: */    stw r0,0x14(r1)
+#     /* 000346C0: */    stw r31,0xC(r1)
+#     /* 000346C4: */    mr r31,r3
+#     /* 000346C8: */    cmpwi r3,0x0
+#     /* 000346CC: */    beq- loc_346DC
+#     /* 000346D0: */    extsh. r0,r4
+#     /* 000346D4: */    ble- loc_346DC
+#     /* 000346D8: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_346DC:
+#     /* 000346DC: */    mr r3,r31
+#     /* 000346E0: */    lwz r31,0xC(r1)
+#     /* 000346E4: */    lwz r0,0x14(r1)
+#     /* 000346E8: */    mtlr r0
+#     /* 000346EC: */    addi r1,r1,0x10
+#     /* 000346F0: */    blr
+# soInstanceUnitFullProperty_20soAnimCmdControlUnit___getAttribute:
+#     /* 000346F4: */    lha r0,0xC(r4)
+#     /* 000346F8: */    sth r0,0x0(r3)
+#     /* 000346FC: */    blr
 soArrayVector_50soInstanceUnitFullProperty_20soAnimCmdControlUnit__7___atFast:
     /* 00034700: */    lwz r0,0x8(r3)
     /* 00034704: */    srawi r0,r0,28
@@ -7758,11 +7760,11 @@ wnemsimplecpp____sinit_:
     /* 00034740: */    addi r3,r31,0x0
     /* 00034744: */    li r4,0xFF
     /* 00034748: */    li r5,0x0
-    /* 0003474C: */    bl itGenSheetKind____ct
+    /* 0003474C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "itGenSheetKind____ct")] #bl itGenSheetKind____ct
     /* 00034750: */    addi r3,r31,0x8
     /* 00034754: */    li r4,0xFF
     /* 00034758: */    li r5,0x1
-    /* 0003475C: */    bl itGenSheetKind____ct
+    /* 0003475C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "itGenSheetKind____ct")] #bl itGenSheetKind____ct
     /* 00034760: */    addi r3,r31,0x28
     /* 00034764: */    li r4,0x2
     /* 00034768: */    li r5,0x0
@@ -7785,36 +7787,36 @@ soInstanceManagerFullPropertyVector_20soAnimCmdControlUnit_7____12_getAttributeA
 soInstanceManagerFullPropertyVector_20soAnimCmdControlUnit_7____12_getAttribute:
     /* 000347A0: */    subi r4,r4,0xC
     /* 000347A4: */    b soInstanceManagerFullPropertyVector_20soAnimCmdControlUnit_7___getAttribute
-soArticleMediator___4_:
-    /* 000347A8: */    subi r3,r3,0x4
-    /* 000347AC: */    b soArticleMediator____dt
-soArticleMediatorNull___4_shoot:
-    /* 000347B0: */    subi r3,r3,0x4
-    /* 000347B4: */    b soArticleMediatorNull__shoot
-soArticleMediatorNull___4_:
-    /* 000347B8: */    subi r3,r3,0x4
-    /* 000347BC: */    b soArticleMediatorNull____dt
+# soArticleMediator___4_:
+#     /* 000347A8: */    subi r3,r3,0x4
+#     /* 000347AC: */    b soArticleMediator____dt
+# soArticleMediatorNull___4_shoot:
+#     /* 000347B0: */    subi r3,r3,0x4
+#     /* 000347B4: */    b soArticleMediatorNull__shoot
+# soArticleMediatorNull___4_:
+#     /* 000347B8: */    subi r3,r3,0x4
+#     /* 000347BC: */    b soArticleMediatorNull____dt
 wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig____64_:
     /* 000347C0: */    subi r3,r3,0x40
     /* 000347C4: */    b wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig_____dt
-Weapon___72_notifyEventAnimCmd:
-    /* 000347C8: */    subi r3,r3,0x48
-    /* 000347CC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventAnimCmd")]
-Weapon___84_notifyEventLink:
-    /* 000347D0: */    subi r3,r3,0x54
-    /* 000347D4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventLink")]
-Weapon___112_notifyEventCollisionAttackCheck:
-    /* 000347D8: */    subi r3,r3,0x70
-    /* 000347DC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventCollisionAttackCheck")]
-Weapon___112_notifyEventCollisionAttack:
-    /* 000347E0: */    subi r3,r3,0x70
-    /* 000347E4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventCollisionAttack")]
-Weapon___124_notifyEventCollisionHit2nd:
-    /* 000347E8: */    subi r3,r3,0x7C
-    /* 000347EC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventCollisionHit2nd")]
-Weapon___124_notifyEventCollisionHit:
-    /* 000347F0: */    subi r3,r3,0x7C
-    /* 000347F4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventCollisionHit")]
+# Weapon___72_notifyEventAnimCmd:
+#     /* 000347C8: */    subi r3,r3,0x48
+#     /* 000347CC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventAnimCmd")]
+# Weapon___84_notifyEventLink:
+#     /* 000347D0: */    subi r3,r3,0x54
+#     /* 000347D4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventLink")]
+# Weapon___112_notifyEventCollisionAttackCheck:
+#     /* 000347D8: */    subi r3,r3,0x70
+#     /* 000347DC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventCollisionAttackCheck")]
+# Weapon___112_notifyEventCollisionAttack:
+#     /* 000347E0: */    subi r3,r3,0x70
+#     /* 000347E4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventCollisionAttack")]
+# Weapon___124_notifyEventCollisionHit2nd:
+#     /* 000347E8: */    subi r3,r3,0x7C
+#     /* 000347EC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventCollisionHit2nd")]
+# Weapon___124_notifyEventCollisionHit:
+#     /* 000347F0: */    subi r3,r3,0x7C
+#     /* 000347F4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventCollisionHit")]
 wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig____144_:
     /* 000347F8: */    subi r3,r3,0x90
     /* 000347FC: */    b wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig_____dt
@@ -7827,9 +7829,9 @@ wnemSimple___76_:
 wnemSimple___84_notifyEventAnimCmd:
     /* 00034810: */    subi r3,r3,0x54
     /* 00034814: */    b wnemSimple__notifyEventAnimCmd
-Weapon___72_isObserv:
-    /* 00034818: */    subi r3,r3,0x48
-    /* 0003481C: */    b Weapon__isObserv
+# Weapon___72_isObserv:
+#     /* 00034818: */    subi r3,r3,0x48
+#     /* 0003481C: */    b Weapon__isObserv
 wnemSimple___96_notifyEventLink:
     /* 00034820: */    subi r3,r3,0x60
     /* 00034824: */    b wnemSimple__notifyEventLink
@@ -7839,9 +7841,9 @@ wnemSimple___12_updateNodeSRT:
 wnemSimple___12_processFixPositionPreAnimCmd:
     /* 00034830: */    subi r3,r3,0xC
     /* 00034834: */    b wnemSimple__processFixPositionPreAnimCmd
-Weapon___100_notifyEventChangeStatus:
-    /* 00034838: */    subi r3,r3,0x64
-    /* 0003483C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventChangeStatus")]
+# Weapon___100_notifyEventChangeStatus:
+#     /* 00034838: */    subi r3,r3,0x64
+#     /* 0003483C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__notifyEventChangeStatus")]
 wnemSimple___124_notifyEventCollisionAttackCheck:
     /* 00034840: */    subi r3,r3,0x7C
     /* 00034844: */    b wnemSimple__notifyEventCollisionAttackCheck
@@ -7857,90 +7859,90 @@ wnemSimple___136_notifyEventCollisionHit:
 wnemSimple___156_:
     /* 00034860: */    subi r3,r3,0x9C
     /* 00034864: */    b wnemSimple____dt
-Weapon___136_setAttackPowerMulPattern:
-    /* 00034868: */    subi r3,r3,0x88
-    /* 0003486C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setAttackPowerMulPattern")]
-Weapon___136_getActiveGlobalFrame:
-    /* 00034870: */    subi r3,r3,0x88
-    /* 00034874: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getActiveGlobalFrame")]
-Weapon___136_updateLogAttackInfo:
-    /* 00034878: */    subi r3,r3,0x88
-    /* 0003487C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__updateLogAttackInfo")]
-Weapon___136_getLogAttackInfo:
-    /* 00034880: */    subi r4,r4,0x88
-    /* 00034884: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getLogAttackInfo")]
-Weapon___136_setLogAttackInfo:
-    /* 00034888: */    subi r3,r3,0x88
-    /* 0003488C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setLogAttackInfo")]
-Weapon___136_setSyncOwnerStatus:
-    /* 00034890: */    subi r3,r3,0x88
-    /* 00034894: */    b Weapon__setSyncOwnerStatus
-Weapon___136_isSyncOwnerStatus:
-    /* 00034898: */    subi r3,r3,0x88
-    /* 0003489C: */    b Weapon__isSyncOwnerStatus
-Weapon___136_unlinkOwner:
-    /* 000348A0: */    subi r3,r3,0x88
-    /* 000348A4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__unlinkOwner")]
-Weapon___136_linkOwner:
-    /* 000348A8: */    subi r3,r3,0x88
-    /* 000348AC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__linkOwner")]
-Weapon___136_have:
-    /* 000348B0: */    subi r3,r3,0x88
-    /* 000348B4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__have")]
-Weapon___136_getFounderTaskId:
-    /* 000348B8: */    subi r3,r3,0x88
-    /* 000348BC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getFounderTaskId")]
-Weapon___136_getOwnerDeactiveTreatType:
-    /* 000348C0: */    subi r3,r3,0x88
-    /* 000348C4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getOwnerDeactiveTreatType")]
-Weapon___136_deactivateArticle:
-    /* 000348C8: */    subi r3,r3,0x88
-    /* 000348CC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__deactivateArticle")]
-Weapon___136_isActiveArticle:
-    /* 000348D0: */    subi r3,r3,0x88
-    /* 000348D4: */    b Weapon__isActiveArticle
+# Weapon___136_setAttackPowerMulPattern:
+#     /* 00034868: */    subi r3,r3,0x88
+#     /* 0003486C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setAttackPowerMulPattern")]
+# Weapon___136_getActiveGlobalFrame:
+#     /* 00034870: */    subi r3,r3,0x88
+#     /* 00034874: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getActiveGlobalFrame")]
+# Weapon___136_updateLogAttackInfo:
+#     /* 00034878: */    subi r3,r3,0x88
+#     /* 0003487C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__updateLogAttackInfo")]
+# Weapon___136_getLogAttackInfo:
+#     /* 00034880: */    subi r4,r4,0x88
+#     /* 00034884: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getLogAttackInfo")]
+# Weapon___136_setLogAttackInfo:
+#     /* 00034888: */    subi r3,r3,0x88
+#     /* 0003488C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setLogAttackInfo")]
+# Weapon___136_setSyncOwnerStatus:
+#     /* 00034890: */    subi r3,r3,0x88
+#     /* 00034894: */    b Weapon__setSyncOwnerStatus
+# Weapon___136_isSyncOwnerStatus:
+#     /* 00034898: */    subi r3,r3,0x88
+#     /* 0003489C: */    b Weapon__isSyncOwnerStatus
+# Weapon___136_unlinkOwner:
+#     /* 000348A0: */    subi r3,r3,0x88
+#     /* 000348A4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__unlinkOwner")]
+# Weapon___136_linkOwner:
+#     /* 000348A8: */    subi r3,r3,0x88
+#     /* 000348AC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__linkOwner")]
+# Weapon___136_have:
+#     /* 000348B0: */    subi r3,r3,0x88
+#     /* 000348B4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__have")]
+# Weapon___136_getFounderTaskId:
+#     /* 000348B8: */    subi r3,r3,0x88
+#     /* 000348BC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getFounderTaskId")]
+# Weapon___136_getOwnerDeactiveTreatType:
+#     /* 000348C0: */    subi r3,r3,0x88
+#     /* 000348C4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getOwnerDeactiveTreatType")]
+# Weapon___136_deactivateArticle:
+#     /* 000348C8: */    subi r3,r3,0x88
+#     /* 000348CC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__deactivateArticle")]
+# Weapon___136_isActiveArticle:
+#     /* 000348D0: */    subi r3,r3,0x88
+#     /* 000348D4: */    b Weapon__isActiveArticle
 wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig____136_deactivateDescendantForce:
     /* 000348D8: */    subi r3,r3,0x88
     /* 000348DC: */    b wnWeaponBuilder_36wnemSimple_ModuleAccesserBuildConfig___deactivateDescendantForce
-Weapon___136_isConstraint:
-    /* 000348E0: */    subi r3,r3,0x88
-    /* 000348E4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__isConstraint")]
-Weapon___136_setSituationKind:
-    /* 000348E8: */    subi r3,r3,0x88
-    /* 000348EC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setSituationKind")]
-Weapon___136_set2nd:
-    /* 000348F0: */    subi r3,r3,0x88
-    /* 000348F4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__set2nd")]
-Weapon___136_setVisibility:
-    /* 000348F8: */    subi r3,r3,0x88
-    /* 000348FC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setVisibility")]
-Weapon___136_setVisibilityWhole:
-    /* 00034900: */    subi r3,r3,0x88
-    /* 00034904: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setVisibilityWhole")]
-Weapon___136_changeStatus:
-    /* 00034908: */    subi r3,r3,0x88
-    /* 0003490C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__changeStatus")]
-Weapon___136_setRate:
-    /* 00034910: */    subi r3,r3,0x88
-    /* 00034914: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setRate")]
-Weapon___136_setFrame:
-    /* 00034918: */    subi r3,r3,0x88
-    /* 0003491C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setFrame")]
-Weapon___136_changeMotion:
-    /* 00034920: */    subi r3,r3,0x88
-    /* 00034924: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__changeMotion")]
-Weapon___136_getTaskId:
-    /* 00034928: */    subi r3,r3,0x88
-    /* 0003492C: */    b Weapon__getTaskId
-Weapon___136_getArticleEventManageId:
-    /* 00034930: */    subi r3,r3,0x88
-    /* 00034934: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getArticleEventManageId")]
-Weapon___136_getArticleId:
-    /* 00034938: */    subi r3,r3,0x88
-    /* 0003493C: */    b Weapon__getArticleId
-Weapon___136_remove:
-    /* 00034940: */    subi r3,r3,0x88
-    /* 00034944: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__remove")]
+# Weapon___136_isConstraint:
+#     /* 000348E0: */    subi r3,r3,0x88
+#     /* 000348E4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__isConstraint")]
+# Weapon___136_setSituationKind:
+#     /* 000348E8: */    subi r3,r3,0x88
+#     /* 000348EC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setSituationKind")]
+# Weapon___136_set2nd:
+#     /* 000348F0: */    subi r3,r3,0x88
+#     /* 000348F4: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__set2nd")]
+# Weapon___136_setVisibility:
+#     /* 000348F8: */    subi r3,r3,0x88
+#     /* 000348FC: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setVisibility")]
+# Weapon___136_setVisibilityWhole:
+#     /* 00034900: */    subi r3,r3,0x88
+#     /* 00034904: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setVisibilityWhole")]
+# Weapon___136_changeStatus:
+#     /* 00034908: */    subi r3,r3,0x88
+#     /* 0003490C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__changeStatus")]
+# Weapon___136_setRate:
+#     /* 00034910: */    subi r3,r3,0x88
+#     /* 00034914: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setRate")]
+# Weapon___136_setFrame:
+#     /* 00034918: */    subi r3,r3,0x88
+#     /* 0003491C: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__setFrame")]
+# Weapon___136_changeMotion:
+#     /* 00034920: */    subi r3,r3,0x88
+#     /* 00034924: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__changeMotion")]
+# Weapon___136_getTaskId:
+#     /* 00034928: */    subi r3,r3,0x88
+#     /* 0003492C: */    b Weapon__getTaskId
+# Weapon___136_getArticleEventManageId:
+#     /* 00034930: */    subi r3,r3,0x88
+#     /* 00034934: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__getArticleEventManageId")]
+# Weapon___136_getArticleId:
+#     /* 00034938: */    subi r3,r3,0x88
+#     /* 0003493C: */    b Weapon__getArticleId
+# Weapon___136_remove:
+#     /* 00034940: */    subi r3,r3,0x88
+#     /* 00034944: */    b __unresolved                           [R_PPC_REL24(27, 1, "Weapon__remove")]
 wnemSimple___148_:
     /* 00034948: */    subi r3,r3,0x94
     /* 0003494C: */    b wnemSimple____dt

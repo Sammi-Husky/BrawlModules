@@ -367,7 +367,7 @@ soArticleMediatorImpl_113soTypeList_78soInstancePoolInfo_12wnemSwHolder_3_22emWe
     /* 0004A104: */    mr r3,r30
     /* 0004A108: */    li r0,0x0
     /* 0004A10C: */    extsh r4,r0
-    /* 0004A110: */    bl soArticleMediator____dt
+    /* 0004A110: */    bl __unresolved              [R_PPC_REL24(27, 1, "soArticleMediator____dt")]
     /* 0004A114: */    extsh. r0,r31
     /* 0004A118: */    ble- loc_4A124
     /* 0004A11C: */    mr r3,r30
@@ -903,8 +903,8 @@ loc_4A86C:
     /* 0004A86C: */    li r0,0x0
     /* 0004A870: */    stb r0,0x28(r1)
     /* 0004A874: */    stb r0,0x29(r1)
-    /* 0004A878: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 1, "soArticle__checkActivate")]
-    /* 0004A87C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 1, "soArticle__checkActivate")]
+    /* 0004A878: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 1, "soArticle__checkActivate")]
+    /* 0004A87C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 1, "soArticle__checkActivate")]
     /* 0004A880: */    stw r3,0x2C(r1)
     /* 0004A884: */    stw r0,0x30(r1)
     /* 0004A888: */    stw r0,0x34(r1)
@@ -1183,8 +1183,8 @@ loc_4AC0C:
     /* 0004AC1C: */    li r4,0x0
     /* 0004AC20: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E4")]
     /* 0004AC24: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E4")]
-    /* 0004AC28: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_132C")]
-    /* 0004AC2C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_132C")]
+    /* 0004AC28: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_C938")]
+    /* 0004AC2C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_C938")]
     /* 0004AC30: */    li r0,0x1
     /* 0004AC34: */    extsh r7,r0
     /* 0004AC38: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -1384,8 +1384,8 @@ emSparParamAccesser__getParamFloat:
     /* 0004AEBC: */    li r4,0x8
     /* 0004AEC0: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 0004AEC4: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 0004AEC8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 0004AECC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 0004AEC8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 0004AECC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 0004AED0: */    li r0,0x1
     /* 0004AED4: */    extsh r7,r0
     /* 0004AED8: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -1429,8 +1429,8 @@ emSparParamAccesser__getParamInt:
     /* 0004AF54: */    li r4,0x8
     /* 0004AF58: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 0004AF5C: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 0004AF60: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 0004AF64: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 0004AF60: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 0004AF64: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 0004AF68: */    li r0,0x1
     /* 0004AF6C: */    extsh r7,r0
     /* 0004AF70: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -1466,8 +1466,8 @@ emSparParamAccesser__getParamIndefinite:
     /* 0004AFD4: */    li r4,0x8
     /* 0004AFD8: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 0004AFDC: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 0004AFE0: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 0004AFE4: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 0004AFE0: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 0004AFE4: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 0004AFE8: */    li r0,0x1
     /* 0004AFEC: */    extsh r7,r0
     /* 0004AFF0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]

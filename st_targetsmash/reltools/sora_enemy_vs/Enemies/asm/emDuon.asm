@@ -102,10 +102,10 @@ loc_45DB4:
     /* 00045DBC: */    stb r0,0x2214(r3)
     /* 00045DC0: */    cmpwi r4,0x0
     /* 00045DC4: */    beq- loc_45E44
-    /* 00045DC8: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E8D8")]
-    /* 00045DCC: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E8D8")]
-    /* 00045DD0: */    crclr 6
-    /* 00045DD4: */    bl wnemCommonProc__Report
+    /* 00045DC8: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E8D8")]
+    /* 00045DCC: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E8D8")]
+    /* 00045DD0: */    #crclr 6
+    /* 00045DD4: */    #bl wnemCommonProc__Report
     /* 00045DD8: */    mr r3,r29
     /* 00045DDC: */    bl wnemSimple__SetDeadMode
     /* 00045DE0: */    mr r3,r29
@@ -193,10 +193,10 @@ loc_45F0C:
     /* 00045F14: */    stb r28,0x2214(r3)
     /* 00045F18: */    cmpwi r0,0x0
     /* 00045F1C: */    beq- loc_46000
-    /* 00045F20: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E8FC")]
-    /* 00045F24: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E8FC")]
-    /* 00045F28: */    crclr 6
-    /* 00045F2C: */    bl wnemCommonProc__Report
+    /* 00045F20: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E8FC")]
+    /* 00045F24: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E8FC")]
+    /* 00045F28: */    #crclr 6
+    /* 00045F2C: */    #bl wnemCommonProc__Report
     /* 00045F30: */    mr r3,r29
     /* 00045F34: */    li r4,0x15
     /* 00045F38: */    bl wnemSimple__setProcFnc_TouchGround
@@ -567,10 +567,10 @@ loc_464A4:
     /* 000464AC: */    stb r0,0x2214(r3)
     /* 000464B0: */    cmpwi r4,0x0
     /* 000464B4: */    beq- loc_46534
-    /* 000464B8: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E91D")]
-    /* 000464BC: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E91D")]
-    /* 000464C0: */    crclr 6
-    /* 000464C4: */    bl wnemCommonProc__Report
+    /* 000464B8: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E91D")]
+    /* 000464BC: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E91D")]
+    /* 000464C0: */    #crclr 6
+    /* 000464C4: */    #bl wnemCommonProc__Report
     /* 000464C8: */    mr r3,r29
     /* 000464CC: */    bl wnemSimple__SetDeadMode
     /* 000464D0: */    mr r3,r29
@@ -639,10 +639,10 @@ loc_465B0:
     /* 000465B8: */    stb r0,0x2214(r3)
     /* 000465BC: */    cmpwi r4,0x0
     /* 000465C0: */    beq- loc_46608
-    /* 000465C4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E944")]
-    /* 000465C8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E944")]
-    /* 000465CC: */    crclr 6
-    /* 000465D0: */    bl wnemCommonProc__Report
+    /* 000465C4: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E944")]
+    /* 000465C8: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E944")]
+    /* 000465CC: */    #crclr 6
+    /* 000465D0: */    #bl wnemCommonProc__Report
     /* 000465D4: */    mr r3,r30
     /* 000465D8: */    li r4,0x18
     /* 000465DC: */    bl wnemSimple__setProcFnc_LifeZero
@@ -700,22 +700,22 @@ loc_46690:
     /* 00046698: */    stb r0,0x2214(r3)
     /* 0004669C: */    cmpwi r4,0x0
     /* 000466A0: */    beq- loc_4670C
-    /* 000466A4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E965")]
-    /* 000466A8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E965")]
-    /* 000466AC: */    crclr 6
-    /* 000466B0: */    bl wnemCommonProc__Report
+    /* 000466A4: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E965")]
+    /* 000466A8: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E965")]
+    /* 000466AC: */    #crclr 6
+    /* 000466B0: */    #bl wnemCommonProc__Report
     /* 000466B4: */    mr r3,r30
     /* 000466B8: */    li r4,0x18
     /* 000466BC: */    bl wnemSimple__setProcFnc_HitShell
     /* 000466C0: */    mr r3,r30
     /* 000466C4: */    li r4,0x18
     /* 000466C8: */    bl wnemSimple__setProcFnc_LifeZero
-    /* 000466CC: */    cmplwi r3,0x1
-    /* 000466D0: */    bne- loc_466E4
-    /* 000466D4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E984")]
-    /* 000466D8: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E984")]
-    /* 000466DC: */    crclr 6
-    /* 000466E0: */    bl wnemCommonProc__Report
+    /* 000466CC: */    #cmplwi r3,0x1
+    /* 000466D0: */    #bne- loc_466E4
+    /* 000466D4: */    #lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E984")]
+    /* 000466D8: */    #addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E984")]
+    /* 000466DC: */    #crclr 6
+    /* 000466E0: */    #bl wnemCommonProc__Report
 loc_466E4:
     /* 000466E4: */    addi r3,r30,0xC
     /* 000466E8: */    li r4,0x1
@@ -750,8 +750,8 @@ wnemDuonProc__LaserDead:
     /* 00046750: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___savegpr_28")]
     /* 00046754: */    mr r28,r3
     /* 00046758: */    mr r29,r4
-    /* 0004675C: */    lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_E8D8")]
-    /* 00046760: */    addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_E8D8")]
+    /* 0004675C: */    #lis r31,0x0                              [R_PPC_ADDR16_HA(41, 5, "loc_E8D8")]
+    /* 00046760: */    #addi r31,r31,0x0                         [R_PPC_ADDR16_LO(41, 5, "loc_E8D8")]
     /* 00046764: */    li r30,0x0
     /* 00046768: */    lwz r0,0x2234(r3)
     /* 0004676C: */    cmpwi r0,0x0
@@ -763,9 +763,9 @@ loc_46778:
     /* 00046780: */    stb r0,0x2214(r3)
     /* 00046784: */    cmpwi r4,0x0
     /* 00046788: */    beq- loc_4680C
-    /* 0004678C: */    addi r3,r31,0x11B
-    /* 00046790: */    crclr 6
-    /* 00046794: */    bl wnemCommonProc__Report
+    /* 0004678C: */    #addi r3,r31,0x11B
+    /* 00046790: */    #crclr 6
+    /* 00046794: */    #bl wnemCommonProc__Report
     /* 00046798: */    mr r3,r28
     /* 0004679C: */    bl wnemSimple__SetDeadMode
     /* 000467A0: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_FD8")]
@@ -786,9 +786,9 @@ loc_46778:
     /* 000467DC: */    lwz r12,0x18(r12)
     /* 000467E0: */    mtctr r12
     /* 000467E4: */    bctrl
-    /* 000467E8: */    addi r3,r31,0x13B
-    /* 000467EC: */    crclr 6
-    /* 000467F0: */    bl wnemCommonProc__Report
+    /* 000467E8: */    #addi r3,r31,0x13B
+    /* 000467EC: */    #crclr 6
+    /* 000467F0: */    #bl wnemCommonProc__Report
     /* 000467F4: */    mr r3,r28
     /* 000467F8: */    li r4,0x1
     /* 000467FC: */    bl wnemSimple__executeAnimCmd1
@@ -802,9 +802,9 @@ loc_4680C:
     /* 00046818: */    bl wnemSimple__getFrameCounter
     /* 0004681C: */    cmplw r3,r30
     /* 00046820: */    blt- loc_46838
-    /* 00046824: */    addi r3,r31,0x17E
-    /* 00046828: */    crclr 6
-    /* 0004682C: */    bl wnemCommonProc__Report
+    /* 00046824: */    #addi r3,r31,0x17E
+    /* 00046828: */    #crclr 6
+    /* 0004682C: */    #bl wnemCommonProc__Report
     /* 00046830: */    mr r3,r28
     /* 00046834: */    bl wnemSimple__RequestDeactive
 loc_46838:
@@ -1536,7 +1536,7 @@ soArticleMediatorImpl_114soTypeList_79soInstancePoolInfo_12wnemSwHolder_14_22emW
     /* 0005F028: */    mr r3,r30
     /* 0005F02C: */    li r0,0x0
     /* 0005F030: */    extsh r4,r0
-    /* 0005F034: */    bl soArticleMediator____dt
+    /* 0005F034: */    bl __unresolved              [R_PPC_REL24(27, 1, "soArticleMediator____dt")]
     /* 0005F038: */    extsh. r0,r31
     /* 0005F03C: */    ble- loc_5F048
     /* 0005F040: */    mr r3,r30
@@ -2202,8 +2202,8 @@ loc_5F958:
     /* 0005F958: */    li r0,0x0
     /* 0005F95C: */    stb r0,0x28(r1)
     /* 0005F960: */    stb r0,0x29(r1)
-    /* 0005F964: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 1, "soArticle__checkActivate")]
-    /* 0005F968: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 1, "soArticle__checkActivate")]
+    /* 0005F964: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 1, "soArticle__checkActivate")]
+    /* 0005F968: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 1, "soArticle__checkActivate")]
     /* 0005F96C: */    stw r3,0x2C(r1)
     /* 0005F970: */    stw r0,0x30(r1)
     /* 0005F974: */    stw r0,0x34(r1)
@@ -2482,8 +2482,8 @@ loc_5FCF8:
     /* 0005FD08: */    li r4,0x0
     /* 0005FD0C: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_E4")]
     /* 0005FD10: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_E4")]
-    /* 0005FD14: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_132C")]
-    /* 0005FD18: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_132C")]
+    /* 0005FD14: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_C938")]
+    /* 0005FD18: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_C938")]
     /* 0005FD1C: */    li r0,0x1
     /* 0005FD20: */    extsh r7,r0
     /* 0005FD24: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2738,8 +2738,8 @@ emDuonParamAccesser__getParamFloat:
     /* 00060058: */    li r4,0x8
     /* 0006005C: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00060060: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 00060064: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00060068: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00060064: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00060068: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 0006006C: */    li r0,0x1
     /* 00060070: */    extsh r7,r0
     /* 00060074: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2783,8 +2783,8 @@ emDuonParamAccesser__getParamInt:
     /* 000600F0: */    li r4,0x8
     /* 000600F4: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 000600F8: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 000600FC: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00060100: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 000600FC: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00060100: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00060104: */    li r0,0x1
     /* 00060108: */    extsh r7,r0
     /* 0006010C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2829,8 +2829,8 @@ emDuonParamAccesser__getParamIndefinite:
     /* 0006018C: */    li r4,0x8
     /* 00060190: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00060194: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 00060198: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 0006019C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00060198: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 0006019C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 000601A0: */    li r31,0x1
     /* 000601A4: */    extsh r7,r31
     /* 000601A8: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2880,8 +2880,8 @@ loc_60228:
     /* 0006022C: */    li r4,0x3C
     /* 00060230: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00060234: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00060238: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 0006023C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00060238: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 0006023C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00060240: */    extsh r7,r31
     /* 00060244: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
     /* 00060248: */    addi r3,r3,0x1108
@@ -2909,8 +2909,8 @@ loc_6028C:
     /* 00060290: */    li r4,0x3C
     /* 00060294: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00060298: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 0006029C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 000602A0: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 0006029C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 000602A0: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 000602A4: */    extsh r7,r31
     /* 000602A8: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
     /* 000602AC: */    addi r3,r3,0x1108
@@ -2935,8 +2935,8 @@ loc_602E8:
     /* 000602EC: */    li r4,0x3C
     /* 000602F0: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 000602F4: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 000602F8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 000602FC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 000602F8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 000602FC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00060300: */    extsh r7,r31
     /* 00060304: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
     /* 00060308: */    addi r3,r3,0x1108

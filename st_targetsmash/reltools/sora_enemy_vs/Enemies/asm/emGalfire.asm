@@ -192,8 +192,8 @@ emGalfire__processUpdate:
     /* 00058D60: */    li r4,0x0
     /* 00058D64: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_644")]
     /* 00058D68: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_644")]
-    /* 00058D6C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6A8")]
-    /* 00058D70: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6A8")]
+    /* 00058D6C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_CDC0")]
+    /* 00058D70: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_CDC0")]
     /* 00058D74: */    li r0,0x1
     /* 00058D78: */    extsh r7,r0
     /* 00058D7C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -247,8 +247,8 @@ emGalfireParamAccesser__getParamFloat:
     /* 00058E2C: */    li r4,0x8
     /* 00058E30: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00058E34: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 00058E38: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00058E3C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00058E38: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00058E3C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00058E40: */    li r0,0x1
     /* 00058E44: */    extsh r7,r0
     /* 00058E48: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -292,8 +292,8 @@ emGalfireParamAccesser__getParamInt:
     /* 00058EC4: */    li r4,0x8
     /* 00058EC8: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00058ECC: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 00058ED0: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00058ED4: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00058ED0: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00058ED4: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00058ED8: */    li r0,0x1
     /* 00058EDC: */    extsh r7,r0
     /* 00058EE0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -329,8 +329,8 @@ emGalfireParamAccesser__getParamIndefinite:
     /* 00058F44: */    li r4,0x8
     /* 00058F48: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00058F4C: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 00058F50: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00058F54: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00058F50: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00058F54: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00058F58: */    li r0,0x1
     /* 00058F5C: */    extsh r7,r0
     /* 00058F60: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]

@@ -12,12 +12,12 @@ emDamageModuleImpl____ct:
     /* 0000F9D4: */    extsb. r0,r0
     /* 0000F9D8: */    bne- loc_FA0C
     /* 0000F9DC: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 6, "loc_68")]
-    /* 0000F9E0: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_211C")]
-    /* 0000F9E4: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_211C")]
+    /* 0000F9E0: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_B620")]
+    /* 0000F9E4: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_B620")]
     /* 0000F9E8: */    stw r3,0x0(r4)                           [R_PPC_ADDR16_LO(41, 6, "loc_68")]
     /* 0000F9EC: */    addi r3,r4,0x0                           [R_PPC_ADDR16_LO(41, 6, "loc_68")]
-    /* 0000F9F0: */    lis r4,0x0                               [R_PPC_ADDR16_HA(41, 1, "soDamageTransactorNull____dt")]
-    /* 0000F9F4: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(41, 1, "soDamageTransactorNull____dt")]
+    /* 0000F9F0: */    lis r4,0x0                               [R_PPC_ADDR16_HA(27, 1, "soDamageTransactorNull____dt")]
+    /* 0000F9F4: */    addi r4,r4,0x0                           [R_PPC_ADDR16_LO(27, 1, "soDamageTransactorNull____dt")]
     /* 0000F9F8: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 6, "loc_58")]
     /* 0000F9FC: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 6, "loc_58")]
     /* 0000FA00: */    bl globaldestructorchain____register_global_object
@@ -52,8 +52,8 @@ loc_FA0C:
     /* 0000FA70: */    li r0,0x5
     /* 0000FA74: */    extsh r4,r0
     /* 0000FA78: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soEventObserver_22soAnimCmdEventObserver_____ct")]
-    /* 0000FA7C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2510")]
-    /* 0000FA80: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2510")]
+    /* 0000FA7C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_358")]
+    /* 0000FA80: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_358")]
     /* 0000FA84: */    stw r3,0x0(r29)
     /* 0000FA88: */    mr r3,r29
     /* 0000FA8C: */    extsh r4,r30
@@ -89,49 +89,49 @@ loc_FA0C:
     /* 0000FB04: */    mtlr r0
     /* 0000FB08: */    addi r1,r1,0x20
     /* 0000FB0C: */    blr
-soDamageEffector____dt:
-    /* 0000FB10: */    stwu r1,-0x10(r1)
-    /* 0000FB14: */    mflr r0
-    /* 0000FB18: */    stw r0,0x14(r1)
-    /* 0000FB1C: */    stw r31,0xC(r1)
-    /* 0000FB20: */    mr r31,r3
-    /* 0000FB24: */    cmpwi r3,0x0
-    /* 0000FB28: */    beq- loc_FB38
-    /* 0000FB2C: */    extsh. r0,r4
-    /* 0000FB30: */    ble- loc_FB38
-    /* 0000FB34: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_FB38:
-    /* 0000FB38: */    mr r3,r31
-    /* 0000FB3C: */    lwz r31,0xC(r1)
-    /* 0000FB40: */    lwz r0,0x14(r1)
-    /* 0000FB44: */    mtlr r0
-    /* 0000FB48: */    addi r1,r1,0x10
-    /* 0000FB4C: */    blr
-soDamageEffectorImpl____dt:
-    /* 0000FB50: */    stwu r1,-0x10(r1)
-    /* 0000FB54: */    mflr r0
-    /* 0000FB58: */    stw r0,0x14(r1)
-    /* 0000FB5C: */    stw r31,0xC(r1)
-    /* 0000FB60: */    stw r30,0x8(r1)
-    /* 0000FB64: */    mr r30,r3
-    /* 0000FB68: */    mr r31,r4
-    /* 0000FB6C: */    cmpwi r3,0x0
-    /* 0000FB70: */    beq- loc_FB90
-    /* 0000FB74: */    li r0,0x0
-    /* 0000FB78: */    extsh r4,r0
-    /* 0000FB7C: */    bl soDamageEffector____dt
-    /* 0000FB80: */    extsh. r0,r31
-    /* 0000FB84: */    ble- loc_FB90
-    /* 0000FB88: */    mr r3,r30
-    /* 0000FB8C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_FB90:
-    /* 0000FB90: */    mr r3,r30
-    /* 0000FB94: */    lwz r31,0xC(r1)
-    /* 0000FB98: */    lwz r30,0x8(r1)
-    /* 0000FB9C: */    lwz r0,0x14(r1)
-    /* 0000FBA0: */    mtlr r0
-    /* 0000FBA4: */    addi r1,r1,0x10
-    /* 0000FBA8: */    blr
+# soDamageEffector____dt:
+#     /* 0000FB10: */    stwu r1,-0x10(r1)
+#     /* 0000FB14: */    mflr r0
+#     /* 0000FB18: */    stw r0,0x14(r1)
+#     /* 0000FB1C: */    stw r31,0xC(r1)
+#     /* 0000FB20: */    mr r31,r3
+#     /* 0000FB24: */    cmpwi r3,0x0
+#     /* 0000FB28: */    beq- loc_FB38
+#     /* 0000FB2C: */    extsh. r0,r4
+#     /* 0000FB30: */    ble- loc_FB38
+#     /* 0000FB34: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_FB38:
+#     /* 0000FB38: */    mr r3,r31
+#     /* 0000FB3C: */    lwz r31,0xC(r1)
+#     /* 0000FB40: */    lwz r0,0x14(r1)
+#     /* 0000FB44: */    mtlr r0
+#     /* 0000FB48: */    addi r1,r1,0x10
+#     /* 0000FB4C: */    blr
+# soDamageEffectorImpl____dt:
+#     /* 0000FB50: */    stwu r1,-0x10(r1)
+#     /* 0000FB54: */    mflr r0
+#     /* 0000FB58: */    stw r0,0x14(r1)
+#     /* 0000FB5C: */    stw r31,0xC(r1)
+#     /* 0000FB60: */    stw r30,0x8(r1)
+#     /* 0000FB64: */    mr r30,r3
+#     /* 0000FB68: */    mr r31,r4
+#     /* 0000FB6C: */    cmpwi r3,0x0
+#     /* 0000FB70: */    beq- loc_FB90
+#     /* 0000FB74: */    li r0,0x0
+#     /* 0000FB78: */    extsh r4,r0
+#     /* 0000FB7C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soDamageEffector____dt")] #bl soDamageEffector____dt
+#     /* 0000FB80: */    extsh. r0,r31
+#     /* 0000FB84: */    ble- loc_FB90
+#     /* 0000FB88: */    mr r3,r30
+#     /* 0000FB8C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_FB90:
+#     /* 0000FB90: */    mr r3,r30
+#     /* 0000FB94: */    lwz r31,0xC(r1)
+#     /* 0000FB98: */    lwz r30,0x8(r1)
+#     /* 0000FB9C: */    lwz r0,0x14(r1)
+#     /* 0000FBA0: */    mtlr r0
+#     /* 0000FBA4: */    addi r1,r1,0x10
+#     /* 0000FBA8: */    blr
 soAnimCmdEventObserver____dt:
     /* 0000FBAC: */    stwu r1,-0x10(r1)
     /* 0000FBB0: */    mflr r0
@@ -157,24 +157,24 @@ loc_FBEC:
     /* 0000FBFC: */    mtlr r0
     /* 0000FC00: */    addi r1,r1,0x10
     /* 0000FC04: */    blr
-soDamageTransactorNull____dt:
-    /* 0000FC08: */    stwu r1,-0x10(r1)
-    /* 0000FC0C: */    mflr r0
-    /* 0000FC10: */    stw r0,0x14(r1)
-    /* 0000FC14: */    stw r31,0xC(r1)
-    /* 0000FC18: */    mr r31,r3
-    /* 0000FC1C: */    cmpwi r3,0x0
-    /* 0000FC20: */    beq- loc_FC30
-    /* 0000FC24: */    extsh. r0,r4
-    /* 0000FC28: */    ble- loc_FC30
-    /* 0000FC2C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
-loc_FC30:
-    /* 0000FC30: */    mr r3,r31
-    /* 0000FC34: */    lwz r31,0xC(r1)
-    /* 0000FC38: */    lwz r0,0x14(r1)
-    /* 0000FC3C: */    mtlr r0
-    /* 0000FC40: */    addi r1,r1,0x10
-    /* 0000FC44: */    blr
+# soDamageTransactorNull____dt:
+#     /* 0000FC08: */    stwu r1,-0x10(r1)
+#     /* 0000FC0C: */    mflr r0
+#     /* 0000FC10: */    stw r0,0x14(r1)
+#     /* 0000FC14: */    stw r31,0xC(r1)
+#     /* 0000FC18: */    mr r31,r3
+#     /* 0000FC1C: */    cmpwi r3,0x0
+#     /* 0000FC20: */    beq- loc_FC30
+#     /* 0000FC24: */    extsh. r0,r4
+#     /* 0000FC28: */    ble- loc_FC30
+#     /* 0000FC2C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "srcommon____dl")]
+# loc_FC30:
+#     /* 0000FC30: */    mr r3,r31
+#     /* 0000FC34: */    lwz r31,0xC(r1)
+#     /* 0000FC38: */    lwz r0,0x14(r1)
+#     /* 0000FC3C: */    mtlr r0
+#     /* 0000FC40: */    addi r1,r1,0x10
+#     /* 0000FC44: */    blr
 emDamageModuleImpl____dt:
     /* 0000FC48: */    stwu r1,-0x20(r1)
     /* 0000FC4C: */    mflr r0
@@ -191,7 +191,7 @@ emDamageModuleImpl____dt:
     /* 0000FC78: */    bl soAnimCmdEventObserver____dt
     /* 0000FC7C: */    addi r3,r29,0xAC
     /* 0000FC80: */    extsh r4,r31
-    /* 0000FC84: */    bl soDamageEffectorImpl____dt
+    /* 0000FC84: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soDamageEffectorImpl____dt")] #bl soDamageEffectorImpl____dt
     /* 0000FC88: */    mr r3,r29
     /* 0000FC8C: */    extsh r4,r31
     /* 0000FC90: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soDamageModuleImpl____dt")]
@@ -365,7 +365,9 @@ emDamageModuleImpl__getDamageAngle:
     /* 0000FEF0: */    addi r11,r1,0x20
     /* 0000FEF4: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___savegpr_29")]
     /* 0000FEF8: */    #mr r29,r3
-    b __unresolved                                             [R_PPC_REL24(41, 7, "loc_emDamageModuleImpl__getDamageAngle_storeConnectedHitboxForSpecialAngles")]
+    #b __unresolved                                             [R_PPC_REL24(41, 7, "loc_emDamageModuleImpl__getDamageAngle_storeConnectedHitboxForSpecialAngles")]
+    mr r29,r3                 # Original operation
+    stw r9, 0x10(r1)
 loc_storeExtraParamForGetDamageAngleFinished:
     /* 0000FEFC: */    fmr f27,f1
     /* 0000FF00: */    mr r30,r4
@@ -418,7 +420,9 @@ loc_FF3C:
     /* 0000FFB8: */    fmr f5,f30
     /* 0000FFBC: */    fmr f6,f29
     /* 0000FFC0: */    #li r7,0x1
-    b __unresolved                                             [R_PPC_REL24(41, 7, "loc_emDamageModuleImpl__getDamageAngle_passConnectedHitboxForSpecialAngles")]
+    #b __unresolved                                             [R_PPC_REL24(41, 7, "loc_emDamageModuleImpl__getDamageAngle_passConnectedHitboxForSpecialAngles")]
+    li r7,0x1                # Original operation
+    lwz r8, 0x10(r1)
 loc_passExtraParamForGetDamageAngleFinished:
     /* 0000FFC4: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soDamageUtil__getDamageAngle")]
 loc_FFC8:
@@ -1073,8 +1077,8 @@ emDamageModuleImpl__setupDamageStatusNormal:
     /* 00010954: */    li r4,0x0
     /* 00010958: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_1CA4")]
     /* 0001095C: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_1CA4")]
-    /* 00010960: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2314")]
-    /* 00010964: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2314")]
+    /* 00010960: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_7890")]
+    /* 00010964: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_7890")]
     /* 00010968: */    li r18,0x1
     /* 0001096C: */    extsh r7,r18
     /* 00010970: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -1084,8 +1088,8 @@ emDamageModuleImpl__setupDamageStatusNormal:
     /* 00010980: */    li r4,0x0
     /* 00010984: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_644")]
     /* 00010988: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_644")]
-    /* 0001098C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6A8")]
-    /* 00010990: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6A8")]
+    /* 0001098C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_CDC0")]
+    /* 00010990: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_CDC0")]
     /* 00010994: */    extsh r7,r18
     /* 00010998: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
     /* 0001099C: */    mr r25,r3
@@ -1111,8 +1115,8 @@ emDamageModuleImpl__setupDamageStatusNormal:
     /* 000109EC: */    li r4,0x3C
     /* 000109F0: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 000109F4: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 000109F8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 000109FC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 000109F8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 000109FC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00010A00: */    li r0,0x0
     /* 00010A04: */    extsh r7,r0
     /* 00010A08: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -1337,7 +1341,9 @@ loc_10CE8:
     /* 00010D38: */    mr r7,r18
     /* 00010D3C: */    addi r8,r1,0x14
     /* 00010D40: */    #lfs f2,0x7C(r31)
-    b __unresolved                                             [R_PPC_REL24(41, 7, "loc_emDamageModuleImpl__setupDamageStatusNormal_passConnectedHitboxForSpecialAngles")]
+    #b __unresolved                                             [R_PPC_REL24(41, 7, "loc_emDamageModuleImpl__setupDamageStatusNormal_passConnectedHitboxForSpecialAngles")]
+    lfs f2,0x7C(r31)        # Original operation
+    mr r9, r31
 loc_passExtraParamToEmGetDamageAngleFinished1:
     /* 00010D44: */    bl emDamageModuleImpl__getDamageAngle
     /* 00010D48: */    fmr f27,f1
@@ -1833,8 +1839,8 @@ emDamageModuleImpl__setupDamageStatusTurn:
     /* 00011494: */    li r4,0x0
     /* 00011498: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_644")]
     /* 0001149C: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_644")]
-    /* 000114A0: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6A8")]
-    /* 000114A4: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6A8")]
+    /* 000114A0: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_CDC0")]
+    /* 000114A4: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_CDC0")]
     /* 000114A8: */    li r27,0x1
     /* 000114AC: */    extsh r7,r27
     /* 000114B0: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -1847,8 +1853,8 @@ emDamageModuleImpl__setupDamageStatusTurn:
     /* 000114CC: */    li r4,0x3C
     /* 000114D0: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 000114D4: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 000114D8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 000114DC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 000114D8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 000114DC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 000114E0: */    extsh r7,r27
     /* 000114E4: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
     /* 000114E8: */    mr r25,r3
@@ -1889,7 +1895,9 @@ emDamageModuleImpl__setupDamageStatusTurn:
     /* 00011574: */    li r6,0x0
     /* 00011578: */    mr r7,r6
     /* 0001157C: */    #addi r8,r1,0x1C
-    b __unresolved                                             [R_PPC_REL24(41, 7, "loc_emDamageModuleImpl__setupDamageStatusTurn_passConnectedHitboxForSpecialAngles")]
+    #b __unresolved                                             [R_PPC_REL24(41, 7, "loc_emDamageModuleImpl__setupDamageStatusTurn_passConnectedHitboxForSpecialAngles")]
+    addi r8,r1,0x1C       # Original operation
+    mr r9, r29
 loc_passExtraParamToEmGetDamageAngleFinished2:
     /* 00011580: */    bl emDamageModuleImpl__getDamageAngle
     /* 00011584: */    fmr f29,f1
@@ -2121,8 +2129,8 @@ emDamageModuleImpl__setupDamageStatusNoReaction:
     /* 000118F8: */    li r4,0x0
     /* 000118FC: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_1CA4")]
     /* 00011900: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_1CA4")]
-    /* 00011904: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2314")]
-    /* 00011908: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2314")]
+    /* 00011904: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_7890")]
+    /* 00011908: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_7890")]
     /* 0001190C: */    li r0,0x1
     /* 00011910: */    extsh r7,r0
     /* 00011914: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2217,10 +2225,10 @@ loc_11A58:
     /* 00011A6C: */    b loc_11B14
 loc_11A70:
     /* 00011A70: */    li r4,0x3C
-    /* 00011A74: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_1B48")]
-    /* 00011A78: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_1B48")]
-    /* 00011A7C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_1630")]
-    /* 00011A80: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_1630")]
+    /* 00011A74: */    lis r5,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_69C0")]
+    /* 00011A78: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_69C0")]
+    /* 00011A7C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_438")]
+    /* 00011A80: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_438")]
     /* 00011A84: */    li r0,0x1
     /* 00011A88: */    extsh r7,r0
     /* 00011A8C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2239,8 +2247,8 @@ loc_11ABC:
     /* 00011ABC: */    li r4,0x3C
     /* 00011AC0: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00011AC4: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00011AC8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_1630")]
-    /* 00011ACC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_1630")]
+    /* 00011AC8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_438")]
+    /* 00011ACC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_438")]
     /* 00011AD0: */    li r31,0x1
     /* 00011AD4: */    extsh r7,r31
     /* 00011AD8: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2255,10 +2263,10 @@ loc_11ABC:
     /* 00011AFC: */    stw r0,0xC4(r29)
     /* 00011B00: */    b loc_11B14
 loc_11B04:
-    /* 00011B04: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_19EC")]
-    /* 00011B08: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_19EC")]
-    /* 00011B0C: */    crclr 6
-    /* 00011B10: */    bl __unresolved                          [R_PPC_REL24(0, 4, "OSError__OSReport")]
+    # /* 00011B04: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_19EC")]
+    # /* 00011B08: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_19EC")]
+    # /* 00011B0C: */    crclr 6
+    # /* 00011B10: */    bl __unresolved                          [R_PPC_REL24(0, 4, "OSError__OSReport")]
 loc_11B14:
     /* 00011B14: */    addi r11,r1,0x20
     /* 00011B18: */    bl __unresolved                          [R_PPC_REL24(0, 4, "runtime___restgpr_29")]
@@ -2355,8 +2363,8 @@ emDamageModuleImpl__addDamageFigure:
     /* 00011C74: */    li r4,0x3C
     /* 00011C78: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00011C7C: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00011C80: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00011C84: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00011C80: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00011C84: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00011C88: */    li r0,0x1
     /* 00011C8C: */    extsh r7,r0
     /* 00011C90: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2443,8 +2451,8 @@ loc_11D88:
     /* 00011DC8: */    li r4,0x3C
     /* 00011DCC: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00011DD0: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00011DD4: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00011DD8: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00011DD4: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00011DD8: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00011DDC: */    li r0,0x1
     /* 00011DE0: */    extsh r7,r0
     /* 00011DE4: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2477,8 +2485,8 @@ loc_11E0C:
     /* 00011E4C: */    li r4,0x3C
     /* 00011E50: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00011E54: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00011E58: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00011E5C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00011E58: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00011E5C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00011E60: */    li r0,0x1
     /* 00011E64: */    extsh r7,r0
     /* 00011E68: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2612,8 +2620,8 @@ emDamageModuleImpl__onDamageSubCheckStatusTransition:
     /* 00012038: */    li r4,0x0
     /* 0001203C: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_7F0")]
     /* 00012040: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_7F0")]
-    /* 00012044: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_93C")]
-    /* 00012048: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_93C")]
+    /* 00012044: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_8A60")]
+    /* 00012048: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_8A60")]
     /* 0001204C: */    li r0,0x1
     /* 00012050: */    extsh r7,r0
     /* 00012054: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2688,8 +2696,8 @@ emDamageModuleImpl__onDamage:
     /* 00012164: */    li r4,0x3C
     /* 00012168: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 0001216C: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00012170: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00012174: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00012170: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00012174: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00012178: */    li r0,0x1
     /* 0001217C: */    extsh r7,r0
     /* 00012180: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2754,8 +2762,8 @@ loc_12248:
     /* 00012260: */    li r4,0x3C
     /* 00012264: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00012268: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 0001226C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00012270: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 0001226C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00012270: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00012274: */    li r0,0x1
     /* 00012278: */    extsh r7,r0
     /* 0001227C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -2871,8 +2879,8 @@ loc_123AC:
     /* 00012414: */    li r4,0x3C
     /* 00012418: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 0001241C: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00012420: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00012424: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00012420: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00012424: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00012428: */    li r0,0x1
     /* 0001242C: */    extsh r7,r0
     /* 00012430: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3160,8 +3168,8 @@ loc_1284C:
     /* 00012858: */    li r4,0x0
     /* 0001285C: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_1F84")]
     /* 00012860: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_1F84")]
-    /* 00012864: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_24AC")]
-    /* 00012868: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_24AC")]
+    /* 00012864: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_3F80")]
+    /* 00012868: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_3F80")]
     /* 0001286C: */    li r0,0x1
     /* 00012870: */    extsh r7,r0
     /* 00012874: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3275,10 +3283,10 @@ loc_129A4:
     /* 00012A08: */    cmpwi r0,0xB
     /* 00012A0C: */    bne- loc_12A40
     /* 00012A10: */    li r4,0x3C
-    /* 00012A14: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2054")]
-    /* 00012A18: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2054")]
-    /* 00012A1C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_1630")]
-    /* 00012A20: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_1630")]
+    /* 00012A14: */    lis r5,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_4A000")]
+    /* 00012A18: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_4A000")]
+    /* 00012A1C: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_438")]
+    /* 00012A20: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_438")]
     /* 00012A24: */    li r0,0x0
     /* 00012A28: */    extsh r7,r0
     /* 00012A2C: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3291,8 +3299,8 @@ loc_12A40:
     /* 00012A44: */    li r4,0x3C
     /* 00012A48: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00012A4C: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00012A50: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00012A54: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00012A50: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00012A54: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00012A58: */    li r0,0x1
     /* 00012A5C: */    extsh r7,r0
     /* 00012A60: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3416,8 +3424,8 @@ loc_12C18:
     /* 00012C1C: */    li r4,0x3C
     /* 00012C20: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00012C24: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00012C28: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00012C2C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00012C28: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00012C2C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00012C30: */    li r0,0x1
     /* 00012C34: */    extsh r7,r0
     /* 00012C38: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3631,8 +3639,8 @@ loc_12F08:
     /* 00012F28: */    li r4,0x0
     /* 00012F2C: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_644")]
     /* 00012F30: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_644")]
-    /* 00012F34: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_6A8")]
-    /* 00012F38: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_6A8")]
+    /* 00012F34: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_CDC0")]
+    /* 00012F38: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_CDC0")]
     /* 00012F3C: */    li r26,0x1
     /* 00012F40: */    extsh r7,r26
     /* 00012F44: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -3643,8 +3651,8 @@ loc_12F08:
     /* 00012F58: */    li r4,0x3C
     /* 00012F5C: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_328")]
     /* 00012F60: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_328")]
-    /* 00012F64: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_13A0")]
-    /* 00012F68: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_13A0")]
+    /* 00012F64: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_248")]
+    /* 00012F68: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_248")]
     /* 00012F6C: */    extsh r7,r26
     /* 00012F70: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
     /* 00012F74: */    mr r29,r3
@@ -3975,147 +3983,147 @@ loc_1342C:
     /* 00013448: */    blr
 emDamageModuleImpl__reqEffectScreen:
     /* 0001344C: */    blr
-soCollisionHitEventObserver__notifyEventChangeCollisionHit:
-    /* 00013450: */    blr
-soCollisionHitEventObserver__addObserver:
-    /* 00013454: */    extsh r4,r4
-    /* 00013458: */    mr r0,r5
-    /* 0001345C: */    mr r5,r3
-    /* 00013460: */    extsb r6,r0
-    /* 00013464: */    b __unresolved                           [R_PPC_REL24(27, 1, "soEventObserver_27soCollisionHitEventObserver___addObserverSub")]
-soDamageModuleImpl__isDamageLock:
-    /* 00013468: */    lbz r3,0xA8(r3)
-    /* 0001346C: */    blr
-soDamageModuleImpl__setDamageLock:
-    /* 00013470: */    stb r4,0xA8(r3)
-    /* 00013474: */    blr
-soDamageModuleImpl__setReactionMul2nd:
-    /* 00013478: */    stfs f1,0x9C(r3)
-    /* 0001347C: */    blr
-soDamageModuleImpl__setReactionMul:
-    /* 00013480: */    stfs f1,0x98(r3)
-    /* 00013484: */    blr
-soDamageModuleImpl__setDamageMul:
-    /* 00013488: */    stfs f1,0x94(r3)
-    /* 0001348C: */    blr
-soDamageModuleImpl__isCaptureCut:
-    /* 00013490: */    li r3,0x0
-    /* 00013494: */    blr
-soDamageModuleImpl__getCaptureDamage:
-    /* 00013498: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE0")]
-    /* 0001349C: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE0")]
-    /* 000134A0: */    blr
-soDamageModuleImpl__isCatchCut:
-    /* 000134A4: */    li r3,0x0
-    /* 000134A8: */    blr
-soDamageModuleImpl__getTransactor:
-    /* 000134AC: */    lwz r3,0x90(r3)
-    /* 000134B0: */    blr
-soDamageModuleImpl__getEffector:
-    /* 000134B4: */    lwz r3,0x8C(r3)
-    /* 000134B8: */    blr
-soDamageModuleImpl__restoreAttackerInfo:
-    /* 000134BC: */    addi r3,r3,0x64
-    /* 000134C0: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageAttackerInfo__copy")]
-soDamageModuleImpl__getAttackerInfo:
-    /* 000134C4: */    mr r5,r3
-    /* 000134C8: */    mr r3,r4
-    /* 000134CC: */    addi r4,r5,0x64
-    /* 000134D0: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageAttackerInfo__copy")]
-soDamageModuleImpl__getAttackerInfo1:
-    /* 000134D4: */    addi r3,r3,0x64
-    /* 000134D8: */    blr
-soDamageModuleImpl__isNoReactionModePerfect:
-    /* 000134DC: */    lbz r3,0x61(r3)
-    /* 000134E0: */    blr
-soDamageModuleImpl__setNoReactionModePerfect:
-    /* 000134E4: */    stb r4,0x61(r3)
-    /* 000134E8: */    blr
-soDamageModuleImpl__setNoReactionModeAlways:
-    /* 000134EC: */    stb r4,0x60(r3)
-    /* 000134F0: */    blr
-soDamageModuleImpl__resetNoReactionMode:
-    /* 000134F4: */    addi r3,r3,0x44
-    /* 000134F8: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__resetMode")]
-soDamageModuleImpl__setNoReactionMode:
-    /* 000134FC: */    addi r3,r3,0x44
-    /* 00013500: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__setMode")]
-soDamageModuleImpl__resetNoReactionModeStatus:
-    /* 00013504: */    addi r3,r3,0x44
-    /* 00013508: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__resetModeStatus")]
-soDamageModuleImpl__setNoReactionMode2nd:
-    /* 0001350C: */    mr r5,r4
-    /* 00013510: */    li r4,0x1
-    /* 00013514: */    addi r3,r3,0x44
-    /* 00013518: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__set")]
-soDamageModuleImpl__setNoReactionModeStatus:
-    /* 0001351C: */    mr r5,r4
-    /* 00013520: */    li r4,0x0
-    /* 00013524: */    addi r3,r3,0x44
-    /* 00013528: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__set")]
-soDamageModuleImpl__getPowerMax:
-    /* 0001352C: */    stwu r1,-0x10(r1)
-    /* 00013530: */    mflr r0
-    /* 00013534: */    stw r0,0x14(r1)
-    /* 00013538: */    lwz r3,0x40(r3)
-    /* 0001353C: */    lwz r12,0x0(r3)
-    /* 00013540: */    lwz r12,0xC(r12)
-    /* 00013544: */    mtctr r12
-    /* 00013548: */    bctrl
-    /* 0001354C: */    lfs f1,0x8(r3)
-    /* 00013550: */    lwz r0,0x14(r1)
-    /* 00013554: */    mtlr r0
-    /* 00013558: */    addi r1,r1,0x10
-    /* 0001355C: */    blr
-soDamageModuleImpl__getDamage:
-    /* 00013560: */    stwu r1,-0x10(r1)
-    /* 00013564: */    mflr r0
-    /* 00013568: */    stw r0,0x14(r1)
-    /* 0001356C: */    lwz r3,0x40(r3)
-    /* 00013570: */    lwz r12,0x0(r3)
-    /* 00013574: */    lwz r12,0xC(r12)
-    /* 00013578: */    mtctr r12
-    /* 0001357C: */    bctrl
-    /* 00013580: */    lfs f1,0x0(r3)
-    /* 00013584: */    lwz r0,0x14(r1)
-    /* 00013588: */    mtlr r0
-    /* 0001358C: */    addi r1,r1,0x10
-    /* 00013590: */    blr
+# soCollisionHitEventObserver__notifyEventChangeCollisionHit:
+#     /* 00013450: */    blr
+# soCollisionHitEventObserver__addObserver:
+#     /* 00013454: */    extsh r4,r4
+#     /* 00013458: */    mr r0,r5
+#     /* 0001345C: */    mr r5,r3
+#     /* 00013460: */    extsb r6,r0
+#     /* 00013464: */    b __unresolved                           [R_PPC_REL24(27, 1, "soEventObserver_27soCollisionHitEventObserver___addObserverSub")]
+# soDamageModuleImpl__isDamageLock:
+#     /* 00013468: */    lbz r3,0xA8(r3)
+#     /* 0001346C: */    blr
+# soDamageModuleImpl__setDamageLock:
+#     /* 00013470: */    stb r4,0xA8(r3)
+#     /* 00013474: */    blr
+# soDamageModuleImpl__setReactionMul2nd:
+#     /* 00013478: */    stfs f1,0x9C(r3)
+#     /* 0001347C: */    blr
+# soDamageModuleImpl__setReactionMul:
+#     /* 00013480: */    stfs f1,0x98(r3)
+#     /* 00013484: */    blr
+# soDamageModuleImpl__setDamageMul:
+#     /* 00013488: */    stfs f1,0x94(r3)
+#     /* 0001348C: */    blr
+# soDamageModuleImpl__isCaptureCut:
+#     /* 00013490: */    li r3,0x0
+#     /* 00013494: */    blr
+# soDamageModuleImpl__getCaptureDamage:
+#     /* 00013498: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE0")]
+#     /* 0001349C: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE0")]
+#     /* 000134A0: */    blr
+# soDamageModuleImpl__isCatchCut:
+#     /* 000134A4: */    li r3,0x0
+#     /* 000134A8: */    blr
+# soDamageModuleImpl__getTransactor:
+#     /* 000134AC: */    lwz r3,0x90(r3)
+#     /* 000134B0: */    blr
+# soDamageModuleImpl__getEffector:
+#     /* 000134B4: */    lwz r3,0x8C(r3)
+#     /* 000134B8: */    blr
+# soDamageModuleImpl__restoreAttackerInfo:
+#     /* 000134BC: */    addi r3,r3,0x64
+#     /* 000134C0: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageAttackerInfo__copy")]
+# soDamageModuleImpl__getAttackerInfo:
+#     /* 000134C4: */    mr r5,r3
+#     /* 000134C8: */    mr r3,r4
+#     /* 000134CC: */    addi r4,r5,0x64
+#     /* 000134D0: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageAttackerInfo__copy")]
+# soDamageModuleImpl__getAttackerInfo1:
+#     /* 000134D4: */    addi r3,r3,0x64
+#     /* 000134D8: */    blr
+# soDamageModuleImpl__isNoReactionModePerfect:
+#     /* 000134DC: */    lbz r3,0x61(r3)
+#     /* 000134E0: */    blr
+# soDamageModuleImpl__setNoReactionModePerfect:
+#     /* 000134E4: */    stb r4,0x61(r3)
+#     /* 000134E8: */    blr
+# soDamageModuleImpl__setNoReactionModeAlways:
+#     /* 000134EC: */    stb r4,0x60(r3)
+#     /* 000134F0: */    blr
+# soDamageModuleImpl__resetNoReactionMode:
+#     /* 000134F4: */    addi r3,r3,0x44
+#     /* 000134F8: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__resetMode")]
+# soDamageModuleImpl__setNoReactionMode:
+#     /* 000134FC: */    addi r3,r3,0x44
+#     /* 00013500: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__setMode")]
+# soDamageModuleImpl__resetNoReactionModeStatus:
+#     /* 00013504: */    addi r3,r3,0x44
+#     /* 00013508: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__resetModeStatus")]
+# soDamageModuleImpl__setNoReactionMode2nd:
+#     /* 0001350C: */    mr r5,r4
+#     /* 00013510: */    li r4,0x1
+#     /* 00013514: */    addi r3,r3,0x44
+#     /* 00013518: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__set")]
+# soDamageModuleImpl__setNoReactionModeStatus:
+#     /* 0001351C: */    mr r5,r4
+#     /* 00013520: */    li r4,0x0
+#     /* 00013524: */    addi r3,r3,0x44
+#     /* 00013528: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageNoReactionModule__set")]
+# soDamageModuleImpl__getPowerMax:
+#     /* 0001352C: */    stwu r1,-0x10(r1)
+#     /* 00013530: */    mflr r0
+#     /* 00013534: */    stw r0,0x14(r1)
+#     /* 00013538: */    lwz r3,0x40(r3)
+#     /* 0001353C: */    lwz r12,0x0(r3)
+#     /* 00013540: */    lwz r12,0xC(r12)
+#     /* 00013544: */    mtctr r12
+#     /* 00013548: */    bctrl
+#     /* 0001354C: */    lfs f1,0x8(r3)
+#     /* 00013550: */    lwz r0,0x14(r1)
+#     /* 00013554: */    mtlr r0
+#     /* 00013558: */    addi r1,r1,0x10
+#     /* 0001355C: */    blr
+# soDamageModuleImpl__getDamage:
+#     /* 00013560: */    stwu r1,-0x10(r1)
+#     /* 00013564: */    mflr r0
+#     /* 00013568: */    stw r0,0x14(r1)
+#     /* 0001356C: */    lwz r3,0x40(r3)
+#     /* 00013570: */    lwz r12,0x0(r3)
+#     /* 00013574: */    lwz r12,0xC(r12)
+#     /* 00013578: */    mtctr r12
+#     /* 0001357C: */    bctrl
+#     /* 00013580: */    lfs f1,0x0(r3)
+#     /* 00013584: */    lwz r0,0x14(r1)
+#     /* 00013588: */    mtlr r0
+#     /* 0001358C: */    addi r1,r1,0x10
+#     /* 00013590: */    blr
 soDamageModuleImpl__sleep:
     /* 00013594: */    stb r4,0xA9(r3)
     /* 00013598: */    blr
-soDamageModuleImpl__clearDamageLog:
-    /* 0001359C: */    blr
-soDamageModuleImpl__reqDamageEffect:
-    /* 000135A0: */    blr
-soDamageModuleImpl__getDamageMul:
-    /* 000135A4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
-    /* 000135A8: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
-    /* 000135AC: */    blr
-soDamageModuleImpl__getWeightReactionMul:
-    /* 000135B0: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
-    /* 000135B4: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
-    /* 000135B8: */    blr
-soDamageModuleImpl__getReactionSub:
-    /* 000135BC: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE0")]
-    /* 000135C0: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE0")]
-    /* 000135C4: */    blr
-soDamageModuleImpl__getReaction:
-    /* 000135C8: */    stwu r1,-0x10(r1)
-    /* 000135CC: */    mflr r0
-    /* 000135D0: */    stw r0,0x14(r1)
-    /* 000135D4: */    lwz r3,0x40(r3)
-    /* 000135D8: */    lwz r12,0x0(r3)
-    /* 000135DC: */    lwz r12,0xC(r12)
-    /* 000135E0: */    mtctr r12
-    /* 000135E4: */    bctrl
-    /* 000135E8: */    lfs f1,0xC(r3)
-    /* 000135EC: */    lwz r0,0x14(r1)
-    /* 000135F0: */    mtlr r0
-    /* 000135F4: */    addi r1,r1,0x10
-    /* 000135F8: */    blr
-soDamageModuleImpl__updateAttackerInfo:
-    /* 000135FC: */    blr
+# soDamageModuleImpl__clearDamageLog:
+#     /* 0001359C: */    blr
+# soDamageModuleImpl__reqDamageEffect:
+#     /* 000135A0: */    blr
+# soDamageModuleImpl__getDamageMul:
+#     /* 000135A4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
+#     /* 000135A8: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
+#     /* 000135AC: */    blr
+# soDamageModuleImpl__getWeightReactionMul:
+#     /* 000135B0: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
+#     /* 000135B4: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
+#     /* 000135B8: */    blr
+# soDamageModuleImpl__getReactionSub:
+#     /* 000135BC: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE0")]
+#     /* 000135C0: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE0")]
+#     /* 000135C4: */    blr
+# soDamageModuleImpl__getReaction:
+#     /* 000135C8: */    stwu r1,-0x10(r1)
+#     /* 000135CC: */    mflr r0
+#     /* 000135D0: */    stw r0,0x14(r1)
+#     /* 000135D4: */    lwz r3,0x40(r3)
+#     /* 000135D8: */    lwz r12,0x0(r3)
+#     /* 000135DC: */    lwz r12,0xC(r12)
+#     /* 000135E0: */    mtctr r12
+#     /* 000135E4: */    bctrl
+#     /* 000135E8: */    lfs f1,0xC(r3)
+#     /* 000135EC: */    lwz r0,0x14(r1)
+#     /* 000135F0: */    mtlr r0
+#     /* 000135F4: */    addi r1,r1,0x10
+#     /* 000135F8: */    blr
+# soDamageModuleImpl__updateAttackerInfo:
+#     /* 000135FC: */    blr
 emDamageModuleImpl__onGroundDamage:
     /* 00013600: */    #li r3,0x0
     b emDamageModuleImpl__onDamage
@@ -4123,111 +4131,111 @@ emDamageModuleImpl__onGroundDamage:
 emDamageModuleImpl__isCheckGroundDamage:
     /* 00013608: */    li r3,0x1
     /* 0001360C: */    blr
-soDamageModuleImpl__preProcessCheckDamage:
-    /* 00013610: */    li r3,0x0
-    /* 00013614: */    blr
-soDamageModuleImpl__reqDamageShake:
-    /* 00013618: */    blr
-soDamageEffectorImpl__reqStop:
-    /* 0001361C: */    blr
-soDamageEffectorImpl__reqQuake:
-    /* 00013620: */    blr
-soDamageEffectorImpl__reqUniqEffect:
-    /* 00013624: */    blr
-soDamageEffectorImpl__reqShake:
-    /* 00013628: */    blr
-soDamageTransactor__getWeightReactionMul:
-    /* 0001362C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
-    /* 00013630: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
-    /* 00013634: */    blr
-soDamageTransactor__preProcessCheckDamage:
-    /* 00013638: */    li r3,0x0
-    /* 0001363C: */    blr
-soDamageTransactorNull__checkDownDamage:
-    /* 00013640: */    li r3,0x0
-    /* 00013644: */    blr
-soDamageTransactorNull__checkNoReaction:
-    /* 00013648: */    li r3,0x1
-    /* 0001364C: */    blr
-soDamageTransactorNull__getDamageForReaction:
-    /* 00013650: */    blr
-soDamageTransactorNull__checkCheer:
-    /* 00013654: */    blr
-soDamageTransactorNull__getDamageMul:
-    /* 00013658: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
-    /* 0001365C: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
-    /* 00013660: */    blr
-soDamageTransactorNull__getReactionMul:
-    /* 00013664: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
-    /* 00013668: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
-    /* 0001366C: */    blr
-soDamageTransactorNull__getReactionSub:
-    /* 00013670: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE0")]
-    /* 00013674: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE0")]
-    /* 00013678: */    blr
-soDamageTransactorNull__setupDamageFlyRollStatus:
-    /* 0001367C: */    blr
-soDamageTransactorNull__setupDamageStatusNoReaction:
-    /* 00013680: */    blr
-soDamageTransactorNull__setupSpeedDamage:
-    /* 00013684: */    blr
-soDamageTransactorNull__setupDamageStatusTurn:
-    /* 00013688: */    blr
-soDamageTransactorNull__setupDamageStatusNormal:
-    /* 0001368C: */    blr
-soDamageTransactorNull__onDamage:
-    /* 00013690: */    li r3,0x0
-    /* 00013694: */    blr
-soDamageTransactorNull__onCompositionDamageSpeed:
-    /* 00013698: */    li r3,0x0
-    /* 0001369C: */    blr
-soDamageTransactorNull__onGroundDamageAfter:
-    /* 000136A0: */    blr
-emDamageTransactorImpl__isCheckGroundDamage:
-    /* 000136A4: */    li r3,0x1
-    /* 000136A8: */    blr
-soDamageTransactorNull__setFlagDownDamage3:
-    /* 000136AC: */    blr
-soDamageTransactorNull__onParalyzeDamage:
-    /* 000136B0: */    blr
-soDamageTransactorNull__onFlowerDamage:
-    /* 000136B4: */    blr
-soDamageTransactorNull__addSleepTime:
-    /* 000136B8: */    blr
-soDamageTransactorNull__isParalyzeDamage:
-    /* 000136BC: */    li r3,0x0
-    /* 000136C0: */    blr
-soDamageTransactorNull__isSleepStatus:
-    /* 000136C4: */    li r3,0x0
-    /* 000136C8: */    blr
-soDamageTransactorNull__isSlip:
-    /* 000136CC: */    li r3,0x0
-    /* 000136D0: */    blr
-soDamageTransactorNull__getHitStopMul:
-    /* 000136D4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
-    /* 000136D8: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
-    /* 000136DC: */    blr
-soDamageTransactorNull__getDamageHeight:
-    /* 000136E0: */    li r3,0x0
-    /* 000136E4: */    blr
-soDamageTransactorNull__isApplyTurnDamage:
-    /* 000136E8: */    li r3,0x1
-    /* 000136EC: */    blr
-soDamageTransactorNull__isUseTurn:
-    /* 000136F0: */    li r3,0x0
-    /* 000136F4: */    blr
-soDamageTransactorNull__isUseTurnDamage:
-    /* 000136F8: */    li r3,0x0
-    /* 000136FC: */    blr
-soDamageTransactorNull__getDamageStatusKind:
-    /* 00013700: */    li r3,0x0
-    /* 00013704: */    blr
-soDamageTransactorNull__onDamageChangeStatusRequest:
-    /* 00013708: */    li r3,0x1
-    /* 0001370C: */    blr
-soDamageTransactorNull__getDamageValueParam:
-    /* 00013710: */    li r3,0x0
-    /* 00013714: */    blr
+# soDamageModuleImpl__preProcessCheckDamage:
+#     /* 00013610: */    li r3,0x0
+#     /* 00013614: */    blr
+# soDamageModuleImpl__reqDamageShake:
+#     /* 00013618: */    blr
+# soDamageEffectorImpl__reqStop:
+#     /* 0001361C: */    blr
+# soDamageEffectorImpl__reqQuake:
+#     /* 00013620: */    blr
+# soDamageEffectorImpl__reqUniqEffect:
+#     /* 00013624: */    blr
+# soDamageEffectorImpl__reqShake:
+#     /* 00013628: */    blr
+# soDamageTransactor__getWeightReactionMul:
+#     /* 0001362C: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
+#     /* 00013630: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
+#     /* 00013634: */    blr
+# soDamageTransactor__preProcessCheckDamage:
+#     /* 00013638: */    li r3,0x0
+#     /* 0001363C: */    blr
+# soDamageTransactorNull__checkDownDamage:
+#     /* 00013640: */    li r3,0x0
+#     /* 00013644: */    blr
+# soDamageTransactorNull__checkNoReaction:
+#     /* 00013648: */    li r3,0x1
+#     /* 0001364C: */    blr
+# soDamageTransactorNull__getDamageForReaction:
+#     /* 00013650: */    blr
+# soDamageTransactorNull__checkCheer:
+#     /* 00013654: */    blr
+# soDamageTransactorNull__getDamageMul:
+#     /* 00013658: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
+#     /* 0001365C: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
+#     /* 00013660: */    blr
+# soDamageTransactorNull__getReactionMul:
+#     /* 00013664: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
+#     /* 00013668: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
+#     /* 0001366C: */    blr
+# soDamageTransactorNull__getReactionSub:
+#     /* 00013670: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE0")]
+#     /* 00013674: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE0")]
+#     /* 00013678: */    blr
+# soDamageTransactorNull__setupDamageFlyRollStatus:
+#     /* 0001367C: */    blr
+# soDamageTransactorNull__setupDamageStatusNoReaction:
+#     /* 00013680: */    blr
+# soDamageTransactorNull__setupSpeedDamage:
+#     /* 00013684: */    blr
+# soDamageTransactorNull__setupDamageStatusTurn:
+#     /* 00013688: */    blr
+# soDamageTransactorNull__setupDamageStatusNormal:
+#     /* 0001368C: */    blr
+# soDamageTransactorNull__onDamage:
+#     /* 00013690: */    li r3,0x0
+#     /* 00013694: */    blr
+# soDamageTransactorNull__onCompositionDamageSpeed:
+#     /* 00013698: */    li r3,0x0
+#     /* 0001369C: */    blr
+# soDamageTransactorNull__onGroundDamageAfter:
+#     /* 000136A0: */    blr
+# emDamageTransactorImpl__isCheckGroundDamage:
+#     /* 000136A4: */    li r3,0x1
+#     /* 000136A8: */    blr
+# soDamageTransactorNull__setFlagDownDamage3:
+#     /* 000136AC: */    blr
+# soDamageTransactorNull__onParalyzeDamage:
+#     /* 000136B0: */    blr
+# soDamageTransactorNull__onFlowerDamage:
+#     /* 000136B4: */    blr
+# soDamageTransactorNull__addSleepTime:
+#     /* 000136B8: */    blr
+# soDamageTransactorNull__isParalyzeDamage:
+#     /* 000136BC: */    li r3,0x0
+#     /* 000136C0: */    blr
+# soDamageTransactorNull__isSleepStatus:
+#     /* 000136C4: */    li r3,0x0
+#     /* 000136C8: */    blr
+# soDamageTransactorNull__isSlip:
+#     /* 000136CC: */    li r3,0x0
+#     /* 000136D0: */    blr
+# soDamageTransactorNull__getHitStopMul:
+#     /* 000136D4: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 4, "loc_BE8")]
+#     /* 000136D8: */    lfs f1,0x0(r3)                           [R_PPC_ADDR16_LO(41, 4, "loc_BE8")]
+#     /* 000136DC: */    blr
+# soDamageTransactorNull__getDamageHeight:
+#     /* 000136E0: */    li r3,0x0
+#     /* 000136E4: */    blr
+# soDamageTransactorNull__isApplyTurnDamage:
+#     /* 000136E8: */    li r3,0x1
+#     /* 000136EC: */    blr
+# soDamageTransactorNull__isUseTurn:
+#     /* 000136F0: */    li r3,0x0
+#     /* 000136F4: */    blr
+# soDamageTransactorNull__isUseTurnDamage:
+#     /* 000136F8: */    li r3,0x0
+#     /* 000136FC: */    blr
+# soDamageTransactorNull__getDamageStatusKind:
+#     /* 00013700: */    li r3,0x0
+#     /* 00013704: */    blr
+# soDamageTransactorNull__onDamageChangeStatusRequest:
+#     /* 00013708: */    li r3,0x1
+#     /* 0001370C: */    blr
+# soDamageTransactorNull__getDamageValueParam:
+#     /* 00013710: */    li r3,0x0
+#     /* 00013714: */    blr
 emdamagemoduleimplcpp____sinit_:
     /* 00013718: */    stwu r1,-0x10(r1)
     /* 0001371C: */    mflr r0
@@ -4236,12 +4244,12 @@ emdamagemoduleimplcpp____sinit_:
     /* 00013728: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 6, "loc_48")]
     /* 0001372C: */    li r4,0xFF
     /* 00013730: */    li r5,0x0
-    /* 00013734: */    bl itGenSheetKind____ct
+    /* 00013734: */    bl __unresolved                          [R_PPC_REL24(27, 1, "itGenSheetKind____ct")] #bl itGenSheetKind____ct
     /* 00013738: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 6, "loc_50")]
     /* 0001373C: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 6, "loc_50")]
     /* 00013740: */    li r4,0xFF
     /* 00013744: */    li r5,0x1
-    /* 00013748: */    bl itGenSheetKind____ct
+    /* 00013748: */    bl __unresolved                          [R_PPC_REL24(27, 1, "itGenSheetKind____ct")] #bl itGenSheetKind____ct
     /* 0001374C: */    lwz r0,0x14(r1)
     /* 00013750: */    mtlr r0
     /* 00013754: */    addi r1,r1,0x10
@@ -4252,9 +4260,9 @@ emDamageModuleImpl___12_notifyEventCollisionHit2nd:
 emDamageModuleImpl___12_notifyEventCollisionHit:
     /* 00013764: */    subi r3,r3,0xC
     /* 00013768: */    b emDamageModuleImpl__notifyEventCollisionHit
-soDamageModuleImpl___24_notifyEventChangeStatus:
-    /* 0001376C: */    subi r3,r3,0x18
-    /* 00013770: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageModuleImpl__notifyEventChangeStatus")]
+# soDamageModuleImpl___24_notifyEventChangeStatus:
+#     /* 0001376C: */    subi r3,r3,0x18
+#     /* 00013770: */    b __unresolved                           [R_PPC_REL24(27, 1, "soDamageModuleImpl__notifyEventChangeStatus")]
 emDamageModuleImpl___36_:
     /* 00013774: */    subi r3,r3,0x24
     /* 00013778: */    b emDamageModuleImpl____dt

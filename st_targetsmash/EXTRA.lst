@@ -1,8 +1,8 @@
 // emWeaponManager (Note: addresses are based on abridged sora_enemy_vs)
-41,1,00029E44:create__15emWeaponManagerFv
-41,1,00029E38:getInstance__15emWeaponManagerFv
-41,1,00029DE4:remove__15emWeaponManagerFv
+41,1,00029E34:create__15emWeaponManagerFv
+41,1,00029E28:getInstance__15emWeaponManagerFv
+41,1,00029DD4:remove__15emWeaponManagerFv
 
 // wnemSimple (Note: addresses are based on abridged sora_enemy_vs)
-41,1,0002B404:__ct__10wnemSimpleFv
-41,1,0002E308:__dt__10wnemSimpleFv
+41,1,0002B3E8:__ct__10wnemSimpleFv
+41,1,0002E2EC:__dt__10wnemSimpleFv

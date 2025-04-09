@@ -419,12 +419,12 @@ emaroaroscpp____sinit_:
     /* 00039E30: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 6, "loc_360")]
     /* 00039E34: */    li r4,0xFF
     /* 00039E38: */    li r5,0x0
-    /* 00039E3C: */    bl itGenSheetKind____ct
+    /* 00039E3C: */    bl __unresolved                          [R_PPC_REL24(27, 1, "itGenSheetKind____ct")] #bl itGenSheetKind____ct
     /* 00039E40: */    lis r3,0x0                               [R_PPC_ADDR16_HA(41, 6, "loc_368")]
     /* 00039E44: */    addi r3,r3,0x0                           [R_PPC_ADDR16_LO(41, 6, "loc_368")]
     /* 00039E48: */    li r4,0xFF
     /* 00039E4C: */    li r5,0x1
-    /* 00039E50: */    bl itGenSheetKind____ct
+    /* 00039E50: */    bl __unresolved                          [R_PPC_REL24(27, 1, "itGenSheetKind____ct")] #bl itGenSheetKind____ct
     /* 00039E54: */    lwz r0,0x14(r1)
     /* 00039E58: */    mtlr r0
     /* 00039E5C: */    addi r1,r1,0x10
@@ -462,8 +462,8 @@ emAroarosParamAccesser__getParamFloat:
     /* 00039ED0: */    li r4,0x8
     /* 00039ED4: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00039ED8: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 00039EDC: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00039EE0: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00039EDC: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00039EE0: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00039EE4: */    li r0,0x1
     /* 00039EE8: */    extsh r7,r0
     /* 00039EEC: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -498,8 +498,8 @@ emAroarosParamAccesser__getParamInt:
     /* 00039F4C: */    li r4,0x8
     /* 00039F50: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00039F54: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 00039F58: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00039F5C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00039F58: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00039F5C: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00039F60: */    li r0,0x1
     /* 00039F64: */    extsh r7,r0
     /* 00039F68: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]
@@ -519,8 +519,8 @@ emAroarosParamAccesser__getParamIndefinite:
     /* 00039F9C: */    li r4,0x8
     /* 00039FA0: */    lis r5,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2C94")]
     /* 00039FA4: */    addi r5,r5,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2C94")]
-    /* 00039FA8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(41, 5, "loc_2CF0")]
-    /* 00039FAC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(41, 5, "loc_2CF0")]
+    /* 00039FA8: */    lis r6,0x0                               [R_PPC_ADDR16_HA(27, 5, "loc_80F0")]
+    /* 00039FAC: */    addi r6,r6,0x0                           [R_PPC_ADDR16_LO(27, 5, "loc_80F0")]
     /* 00039FB0: */    li r0,0x1
     /* 00039FB4: */    extsh r7,r0
     /* 00039FB8: */    bl __unresolved                          [R_PPC_REL24(0, 4, "MWRTTI____dynamic_cast")]

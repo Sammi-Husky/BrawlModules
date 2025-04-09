@@ -29,23 +29,23 @@ loc_13100:
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emPatapata___64_")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13348")]
         .4byte 0xFFFFFFB8
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soAnimCmdEventObserver__addObserver")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soAnimCmdEventObserver__addObserver")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___72_isObserv")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___72_notifyEventAnimCmd")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13348")]
         .4byte 0xFFFFFFAC
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soLinkEventObserver__addObserver")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soLinkEventObserver__addObserver")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emPatapata___84_notifyEventLink")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__updatePosture")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__processFixPositionPreAnimCmd")]
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "StageObject__getInput")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "StageObject__getInput")]
         .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "StageObject__getCollisionLr")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__soGetKind")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__soGetSubKind")]
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "StageObject__isActive")]
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "StageObject__checkTransitionStatus")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "StageObject__isActive")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "StageObject__checkTransitionStatus")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__updateNodeSRT1")]
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "StageObject__adjustParentGroundCollision")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "StageObject__adjustParentGroundCollision")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__isTreadPassive")]
         .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "StageObject__notifyLostGround")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__isObserv")]
@@ -56,30 +56,30 @@ loc_13100:
         .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "StageObject__updateRoughPos")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13348")]
         .4byte 0xFFFFFF9C
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soStatusEventObserver__addObserver")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soStatusEventObserver__addObserver")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___100_notifyEventChangeStatus")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13348")]
         .4byte 0xFFFFFF90
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soCollisionAttackEventObserver__addObserver")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soCollisionAttackEventObserver__addObserver")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___112_notifyEventCollisionAttack")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___112_notifyEventCollisionAttackCheck")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13348")]
         .4byte 0xFFFFFF84
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soCollisionSearchEventObserver__addObserver")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soCollisionSearchEventObserver__addObserver")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___124_notifyEventCollisionSearch")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___124_notifyEventCollisionSearchCheck")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13348")]
         .4byte 0xFFFFFF78
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soCaptureEventObserver__addObserver")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soCaptureEventObserver__addObserver")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___136_notifyEventCaptureStatus")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13348")]
         .4byte 0xFFFFFF6C
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soCollisionAbsorberEventObserver__addObserver")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soCollisionAbsorberEventObserver__addObserver")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___148_notifyEventCollisionAbsorber")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___148_notifyEventCollisionAbsorberCheck")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13348")]
         .4byte 0xFFFFFF60
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soCollisionReflectorEventObserver__addObserver")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soCollisionReflectorEventObserver__addObserver")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___160_notifyEventCollisionReflector")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___160_notifyEventCollisionReflectorSearch")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy___160_notifyEventCollisionReflectorCheck")]
@@ -104,45 +104,44 @@ loc_13100:
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__shoot")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__addParts")]
 loc_132A0:
-        .4byte 0x656D5061
-        .4byte 0x74617061
-        .4byte 0x74610000
+        .asciz "emPatapata"
+        .balign 4
 loc_132AC:
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_CEC")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6C40")]
         .4byte 0x000000A0
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_CB0")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6C00")]
         .4byte 0x000000A0
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_D74")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6BC8")]
         .4byte 0x00000094
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_D38")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6B88")]
         .4byte 0x00000094
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_500")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6D80")]
         .4byte 0x00000088
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_4D0")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6D50")]
         .4byte 0x00000088
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_DF4")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6B50")]
         .4byte 0x0000007C
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_DBC")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6B18")]
         .4byte 0x0000007C
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_9BC")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6D20")]
         .4byte 0x00000070
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_984")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6CE8")]
         .4byte 0x00000070
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_1280")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_1000")]
         .4byte 0x00000064
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_1250")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_FD0")]
         .4byte 0x00000064
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13F8")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_2B0")]
         .4byte 0x00000054
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13C8")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_280")]
         .4byte 0x00000054
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_15BC")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_3C0")]
         .4byte 0x00000048
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_158C")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_390")]
         .4byte 0x00000048
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_1630")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_438")]
         .4byte 0x00000000
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_13A0")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_248")]
         .4byte 0x00000000
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_328")]
         .4byte 0x00000000
@@ -163,22 +162,17 @@ loc_1336C:
         .4byte 0x00000000
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_133C4")]
         .4byte 0x00000000
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "soNullable__isNull")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 1, "soNullable__isNull")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emPatapataParamAccesser____dt")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emPatapataParamAccesser__getParamFloat")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emPatapataParamAccesser__getParamInt")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emPatapataParamAccesser__getParamIndefinite")]
 loc_13390:
-        .4byte 0x656D5061
-        .4byte 0x74617061
-        .4byte 0x74615061
-        .4byte 0x72616D41
-        .4byte 0x63636573
-        .4byte 0x73657200
+        .asciz "emPatapataParamAccesser"
 loc_133A8:
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_15DC")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_7C8")]
         .4byte 0x00000000
-        .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_3274")]
+        .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_AC20")]
         .4byte 0x00000000
         .4byte 0x00000000         [R_PPC_ADDR32(41, 5, "loc_3250")]
         .4byte 0x00000000
