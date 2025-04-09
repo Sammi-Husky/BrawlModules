@@ -72,7 +72,7 @@ export HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 
 # For REL linking
 export LDFILES		:= $(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.ld)))
-export MAPFILE		:= $(CURDIR)/../lib/BrawlHeaders/RSBE01.lst
+export MAPFILE		:= $(CURDIR)/../lib/BrawlHeaders/RSBE01.lst $(TOPDIR)/EXTRA.lst
 export LCF			:= $(TOPDIR)/rel.lcf
 
 #---------------------------------------------------------------------------------
