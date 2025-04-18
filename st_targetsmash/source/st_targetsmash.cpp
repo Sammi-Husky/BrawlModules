@@ -97,16 +97,27 @@ void stTargetSmash::update(float deltaFrame)
         }
     }
 
-    if (!this->isEndSfxPlayed) {
+    if (!this->isEndProcessed) {
         if (g_GameGlobal->m_resultInfo->m_decisionKind == gmResultInfo::Decision_Complete) {
-            this->isEndSfxPlayed = true;
+            bool isNewRecord = this->calcHighScore();
+
+            this->isEndProcessed = true;
             nw4r::g3d::ResNodeData* resNodeData = this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResNode("End").ptr();
             if (resNodeData->m_rotation.m_x > 0) {
                 this->playSeBasic((SndID)resNodeData->m_rotation.m_x, 0);
             }
+            for (u32 i = 0; i < NUM_SHADES; i++) {
+                if (this->shades[i] != NULL) {
+                    this->shades[i]->setComplete();
+                }
+            }
+            if (this->ghost != NULL) {
+                this->ghost->setComplete(isNewRecord);
+            }
         }
         else if (g_GameGlobal->m_resultInfo->m_decisionKind == gmResultInfo::Decision_Failure) {
-            this->isEndSfxPlayed = true;
+            this->calcHighScore();
+            this->isEndProcessed = true;
             nw4r::g3d::ResNodeData* resNodeData = this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResNode("End").ptr();
             if (resNodeData->m_rotation.m_y > 0) {
                 this->playSeBasic((SndID)resNodeData->m_rotation.m_y, 0);
@@ -114,27 +125,21 @@ void stTargetSmash::update(float deltaFrame)
         }
     }
 
-
     for (u32 i = 0; i < NUM_SHADES; i++) {
         if (this->shades[i] != NULL) {
-            if (g_GameGlobal->m_resultInfo->m_decisionKind == gmResultInfo::Decision_Complete) {
-                this->shades[i]->setComplete();
-            }
             this->shades[i]->update(deltaFrame);
         }
     }
 
     if (this->ghost != NULL) {
-        if (g_GameGlobal->m_resultInfo->m_decisionKind == gmResultInfo::Decision_Complete) {
-            this->ghost->setComplete();
-        }
         this->ghost->update(deltaFrame);
     }
 }
 void stTargetSmash::createObj()
 {
-    // TODO: check if target smash
-    this->patchInstructions();
+    if (g_GameGlobal->m_modeMelee->m_meleeInitData.m_gameMode == Game_Mode_Target) {
+        this->patchInstructions();
+    }
     // TODO: Look into switching UI to stock icon and number left if more than certain amount of targets (check IfCenter createModel functions)
 
     this->level = 0; // TODO
@@ -207,9 +212,11 @@ void stTargetSmash::createObj()
     this->setStageAttackData(&stageData->damageFloors[1], 1);
     this->setStageAttackData(&stageData->damageFloors[2], 2);
 
-    this->applyNameCheatsStart();
-    this->applySeed();
-    //this->startGhost();
+    if (g_GameGlobal->m_modeMelee->m_meleeInitData.m_gameMode == Game_Mode_Target) {
+        this->applyNameCheatsStart();
+        this->applySeed();
+        this->startGhost();
+    }
 }
 void stTargetSmash::createItemPac(u32 index) {
     int nodeSize;
@@ -306,8 +313,10 @@ void stTargetSmash::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive 
 }
 
 void stTargetSmash::notifyEventInfoGo() {
-    this->applyNameCheats();
-    this->initializeGhost();
+    if (g_GameGlobal->m_modeMelee->m_meleeInitData.m_gameMode == Game_Mode_Target) {
+        this->applyNameCheats();
+        this->initializeGhost();
+    }
 }
 
 void stTargetSmash::applyNameCheatsStart() {
@@ -694,6 +703,55 @@ void stTargetSmash::applySeed() {
             srandi(((name[1] & 0xFF) << 24) + ((name[2] & 0xFF) << 16) + ((name[3] & 0xFF) << 8) + ((name[4] & 0xFF)));
         }
     }
+}
+
+bool stTargetSmash::calcHighScore() {
+    bool isSave = false;
+    scMelee* scene = static_cast<scMelee*>(gfSceneManager::getInstance()->searchScene("scMelee"));
+    stOperatorRuleTargetBreak* operatorRule = static_cast<stOperatorRuleTargetBreak*>(scene->m_operatorRuleGameMode);
+
+    if (!g_stTargetSmashHiScore.isAttempted) {
+        g_stTargetSmashHiScore.isAttempted = true;
+        isSave = true;
+    }
+    if (!g_stTargetSmashHiScore.isCompleted) {
+        if (targetsLeft == 0) {
+            g_stTargetSmashHiScore.isCompleted = true;
+            g_stTargetSmashHiScore.numFrames = operatorRule->m_framesElapsed;
+            isSave = true;
+        } else if (g_stTargetSmashHiScore.numTargetsBroken < this->targetsHit) {
+            g_stTargetSmashHiScore.numTargetsBroken = this->targetsHit;
+            isSave = true;
+        }
+    }
+    else if (g_stTargetSmashHiScore.numFrames > operatorRule->m_framesElapsed) {
+        g_stTargetSmashHiScore.numFrames = operatorRule->m_framesElapsed;
+        isSave = true;
+    }
+
+    if (isSave) {
+        g_stTargetSmashHiScore.totalDamage = this->totalDamage;
+        g_stTargetSmashHiScore.characterKinds[0] = g_GameGlobal->m_modeMelee->m_playersInitData[0].m_characterKind;
+        g_stTargetSmashHiScore.colorNos[0] = g_GameGlobal->m_modeMelee->m_playersInitData[0].m_colorNo;
+        memcpy(g_stTargetSmashHiScore.names[0], g_GameGlobal->m_modeMelee->m_playersInitData[0].m_name, 10);
+
+        const char* name;
+        if (operatorRule->m_numPlayers > 1) {
+            g_stTargetSmashHiScore.characterKinds[1] = g_GameGlobal->m_modeMelee->m_playersInitData[1].m_characterKind;
+            g_stTargetSmashHiScore.colorNos[1] = g_GameGlobal->m_modeMelee->m_playersInitData[1].m_colorNo;
+            memcpy(g_stTargetSmashHiScore.names[1], g_GameGlobal->m_modeMelee->m_playersInitData[1].m_name, 10);
+            name = "Coop";
+        }
+        else {
+            ftKind kinds[4];
+            ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[0].m_characterKind, kinds);
+            name = ftInfo::getInstance()->getNamePtr(kinds[0]);
+        }
+        char path[64];
+        sprintf(path, "sd:%ssaves/tBreak/records/%s_%d.rec", MOD_PATCH_DIR, name, g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
+        handle.writeRequest(path, &g_stTargetSmashHiScore, sizeof(g_stTargetSmashHiScore), 0);
+    }
+    return isSave;
 }
 
 void stTargetSmash::clearHeap() {

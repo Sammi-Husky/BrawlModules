@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include <gf/gf_file_io.h>
 #include <ft/ft_kind_conversion.h>
+#include <snd/snd_system.h>
 #include <modding.h>
 #include <OS/OSError.h>
 
@@ -43,6 +44,7 @@ public:
     stTargetSmashShadeInterface(int playerId, int followPlayerId) : playerId(playerId), followPlayerId(followPlayerId), isRecord(false), currentFrame(0), state(State_Inactive) {};
     virtual void setFrameInfo(int frame, FrameInfo* frameInfo);
     virtual FrameInfo getFrameInfo(int frame);
+    virtual u32 getMaxFrame();
     virtual u32 getFollowLength();
     virtual void record(int currentFrame, Fighter* followFighter) {
         FrameInfo frameInfo;
@@ -75,12 +77,15 @@ public:
         this->isRecord = true;
     }
 
+    virtual bool shouldRecord() {
+        return this->isRecord;
+    }
+
     virtual void begin(Fighter* fighter, Fighter* followFighter) {
         fighter->m_moduleAccesser->getStatusModule()->changeStatus(Fighter::Status_Test_Motion,
                                                                    fighter->m_moduleAccesser);
         fighter->m_moduleAccesser->getCollisionHitModule()->setXluGlobal(0);
         fighter->m_moduleAccesser->getEffectModule()->removeCommon(0);
-        fighter->m_moduleAccesser->getColorBlendModule()->setSubColor((GXColor) {0, 0, 0, 0xff}, true);
         fighter->m_moduleAccesser->getVisibilityModule()->setWhole(0);
         fighter->m_moduleAccesser->getCameraModule()->setEnableCamera(0, -1);
         fighter->m_moduleAccesser->getAreaModule()->enableArea(-1, false, 0);
@@ -105,6 +110,7 @@ public:
             frameInfo.motionKind = ((frameInfo.lr >= 0.0) ? Fighter::Motion_Appeal_Hi_R : Fighter::Motion_Appeal_Hi_L) + randi(3)*2;
             frameInfo.motionFrame = -1;
             this->state = State_Finish;
+            this->isRecord = false;
         }
         else if (motionName == NULL || strcmp(motionName, "NONE") == 0 || strcmp(motionName, "") == 0) {
             frameInfo.motionKind = Fighter::Motion_Catapult;
@@ -136,6 +142,7 @@ public:
         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
 
         fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
+        fighter->m_moduleAccesser->getColorBlendModule()->setSubColor((GXColor) {0, 0, 0, 0xff}, true);
         soCollisionAttackData attackData(300,
                                          &(Vec3f) {soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
                                                                                      ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_X,
@@ -181,7 +188,9 @@ public:
         int entryId = g_ftManager->getEntryId(this->playerId);
         int followEntryId = g_ftManager->getEntryId(this->followPlayerId);
         if (this->state == State_Inactive && g_ftManager->isFighterActivate(followEntryId, -1)) {
+            Fighter *followFighter = g_ftManager->getFighter(followEntryId, -1);
             this->initialize();
+            this->record(0, followFighter);
         }
 
         if (g_ftManager->isFighterActivate(entryId, -1) && g_ftManager->isFighterActivate(followEntryId, -1)) {
@@ -233,13 +242,24 @@ public:
 
         if (g_ftManager->isFighterActivate(followEntryId, -1)) {
             Fighter *followFighter = g_ftManager->getFighter(followEntryId, -1);
-            this->record(this->currentFrame, followFighter);
 
-            if (this->isRecord) {
-                this->currentFrame++;
-                if (this->currentFrame >= this->getFollowLength()) {
-                    this->currentFrame = 0;
-                    this->loop();
+            if (this->shouldRecord()) {
+                if (this->currentFrame < this->getMaxFrame()) {
+                    this->record(this->currentFrame, followFighter);
+                    this->currentFrame++;
+                    if (this->currentFrame >= this->getFollowLength()) {
+                        this->currentFrame = 0;
+                        this->loop();
+                    }
+                }
+                else {
+                    this->isRecord = false;
+                    if (g_ftManager->isFighterActivate(entryId, -1)) {
+                        Fighter *fighter = g_ftManager->getFighter(entryId, -1);
+                        fighter->m_moduleAccesser->getColorBlendModule()->setSubColor((GXColor) {0xff, 0x00, 0x00, 0xff}, true);
+                        g_sndSystem->playSE(snd_se_Audience_Zannen, -1, 0, 0, -1);
+                    }
+
                 }
             }
 
@@ -248,11 +268,10 @@ public:
         }
     }
 
-    virtual void setComplete() {
+    virtual void setComplete(bool isNewRecord = false) {
         int entryId = g_ftManager->getEntryId(this->playerId);
         if (g_ftManager->isFighterActivate(entryId, -1)) {
             Fighter *fighter = g_ftManager->getFighter(entryId, -1);
-            int statusKind = fighter->m_moduleAccesser->getStatusModule()->getStatusKind();
             if (this->state != State_Finish) {
                 fighter->toKnockOut();
                 this->state = State_Finish;
@@ -289,6 +308,7 @@ public:
         }
         return this->frameInfos[frame];
     }
+    virtual u32 getMaxFrame() { return this->infoLength; };
     virtual u32 getFollowLength() { return L; }
 
 };
@@ -306,7 +326,7 @@ public:
         char path[64];
 
         ftKind kinds[4];
-        ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[this->playerId].m_characterKind, kinds);
+        ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[this->followPlayerId].m_characterKind, kinds);
 
         sprintf(path, "sd:%ssaves/tBreak/ghosts/%s_%d.gst", MOD_PATCH_DIR, ftInfo::getInstance()->getNamePtr(kinds[0]), g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
         handle.readRequest(path, &this->infoLength, 0, 0);
@@ -316,17 +336,20 @@ public:
         char path[64];
 
         ftKind kinds[4];
-        ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[this->followPlayerId].m_characterKind, kinds);
+        ftKindConversion::convertKind(g_GameGlobal->m_modeMelee->m_playersInitData[this->playerId].m_characterKind, kinds);
 
         sprintf(path, "sd:%ssaves/tBreak/ghosts/%s_%d.gst", MOD_PATCH_DIR, ftInfo::getInstance()->getNamePtr(kinds[0]), g_GameGlobal->m_modeMelee->m_meleeInitData.m_subStageKind);
-        handle.writeRequest(path, &this->infoLength, this->infoLength + 1, 0);
+        handle.writeRequest(path, &this->infoLength, this->infoLength*sizeof(FrameInfo) + 4, 0);
     }
+
+    virtual u32 getMaxFrame() { return this->infoLength - 1; };
 
     virtual void appear() {
         int entryId = g_ftManager->getEntryId(this->playerId);
         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
 
         fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
+        fighter->m_moduleAccesser->getColorBlendModule()->setSubColor((GXColor) {0xff, 0xff, 0xff, 0xff}, true);
     }
 
     virtual void initialize() {
@@ -343,10 +366,12 @@ public:
         this->loadGhostFile();
     }
 
-    virtual void setComplete() {
+    virtual void setComplete(bool isNewRecord = false) {
         if (this->state != State_Finish) {
             this->infoLength = this->currentFrame;
-            this->writeGhostFile();
+            if (isNewRecord) {
+                this->writeGhostFile();
+            }
             this->state = State_Finish;
             this->isRecord = false;
         }

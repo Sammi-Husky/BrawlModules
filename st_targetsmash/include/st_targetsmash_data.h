@@ -29,5 +29,28 @@ struct stTargetSmashData {
     grGimmickDamageFloor damageFloors[3];
 
     STATIC_CHECK(sizeof(stTargetSmashData) == 500)
-
 };
+static_assert(sizeof(stTargetSmashData) == 500, "Class is wrong size!");
+
+struct stTargetSmashHiScore {
+    union {
+        struct {
+            bool isAttempted : 1;
+            bool isCompleted : 1;
+            u32 numFrames : 30;
+        };
+
+        struct {
+            bool : 1;
+            bool : 1;
+            u32 numTargetsBroken : 30;
+        };
+    };
+    int totalDamage;
+    u8 characterKinds[2];
+    u8 colorNos[2];
+    wchar_t names[5][2];
+};
+static_assert(sizeof(stTargetSmashHiScore) == 32, "Class is wrong size!");
+
+extern stTargetSmashHiScore g_stTargetSmashHiScore;

@@ -1,3 +1,5 @@
+10,4,8A8:g_stTargetSmashHiScore
+
 // emWeaponManager (Note: addresses are based on abridged sora_enemy_vs)
 41,1,00029E34:create__15emWeaponManagerFv
 41,1,00029E28:getInstance__15emWeaponManagerFv

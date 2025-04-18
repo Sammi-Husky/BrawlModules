@@ -38,10 +38,11 @@ protected:
     bool isItemsInitialized;
     bool isEnemiesInitialized;
     bool isAssistInitialized;
-    bool isEndSfxPlayed;
+    bool isEndProcessed;
     gfArchive* enemyCommonPac;
     gfArchive* primFacePac;
-    char _860[896 - 872];
+    char _860[892 - 872];
+    gfFileIOHandle handle;
     stTargetSmashShade<SHADE_FRAME_LENGTH>* shades[NUM_SHADES];
     stTargetSmashGhost<GHOST_FRAME_LENGTH>* ghost;
     grPokeTrainer* pokeTrainerGround;
@@ -60,7 +61,7 @@ public:
         isItemsInitialized = false;
         isEnemiesInitialized = false;
         isAssistInitialized = true;
-        isEndSfxPlayed = false;
+        isEndProcessed = false;
         targetsLeft = 0;
         targetsHit = 0;
         totalDamage = 0.0;
@@ -107,6 +108,7 @@ public:
     void putItem(int itemID, u32 variantID, int startStatus, Vec2f* pos, int motionPathIndex);
     void putEnemy(int enemyId, int difficulty, int startStatus, Vec2f* pos, int motionPathIndex, float lr);
     void clearHeap();
+    bool calcHighScore();
     void startGhost();
     void initializeGhost();
     void applyNameCheatsStart();
