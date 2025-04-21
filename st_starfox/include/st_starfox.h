@@ -113,13 +113,13 @@ public:
     virtual void endAppear();
     virtual void forceStopAppear();
     virtual bool isAppear();
-    virtual s32 isStartAppearTimming();
+    virtual bool isStartAppearTimming();
     virtual void update(float deltaFrame);
     virtual bool checkChangeScene();
     virtual void resetChangeScene();
     virtual void setChangeSceneNumber(s32 n);
 
-    virtual int getFinalTechniqColor() { return 0x14000496; }
+    virtual GXColor getFinalTechniqColor() { return (GXColor){0x14000496}; }
     virtual IfSmashAppearTask* getAppearTask() { return m_smash_taunt_task; }
     virtual bool isBamperVector() { return true; }
     virtual int getPokeTrainerDrawLayer() { return 1; }

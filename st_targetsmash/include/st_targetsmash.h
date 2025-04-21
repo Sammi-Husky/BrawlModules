@@ -75,7 +75,7 @@ public:
     virtual void createObj();
     virtual bool loading();
     virtual void update(float deltaFrame);
-    virtual int getFinalTechniqColor();
+    virtual GXColor getFinalTechniqColor();
     virtual bool isBamperVector();
     virtual void getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer);
     virtual void getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyID);

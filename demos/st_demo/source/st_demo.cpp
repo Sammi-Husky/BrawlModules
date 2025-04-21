@@ -328,9 +328,9 @@ bool stDemo::isBamperVector()
 {
     return true;
 }
-int stDemo::getFinalTechniqColor()
+GXColor stDemo::getFinalTechniqColor()
 {
-    return 0x14000496;
+    return (GXColor){0x14000496};
 }
 
 // Note: Could implement new enemies and then replace the function pointer in the rel

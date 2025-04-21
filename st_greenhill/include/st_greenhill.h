@@ -30,7 +30,7 @@ public:
     virtual void createObj();
     virtual bool loading();
     virtual void update(float deltaFrame);
-    virtual int getFinalTechniqColor();
+    virtual GXColor getFinalTechniqColor();
     virtual bool isBamperVector();
     virtual ~stGreenHill() { this->releaseArchive(); };
 

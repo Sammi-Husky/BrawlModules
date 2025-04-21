@@ -41,7 +41,7 @@ public:
     virtual bool loading();
     virtual void update(float frameDiff);
     virtual void notifyEventInfoGo();
-    virtual int getFinalTechniqColor();
+    virtual GXColor getFinalTechniqColor();
     virtual bool isBamperVector();
     virtual void getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyKind);
     virtual ~stDemo() {

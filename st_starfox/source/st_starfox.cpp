@@ -559,7 +559,7 @@ void stStarfox::endAppear() {
     }
 }
 
-s32 stStarfox::isStartAppearTimming() {
+bool stStarfox::isStartAppearTimming() {
     return m_smash_taunt_timing ^ 1;
 }
 
