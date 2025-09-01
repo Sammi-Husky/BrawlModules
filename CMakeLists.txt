@@ -1,4 +1,5 @@
 # Only used for CLion intellisense for now
+cmake_minimum_required(VERSION 4.0)
 project(BrawlModules)
 
 add_subdirectory(st_targetsmash)
