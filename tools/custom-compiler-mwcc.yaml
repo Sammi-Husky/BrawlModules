@@ -1,0 +1,6 @@
+compilers:
+  - description: mwcc
+    match-sources: ".*\\.cpp"
+    match-args: -MMD
+    match-language: CPP
+    match-compiler-exe: "(.*/)?mwcceppc.exe"
