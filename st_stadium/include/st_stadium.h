@@ -150,10 +150,10 @@ public:
         m_displayState = 0;
         m_currentDisplayIndex = -1;
         m_zoom = 1.0;
-        m_cameraPos1 = (Vec3f){0.0, 0.0, 0.0};
-        m_cameraPos2 = (Vec3f){0.0, 0.0, 0.0};
-        m_visionScreenPos1 = (Vec2f){0.0, 0.0};
-        m_visionScreenPos2 = (Vec2f){1.0, 1.0};
+        m_cameraPos1 = Vec3f(0.0, 0.0, 0.0);
+        m_cameraPos2 = Vec3f(0.0, 0.0, 0.0);
+        m_visionScreenPos1 = Vec2f(0.0, 0.0);
+        m_visionScreenPos2 = Vec2f(1.0, 1.0);
         m_flyingPokemon1PosY = 0.0;
         m_flyingPokemon2PosY = 0.0;
         m_flyingPokemon3PosY = 0.0;

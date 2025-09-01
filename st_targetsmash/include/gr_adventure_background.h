@@ -33,7 +33,7 @@ public:
         this->index = index;
         field_0x4 = false;
         field_0x10 = 0;
-        pos = (Vec3f){0.0, 0.0, 0.0};
+        pos = Vec3f(0.0, 0.0, 0.0);
         field_0x20 = 0;
         field_0x24 = 0;
         field_0x28 = 0;

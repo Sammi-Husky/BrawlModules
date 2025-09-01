@@ -18,7 +18,7 @@ bool grAdventureBackGround::setBackGround(nw4r::g3d::ScnMdl* scnMdl)
     this->field_0x4 = false;
     this->field_0x2c = 0;
     this->field_0x30 = 0;
-    this->pos = (Vec3f){0.0, 0.0, 0.0};
+    this->pos = Vec3f(0.0, 0.0, 0.0);
     this->field_0x20 = 0;
     this->field_0x24 = 0;
     this->field_0x28 = 0;

@@ -36,7 +36,7 @@ void grArea::startup(gfArchive* archive, u32 unk1, u32 unk2) {
             this->m_soundEffects[i].m_repeatFrame = 0;
             this->m_soundEffects[i].m_nodeIndex = nodeIndex;
             this->m_soundEffects[i].m_endFrame = 0;
-            this->m_soundEffects[i].m_offsetPos = (Vec2f){0.0, 0.0};
+            this->m_soundEffects[i].m_offsetPos = Vec2f(0.0, 0.0);
         }
 
         int numEffects = endNodeIndex - effectNodeIndex - 1;
@@ -49,7 +49,7 @@ void grArea::startup(gfArchive* archive, u32 unk1, u32 unk2) {
             this->m_effects[i].m_repeatFrame = 0;
             this->m_effects[i].m_nodeIndex = nodeIndex;
             this->m_effects[i].m_endFrame = 0;
-            this->m_effects[i].m_offsetPos = (Vec2f){0.0, 0.0};
+            this->m_effects[i].m_offsetPos = Vec2f(0.0, 0.0);
             this->m_effects[i].m_scale = 1.0;
         }
     }
@@ -58,7 +58,7 @@ void grArea::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 void grArea::update(float deltaFrame) {
     grMadein::update(deltaFrame);
 
-    Vec3f pos = (Vec3f){0, 0, 0};
+    Vec3f pos = Vec3f(0, 0, 0);
     this->getNodePosition(&pos, 0, "AreaNode");
 
     if (pos.m_z >= 0) {
@@ -68,7 +68,7 @@ void grArea::update(float deltaFrame) {
         this->trigger->setAreaSleep(true);
     }
 
-    pos = (Vec3f){0, 0, 0};
+    pos = Vec3f(0, 0, 0);
     this->getNodePosition(&pos, 0, "CollisionNode");
 
     if (pos.m_z >= 0) {

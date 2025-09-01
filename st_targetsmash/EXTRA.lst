@@ -8,3 +8,7 @@
 // wnemSimple (Note: addresses are based on abridged sora_enemy_vs)
 41,1,0002B3E8:__ct__10wnemSimpleFv
 41,1,0002E2EC:__dt__10wnemSimpleFv
+
+// emCreate
+41,1,0000E1F8:__ct__8emCreateFv
+41,1,0000E2AC:__dt__8emCreateFv

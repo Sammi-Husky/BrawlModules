@@ -21,7 +21,7 @@ void grSpring::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->m_soundEffects[0].m_repeatFrame = 0;
     this->m_soundEffects[0].m_nodeIndex = 0;
     this->m_soundEffects[0].m_endFrame = 0;
-    this->m_soundEffects[0].m_offsetPos = (Vec2f){0.0, 0.0};
+    this->m_soundEffects[0].m_offsetPos = Vec2f(0.0, 0.0);
 
 }
 
@@ -54,7 +54,7 @@ void grSpring::update(float deltaFrame) {
     }
     this->m_animFrame += deltaFrame;
 
-    Vec3f pos = (Vec3f){0, 0, 0};
+    Vec3f pos = Vec3f(0, 0, 0);
     this->getNodePosition(&pos, 0, "CollisionNode");
     if (pos.m_z >= 0) {
         this->setEnableCollisionStatus(true);

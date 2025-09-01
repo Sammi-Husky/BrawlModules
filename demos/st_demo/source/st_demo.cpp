@@ -76,16 +76,16 @@ void stDemo::update(float frameDiff)
             create.m_motionPath = NULL;
             create.m_epsp = NULL;
             create.m_parentCreateId = 0xFFFF;
-            create.m_startPos = (Vec3f){positions[0].m_x, positions[0].m_y, 0.0};//{0.0, 5.0};
+            create.m_startPos = Vec3f(positions[0].m_x, positions[0].m_y, 0.0);//{0.0, 5.0};
             //OSReport("Preload archive count result: %d \n", enemyManager->getPreloadArchiveCountFromKind(Enemy_Kuribo));
             //int result = enemyManager->createEnemy(&create);
 
             //create.m_startingAction = 6;
             //create.m_enemyID = Enemy_Killer;
             int result = enemyManager->createEnemy(&create);
-            create.m_startPos =  (Vec3f){positions[1].m_x, positions[1].m_y, 0.0};
+            create.m_startPos =  Vec3f(positions[1].m_x, positions[1].m_y, 0.0);
             enemyManager->createEnemy(&create);
-            create.m_startPos =  (Vec3f){positions[2].m_x, positions[2].m_y, 0.0};
+            create.m_startPos =  Vec3f(positions[2].m_x, positions[2].m_y, 0.0);
             enemyManager->createEnemy(&create);
             //OSReport("Enemy Create result: %d \n", result);
            /* create.m_startPos.x = -2.0;
@@ -105,7 +105,7 @@ void stDemo::update(float frameDiff)
 
             gfHeapManager::dumpList();
 
-            Vec3f test = {0,0,0};
+            Vec3f test = Vec3f(0,0,0);
             test *= 5;
 
         }
@@ -125,8 +125,8 @@ void stDemo::createObj()
 
     this->doorData.motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, 0xFF, 0};
     this->doorData._spacer[7] = 0x12;
-    this->doorData.areaOffsetPos = (Vec2f){0, 10.0};
-    this->doorData.areaRange = (Vec2f){20.0, 20.0};
+    this->doorData.areaOffsetPos = Vec2f(0, 10.0);
+    this->doorData.areaRange = Vec2f(20.0, 20.0);
     this->doorData.jump.levelId = 0x04;
     this->doorData.jump.levelSequenceId = 0x0;
     this->doorData.jump.levelSegmentId = 0x1;
@@ -146,7 +146,7 @@ void stDemo::createObj()
 
     this->cannonData.motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, 0xFF, 0};
     this->cannonData._spacer[7] = 0x12;
-    this->cannonData.areaRange = (Vec2f){20.0, 15.0};
+    this->cannonData.areaRange = Vec2f(20.0, 15.0);
     this->cannonData.pos.m_x = 0.0;
     this->cannonData.pos.m_y = 50.0;
     this->cannonData.rot = 0.0;
@@ -181,7 +181,7 @@ void stDemo::createObj()
     this->cannonData.attackData.m_serialHitFrame = 0x3c;
     this->cannonData.attackData.m_soundLevel = soCollisionAttackData::Sound_Level_Medium;
     this->cannonData.attackData.m_soundAttribute = soCollisionAttackData::Sound_Attribute_Punch;
-    this->cannonData.attackData.m_unk5 = false;
+    this->cannonData.attackData.m_noScale = false;
     this->cannonData.attackData.m_shapeType = soCollision::Shape_Sphere;
     //char _spacer3[6];
     this->cannonData.attackData.m_nodeIndex = 0;
@@ -191,8 +191,8 @@ void stDemo::createObj()
     this->cannonData.shootAngleOffset = 10;
     this->cannonData.shootStunTimerSpeed = 0.25;
 
-    this->elevatorData.areaOffsetPos = (Vec2f){0.0, 25.0};
-    this->elevatorData.areaRange = (Vec2f){30.0, 65.0};
+    this->elevatorData.areaOffsetPos = Vec2f(0.0, 25.0);
+    this->elevatorData.areaRange = Vec2f(30.0, 65.0);
     this->elevatorData.speed = 0.5; // 2.5
     this->elevatorData.deltaSpeed = 0.1; // 0.2
     this->elevatorData.mdlIndex = 105;

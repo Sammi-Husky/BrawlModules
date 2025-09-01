@@ -65,25 +65,33 @@ void stStadium::createObj()
         grMadein* ground = static_cast<grMadein*>(this->getGround(i));
         ground->initializeEntity();
     }
+
+    Vec3f pos = Vec3f(-65.0, 0.0, 0.0);
+    Vec2f areaPos = Vec2f(0.0, 0.0);
+    Vec2f areaRange = Vec2f(75.0, 10.0);
     this->m_beltConveyor1Data.initialize(
-            &(Vec3f){-65.0, 0.0, 0.0},
+            &pos,
             0.7,
             false,
-            &(Vec2f){0.0, 0.0},
-            &(Vec2f){75.0, 10.0},
+            &areaPos,
+            &areaRange,
             gfArea::Shape_Rectangle
     );
+
+    pos = Vec3f(65.0, 0.0, 0.0);
+    areaPos = Vec2f(0.0, 0.0);
+    areaRange = Vec2f(75.0, 10.0);
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_BeltConveyor, -1);
     trigger->setBeltConveyorTrigger(&this->m_beltConveyor1Data);
     this->m_beltConveyor1Trigger = trigger;
     trigger->setAreaSleep(true);
 
     this->m_beltConveyor2Data.initialize(
-            &(Vec3f){65.0, 0.0, 0.0},
+            &pos,
             0.7,
             true,
-            &(Vec2f){0.0, 0.0},
-            &(Vec2f){75.0, 10.0},
+            &areaPos,
+            &areaRange,
             gfArea::Shape_Rectangle
     );
     trigger = g_stTriggerMng->createTrigger(Gimmick::Area_BeltConveyor, -1);
@@ -247,7 +255,8 @@ void stStadium::update(float deltaFrame)
             this->m_transformEvent.end();
         }
         else {
-            cmReqQuake(cmQuake::Amplitude_Middle, &(Vec3f){0.0, 0.0, 0.0});
+            Vec3f offset = Vec3f(0.0, 0.0, 0.0);
+            cmReqQuake(cmQuake::Amplitude_Middle, &offset);
         }
     }
     this->updateSymbol(deltaFrame);
@@ -390,15 +399,17 @@ void stStadium::updateSpecialStage(float deltaFrame) {
                             static_cast<grMadein *>(this->getGround(0x10))->setMotion(randi(2));
                             static_cast<grMadein *>(this->getGround(0x10))->startEntity();
                             break;
-                        case 0xe:
+                        case 0xe: {
                             static_cast<grGimmick *>(this->getGround(0xe))->setPos(0.0, -0.5, 0.0);
 
                             this->m_typeSfx1Index = this->playSeBasic(snd_se_stage_Stadium_08, 0);
-                            static_cast<grGimmick *>(this->getGround(0xf))->setRot(&(Vec3f) {0.0, 30.0, 0.0});
+                            Vec3f rot = Vec3f(0.0, 30.0, 0.0);
+                            static_cast<grGimmick *>(this->getGround(0xf))->setRot(&rot);
                             static_cast<grMadein *>(this->getGround(0xf))->startEntityAutoLoop();
                             static_cast<grMadein *>(this->getGround(0x12))->setMotion(randi(2));
                             static_cast<grMadein *>(this->getGround(0x12))->startEntity();
                             static_cast<grMadein *>(this->getGround(0x13))->startEntityAutoLoop();
+                        }
                             break;
                         default:
                             break;
@@ -813,7 +824,7 @@ void stStadium::updateVisionScreen() {
         nw4r::g3d::ResTexSrt resTexSrt(&resMatData->m_resTexSrtData);
         resTexSrt.SetMapMode(0, 0, -1, -1);
         resTexSrt.ptr()->m_range = range;
-        resTexSrt.ptr()->m_pos = (Vec2f){-(pos.m_x - range.m_x*0.5)/range.m_x, -(pos.m_y - range.m_y*0.5)/range.m_y};
+        resTexSrt.ptr()->m_pos = Vec2f(-(pos.m_x - range.m_x*0.5)/range.m_x, -(pos.m_y - range.m_y*0.5)/range.m_y);
         resTexSrt.ptr()->m_flag3 = false;
         resTexSrt.ptr()->m_flag2 = true;
         resTexSrt.ptr()->m_flag1 = false;
@@ -827,9 +838,9 @@ void stStadium::updateVisionScreenPos() {
     if (camSubject != NULL) {
         this->m_zoom += (this->m_targetZoom - this->m_zoom) / 10.0;
         Rect2D range = (Rect2D){camSubject->m_range.m_left*this->m_zoom, camSubject->m_range.m_right*this->m_zoom, camSubject->m_range.m_up*this->m_zoom, camSubject->m_range.m_down*this->m_zoom};
-        Vec3f rangePos1 = (Vec3f){camSubject->m_pos.m_x + range.m_left - this->m_cameraPos1.m_x, camSubject->m_pos.m_y + range.m_down - this->m_cameraPos1.m_y, camSubject->m_pos.m_z - this->m_cameraPos1.m_z}*0.25;
+        Vec3f rangePos1 = Vec3f(camSubject->m_pos.m_x + range.m_left - this->m_cameraPos1.m_x, camSubject->m_pos.m_y + range.m_down - this->m_cameraPos1.m_y, camSubject->m_pos.m_z - this->m_cameraPos1.m_z)*0.25;
         this->m_cameraPos1 += rangePos1;
-        Vec3f rangePos2 = (Vec3f){camSubject->m_pos.m_x + range.m_right - this->m_cameraPos2.m_x, camSubject->m_pos.m_y + range.m_up - this->m_cameraPos2.m_y, camSubject->m_pos.m_z - this->m_cameraPos2.m_z}*0.25;
+        Vec3f rangePos2 = Vec3f(camSubject->m_pos.m_x + range.m_right - this->m_cameraPos2.m_x, camSubject->m_pos.m_y + range.m_up - this->m_cameraPos2.m_y, camSubject->m_pos.m_z - this->m_cameraPos2.m_z)*0.25;
         this->m_cameraPos2 += rangePos2;
 
         Vec2f projPos1;

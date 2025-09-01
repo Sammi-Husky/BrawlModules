@@ -58,7 +58,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
             this->m_soundEffects[i].m_repeatFrame = 0;
             this->m_soundEffects[i].m_nodeIndex = 0;
             this->m_soundEffects[i].m_endFrame = 0;
-            this->m_soundEffects[i].m_offsetPos = (Vec2f){0.0, 0.0};
+            this->m_soundEffects[i].m_offsetPos = Vec2f(0.0, 0.0);
         }
     }
 

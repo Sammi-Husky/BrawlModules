@@ -40,7 +40,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     this->setCalcuCallbackRoot(7);
     if (this->doorData->doorGimmickKind != Door_GimmickKind_AirAuto)
     {
-        this->m_calcWorldCallBack.m_nodeCallbackDatas[0].m_scale = (Vec3f){1.1, 1.1, 1.0};
+        this->m_calcWorldCallBack.m_nodeCallbackDatas[0].m_scale = Vec3f(1.1, 1.1, 1.0);
     }
     this->areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, 0, this->doorData->areaOffsetPos, this->doorData->areaRange };
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);
@@ -62,7 +62,7 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
         this->m_effects[0].m_repeatFrame = 0;
         this->m_effects[0].m_nodeIndex = this->getNodeIndex(0, "effect_locator");
         this->m_effects[0].m_endFrame = 0;
-        this->m_effects[0].m_offsetPos = (Vec2f){0.0, 0.0};
+        this->m_effects[0].m_offsetPos = Vec2f(0.0, 0.0);
         this->m_effects[0].m_scale = 1.0;
         this->screenFadeFrames = 100.0;
     }

@@ -46,7 +46,7 @@ void stTargetSmash::update(float deltaFrame)
         u32 endIndex = ground->getNodeIndex(0, "Enemies");
         for (int i = itemsIndex + 1; i < endIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->putItem(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, &resNodeData->m_translation.m_xy, resNodeData->m_translation.m_z);
+            this->putItem(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, resNodeData->m_translation.xy(), resNodeData->m_translation.m_z);
         }
         this->isItemsInitialized = true;
     }
@@ -60,7 +60,7 @@ void stTargetSmash::update(float deltaFrame)
             u32 endIndex = ground->getNodeIndex(0, "End");
             for (int i = itemsIndex + 1; i < endIndex; i++) {
                 nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-                this->putEnemy(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, &resNodeData->m_translation.m_xy, resNodeData->m_translation.m_z, resNodeData->m_rotation.m_z);
+                this->putEnemy(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, resNodeData->m_translation.xy(), resNodeData->m_translation.m_z, resNodeData->m_rotation.m_z);
             }
 
             this->isEnemiesInitialized = true;
@@ -95,6 +95,9 @@ void stTargetSmash::update(float deltaFrame)
         if (this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResAnmShpNumEntries() > 1) {
             this->pokeTrainerGround->changeShapeAnim(1, 0);
         }
+
+        this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResTex("TEST");
+        this->pokeTrainerGround->m_modelAnims[0]->m_resFile.GetResTex(1);
     }
 
     if (!this->isEndProcessed) {
@@ -159,12 +162,8 @@ void stTargetSmash::createObj()
         emWeaponManager::create();
         emWeaponManager* weaponManager = emWeaponManager::getInstance();
         weaponManager->clean();
-        weaponManager->m_list1.m_last = NULL;
-        weaponManager->m_list1.m_first = NULL;
-        weaponManager->m_list1.m_length = 0;
-        weaponManager->m_list2.m_last = NULL;
-        weaponManager->m_list2.m_first = NULL;
-        weaponManager->m_list2.m_length = 0;
+        weaponManager->m_list1.clear();
+        weaponManager->m_list2.clear();
         weaponManager->m_numStageObjects = NUM_WEAPON_STAGE_OBJECTS
         weaponManager->m_stageObjects = new (Heaps::StageInstance) wnemSimple[weaponManager->m_numStageObjects];
         for (int i = 0; i < weaponManager->m_numStageObjects; i++) {
@@ -405,81 +404,81 @@ void stTargetSmash::applyNameCheats() {
                 owner->setCurry(true);
             } else if (strcmp(name, "Ｎ′６３") == 0) {  // "N'63"
                 BaseItem* item = itemManager->createItem(Item_Screw, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->attachItem(item, true);
+                fighter->m_moduleAccesser->getItemManageModule().attachItem(item, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule()->onFlag(BaseItem::Instance_Work_Flag_Value_1);
-                item->m_moduleAccesser->getWorkManageModule()->setInt(-1, BaseItem::Instance_Work_Int_Counter);
+                item->m_moduleAccesser->getWorkManageModule().onFlag(BaseItem::Instance_Work_Flag_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(-1, BaseItem::Instance_Work_Int_Counter);
             } else if (strcmp(name, "５Ｐ１Ｋ３") == 0) {  // "5P1K3"
                 BaseItem* item = itemManager->createItem(Item_GoldenHammer, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
-                fighter->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, Fighter::Instance_Work_Int_Hammer_Counter);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, Fighter::Instance_Work_Int_Hammer_Counter);
                 item->setVanishMode(false);
                 item->changeMotion(BaseItem::Motion_Have, true);
             } else if (strcmp(name, "ＨＹＤＲ４") == 0) {
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(Item_Dragoon_Set, 0, true, false);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(Item_Dragoon_Set, 0, true, false);
             } else if (strcmp(name, "５４８３Ｒ") == 0) {
                 BaseItem *item = itemManager->createItem(Item_BeamSword, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "ＤＲ３４Ｍ") == 0) {
                 BaseItem *item = itemManager->createItem(Item_StarRod, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
             } else if (strcmp(name, "５Ｃ０Ｐ３") == 0) { // "5C0P3"
                 BaseItem* item = itemManager->createItem(Item_SuperScope, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
             } else if (strcmp(name, "１４５３Ｒ") == 0) { // "1453R"
                 BaseItem* item = itemManager->createItem(Item_RayGun, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
             } else if (strcmp(name, "ＣＲ４ＣＫ") == 0) { // "CR4CK"
                 BaseItem* item = itemManager->createItem(Item_Clacker, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule()->setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
             } else if (strcmp(name, "Ｎ０Ｖ４") == 0) {  // "N0V4"
                 BaseItem* item = itemManager->createItem(Item_SmartBomb, 1, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "８４８４") == 0) {  // "8484"
                 BaseItem* item = itemManager->createItem(Item_DekuNut, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "５Ｍ０Ｋ３") == 0) {  // "5M0K3"
                 BaseItem* item = itemManager->createItem(Item_SmokeScreen, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "Ｈ０７") == 0) { // "H07"
                 BaseItem* item = itemManager->createItem(Item_Pasaran, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "８０１Ｎ６") == 0) { // "801N6"
                 BaseItem* item = itemManager->createItem(Item_Doseisan, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "Ｋ００Ｐ４") == 0) {  // "K00P4"
                 BaseItem* item = itemManager->createItem(Item_GreenShell, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "８ＵＭＰ") == 0) { // "8UMP"
                 BaseItem* item = itemManager->createItem(Item_Bumper, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "Ｐ４Ｄ") == 0) { // "P4D"
                 BaseItem* item = itemManager->createItem(Item_Spring, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "ＵＮ１Ｒ４") == 0) { // "UN1R4"
                 BaseItem* item = itemManager->createItem(Item_Unira, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "Ｆ００７Ｙ") == 0) { // "F007Y"
                 BaseItem* item = itemManager->createItem(Item_SoccerBall, 0, fighter->m_taskId);
-                fighter->m_moduleAccesser->getItemManageModule()->haveItem(item, 0, true, true);
+                fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
             } else if (strcmp(name, "７Ｗ１Ｃ３") == 0) {  // "7W1C3"
                 // TODO: Probs just use the ally setting to control two fighters
@@ -491,7 +490,7 @@ void stTargetSmash::applyNameCheats() {
                     item->remove();
                 }
             } else if (strcmp(name, "Ｄ３４７Ｈ") == 0) { // "D347H"
-                fighter->m_moduleAccesser->getDamageModule()->addDamage(300.0, 0);
+                fighter->m_moduleAccesser->getDamageModule().addDamage(300.0, 0);
             } else if (strcmp(name, "７Ｒ１Ｐ") == 0) { // "7R1P"
                 owner->setSlipMul(100.0);
                 owner->setSlipInterval(false);
@@ -616,33 +615,33 @@ void stTargetSmash::applyNameCheats() {
                 scene->m_operatorInfo->setPlayerCursorClear(i);
             } else if (strcmp(name, "６Ｕ５７→") == 0) { // "6U57->"
                 Rect2D* range = &this->m_deadRange;
-                Vec2f posSW = {range->m_left, range->m_down};
-                Vec2f posNE = {range->m_right, range->m_up};
+                Vec2f posSW = Vec2f(range->m_left, range->m_down);
+                Vec2f posNE = Vec2f(range->m_right, range->m_up);
                 this->createTriggerWind(&posSW, &posNE, 0.8, 0);
             } else if (strcmp(name, "６Ｕ５７←") == 0) { // "6U57<-"
                 Rect2D* range = &this->m_deadRange;
-                Vec2f posSW = {range->m_left, range->m_down};
-                Vec2f posNE = {range->m_right, range->m_up};
+                Vec2f posSW = Vec2f(range->m_left, range->m_down);
+                Vec2f posNE = Vec2f(range->m_right, range->m_up);
                 this->createTriggerWind(&posSW, &posNE, 0.8, 180);
             } else if (strcmp(name, "６Ｕ５７↑") == 0) { // "6U57^"
                 Rect2D* range = &this->m_deadRange;
-                Vec2f posSW = {range->m_left, range->m_down};
-                Vec2f posNE = {range->m_right, range->m_up};
+                Vec2f posSW = Vec2f(range->m_left, range->m_down);
+                Vec2f posNE = Vec2f(range->m_right, range->m_up);
                 this->createTriggerWind(&posSW, &posNE, 0.8, 90);
             } else if (strcmp(name, "６Ｕ５７↓") == 0) { // "6U57v"
                 Rect2D* range = &this->m_deadRange;
-                Vec2f posSW = {range->m_left, range->m_down};
-                Vec2f posNE = {range->m_right, range->m_up};
+                Vec2f posSW = Vec2f(range->m_left, range->m_down);
+                Vec2f posNE = Vec2f(range->m_right, range->m_up);
                 this->createTriggerWind(&posSW, &posNE, 0.8, 270);
             } else if (strcmp(name, "８３１７→") == 0) { // "8317->"
                 Rect2D* range = &this->m_deadRange;
-                Vec2f posSW = {range->m_left, range->m_down};
-                Vec2f posNE = {range->m_right, range->m_up};
+                Vec2f posSW = Vec2f(range->m_left, range->m_down);
+                Vec2f posNE = Vec2f(range->m_right, range->m_up);
                 this->createTriggerConveyor(&posSW, &posNE, 1.5, true);
             } else if (strcmp(name, "８３１７←") == 0) {  // "8317<-"
                 Rect2D* range = &this->m_deadRange;
-                Vec2f posSW = {range->m_left, range->m_down};
-                Vec2f posNE = {range->m_right, range->m_up};
+                Vec2f posSW = Vec2f(range->m_left, range->m_down);
+                Vec2f posNE = Vec2f(range->m_right, range->m_up);
                 this->createTriggerConveyor(&posSW, &posNE, 1.5, false);
             } else if (strcmp(name, "Ｍ００Ｎ") == 0) { // "M00N"
                 this->setGravityHalf();
@@ -840,13 +839,13 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
         for (int i = targetsIndex + 1; i < disksIndex; i++) {
             this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->createObjTarget(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy, &resNodeData->m_scale,
+            this->createObjTarget(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(), &resNodeData->m_scale,
                                   resNodeData->m_translation.m_z, resNodeData->m_rotation.m_z, resNodeData->m_rotation.m_y);
         }
         for (int i = disksIndex + 1; i < platformsIndex; i++) {
             this->targetsLeft++;
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->createObjDisk(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
+            this->createObjDisk(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(),
                                 resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x, resNodeData->m_scale.m_y,
                                 resNodeData->m_translation.m_z, resNodeData->m_rotation.m_y, resNodeData->m_scale.m_z);
         }
@@ -855,26 +854,26 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
 
             switch (int(resNodeData->m_scale.m_z)) {
                 case 2:
-                    this->createObjBreak(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
+                    this->createObjBreak(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(),
                                          resNodeData->m_rotation.m_z, resNodeData->m_translation.m_z,
                                          resNodeData->m_rotation.m_y, resNodeData->m_scale.m_x,
                                          resNodeData->m_scale.m_y);
                     break;
                 case 3:
-                    this->createObjLand(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
+                    this->createObjLand(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(),
                                         resNodeData->m_rotation.m_z, resNodeData->m_translation.m_z,
                                         resNodeData->m_rotation.m_y, resNodeData->m_scale.m_x,
                                         resNodeData->m_scale.m_y);
                     break;
                 default:
                     if (resNodeData->m_scale.m_z < 0) {
-                        this->createObjElevator(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
-                                                &resNodeData->m_scale.m_xy, resNodeData->m_rotation.m_y,
+                        this->createObjElevator(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(),
+                                                resNodeData->m_scale.xy(), resNodeData->m_rotation.m_y,
                                                 resNodeData->m_rotation.m_z, resNodeData->m_translation.m_z,
                                                 -resNodeData->m_scale.m_z);
                     }
                     else {
-                        this->createObjPlatform(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
+                        this->createObjPlatform(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(),
                                                 resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x, resNodeData->m_translation.m_z,
                                                 resNodeData->m_rotation.m_y);
                     }
@@ -890,8 +889,8 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
         }
         for (int i = springsIndex + 1; i < cannonsIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->createObjSpring(resNodeData->m_rotation.m_x, resNodeData->m_rotation.m_y, &resNodeData->m_translation.m_xy,
-                                  resNodeData->m_rotation.m_z, &resNodeData->m_scale.m_xy, resNodeData->m_scale.m_z,
+            this->createObjSpring(resNodeData->m_rotation.m_x, resNodeData->m_rotation.m_y, resNodeData->m_translation.xy(),
+                                  resNodeData->m_rotation.m_z, resNodeData->m_scale.xy(), resNodeData->m_scale.m_z,
                                   resNodeData->m_translation.m_z);
         }
         for (int i = cannonsIndex + 1; i < laddersIndex; i++) {
@@ -899,13 +898,13 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
             u32 rotateFlags = resNodeData->m_scale.m_y;
             bool alwaysRotate = rotateFlags & 1;
             bool fullRotate = rotateFlags & 2;
-            this->createObjCannon(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy,
+            this->createObjCannon(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(),
                                   resNodeData->m_rotation.m_z, resNodeData->m_rotation.m_y, resNodeData->m_scale.m_z,
                                   resNodeData->m_translation.m_z, alwaysRotate, fullRotate, resNodeData->m_scale.m_x);
         }
         for (int i = laddersIndex + 1; i < catapultsIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->createObjLadder(resNodeData->m_rotation.m_x, &resNodeData->m_translation.m_xy, resNodeData->m_translation.m_z,
+            this->createObjLadder(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(), resNodeData->m_translation.m_z,
                                   resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z);
         }
         for (int i = catapultsIndex + 1; i < warpsIndex; i++) {
@@ -917,17 +916,17 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
         for (int i = warpsIndex + 1; i < toxinsIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataFrom = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             nw4r::g3d::ResNodeData* resNodeDataTo = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
-            this->createObjWarpZone(resNodeDataFrom->m_rotation.m_x, &resNodeDataFrom->m_translation.m_xy,
+            this->createObjWarpZone(resNodeDataFrom->m_rotation.m_x, resNodeDataFrom->m_translation.xy(),
                                     resNodeDataFrom->m_rotation.m_z, resNodeDataFrom->m_scale.m_z,
-                                    &resNodeDataFrom->m_scale.m_xy, resNodeDataFrom->m_translation.m_z,
+                                    resNodeDataFrom->m_scale.xy(), resNodeDataFrom->m_translation.m_z,
                                     resNodeDataFrom->m_rotation.m_y,
-                                    &resNodeDataTo->m_translation.m_xy, resNodeDataTo->m_scale.m_z, resNodeDataTo->m_rotation.m_z,
+                                    resNodeDataTo->m_translation.xy(), resNodeDataTo->m_scale.m_z, resNodeDataTo->m_rotation.m_z,
                                     resNodeDataTo->m_rotation.m_x, resNodeDataTo->m_translation.m_z);
         }
         for (int i = toxinsIndex + 1; i < conveyorsIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
-            this->createTriggerHitPointEffect(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
+            this->createTriggerHitPointEffect(resNodeDataSW->m_translation.xy(), resNodeDataNE->m_translation.xy(),
                                               resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
                                               resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
                                               resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
@@ -936,7 +935,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
         for (int i = conveyorsIndex + 1; i < watersIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
-            this->createTriggerConveyor(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
+            this->createTriggerConveyor(resNodeDataSW->m_translation.xy(), resNodeDataNE->m_translation.xy(),
                                         resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
                                         resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
                                         resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
@@ -944,7 +943,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
         for (int i = watersIndex + 1; i < windsIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
-            this->createTriggerWater(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
+            this->createTriggerWater(resNodeDataSW->m_translation.xy(), resNodeDataNE->m_translation.xy(),
                                      resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
                                      resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
                                      resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
@@ -952,7 +951,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
         for (int i = windsIndex + 1; i < itemsIndex; i += 2) {
             nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
             nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
-            this->createTriggerWind(&resNodeDataSW->m_translation.m_xy, &resNodeDataNE->m_translation.m_xy,
+            this->createTriggerWind(resNodeDataSW->m_translation.xy(), resNodeDataNE->m_translation.xy(),
                                     resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
                                     resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
                                     resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
@@ -1084,12 +1083,13 @@ void stTargetSmash::createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, flo
     grSpring* spring = grSpring::create(mdlIndex, "grSpring");
     if (spring != NULL) {
         addGround(spring);
+        Vec2f areaPos = Vec2f(0.0, 0.0);
         grGimmickSpringData springData(
                 pos,
                 rot,
                 bounce,
                 mdlIndex,
-                &(Vec2f){0.0, 0.0},
+                &areaPos,
                 range);
         spring->setMotionPathData(motionPathIndex, rot >= 360);
         spring->setGimmickData(&springData); // Note: gimmickData will only apply in next function since was allocated on the stack
@@ -1115,10 +1115,11 @@ void stTargetSmash::createObjLadder(int mdlIndex, Vec2f* pos, int motionPathInde
     grLadder* ladder = grLadder::create(mdlIndex, "grLadder");
     if (ladder != NULL) {
         addGround(ladder);
+        Vec2f areaPos = Vec2f(0.0, 0.0);
+        Vec2f araeRange = Vec2f(0.0, 0.0);
         grGimmickLadderData ladderData(
                 mdlIndex, 0, restrictUpExit, unk2, "",
-                &(Vec2f){0.0, 0.0}, &(Vec2f){0.0, 0.0}
-                );
+                &areaPos, &araeRange);
         ladder->setMotionPathData(motionPathIndex);
         ladder->startupLadder(this->m_fileData,0,0,&ladderData);
         ladder->setPos(pos->m_x, pos->m_y, 0.0);
@@ -1138,14 +1139,15 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
     grWarpZone* warpZone = grWarpZone::create(mdlIndex, "grWarpZone");
     if (warpZone != NULL) {
         addGround(warpZone);
+        Vec2f areaPos = Vec2f(0.0, 0.0);
         grGimmickWarpData warpData(
                 pos, mdlIndex, snd_se_ADVstage_common_FIGHTER_IN, snd_se_invalid,
-                &(Vec2f){0.0, 0.0}, range
-                );
+                &areaPos, range);
 
         warpZone->setStageData(m_stageData);
         warpZone->prepareWarpData(motionPathIndex, deactivateFrames, rot >= 360);
-        warpZone->setWarpAttrData(&(Vec3f){warpDest->m_x, warpDest->m_y, 0.0}, warpType, isNotAuto);
+        Vec3f warpDestPos = Vec3f(warpDest->m_x, warpDest->m_y, 0.0);
+        warpZone->setWarpAttrData(&warpDestPos, warpType, isNotAuto);
         warpZone->setGimmickData(&warpData); // Note: gimmickData will only apply in next function since was allocated on the stack
         warpZone->startup(m_fileData, 0, 0);
         warpZone->setRot(0, 0, rot);
@@ -1157,7 +1159,8 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
                 addGround(toWarpZone);
                 toWarpZone->setStageData(m_stageData);
                 toWarpZone->prepareWarpData(connectedMotionPathIndex, deactivateFrames, rot >= 360);
-                toWarpZone->setWarpAttrData(&(Vec3f){pos->m_x, pos->m_y, 0.0}, warpType, isNotAuto);
+                warpDestPos = Vec3f(pos->m_x, pos->m_y, 0.0);
+                toWarpZone->setWarpAttrData(&warpDestPos, warpType, isNotAuto);
                 toWarpZone->setGimmickData(&warpData); // Note: gimmickData will only apply in next function since was allocated on the stack
                 toWarpZone->startup(m_fileData, 0, 0);
                 toWarpZone->setRot(0, 0, rot);
@@ -1171,14 +1174,14 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
 }
 
 void stTargetSmash::createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, float damage, short detectionRate, int mdlIndex, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
-    Vec2f pos = {0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y)};
-
+    Vec2f pos = Vec2f(0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y));
+    Vec2f areaRange = Vec2f(posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y);
     grGimmickHitPointEffectData hitPointEffectData(
             fabsf(damage),
-            damage < 0 ? true : false,
+            damage < 0,
             detectionRate,
             &pos,
-            &(Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y}
+            &areaRange
             );
 
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_HitPoint_Effect, -1);
@@ -1203,14 +1206,15 @@ void stTargetSmash::createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, floa
 }
 
 void stTargetSmash::createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float speed, bool isRightDirection, int mdlIndex, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
-    Vec3f pos = {0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0};
-
+    Vec3f pos = Vec3f(0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0);
+    Vec2f areaPos = Vec2f(0.0, 0.0);
+    Vec2f areaRange = Vec2f(posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y);
     grGimmickBeltConveyorData beltConveyorAreaData(
             &pos,
             speed,
             isRightDirection,
-            &(Vec2f){0.0, 0.0},
-            &(Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y},
+            &areaPos,
+            &areaRange,
             gfArea::Shape_Rectangle
             );
 
@@ -1236,14 +1240,15 @@ void stTargetSmash::createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float spee
 }
 
 void stTargetSmash::createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, bool canDrown, int mdlIndex, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
-    Vec2f pos = {0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y)};
+    Vec2f pos = Vec2f(0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y));
+    Vec2f areaRange = Vec2f(posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y);
 
     grGimmickWaterData waterAreaData(
             posNE->m_y,
             canDrown,
             speed,
             &pos,
-            &(Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y}
+            &areaRange
             );
 
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Water, -1);
@@ -1268,14 +1273,16 @@ void stTargetSmash::createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, 
 }
 
 void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength, float angle, int mdlIndex, float rot, Vec3f* scale, int motionPathIndex, int collIndex) {
-    Vec3f pos = {0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0};
+    Vec3f pos = Vec3f(0.5*(posSW->m_x + posNE->m_x), 0.5*(posSW->m_y + posNE->m_y), 0.0);
+    Vec2f areaPos = Vec2f(0.0, 0.0);
+    Vec2f areaRange = Vec2f(posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y);
 
     grGimmickWindData windAreaData(
                 &pos,
                 strength,
                 angle,
-                &(Vec2f){0.0, 0.0},
-                &(Vec2f){posNE->m_x - posSW->m_x, posNE->m_y - posSW->m_y}
+                &areaPos,
+                &areaRange
                 );
     stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Wind, -1);
     trigger->setWindTrigger(&windAreaData);
@@ -1302,10 +1309,10 @@ void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* p
     itManager *itemManager = itManager::getInstance();
     BaseItem *item = itemManager->createItem((itKind) itemID, variantID, -1, 0, 0, 0xffff, 0, 0xffff);
     if (item != NULL) {
-        Vec3f warpPos = (Vec3f){pos->m_x, pos->m_y, 0.0};
+        Vec3f warpPos = Vec3f(pos->m_x, pos->m_y, 0.0);
         item->warp(&warpPos);
         item->setVanishMode(false);
-        item->m_moduleAccesser->getCameraModule()->setEnableCamera(0, -1);
+        item->m_moduleAccesser->getCameraModule().setEnableCamera(0, -1);
         if (startStatus > 1) {
             item->changeStatus(startStatus);
         }
@@ -1331,7 +1338,7 @@ void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f
     create.m_enemyKind = (EnemyKind)enemyId;
     create.m_startStatusKind = startStatus;
 
-    create.m_startPos = (Vec3f){pos->m_x, pos->m_y, 0.0};
+    create.m_startPos = Vec3f(pos->m_x, pos->m_y, 0.0);
 
     create.m_startLr = lr;
     create.m_level = 1 + difficulty / 15;
@@ -1355,7 +1362,7 @@ void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f
 
     int id = enemyManager->createEnemy(&create);
     Enemy* enemy = enemyManager->getEnemyPtrFromId(id);
-    enemy->m_moduleAccesser->getCameraModule()->setEnableCamera(0, -1);
+    enemy->m_moduleAccesser->getCameraModule().setEnableCamera(0, -1);
 
     // TODO: Change death to use similar explosion as fighter ko
     // TODO: Fix death so that 2p doesn't get hit by it

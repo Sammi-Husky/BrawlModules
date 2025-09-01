@@ -48,8 +48,8 @@ void grPunchSlider::updateMove(float deltaFrame) {
         grYakumonoPunchSlider::updateMove(deltaFrame);
     }
     else {
-        Vec3f pos = {0,0,0};
-        Vec3f rot = {0,0,0};
+        Vec3f pos = Vec3f(0,0,0);
+        Vec3f rot = Vec3f(0,0,0);
         if (this->m_sliderMotionPath != NULL) {
             pos = this->m_sliderMotionPath->getPos();
             rot = this->m_sliderMotionPath->getRot();

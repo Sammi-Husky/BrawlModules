@@ -36,7 +36,7 @@ void grPlatform::startup(gfArchive* archive, u32 unk1, u32 unk2) {
             this->m_soundEffects[i].m_repeatFrame = 0;
             this->m_soundEffects[i].m_nodeIndex = nodeIndex;
             this->m_soundEffects[i].m_endFrame = 0;
-            this->m_soundEffects[i].m_offsetPos = (Vec2f){0.0, 0.0};
+            this->m_soundEffects[i].m_offsetPos = Vec2f(0.0, 0.0);
         }
 
         int numEffects = endNodeIndex - effectNodeIndex - 1;
@@ -49,7 +49,7 @@ void grPlatform::startup(gfArchive* archive, u32 unk1, u32 unk2) {
             this->m_effects[i].m_repeatFrame = 0;
             this->m_effects[i].m_nodeIndex = nodeIndex;
             this->m_effects[i].m_endFrame = 0;
-            this->m_effects[i].m_offsetPos = (Vec2f){0.0, 0.0};
+            this->m_effects[i].m_offsetPos = Vec2f(0.0, 0.0);
             this->m_effects[i].m_scale = 1.0;
         }
     }
@@ -82,7 +82,7 @@ void grPlatform::update(float deltaFrame)
         }
     }
 
-    Vec3f pos = (Vec3f){0, 0, 0};
+    Vec3f pos = Vec3f(0, 0, 0);
     if (this->getNodePosition(&pos, 0, "CollisionNode")) {
         if (pos.m_z >= 0) {
             this->setEnableCollisionStatus(true);
@@ -92,7 +92,7 @@ void grPlatform::update(float deltaFrame)
         }
     }
 
-    Vec3f scale = (Vec3f){0, 0, 0};
+    Vec3f scale = Vec3f(0, 0, 0);
     if (this->getNodeScale(&scale, 0, "HurtNode")) {
         if (scale.m_x > 0 || scale.m_y > 0 || scale.m_z > 0) {
             this->enableHit(0, 0);
@@ -102,7 +102,7 @@ void grPlatform::update(float deltaFrame)
         }
     };
 
-    Vec3f areaPos = (Vec3f){0, 0, 0};
+    Vec3f areaPos = Vec3f(0, 0, 0);
     if (this->getNodePosition(&areaPos, 0, "AreaNode")) {
         if (areaPos.m_z >= 0) {
             this->enableArea();
@@ -218,7 +218,7 @@ void grPlatform::setupHitPoint(float maxDamage, float respawnFrames) {
 void grPlatform::setupAttack(AttackData* attackData) {
 
     float size = 5.0;
-    Vec3f offsetPos = {0.0, 0.0, 0.0};
+    Vec3f offsetPos = Vec3f(0.0, 0.0, 0.0);
     this->setAttack(size, &offsetPos);
     this->m_attackInfo->m_preset = 4;
 
@@ -239,7 +239,7 @@ void grPlatform::initializeEntity() {
         Vec3f areaPosNE;
         this->getNodePosition(&areaPosSW, 0, "AreaSW");
         this->getNodePosition(&areaPosNE, 0, "AreaNE");
-        this->areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, nodeIndex, (areaPosSW + areaPosNE).m_xy / 2, (areaPosSW - areaPosNE).m_xy};
+        this->areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, nodeIndex, *(areaPosSW + areaPosNE).xy() / 2, *(areaPosSW - areaPosNE).xy()};
 
         this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, true);
         stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Common,-1);

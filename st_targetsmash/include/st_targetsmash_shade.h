@@ -48,12 +48,12 @@ public:
     virtual u32 getFollowLength();
     virtual void record(int currentFrame, Fighter* followFighter) {
         FrameInfo frameInfo;
-        frameInfo.pos = followFighter->m_moduleAccesser->getPostureModule()->getPos();
-        frameInfo.rot = followFighter->m_moduleAccesser->getPostureModule()->getRot(0);
-        frameInfo.lr = followFighter->m_moduleAccesser->getPostureModule()->getLr();
-        if (followFighter->m_moduleAccesser->getVisibilityModule()->getWhole() == true) {
-            frameInfo.motionKind = followFighter->m_moduleAccesser->getMotionModule()->getKind();
-            frameInfo.motionFrame = followFighter->m_moduleAccesser->getMotionModule()->getFrame();
+        frameInfo.pos = followFighter->m_moduleAccesser->getPostureModule().getPos();
+        frameInfo.rot = followFighter->m_moduleAccesser->getPostureModule().getRot(0);
+        frameInfo.lr = followFighter->m_moduleAccesser->getPostureModule().getLr();
+        if (followFighter->m_moduleAccesser->getVisibilityModule().getWhole() == true) {
+            frameInfo.motionKind = followFighter->m_moduleAccesser->getMotionModule().getKind();
+            frameInfo.motionFrame = followFighter->m_moduleAccesser->getMotionModule().getFrame();
         } else {
             frameInfo.motionKind = Fighter::Motion_Catapult;
             frameInfo.motionFrame = 1.0;
@@ -82,15 +82,15 @@ public:
     }
 
     virtual void begin(Fighter* fighter, Fighter* followFighter) {
-        fighter->m_moduleAccesser->getStatusModule()->changeStatus(Fighter::Status_Test_Motion,
+        fighter->m_moduleAccesser->getStatusModule().changeStatus(Fighter::Status_Test_Motion,
                                                                    fighter->m_moduleAccesser);
-        fighter->m_moduleAccesser->getCollisionHitModule()->setXluGlobal(0);
-        fighter->m_moduleAccesser->getEffectModule()->removeCommon(0);
-        fighter->m_moduleAccesser->getVisibilityModule()->setWhole(0);
-        fighter->m_moduleAccesser->getCameraModule()->setEnableCamera(0, -1);
-        fighter->m_moduleAccesser->getAreaModule()->enableArea(-1, false, 0);
-        Vec3f pos = followFighter->m_moduleAccesser->getPostureModule()->getPos();
-        fighter->m_moduleAccesser->getPostureModule()->setPos(&pos);
+        fighter->m_moduleAccesser->getCollisionHitModule().setXluGlobal(0);
+        fighter->m_moduleAccesser->getEffectModule().removeCommon(0);
+        fighter->m_moduleAccesser->getVisibilityModule().setWhole(0);
+        fighter->m_moduleAccesser->getCameraModule().setEnableCamera(0, -1);
+        fighter->m_moduleAccesser->getAreaModule().enableArea(-1, false, 0);
+        Vec3f pos = followFighter->m_moduleAccesser->getPostureModule().getPos();
+        fighter->m_moduleAccesser->getPostureModule().setPos(&pos);
     }
 
     virtual bool shouldAppear() {
@@ -100,13 +100,13 @@ public:
     virtual void follow(Fighter* fighter, Fighter* followFighter) {
         FrameInfo frameInfo = this->getFrameInfo(this->currentFrame);
 
-        const char* motionName = fighter->m_moduleAccesser->getMotionModule()->getName(frameInfo.motionKind, true);
-        int statusKind = followFighter->m_moduleAccesser->getStatusModule()->getStatusKind();
+        const char* motionName = fighter->m_moduleAccesser->getMotionModule().getName(frameInfo.motionKind, true);
+        int statusKind = followFighter->m_moduleAccesser->getStatusModule().getStatusKind();
         if (statusKind == Fighter::Status_Dead || statusKind == Fighter::Status_Standby) {
-            frameInfo.pos = fighter->m_moduleAccesser->getPostureModule()->getPos();
-            frameInfo.rot = fighter->m_moduleAccesser->getPostureModule()->getRot(0);
-            frameInfo.lr = fighter->m_moduleAccesser->getPostureModule()->getLr();
-            frameInfo.motionKind = fighter->m_moduleAccesser->getMotionModule()->getKind();
+            frameInfo.pos = fighter->m_moduleAccesser->getPostureModule().getPos();
+            frameInfo.rot = fighter->m_moduleAccesser->getPostureModule().getRot(0);
+            frameInfo.lr = fighter->m_moduleAccesser->getPostureModule().getLr();
+            frameInfo.motionKind = fighter->m_moduleAccesser->getMotionModule().getKind();
             frameInfo.motionKind = ((frameInfo.lr >= 0.0) ? Fighter::Motion_Appeal_Hi_R : Fighter::Motion_Appeal_Hi_L) + randi(3)*2;
             frameInfo.motionFrame = -1;
             this->state = State_Finish;
@@ -116,23 +116,23 @@ public:
             frameInfo.motionKind = Fighter::Motion_Catapult;
             frameInfo.motionFrame = 1.0;
         }
-        fighter->m_moduleAccesser->getPostureModule()->setPos(&frameInfo.pos);
-        fighter->m_moduleAccesser->getPostureModule()->setRot(&frameInfo.rot, 0);
-        fighter->m_moduleAccesser->getPostureModule()->setLr(frameInfo.lr);
-        fighter->m_moduleAccesser->getPostureModule()->updateRotYLr();
-        if (fighter->m_moduleAccesser->getMotionModule()->getKind() != frameInfo.motionKind) {
+        fighter->m_moduleAccesser->getPostureModule().setPos(&frameInfo.pos);
+        fighter->m_moduleAccesser->getPostureModule().setRot(&frameInfo.rot, 0);
+        fighter->m_moduleAccesser->getPostureModule().setLr(frameInfo.lr);
+        fighter->m_moduleAccesser->getPostureModule().updateRotYLr();
+        if (fighter->m_moduleAccesser->getMotionModule().getKind() != frameInfo.motionKind) {
             soMotionChangeParam changeParam = {frameInfo.motionKind, (frameInfo.motionFrame >= 0) ? frameInfo.motionFrame : 0.0, (frameInfo.motionFrame >= 0) ? 0.0 : 1.0, 0, 0,
                                                true, 0};
-            fighter->m_moduleAccesser->getMotionModule()->changeMotion(&changeParam);
-            fighter->m_moduleAccesser->getAnimCmdModule()->deactivate(fighter->m_moduleAccesser);
-            fighter->m_moduleAccesser->getEffectModule()->removeAll(0);
-            fighter->m_moduleAccesser->getColorBlendModule()->offAll(true);
+            fighter->m_moduleAccesser->getMotionModule().changeMotion(&changeParam);
+            fighter->m_moduleAccesser->getAnimCmdModule().deactivate(fighter->m_moduleAccesser);
+            fighter->m_moduleAccesser->getEffectModule().removeAll(0);
+            fighter->m_moduleAccesser->getColorBlendModule().offAll(true);
         } else {
             if (frameInfo.motionFrame >= 0) {
-                fighter->m_moduleAccesser->getMotionModule()->setFrame(frameInfo.motionFrame);
+                fighter->m_moduleAccesser->getMotionModule().setFrame(frameInfo.motionFrame);
             }
             else {
-                fighter->m_moduleAccesser->getMotionModule()->setRate(1.0);
+                fighter->m_moduleAccesser->getMotionModule().setRate(1.0);
             }
         }
     }
@@ -141,10 +141,10 @@ public:
         int entryId = g_ftManager->getEntryId(this->playerId);
         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
 
-        fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
-        fighter->m_moduleAccesser->getColorBlendModule()->setSubColor((GXColor) {0, 0, 0, 0xff}, true);
-        soCollisionAttackData attackData(300,
-                                         &(Vec3f) {soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
+        fighter->m_moduleAccesser->getVisibilityModule().setWhole(1);
+        fighter->m_moduleAccesser->getColorBlendModule().setSubColor((GXColor) {0, 0, 0, 0xff}, true);
+
+        Vec3f pos = Vec3f(soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
                                                                                      ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_X,
                                                                                      0),
                                                    soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
@@ -152,7 +152,9 @@ public:
                                                                                      0),
                                                    soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
                                                                                      ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_Z,
-                                                                                     0)},
+                                                                                     0));
+        soCollisionAttackData attackData(300,
+                                         &pos,
                                          soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
                                                                            ftValueAccesser::Customize_Param_Float_Barrel_Attack_Size,
                                                                            0) * SHADE_SIZE_MULTIPLIER,
@@ -173,7 +175,7 @@ public:
                                          soCollisionAttackData::Lr_Check_Pos, false, true, true, false,
                                          false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
         attackData.m_isDeath100 = true;
-        fighter->m_moduleAccesser->getCollisionAttackModule()->set(0, 0, &attackData);
+        fighter->m_moduleAccesser->getCollisionAttackModule().set(0, 0, &attackData);
     }
 
     virtual void loop() {
@@ -222,8 +224,8 @@ public:
                 default:
                     break;
             }
-            int statusKind = fighter->m_moduleAccesser->getStatusModule()->getStatusKind();
-            fighter->m_moduleAccesser->getGroundModule()->setCorrect(soGroundShapeImpl::Correct_None, 0);
+            int statusKind = fighter->m_moduleAccesser->getStatusModule().getStatusKind();
+            fighter->m_moduleAccesser->getGroundModule().setCorrect(soGroundShapeImpl::Correct_None, 0);
 
 //            this->record(this->currentFrame, followFighter);
 //
@@ -256,7 +258,7 @@ public:
                     this->isRecord = false;
                     if (g_ftManager->isFighterActivate(entryId, -1)) {
                         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
-                        fighter->m_moduleAccesser->getColorBlendModule()->setSubColor((GXColor) {0xff, 0x00, 0x00, 0xff}, true);
+                        fighter->m_moduleAccesser->getColorBlendModule().setSubColor((GXColor) {0xff, 0x00, 0x00, 0xff}, true);
                         g_sndSystem->playSE(snd_se_Audience_Zannen, -1, 0, 0, -1);
                     }
 
@@ -348,8 +350,8 @@ public:
         int entryId = g_ftManager->getEntryId(this->playerId);
         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
 
-        fighter->m_moduleAccesser->getVisibilityModule()->setWhole(1);
-        fighter->m_moduleAccesser->getColorBlendModule()->setSubColor((GXColor) {0xff, 0xff, 0xff, 0xff}, true);
+        fighter->m_moduleAccesser->getVisibilityModule().setWhole(1);
+        fighter->m_moduleAccesser->getColorBlendModule().setSubColor((GXColor) {0xff, 0xff, 0xff, 0xff}, true);
     }
 
     virtual void initialize() {
