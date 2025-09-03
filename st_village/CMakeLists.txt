@@ -23,3 +23,4 @@ file(GLOB_RECURSE all_SRCS
 )
 
 add_executable(st_village ${all_SRCS})
+set_property(TARGET st_village PROPERTY CXX_STANDARD 98)

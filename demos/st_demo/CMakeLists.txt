@@ -23,3 +23,4 @@ file(GLOB_RECURSE all_SRCS
 )
 
 add_executable(st_demo ${all_SRCS})
+set_property(TARGET st_demo PROPERTY CXX_STANDARD 98)

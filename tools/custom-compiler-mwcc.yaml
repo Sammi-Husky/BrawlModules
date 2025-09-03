@@ -1,6 +1,6 @@
 compilers:
   - description: mwcc
     match-sources: ".*\\.cpp"
-    match-args: -MMD
+    #match-args: -lang=c++ -Cpp_exceptions off -c -proc gekko -nostdinc -O4,p -inline auto -fp hard -u _prolog -u _epilog -u _unresolved -enum int -sdata 0 -sdata2 0 -func_align 4 -MMD
     match-language: CPP
-    match-compiler-exe: "(.*/)?mwcceppc.exe"
+    match-compiler-exe: "(.*/)?mwcceppc(.exe)?"

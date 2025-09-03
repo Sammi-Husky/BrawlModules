@@ -23,3 +23,4 @@ file(GLOB_RECURSE all_SRCS
 )
 
 add_executable(st_otrain ${all_SRCS})
+set_property(TARGET st_otrain PROPERTY CXX_STANDARD 98)

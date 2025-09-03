@@ -23,3 +23,4 @@ file(GLOB_RECURSE all_SRCS
 )
 
 add_executable(st_starfox ${all_SRCS})
+set_property(TARGET st_starfox PROPERTY CXX_STANDARD 98)
