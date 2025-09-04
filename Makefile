@@ -11,22 +11,22 @@ all: st_final.rel st_village.rel st_otrain.rel st_starfox.rel st_stadium.rel dem
 demos: st_demo.rel
 
 st_final.rel:
-	@cd st_final && make
+	@cd st_final && make clean && make
 
 st_demo.rel:
-	@cd demos/st_demo && make
+	@cd demos/st_demo && make clean && make
 
 st_village.rel:
-	@cd st_village && make
+	@cd st_village && make clean && make
 
 st_otrain.rel:
-	@cd st_otrain && make
+	@cd st_otrain && make clean && make
 
 st_starfox.rel:
-	@cd st_starfox && make
+	@cd st_starfox && make clean && make
 
 st_stadium.rel:
-	@cd st_stadium && make
+	@cd st_stadium && make clean && make
 
 clean:
 	@cd st_final && make clean
