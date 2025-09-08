@@ -104,7 +104,7 @@ loc_1DF88:
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__shoot")]
         .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "Enemy__addParts")]
 loc_1E128:
-         .asciz "emMasterhand"
+        .asciz "emMasterhand"
         .balign 4
 loc_1E138:
         .4byte 0x00000000         [R_PPC_ADDR32(27, 5, "loc_6C40")]
