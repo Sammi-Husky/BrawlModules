@@ -159,7 +159,7 @@ void stTargetSmash::createObj()
     int size;
 
     this->createObjAshiba(0, 2);
-    gfModuleHeader* moduleHeader = static_cast<gfModuleHeader*>(m_secondaryFileData->getData(Data_Type_Misc, 301, &size, 0xfffe));
+    gfModuleHeader* moduleHeader = static_cast<gfModuleHeader*>(m_secondaryFileData->getData(2, Data_Type_Misc, 1, &size, 0xfffe));
     if (moduleHeader != NULL) {
         moduleManager->loadModuleRequestOnImage("sora_enemy.rel", Heaps::OverlayStage, moduleHeader, &size);
         emManager::create(0x1e,0x14,0);
@@ -292,7 +292,7 @@ void stTargetSmash::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive 
     *param = this->enemyPacs[fileIndex];
 
     if (this->enemyCommonPac == NULL) {
-        void* enmCommonData = this->m_secondaryFileData->getData(Data_Type_Misc, 300, &nodeSize, (u32)0xfffe);
+        void* enmCommonData = this->m_secondaryFileData->getData(2, Data_Type_Misc, 0, &nodeSize, (u32)0xfffe);
         if (enmCommonData != NULL) {
             *enmCommon = new (Heaps::StageInstance) gfArchive();
             (*enmCommon)->setFileImage(enmCommonData, nodeSize, Heaps::StageResource);
@@ -303,9 +303,9 @@ void stTargetSmash::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive 
 
     if (*brres != NULL && (enemyID == Enemy_Prim || enemyID == Enemy_Prim_Metal || enemyID == Enemy_Prim_Big || enemyID == Enemy_Prim_Boomerang || enemyID == Enemy_Prim_SuperScope || enemyID == Enemy_Prim_Sword)) {
         if (this->primFacePac == NULL) {
-            void* primFaceData = this->m_secondaryFileData->getData(Data_Type_Misc, 200 + randi(NUM_PRIM_FACES), &nodeSize, (u32)0xfffe);
+            void* primFaceData = this->m_secondaryFileData->getData(Enemy_Prim + 3, Data_Type_Misc,  randi(NUM_PRIM_FACES), &nodeSize, (u32)0xfffe);
             if (primFaceData == NULL) {
-                primFaceData = this->m_secondaryFileData->getData(Data_Type_Misc, 200, &nodeSize, (u32)0xfffe);
+                primFaceData = this->m_secondaryFileData->getData(Enemy_Prim + 3, Data_Type_Misc, 0, &nodeSize, (u32)0xfffe);
             }
             if (primFaceData != NULL) {
                 *primFaceBrres = new (Heaps::StageInstance) gfArchive();
