@@ -22,7 +22,7 @@ loc_0:
         #4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emjyakeelparamaccessercpp____sinit_")]
         #4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emaroaroscpp____sinit_")]
         #4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emaroarosparamaccessercpp____sinit_")]
-        #4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emcymalparamaccessercpp____sinit_")]
+        .4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emcymalparamaccessercpp____sinit_")]
         #4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emdeathpodparamaccessercpp____sinit_")]
         #4byte 0x00000000         [R_PPC_ADDR32(41, 1, "emdekakuriboparamaccessercpp____sinit_")]
         #4byte 0x00000000         [R_PPC_ADDR32(41, 1, "embucyulusparamaccessercpp____sinit_")]

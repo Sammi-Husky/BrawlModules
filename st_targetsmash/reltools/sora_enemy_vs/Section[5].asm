@@ -6998,7 +6998,7 @@ loc_6EE8:
 #include "./Enemies/data/emPacci.asm"
 #include "./Enemies/data/emJyakeel.asm"
 #include "./Enemies/data/emAroaros.asm"
-#include "./Enemies/data/emCymal.asm"
+.include "./Enemies/data/emCymal.asm"
 #include "./Enemies/data/emDeathpod.asm"
 #include "./Enemies/data/emDekakuribo.asm"
 #include "./Enemies/data/emBucyulus.asm"

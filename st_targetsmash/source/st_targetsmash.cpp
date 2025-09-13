@@ -9,7 +9,7 @@
 #include <em/em_weapon_manager.h>
 #include <mt/mt_prng.h>
 #include <MetroTRK.h>
-#include <math.h>
+#include <cmath>
 #include <ms/ms_message.h>
 #include <wchar.h>
 #include <ft/ft_manager.h>
@@ -24,6 +24,7 @@
 #include <gf/gf_slow_manager.h>
 #include <mt/mt_trig.h>
 #include <gf/gf_3d_scene.h>
+#include <cstdlib>
 
 static stClassInfoImpl<Stages::TBreak, stTargetSmash> classInfo = stClassInfoImpl<Stages::TBreak, stTargetSmash>();
 
@@ -186,7 +187,7 @@ void stTargetSmash::createObj()
             gfArchive* param;
             gfArchive* enmCommon;
             gfArchive* primFaceBrres;
-            EnemyKind enemyKind = (EnemyKind)fabsf(resNodeData->m_scale.m_x);
+            EnemyKind enemyKind = (EnemyKind)abs(resNodeData->m_scale.m_x);
             this->getEnemyPac(&brres, &param, &enmCommon, &primFaceBrres, enemyKind);
             int result = enemyManager->preloadArchive(param, brres, enmCommon, primFaceBrres, enemyKind, true);
         }
@@ -276,7 +277,7 @@ void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind item
 }
 
 void stTargetSmash::getEnemyPac(gfArchive **brres, gfArchive **param, gfArchive **enmCommon, gfArchive **primFaceBrres, EnemyKind enemyID) {
-    int fileIndex = enemyID * 2;
+    int fileIndex = (enemyID & 0xff) * 2;
     int nodeSize;
     *primFaceBrres = NULL;
 
