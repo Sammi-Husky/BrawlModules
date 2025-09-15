@@ -546,7 +546,7 @@ Enemy____ct:
     /* 00000838: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soEventUnitWithWorkArea_29soCollisionCatchEventObserver_1_____ct")]
     /* 0000083C: */    addi r3,r15,0x904
     /* 00000840: */    li r4,HEAP_TYPE
-    /* 00000844: */    li r5,0x11    
+    /* 00000844: */    li r5,HEAP_TYPE
     /* 00000848: */    li r6,HEAP_TYPE
     /* 0000084C: */    li r7,0x0
     /* 00000850: */    bl __unresolved                          [R_PPC_REL24(27, 1, "soHeapModuleImpl____ct")]
