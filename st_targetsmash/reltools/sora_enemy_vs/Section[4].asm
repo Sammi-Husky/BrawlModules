@@ -1040,6 +1040,79 @@ loc_1024:
 loc_102C:
         .4byte 0x3C8EFA35
 
+loc_enemyOverrideFolder:
+        .4byte 0x00000000
+        .4byte 0x00000000
+        .4byte 0x00000000
+loc_stageOverrideFolder:
+        .4byte 0x00000000
+        .4byte 0x00000000
+        .4byte 0x00000000
+loc_enemyOverrideCommonSetting:
+        .byte 0x00
+loc_enemyOverrideSettings:
+        .byte 0x00      # 0x00
+        .byte 0x00      # 0x01
+        .byte 0x00      # 0x02
+        .byte 0x00      # 0x03
+        .byte 0x00      # 0x04
+        .byte 0x00      # 0x05
+        .byte 0x00      # 0x06
+        .byte 0x00      # 0x07
+        .byte 0x00      # 0x08
+        .byte 0x00      # 0x09
+        .byte 0x00      # 0x0A
+        .byte 0x00      # 0x0B
+        .byte 0x00      # 0x0C
+        .byte 0x00      # 0x0D
+        .byte 0x00      # 0x0E
+        .byte 0x00      # 0x0F
+        .byte 0x00      # 0x10
+        .byte 0x00      # 0x11
+        .byte 0x00      # 0x12
+        .byte 0x00      # 0x13
+        .byte 0x00      # 0x14
+        .byte 0x00      # 0x15
+        .byte 0x00      # 0x16
+        .byte 0x08      # 0x17
+        .byte 0x00      # 0x18
+        .byte 0x00      # 0x19
+        .byte 0x00      # 0x1A
+        .byte 0x00      # 0x1B
+        .byte 0x08      # 0x1C
+        .byte 0x00      # 0x1D
+        .byte 0x00      # 0x1E
+        .byte 0x08      # 0x1F
+        .byte 0x08      # 0x20
+        .byte 0x08      # 0x21
+        .byte 0x08      # 0x22
+        .byte 0x08      # 0x23
+        .byte 0x00      # 0x24
+        .byte 0x00      # 0x25
+        .byte 0x00      # 0x26
+        .byte 0x00      # 0x27
+        .byte 0x00      # 0x28
+        .byte 0x00      # 0x29
+        .byte 0x00      # 0x2A
+        .byte 0x00      # 0x2B
+        .byte 0x00      # 0x2C
+        .byte 0x00      # 0x2D
+        .byte 0x00      # 0x2E
+        .byte 0x00      # 0x2F
+        .byte 0x00      # 0x30
+        .byte 0x00      # 0x31
+        .byte 0x00      # 0x32
+        .byte 0x00      # 0x33
+        .byte 0x00      # 0x34
+        .byte 0x00      # 0x35
+        .byte 0x00      # 0x36
+        .byte 0x00      # 0x37
+        .byte 0x00      # 0x38
+        .byte 0x00      # 0x39
+        .byte 0x00      # 0x3A
+        .byte 0x00      # 0x3B
+        .byte 0x00      # 0x3C
+
 #include "./Enemies/rodata/emBoobas.asm"
 #include "./Enemies/rodata/emSiralamos.asm"
 #include "./Enemies/rodata/emRoada.asm"
@@ -1055,7 +1128,7 @@ loc_102C:
 #include "./Enemies/rodata/emBotron.asm"
 #include "./Enemies/rodata/emGyraan.asm"
 #include "./Enemies/rodata/emMite.asm"
-#include "./Enemies/rodata/emPrim.asm"
+.include "./Enemies/rodata/emPrim.asm"
 #include "./Enemies/rodata/emCataguard.asm"
 .include "./Enemies/rodata/emKuribo.asm"
 #include "./Enemies/rodata/emFlows.asm"

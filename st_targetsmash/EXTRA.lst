@@ -12,3 +12,6 @@
 // emCreate
 41,1,0000E1F8:__ct__8emCreateFv
 41,1,0000E2AC:__dt__8emCreateFv
+
+// EnemyOverride
+41,4,00000ECC:g_EnemyOverride
