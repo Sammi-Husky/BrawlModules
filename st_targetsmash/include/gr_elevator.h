@@ -56,7 +56,7 @@ public:
     };
     virtual void update(float deltaFrame);
     virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
-    virtual void onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId);
+    virtual void onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId);
     virtual ~grAdventureElevator(){
         /*if (floorPositions != NULL) {
             delete [] floorPositions;

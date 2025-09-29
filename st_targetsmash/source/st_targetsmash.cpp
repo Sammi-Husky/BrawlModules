@@ -162,6 +162,9 @@ void stTargetSmash::createObj()
     gfModuleHeader* moduleHeader = static_cast<gfModuleHeader*>(m_secondaryFileData->getData(2, Data_Type_Misc, 1, &size, 0xfffe));
     if (moduleHeader != NULL) {
         moduleManager->loadModuleRequestOnImage("sora_enemy.rel", Heaps::OverlayStage, moduleHeader, &size);
+        strcpy(g_EnemyOverride.m_enmOverrideFolder, "Test");
+        strcpy(g_EnemyOverride.m_stageItemFolder, "Test2");
+        g_EnemyOverride.m_overrideCymul = Archive_Override_Both;
         emManager::create(0x1e,0x14,0);
         //gfHeapManager::dumpList();
         emWeaponManager::create();

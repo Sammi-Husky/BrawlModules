@@ -91,9 +91,9 @@ void grAdventureElevator::update(float deltaFrame)
 
 }
 
-void grAdventureElevator::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
+void grAdventureElevator::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId)
 {
-    soGimmickElevatorEventInfo* elevatorEventInfo = (soGimmickElevatorEventInfo*)eventInfo;
+    soGimmickElevatorEventArgs* elevatorEventInfo = (soGimmickElevatorEventArgs*)eventInfo;
     if (this->state == Elevator_State_Rest) {
         switch(elevatorEventInfo->m_kind) {
             case 0x2b:

@@ -194,7 +194,7 @@ void grPlatform::onInflictEach(soCollisionLog* collisionLog, float power) {
 
 }
 
-void grPlatform::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
+void grPlatform::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId) {
     this->setMotion(2);
 }
 

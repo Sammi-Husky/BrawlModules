@@ -169,7 +169,7 @@ void grAdventureBarrelCannon::createMotionPath()
 
 void grAdventureBarrelCannon::processFixPosition() {
     Vec3f rot;
-    soGimmickBarrelEventInfo cannonEventInfo;
+    soGimmickBarrelEventArgs cannonEventInfo;
     for (int i = 0; i < NUM_PLAYERS; i++) {
         if (this->cannonPlayerInfos[i].isActive) {
             switch(this->cannonPlayerInfos[i].state) {
@@ -367,11 +367,11 @@ void grAdventureBarrelCannon::updateMove(float frameDelta)
 
 }
 
-void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId)
+void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId)
 {
     int newPlayerIndex = 0;
     Vec3f pos = this->getPos();
-    soGimmickBarrelEventInfo* cannonEventInfo = (soGimmickBarrelEventInfo*)eventInfo;
+    soGimmickBarrelEventArgs* cannonEventInfo = (soGimmickBarrelEventArgs*)eventInfo;
     int playerNumber = this->getPlayerNumber(taskId);
     this->isPlayerIn = true;
     switch (cannonEventInfo->m_kind) {
@@ -481,7 +481,7 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
     attackData.m_targetSituationAir = true;
     attackData.m_targetSituationGround = true;
 
-    soGimmickBarrelEventInfo cannonEventInfo;
+    soGimmickBarrelEventArgs cannonEventInfo;
     cannonEventInfo.m_kind = Gimmick::Barrel_Event_Shoot;
     cannonEventInfo.m_sendID = 0;
     cannonEventInfo.m_attackData = &attackData;

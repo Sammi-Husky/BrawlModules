@@ -47,8 +47,8 @@ void grLadder::update(float deltaFrame) {
     }
 }
 
-void grLadder::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
-    soGimmickLadderEventInfo* ladderEventInfo = static_cast<soGimmickLadderEventInfo*>(eventInfo);
+void grLadder::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId) {
+    soGimmickLadderEventArgs* ladderEventInfo = static_cast<soGimmickLadderEventArgs*>(eventInfo);
     switch(ladderEventInfo->m_kind) {
         case 0x14:
             this->getUpperNode(&ladderEventInfo->m_upperNodePos);

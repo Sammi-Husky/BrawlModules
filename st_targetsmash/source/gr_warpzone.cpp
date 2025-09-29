@@ -29,7 +29,7 @@ void grWarpZone::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->changeNodeAnim(0,0);
 }
 
-void grWarpZone::onGimmickEvent(soGimmickEventInfo* eventInfo, int* taskId) {
+void grWarpZone::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId) {
     if (eventInfo->m_kind == 0x32) {
         g_stTriggerMng->setTriggerFlag(&this->m_warpData->m_warpTriggerData);
         int entryId = g_ftManager->getEntryId(this->getPlayerNumber(taskId));
