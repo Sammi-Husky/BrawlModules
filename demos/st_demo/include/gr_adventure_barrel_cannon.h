@@ -33,7 +33,7 @@ struct grGimmickBarrelCannnonData {
     bool alwaysRotate;
     char mdlIndex;
     char _spacer5;
-    unsigned short field_0xce;
+    unsigned short breakHitstopFrame;
     char _spacer6[8];
     stTriggerData enterCannonTriggerData;
     stTriggerData motionPathTriggerData;

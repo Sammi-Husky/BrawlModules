@@ -158,7 +158,7 @@ void stDemo::createObj()
     this->cannonData.fullRotate = false;
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 110;
-    this->cannonData.field_0xce = 0x8;
+    this->cannonData.breakHitstopFrame = 0x8;
     this->cannonData.enterCannonTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
     this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
     this->cannonData.isValidTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };

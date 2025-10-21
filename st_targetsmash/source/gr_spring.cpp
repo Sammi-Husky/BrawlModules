@@ -76,13 +76,10 @@ void grSpring::update(float deltaFrame) {
 }
 
 void grSpring::presentShootEvent() {
-    soGimmickSpringEventArgs eventInfo;
-    eventInfo.m_kind = Gimmick::Spring_Event_Shoot;
-    eventInfo.m_sendID = 0;
-    this->getTopNode(&eventInfo.m_topPos);
-    eventInfo.m_bounce = this->m_bounce;
-    eventInfo.m_rot = this->getRot().m_z;
-    this->m_yakumono->presentEventGimmick(&eventInfo, -1);
+    Vec3f pos;
+    this->getTopNode(&pos);
+    soGimmickSpringEventArgs_Shoot springEvent(pos, this->m_bounce, this->getRot().m_z);
+    this->m_yakumono->presentEventGimmick(&springEvent, -1);
 }
 
 void grSpring::setMotionOff() {

@@ -118,11 +118,11 @@ void grAdventureDoor::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId)
         doorEventInfo->m_pos = this->getPos();
         if (this->doorData->doorType == Warp_Door)
         {
-            doorEventInfo->m_unk2 = true;
+            doorEventInfo->m_noInto = true;
         }
         else
         {
-            doorEventInfo->m_unk2 = false;
+            doorEventInfo->m_noInto = false;
         }
         if (this->doorData->doorGimmickKind == Door_GimmickKind_Ground)
         {

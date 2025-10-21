@@ -38,7 +38,7 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
         default:
             break;
     }
-    this->cannonData->field_0xce = 8;
+    this->cannonData->breakHitstopFrame = 8;
 
     grGimmickMotionPathInfo motionPathInfo = { archive, &this->cannonData->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
     this->createAttachMotionPath(&motionPathInfo, &this->cannonData->motionPathTriggerData, "path_locator");
@@ -143,7 +143,6 @@ void grAdventureBarrelCannon::createMotionPath()
 
 void grAdventureBarrelCannon::processFixPosition() {
     Vec3f rot;
-    soGimmickBarrelEventArgs cannonEventInfo;
     for (int i = 0; i < NUM_PLAYERS; i++) {
         if (this->cannonPlayerInfos[i].isActive) {
             switch(this->cannonPlayerInfos[i].state) {
@@ -152,7 +151,7 @@ void grAdventureBarrelCannon::processFixPosition() {
                         this->cannonPlayerInfos[i].state = PlayerState_Set;
                     }
                     break;
-                case PlayerState_Set:
+                case PlayerState_Set: {
                     rot = this->getRot();
                     if (hkMath::fabs(rot.m_z - this->cannonData->maxFireRot) < this->rotThreshold
                         && (this->kind == BarrelCannon_StaticAuto || this->kind == BarrelCannon_PathAuto)) {
@@ -161,15 +160,13 @@ void grAdventureBarrelCannon::processFixPosition() {
                             this->changeNodeAnim(1, 0);
                             this->cannonState = State_Fire;
                         }
-                    }
+                        }
                     if (this->isMainPlayerIn) {
-                       //g_stAdventure2->setCameraAdvCameraOffset(&this->cannonData->cameraOffset);
+                        //g_stAdventure2->setCameraAdvCameraOffset(&this->cannonData->cameraOffset);
                     }
-                    cannonEventInfo.m_kind = Gimmick::Barrel_Event_Pos;
-                    cannonEventInfo.m_sendID = 0;
-                    cannonEventInfo.m_pos = this->getPos();
-                    cannonEventInfo.m_attackData = NULL;
-                    this->m_yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                    soGimmickBarrelEventArgs_Pos cannonEvent(this->getPos());
+                    this->m_yakumono->presentEventGimmick(&cannonEvent, this->cannonPlayerInfos[i].sendID);
+                }
                     break;
                 case PlayerState_Fire:
                     if (this->cannonPlayerInfos[i].frame <= this->cannonData->maxFrames) {
@@ -182,16 +179,8 @@ void grAdventureBarrelCannon::processFixPosition() {
                             //this->stopCameraAdvCameraOffset();
                         }
                         if (this->kind == BarrelCannon_Static || this->kind == BarrelCannon_StaticAuto) {
-                            cannonEventInfo.m_kind = Gimmick::Barrel_Event_Set_Speed;
-                            cannonEventInfo.m_sendID = 0;
-                            cannonEventInfo.m_attackData = NULL;
-                            cannonEventInfo.m_pos = Vec3f(0.0,0.0,0.0);
-                            cannonEventInfo.m_rot = this->getRot().m_z;
-                            cannonEventInfo.m_shootSpeed = this->cannonStaticData->shootSpeed;
-                            cannonEventInfo.m_shootTimerSpeed = this->cannonStaticData->shootTimerSpeed;
-                            cannonEventInfo.m_shootAngleOffset = this->cannonStaticData->shootAngleOffset;
-                            cannonEventInfo.m_shootStunTimerSpeed = this->cannonStaticData->shootStunTimerSpeed;
-                            this->m_yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                            soGimmickBarrelEventArgs_SetSpeed cannonEvent(this->getRot().m_z, this->cannonStaticData->shootSpeed, this->cannonStaticData->shootTimerSpeed, this->cannonStaticData->shootAngleOffset, this->cannonStaticData->shootStunTimerSpeed);
+                            this->m_yakumono->presentEventGimmick(&cannonEvent, this->cannonPlayerInfos[i].sendID);
                             this->cannonPlayerInfos[i].isActive = false;
                         }
                         else {
@@ -199,18 +188,12 @@ void grAdventureBarrelCannon::processFixPosition() {
                             this->cannonPlayerInfos[i].frame = 0.0;
                             if (0.0 < this->shootMotionPath->m_frameCount) {
                                 this->shootMotionPath->setFrame(this->cannonPlayerInfos[i].frame);
-                                cannonEventInfo.m_kind = Gimmick::Barrel_Event_Set_Path;
-                                cannonEventInfo.m_sendID = 0;
-                                cannonEventInfo.m_attackData = NULL;
-                                cannonEventInfo.m_pos = this->getPos();
-                                this->m_yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                                soGimmickBarrelEventArgs_SetPath cannonEvent(this->getPos());
+                                this->m_yakumono->presentEventGimmick(&cannonEvent, this->cannonPlayerInfos[i].sendID);
                             }
                             else {
-                                cannonEventInfo.m_kind = Gimmick::Barrel_Event_End_Path;
-                                cannonEventInfo.m_sendID = 0;
-                                cannonEventInfo.m_attackData = NULL;
-                                cannonEventInfo.m_pos = Vec3f(0.0,0.0,0.0);
-                                this->m_yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                                soGimmickBarrelEventArgs_EndPath cannonEvent;
+                                this->m_yakumono->presentEventGimmick(&cannonEvent, this->cannonPlayerInfos[i].sendID);
                                 this->cannonPlayerInfos[i].isActive = false;
                             }
                             this->cannonPlayerInfos[i].frame += cannonPathData->shootMotionPathData.m_motionRatio;
@@ -223,18 +206,12 @@ void grAdventureBarrelCannon::processFixPosition() {
                 case PlayerState_Path:
                     if (this->cannonPlayerInfos[i].frame < this->shootMotionPath->m_frameCount) {
                         this->shootMotionPath->setFrame(this->cannonPlayerInfos[i].frame);
-                        cannonEventInfo.m_kind = Gimmick::Barrel_Event_Set_Path;
-                        cannonEventInfo.m_sendID = 0;
-                        cannonEventInfo.m_pos = this->getPos();
-                        cannonEventInfo.m_attackData = NULL;
-                        this->m_yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                        soGimmickBarrelEventArgs_SetPath cannonEvent(this->getPos());
+                        this->m_yakumono->presentEventGimmick(&cannonEvent, this->cannonPlayerInfos[i].sendID);
                     }
                     else {
-                        cannonEventInfo.m_kind = Gimmick::Barrel_Event_End_Path;
-                        cannonEventInfo.m_sendID = 0;
-                        cannonEventInfo.m_pos = Vec3f(0.0,0.0,0.0);
-                        cannonEventInfo.m_attackData = NULL;
-                        this->m_yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[i].sendID);
+                        soGimmickBarrelEventArgs_EndPath cannonEvent;
+                        this->m_yakumono->presentEventGimmick(&cannonEvent, this->cannonPlayerInfos[i].sendID);
                     }
                     this->cannonPlayerInfos[i].frame += cannonPathData->shootMotionPathData.m_motionRatio;
                     break;
@@ -338,7 +315,7 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventArgs* eventInfo, int*
                 this->cannonState = State_Set;
             }
             this->startGimmickSE(0);
-            cannonEventInfo->m_20 = this->cannonData->field_0xce;
+            cannonEventInfo->m_breakHitstopFrame = this->cannonData->breakHitstopFrame;
             cannonEventInfo->m_pos = pos;
             break;
         case 0x3:
@@ -412,13 +389,10 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
     attackData.m_targetSituationAir = true;
     attackData.m_targetSituationGround = true;
 
-    soGimmickBarrelEventArgs cannonEventInfo;
-    cannonEventInfo.m_kind = Gimmick::Barrel_Event_Shoot;
-    cannonEventInfo.m_sendID = 0;
-    cannonEventInfo.m_attackData = &attackData;
-    this->getNodePosition(&cannonEventInfo.m_pos, 0, this->nodeIndex);
-    cannonEventInfo.m_rot = this->getRot().m_z;
-    this->m_yakumono->presentEventGimmick(&cannonEventInfo, this->cannonPlayerInfos[playerCannonIndex].sendID);
+    Vec3f pos;
+    this->getNodePosition(&pos, 0, this->nodeIndex);
+    soGimmickBarrelEventArgs_Shoot cannonEvent(pos, &attackData, this->getRot().m_z);
+    this->m_yakumono->presentEventGimmick(&cannonEvent, this->cannonPlayerInfos[playerCannonIndex].sendID);
 
     this->isInCooldown = true;
     this->cooldownTimer = 30.0;

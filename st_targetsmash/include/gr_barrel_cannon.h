@@ -22,7 +22,7 @@ struct grGimmickBarrelCannonData {
     float autoFireFrames;
     bool fullRotate;
     bool alwaysRotate;
-    unsigned short field_0xce;
+    unsigned short breakHitstopFrame;
     stTriggerData enterCannonTriggerData;
     stTriggerData motionPathTriggerData;
     stTriggerData isValidTriggerData;
