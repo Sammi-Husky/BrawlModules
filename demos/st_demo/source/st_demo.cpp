@@ -123,7 +123,7 @@ void stDemo::createObj()
     gfModuleManager::LoadRequestResult requestResult;
     gfModuleManager::loadModuleRequest(&requestResult, moduleManager, "sora_enemy_vs.rel", Heaps::OverlayStage, 1, 0);
 
-    this->doorData.motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, 0xFF, 0};
+    this->doorData.motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, 0xFF, 0);
     this->doorData._spacer[7] = 0x12;
     this->doorData.areaOffsetPos = Vec2f(0, 10.0);
     this->doorData.areaRange = Vec2f(20.0, 20.0);
@@ -137,14 +137,14 @@ void stDemo::createObj()
     this->doorData.useOpenDoorTypeEffect = 0x1;
     this->doorData.pos.m_x = 0.0;
     this->doorData.pos.m_y = 0.0;
-    this->doorData.openDoorTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
+    this->doorData.openDoorTriggerData.set(0, true, stTriggerData::Keep_None);
     this->doorData.doorType = Normal_Door;
     this->doorData.sndID = snd_se_AllStar_Heal_Warp; //snd_se_invalid;
-    this->doorData.motionPathTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
-    this->doorData.isValidTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
+    this->doorData.motionPathTriggerData.set(0, true, stTriggerData::Keep_None);
+    this->doorData.isValidTriggerData.set(0, true, stTriggerData::Keep_None);
 
 
-    this->cannonData.motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, 0xFF, 0};
+    this->cannonData.motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, 0xFF, 0);
     this->cannonData._spacer[7] = 0x12;
     this->cannonData.areaRange = Vec2f(20.0, 15.0);
     this->cannonData.pos.m_x = 0.0;
@@ -159,9 +159,9 @@ void stDemo::createObj()
     this->cannonData.alwaysRotate = false;
     this->cannonData.mdlIndex = 110;
     this->cannonData.breakHitstopFrame = 0x8;
-    this->cannonData.enterCannonTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
-    this->cannonData.motionPathTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
-    this->cannonData.isValidTriggerData = (stTriggerData){ 0, 0, 1, stTriggerData::Keep_None };
+    this->cannonData.enterCannonTriggerData.set(0, true, stTriggerData::Keep_None);
+    this->cannonData.motionPathTriggerData.set(0, true, stTriggerData::Keep_None);
+    this->cannonData.isValidTriggerData.set(0, true, stTriggerData::Keep_None);
     this->cannonData.attackData.m_damage = 0;
     this->cannonData.attackData.m_offsetPos.m_x = 0.0;
     this->cannonData.attackData.m_offsetPos.m_y = 0.0;

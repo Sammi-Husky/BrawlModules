@@ -18,8 +18,8 @@ grPlatform* grPlatform::create(int mdlIndex, const char* tgtNodeName, const char
 void grPlatform::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grMadein::startup(archive, unk1, unk2);
 
-    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, this->isRotateMotionPath, true, 0, 0, 0, 0, 0, 0 };
-    stTriggerData triggerData = {0,0,1,0};
+    grGimmickMotionPathInfo motionPathInfo(archive, &this->motionPathData, this->isRotateMotionPath, true);
+    stTriggerData triggerData(0,true,stTriggerData::Keep_None);
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "MovePlatformNode");
 
     int endNodeIndex = this->getNodeIndex(0, "EndNode");
@@ -199,7 +199,7 @@ void grPlatform::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId) {
 }
 
 void grPlatform::setMotionPathData(int mdlIndex, bool isRotateMotionPath) {
-    this->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0};
+    this->motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0);
 
     this->isRotateMotionPath = isRotateMotionPath;
 }
@@ -239,7 +239,7 @@ void grPlatform::initializeEntity() {
         Vec3f areaPosNE;
         this->getNodePosition(&areaPosSW, 0, "AreaSW");
         this->getNodePosition(&areaPosNE, 0, "AreaNE");
-        this->areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, nodeIndex, *(areaPosSW + areaPosNE).xy() / 2, *(areaPosSW - areaPosNE).xy()};
+        this->areaData.set(gfArea::Shape_Rectangle, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, nodeIndex, *(areaPosSW + areaPosNE).xy() / 2, *(areaPosSW - areaPosNE).xy());
 
         this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, true);
         stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Common,-1);

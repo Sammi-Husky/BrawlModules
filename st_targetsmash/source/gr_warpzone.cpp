@@ -13,7 +13,7 @@ grWarpZone* grWarpZone::create(int mdlIndex, const char* taskName) {
 }
 
 void grWarpZone::prepareWarpData(int motionPathIndex, float deactivateFrames, bool isRotateMotionPath) {
-    this->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0};
+    this->motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0);
 
     this->deactivateFrames = deactivateFrames;
     this->isRotateMotionPath = isRotateMotionPath;
@@ -22,7 +22,7 @@ void grWarpZone::prepareWarpData(int motionPathIndex, float deactivateFrames, bo
 void grWarpZone::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grGimmickWarpZone::startup(archive, unk1, unk2);
 
-    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, this->isRotateMotionPath, true, 0, 0, 0, 0, 0, 0 };
+    grGimmickMotionPathInfo motionPathInfo(archive, &this->motionPathData, this->isRotateMotionPath, true);
     this->createAttachMotionPath(&motionPathInfo, NULL, "MoveNode");
 
     this->changeTexSrtAnim(0,0);

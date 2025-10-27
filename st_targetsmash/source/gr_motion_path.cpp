@@ -7,7 +7,7 @@ grMotionPath* grMotionPath::create(int mdlIndex, const char* nodeName, const cha
     grMotionPath* ground = new (Heaps::StageInstance) grMotionPath(taskName, nodeName);
     ground->setMdlIndex(mdlIndex);
 
-    ground->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0};
+    ground->motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0);
 
     ground->setGimmickData(&ground->motionPathData);
 

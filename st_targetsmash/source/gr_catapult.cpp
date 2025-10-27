@@ -29,7 +29,7 @@ void grCatapult::prepareCatapultData(float vector, float motionRatio, int motion
     Vec2f areaRange = Vec2f(10.0, 5.0);
 
     this->_catapultData.initialize(
-            framesBeforeStartMove, unk1, unk2, vector, this->m_mdlIndex, (vector > 90 && vector <= 270) ? true : false, true,
+            framesBeforeStartMove, unk1, unk2, vector, this->m_mdlIndex, vector > 90 && vector <= 270, true,
             motionRatio, 0, motionPathIndex, 0,
             &areaPos, &areaRange);
 

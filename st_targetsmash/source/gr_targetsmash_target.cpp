@@ -21,8 +21,8 @@ grTargetSmashTarget* grTargetSmashTarget::create(int mdlIndex, const char* tgtNo
 void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     grMadein::startup(archive, unk1, unk2);
 
-    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
-    stTriggerData triggerData = {0,0,1,0};
+    grGimmickMotionPathInfo motionPathInfo(archive, &this->motionPathData, false, true);
+    stTriggerData triggerData(0,true,stTriggerData::Keep_None);
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 
     int endNodeIndex = this->getNodeIndex(0, "EndNode");
@@ -108,7 +108,7 @@ void grTargetSmashTarget::setupAttack(AttackData* attackData) {
 void grTargetSmashTarget::setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
                                         u32* numTargetsHitPerPlayerWork, float* totalDamageWork, int mode) {
 
-    this->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0};
+    this->motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0);
     this->effectIndex = effectIndex;
 
     this->targetsHitWork = targetsHitWork;

@@ -42,9 +42,9 @@ void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
     {
         this->m_calcWorldCallBack.m_nodeCallbackDatas[0].m_scale = Vec3f(1.1, 1.1, 1.0);
     }
-    this->areaData = (soAreaData){ 0, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, 0, this->doorData->areaOffsetPos, this->doorData->areaRange };
+    this->areaData.set(gfArea::Shape_Rectangle, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, 0, this->doorData->areaOffsetPos, this->doorData->areaRange);
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);
-    grGimmickMotionPathInfo motionPathInfo = { archive, &this->doorData->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
+    grGimmickMotionPathInfo motionPathInfo(archive, &this->doorData->motionPathData, false, true);
     this->createAttachMotionPath(&motionPathInfo, &this->doorData->motionPathTriggerData, "path_locator");
     stTrigger* trigger = g_stTriggerMng->createTrigger(this->gimmickKind, -1);
     trigger->setObserveYakumono(this->m_yakumono);

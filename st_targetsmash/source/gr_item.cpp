@@ -8,7 +8,7 @@ grItem* grItem::create(int mdlIndex, const char* nodeName, const char* taskName,
     ground->setMdlIndex(mdlIndex);
     ground->itemInstanceId = itemInstanceId;
 
-    ground->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0};
+    ground->motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0);
 
     ground->setGimmickData(&ground->motionPathData);
 

@@ -25,8 +25,8 @@ void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, u32 unk2) {
     this->m_soundEffects[0].m_endFrame = 0;
     this->m_soundEffects[0].m_offsetPos = Vec2f(0.0, 0.0);
 
-    grGimmickMotionPathInfo motionPathInfo = { archive, &this->motionPathData, false, true, 0, 0, 0, 0, 0, 0 };
-    stTriggerData triggerData = {0,0,1,0};
+    grGimmickMotionPathInfo motionPathInfo(archive, &this->motionPathData, false, true);
+    stTriggerData triggerData(0,true,stTriggerData::Keep_None);
     this->createAttachMotionPath(&motionPathInfo, &triggerData, "MoveNode");
 
     this->initializeEntity();
@@ -36,7 +36,7 @@ void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, u32 unk2) {
 void grTargetSmashDisk::setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
                                         u32* numTargetsHitPerPlayerWork, float* totalDamageWork, int mode) {
 
-    this->motionPathData = (grGimmickMotionPathData){1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0};
+    this->motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, motionPathIndex, 0);
 
     this->targetsHitWork = targetsHitWork;
     this->targetsLeftWork = targetsLeftWork;
