@@ -51,6 +51,9 @@ void grSpring::update(float deltaFrame) {
                 this->presentShootEvent();
                 this->setMotionOff();
             }
+            break;
+        default:
+            break;
     }
     this->m_animFrame += deltaFrame;
 
