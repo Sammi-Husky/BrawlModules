@@ -9,8 +9,8 @@ grSpring* grSpring::create(int mdlIndex, const char* taskName) {
     return spring;
 }
 
-void grSpring::startup(gfArchive* archive, u32 unk1, u32 unk2) {
-    grGimmickSpring::startup(archive, unk1, unk2);
+void grSpring::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType) {
+    grGimmickSpring::startup(archive, unk1, layerType);
     this->m_bounce = this->m_springData->m_bounce; // Copy to struct so that springData can be changed
 
     grGimmickMotionPathInfo motionPathInfo(archive, &this->motionPathData, this->isRotateMotionPath, true);

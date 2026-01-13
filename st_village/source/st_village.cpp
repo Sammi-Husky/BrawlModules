@@ -198,7 +198,7 @@ void stVillage::createObjBg(int index)
     if (bg != NULL)
     {
         this->addGround(bg);
-        bg->startup(m_fileData, 0, 0);
+        bg->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         bg->setStageData(m_stageData);
         bg->setSceneWork(&this->scene);
         bg->setSceneBit(sceneBit);
@@ -215,7 +215,7 @@ void stVillage::createObjSky(int index)
             return;
 
         this->addGround(sky);
-        sky->startup(m_fileData, 0, 0);
+        sky->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         sky->setStageData(m_stageData);
         sky->setSceneWork(&this->scene);
         sky->setStateWork(&this->state);
@@ -262,7 +262,7 @@ void stVillage::createObjGuestPathMove(int index)
     if (guestPath != NULL)
     {
         this->addGround(guestPath);
-        guestPath->startup(this->m_fileData, 0, 0);
+        guestPath->startup(this->m_fileData, 0, gfSceneRoot::Layer_Ground);
         guestPath->setStageData(this->m_stageData);
         guestPath->setSceneWork(&this->scene);
         guestPath->setSceneBit(sceneBit);
@@ -301,7 +301,7 @@ void stVillage::createObjAshiba(int index)
     if (ashiba != NULL)
     {
         this->addGround(ashiba);
-        ashiba->startup(m_fileData, 0, 0);
+        ashiba->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         ashiba->setStageData(m_stageData);
         ashiba->setSceneWork(&this->scene);
         ashiba->setSceneBit(sceneBit);

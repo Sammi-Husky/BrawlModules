@@ -18,8 +18,8 @@ grTargetSmashTarget* grTargetSmashTarget::create(int mdlIndex, const char* tgtNo
     return target;
 }
 
-void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, u32 unk2) {
-    grMadein::startup(archive, unk1, unk2);
+void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType) {
+    grMadein::startup(archive, unk1, layerType);
 
     grGimmickMotionPathInfo motionPathInfo(archive, &this->motionPathData, false, true);
     stTriggerData triggerData(0,true,stTriggerData::Keep_None);
@@ -98,7 +98,7 @@ void grTargetSmashTarget::setupAttack(AttackData* attackData) {
     float size = 5.0;
     Vec3f offsetPos = Vec3f(0.0, 0.0, 0.0);
     this->setAttack(size, &offsetPos);
-    this->m_attackInfo->m_preset = 4;
+    this->m_attackInfo->m_preset = Attack_Overwrite;
 
     soCollisionAttackData* overwriteAttackData = this->getOverwriteAttackData();
     this->createAttackPointNormal(overwriteAttackData);

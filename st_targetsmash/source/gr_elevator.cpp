@@ -28,9 +28,9 @@ void grAdventureElevator::prepareElevatorData(Vec2f* areaOffsetPos, Vec2f* areaR
     this->elevatorData.posMdlIndex = posMdlIndex;
 }
 
-void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
+void grAdventureElevator::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType)
 {
-    grYakumono::startup(archive, unk1, unk2);
+    grYakumono::startup(archive, unk1, layerType);
     this->elevatorPosGround = grAdventure2::create(this->elevatorData.posMdlIndex, "");
     this->elevatorPosGround->m_connectedTask = this;
     gfTask* task = this->m_attachedTask;
@@ -45,7 +45,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
         }
         lastTask->m_nextTask = this->elevatorPosGround;
     }
-    this->elevatorPosGround->startup(archive, unk1, unk2);
+    this->elevatorPosGround->startup(archive, unk1, layerType);
     if (this->m_modelAnims != NULL)
     {
         (this->m_modelAnims[0])->unbindNodeAnim(this->m_sceneModels[0]);

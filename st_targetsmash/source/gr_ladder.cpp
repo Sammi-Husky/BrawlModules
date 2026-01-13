@@ -9,8 +9,8 @@ grLadder* grLadder::create(int mdlIndex, const char* taskName) {
     return ladder;
 }
 
-void grLadder::startupLadder(gfArchive* archive, u32 unk1, u32 unk2, grGimmickLadderData* ladderData) {
-    Ground::startup(archive, unk1, unk2);
+void grLadder::startupLadder(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType, grGimmickLadderData* ladderData) {
+    Ground::startup(archive, unk1, layerType);
     if (this->m_modelAnims[0] != NULL) {
         this->m_modelAnims[0]->unbindNodeAnim(this->m_sceneModels[0]);
     }

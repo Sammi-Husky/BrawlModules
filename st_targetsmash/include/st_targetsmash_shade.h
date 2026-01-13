@@ -55,7 +55,7 @@ public:
             frameInfo.motionKind = followFighter->m_moduleAccesser->getMotionModule().getKind();
             frameInfo.motionFrame = followFighter->m_moduleAccesser->getMotionModule().getFrame();
         } else {
-            frameInfo.motionKind = Fighter::Motion_Catapult;
+            frameInfo.motionKind = Fighter::Motion::Catapult;
             frameInfo.motionFrame = 1.0;
         }
         this->setFrameInfo(currentFrame, &frameInfo);
@@ -82,7 +82,7 @@ public:
     }
 
     virtual void begin(Fighter* fighter, Fighter* followFighter) {
-        fighter->m_moduleAccesser->getStatusModule().changeStatus(Fighter::Status_Test_Motion,
+        fighter->m_moduleAccesser->getStatusModule().changeStatus(Fighter::Status::Test_Motion,
                                                                    fighter->m_moduleAccesser);
         fighter->m_moduleAccesser->getCollisionHitModule().setXluGlobal(0);
         fighter->m_moduleAccesser->getEffectModule().removeCommon(0);
@@ -102,18 +102,18 @@ public:
 
         const char* motionName = fighter->m_moduleAccesser->getMotionModule().getName(frameInfo.motionKind, true);
         int statusKind = followFighter->m_moduleAccesser->getStatusModule().getStatusKind();
-        if (statusKind == Fighter::Status_Dead || statusKind == Fighter::Status_Standby) {
+        if (statusKind == Fighter::Status::Dead || statusKind == Fighter::Status::Standby) {
             frameInfo.pos = fighter->m_moduleAccesser->getPostureModule().getPos();
             frameInfo.rot = fighter->m_moduleAccesser->getPostureModule().getRot(0);
             frameInfo.lr = fighter->m_moduleAccesser->getPostureModule().getLr();
             frameInfo.motionKind = fighter->m_moduleAccesser->getMotionModule().getKind();
-            frameInfo.motionKind = ((frameInfo.lr >= 0.0) ? Fighter::Motion_Appeal_Hi_R : Fighter::Motion_Appeal_Hi_L) + randi(3)*2;
+            frameInfo.motionKind = ((frameInfo.lr >= 0.0) ? Fighter::Motion::Appeal_Hi_R : Fighter::Motion::Appeal_Hi_L) + randi(3)*2;
             frameInfo.motionFrame = -1;
             this->state = State_Finish;
             this->isRecord = false;
         }
         else if (motionName == NULL || strcmp(motionName, "NONE") == 0 || strcmp(motionName, "") == 0) {
-            frameInfo.motionKind = Fighter::Motion_Catapult;
+            frameInfo.motionKind = Fighter::Motion::Catapult;
             frameInfo.motionFrame = 1.0;
         }
         fighter->m_moduleAccesser->getPostureModule().setPos(&frameInfo.pos);

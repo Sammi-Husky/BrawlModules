@@ -209,7 +209,7 @@ void stDemo::createObj()
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(m_fileData, 0, 0);
+        ground->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         ground->setStageData(m_stageData);
         ground->setType(0);
         ground->setDontMoveGround();
@@ -218,7 +218,7 @@ void stDemo::createObj()
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(m_fileData, 0, 0);
+        ground->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         ground->setStageData(m_stageData);
         ground->setType(1);
         ground->setDontMoveGround();
@@ -229,7 +229,7 @@ void stDemo::createObj()
     {
         addGround(door);
         door->setGimmickData(&this->doorData);
-        door->startup(m_fileData, 0, 0);
+        door->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
     }
 
     grAdventureBarrelCannon* cannon = grAdventureBarrelCannon::create(this->cannonData.mdlIndex, BarrelCannon_Static, "grAdventureBarrelCannon");
@@ -237,7 +237,7 @@ void stDemo::createObj()
     {
         addGround(cannon);
         cannon->setGimmickData(&this->cannonData);
-        cannon->startup(m_fileData, 0, 0);
+        cannon->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
     }
 
     grAdventureElevator* elevator = grAdventureElevator::create(this->elevatorData.mdlIndex, "grAdventureElevator");
@@ -245,7 +245,7 @@ void stDemo::createObj()
     {
         addGround(elevator);
         elevator->setGimmickData(&this->elevatorData);
-        elevator->startup(m_fileData, 0, 0);
+        elevator->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         createCollision(m_fileData, this->elevatorData.collIndex, elevator);
     }
 

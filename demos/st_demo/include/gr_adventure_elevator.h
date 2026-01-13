@@ -61,7 +61,7 @@ public:
     };
     virtual void processFixPosition();
     virtual void update(float deltaFrame);
-    virtual void startup(gfArchive* data, u32 unk1, u32 unk2);
+    virtual void startup(gfArchive* data, u32 unk1, gfSceneRoot::LayerType layerType);
     virtual void onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId);
     virtual ~grAdventureElevator(){
         /*if (floorPositions != NULL) {

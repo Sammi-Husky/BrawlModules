@@ -53,7 +53,7 @@ void stStadium::createObj()
     int groundNum = this->getGroundNum();
     for (int i = 0; i < groundNum; i++) {
         Ground* ground = this->getGround(i);
-        ground->startup(this->m_fileData, 0, 0);
+        ground->startup(this->m_fileData, 0, gfSceneRoot::Layer_Ground);
         ground->setStageData(this->m_stageData);
     }
     this->createCollision(this->m_fileData, 2, NULL);

@@ -14,9 +14,9 @@ grAdventureElevator* grAdventureElevator::create(int mdlIndex, const char* taskN
     return elevator;
 }
 
-void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
+void grAdventureElevator::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType)
 {
-    grYakumono::startup(archive, unk1, unk2);
+    grYakumono::startup(archive, unk1, layerType);
     this->elevatorData = (grAdventureElevatorData*)this->getGimmickData();
     this->elevatorPosGround = grAdventure2::create(this->elevatorData->posMdlIndex, "");
     this->elevatorPosGround->m_connectedTask = this;
@@ -32,7 +32,7 @@ void grAdventureElevator::startup(gfArchive* archive, u32 unk1, u32 unk2)
         }
         lastTask->m_nextTask = this->elevatorPosGround;
     }
-    this->elevatorPosGround->startup(archive, unk1, unk2);
+    this->elevatorPosGround->startup(archive, unk1, layerType);
     if (this->m_modelAnims != NULL)
     {
         (this->m_modelAnims[0])->unbindNodeAnim(this->m_sceneModels[0]);

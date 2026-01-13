@@ -13,9 +13,9 @@ grAdventureDoor* grAdventureDoor::create(int mdlIndex, u32 jumpData, const char*
     return door;
 }
 
-void grAdventureDoor::startup(gfArchive* archive, u32 unk1, u32 unk2)
+void grAdventureDoor::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType)
 {
-    grYakumono::startup(archive, unk1, unk2);
+    grYakumono::startup(archive, unk1, layerType);
     this->doorData = (grGimmickDoorData*)this->m_gimmickData;
     switch (this->doorData->doorGimmickKind)
     {

@@ -15,8 +15,8 @@ grArea* grArea::create(int mdlIndex, const char* tgtNodeName, const char* taskNa
     return ground;
 }
 
-void grArea::startup(gfArchive* archive, u32 unk1, u32 unk2) {
-    grMadein::startup(archive, unk1, unk2);
+void grArea::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType) {
+    grMadein::startup(archive, unk1, layerType);
 
     grGimmickMotionPathInfo motionPathInfo(archive, &this->motionPathData, this->isRotateMotionPath, true);
     stTriggerData triggerData(0,true,stTriggerData::Keep_None);

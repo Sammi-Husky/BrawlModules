@@ -14,9 +14,9 @@ grAdventureBarrelCannon* grAdventureBarrelCannon::create(int mdlIndex, BarrelCan
     return cannon;
 }
 
-void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
+void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType)
 {
-    grYakumono::startup(archive, unk1, unk2);
+    grYakumono::startup(archive, unk1, layerType);
     this->cannonData = (grGimmickBarrelCannnonData*)this->m_gimmickData;
     this->rotateSpeed = this->cannonData->difficultyRotateSpeeds[0];
     this->isRotate = this->cannonData->alwaysRotate;
@@ -33,7 +33,7 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, u32 unk2)
                 this->kind = BarrelCannon_PathAuto;
             }
             this->createMotionPath();
-            this->shootMotionPath->startup(archive, 0, 0);
+            this->shootMotionPath->startup(archive, 0, gfSceneRoot::Layer_Ground);
             break;
         default:
             break;

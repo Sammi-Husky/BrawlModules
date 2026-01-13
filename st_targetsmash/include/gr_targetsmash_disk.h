@@ -22,7 +22,7 @@ class grTargetSmashDisk : public grMadein
             prevIsLandedOn = false;
         };
         virtual ~grTargetSmashDisk() { };
-        virtual void startup(gfArchive* archive, u32 unk1, u32 unk2);
+        virtual void startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType);
         virtual void update(float deltaFrame);
         virtual void receiveCollMsg(int direction, grCollStatus* collStatus, grCollisionJoint* collisionJoint);
         virtual void setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,

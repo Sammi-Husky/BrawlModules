@@ -27,7 +27,7 @@ void stFinal::createObj()
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(m_fileData, 0, 0);
+        ground->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         ground->setStageData(m_stageData);
         ground->setType(0);
         ground->setDontMoveGround();
@@ -36,7 +36,7 @@ void stFinal::createObj()
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(m_fileData, 0, 0);
+        ground->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         ground->setStageData(m_stageData);
         ground->setType(1);
         ground->setDontMoveGround();

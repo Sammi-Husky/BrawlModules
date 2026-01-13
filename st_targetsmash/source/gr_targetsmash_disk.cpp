@@ -16,8 +16,8 @@ grTargetSmashDisk* grTargetSmashDisk::create(int mdlIndex, const char* tgtNodeNa
     return disk;
 }
 
-void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, u32 unk2) {
-    grMadein::startup(archive, unk1, unk2);
+void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType) {
+    grMadein::startup(archive, unk1, layerType);
     this->createSoundWork(1,1);
     this->m_soundEffects[0].m_id = snd_se_ADVstage_common_15;
     this->m_soundEffects[0].m_nodeIndex = 0;

@@ -19,8 +19,8 @@ void grWarpZone::prepareWarpData(int motionPathIndex, float deactivateFrames, bo
     this->isRotateMotionPath = isRotateMotionPath;
 };
 
-void grWarpZone::startup(gfArchive* archive, u32 unk1, u32 unk2) {
-    grGimmickWarpZone::startup(archive, unk1, unk2);
+void grWarpZone::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType layerType) {
+    grGimmickWarpZone::startup(archive, unk1, layerType);
 
     grGimmickMotionPathInfo motionPathInfo(archive, &this->motionPathData, this->isRotateMotionPath, true);
     this->createAttachMotionPath(&motionPathInfo, NULL, "MoveNode");
@@ -59,7 +59,7 @@ void grWarpZone::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId) {
                 this->startGimmickSE(0);
                 g_ftManager->setWarpFighter(entryId, &warpDest, currentLr, 0x3);
                 if (correct == 1 || correct == 2 || correct == 3) {
-                    fighter->m_moduleAccesser->getStatusModule().changeStatusRequest(Fighter::Status_Fall, fighter->m_moduleAccesser);
+                    fighter->m_moduleAccesser->getStatusModule().changeStatusRequest(Fighter::Status::Fall, fighter->m_moduleAccesser);
                 }
                 break;
             case 12:
@@ -116,7 +116,7 @@ void grWarpZone::update(float deltaFrame) {
 
 bool grWarpZone::isInHitstun(Fighter* fighter) {
     int status = fighter->m_moduleAccesser->getStatusModule().getStatusKind();
-    if (status == Fighter::Status_Damage || status == Fighter::Status_Damage_Air || status == Fighter::Status_Damage_Fly) {
+    if (status == Fighter::Status::Damage || status == Fighter::Status::Damage_Air || status == Fighter::Status::Damage_Fly) {
         return true;
     }
     return false;

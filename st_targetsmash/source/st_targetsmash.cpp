@@ -47,7 +47,7 @@ void stTargetSmash::update(float deltaFrame)
         u32 endIndex = ground->getNodeIndex(0, "Enemies");
         for (int i = itemsIndex + 1; i < endIndex; i++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            this->putItem(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, resNodeData->m_translation.xy(), resNodeData->m_translation.m_z);
+            this->putItem(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z,  resNodeData->m_translation.xy(), resNodeData->m_translation.m_z);
         }
         this->isItemsInitialized = true;
     }
@@ -386,12 +386,14 @@ void stTargetSmash::applyNameCheats() {
             char name[32];
             Message::utf16to8(name, playerInitData->m_name);
 
+            // TODO: "HMMM" tag for random cheat
+
             if (strcmp(name, "Ｈ４２Ｙ") == 0) {
                 owner->setMetal(true);
             } else if (strcmp(name, "Ｍ３６４") == 0) {
-                owner->setInfiniteScaling(Fighter::Scaling_Kind_Kinoko, Fighter::Scaling_Type_Big);
+                owner->setInfiniteScaling(Fighter::Scaling::Kind_Kinoko, Fighter::Scaling::Type_Big);
             } else if (strcmp(name, "Ｍ１Ｎ１") == 0) {
-                owner->setInfiniteScaling(Fighter::Scaling_Kind_Kinoko, Fighter::Scaling_Type_Small);
+                owner->setInfiniteScaling(Fighter::Scaling::Kind_Kinoko, Fighter::Scaling::Type_Small);
             } else if (strcmp(name, "５７４Ｒ") == 0) {
                 fighter->setSuperStar(true, INT_MAX, false);
             } else if (strcmp(name, "Ｆ１Ｎ４１") == 0) {
@@ -415,14 +417,14 @@ void stTargetSmash::applyNameCheats() {
                 BaseItem* item = itemManager->createItem(Item_Screw, 0, fighter->m_taskId);
                 fighter->m_moduleAccesser->getItemManageModule().attachItem(item, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule().onFlag(BaseItem::Instance_Work_Flag_Value_1);
-                item->m_moduleAccesser->getWorkManageModule().setInt(-1, BaseItem::Instance_Work_Int_Counter);
+                item->m_moduleAccesser->getWorkManageModule().onFlag(BaseItem::Instance::Work::Flag_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(-1, BaseItem::Instance::Work::Int_Counter);
             } else if (strcmp(name, "５Ｐ１Ｋ３") == 0) {  // "5P1K3"
                 BaseItem* item = itemManager->createItem(Item_GoldenHammer, 0, fighter->m_taskId);
                 fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
-                fighter->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, Fighter::Instance_Work_Int_Hammer_Counter);
+                fighter->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, Fighter::Instance::Work::Int_Hammer_Counter);
                 item->setVanishMode(false);
-                item->changeMotion(BaseItem::Motion_Have, true);
+                item->changeMotion(BaseItem::Motion::Have, true);
             } else if (strcmp(name, "ＨＹＤＲ４") == 0) {
                 fighter->m_moduleAccesser->getItemManageModule().haveItem(Item_Dragoon_Set, 0, true, false);
             } else if (strcmp(name, "５４８３Ｒ") == 0) {
@@ -433,22 +435,22 @@ void stTargetSmash::applyNameCheats() {
                 BaseItem *item = itemManager->createItem(Item_StarRod, 0, fighter->m_taskId);
                 fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance::Work::Int_Value_1);
             } else if (strcmp(name, "５Ｃ０Ｐ３") == 0) { // "5C0P3"
                 BaseItem* item = itemManager->createItem(Item_SuperScope, 0, fighter->m_taskId);
                 fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance::Work::Int_Value_1);
             } else if (strcmp(name, "１４５３Ｒ") == 0) { // "1453R"
                 BaseItem* item = itemManager->createItem(Item_RayGun, 0, fighter->m_taskId);
                 fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance::Work::Int_Value_1);
             } else if (strcmp(name, "ＣＲ４ＣＫ") == 0) { // "CR4CK"
                 BaseItem* item = itemManager->createItem(Item_Clacker, 0, fighter->m_taskId);
                 fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
                 item->setVanishMode(false);
-                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance_Work_Int_Value_1);
+                item->m_moduleAccesser->getWorkManageModule().setInt(INT_MAX, BaseItem::Instance::Work::Int_Value_1);
             } else if (strcmp(name, "Ｎ０Ｖ４") == 0) {  // "N0V4"
                 BaseItem* item = itemManager->createItem(Item_SmartBomb, 1, fighter->m_taskId);
                 fighter->m_moduleAccesser->getItemManageModule().haveItem(item, 0, true, true);
@@ -826,7 +828,7 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
     if (ground != NULL)
     {
         addGround(ground);
-        ground->startup(m_fileData, 0, 0);
+        ground->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         ground->setStageData(m_stageData);
         createCollision(m_fileData, collIndex, ground);
         u32 targetsIndex = ground->getNodeIndex(0, "Targets");
@@ -978,7 +980,7 @@ void stTargetSmash::createObjTarget(int mdlIndex, Vec2f* pos, Vec3f* scale, int 
         if (collIndex < 0) {
             target->setupAttack(&stageData->damageFloors[(-collIndex) - 1].m_attackData);
         }
-        target->startup(this->m_fileData,0,0);
+        target->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         target->setPos(pos->m_x, pos->m_y, 0);
         target->setScale(scale);
         if (collIndex > 0) {
@@ -995,7 +997,7 @@ void stTargetSmash::createObjDisk(int mdlIndex, Vec2f* pos, float rot, float sca
         addGround(disk);
         disk->setStageData(m_stageData);
         disk->setTargetInfo(motionPathIndex, 0, &this->targetsHit, &this->targetsLeft, this->numTargetsHitPerPlayer, &this->totalDamage, mode);
-        disk->startup(this->m_fileData,0,0);
+        disk->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         disk->setPos(pos->m_x, pos->m_y, 0.0);
         disk->setScale(scaleX, 1.0, scaleZ);
         disk->setRot(0.0, 0.0, rot);
@@ -1009,7 +1011,7 @@ void stTargetSmash::createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float
         addGround(platform);
         platform->setStageData(m_stageData);
         platform->setMotionPathData(motionPathIndex, rot >= 360);
-        platform->startup(this->m_fileData,0,0);
+        platform->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         platform->initializeEntity();
         platform->startEntity();
         platform->setPos(pos->m_x, pos->m_y, 0.0);
@@ -1034,7 +1036,7 @@ void stTargetSmash::createObjBreak(int mdlIndex, Vec2f* pos, float rot, int moti
         addGround(platform);
         platform->setStageData(m_stageData);
         platform->setMotionPathData(motionPathIndex, rot >= 360);
-        platform->startup(this->m_fileData,0,0);
+        platform->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         platform->setupHitPoint(maxDamage, respawnTime);
         if (collIndex < 0) {
             platform->setupAttack(&stageData->damageFloors[(-collIndex) - 1].m_attackData);
@@ -1056,7 +1058,7 @@ void stTargetSmash::createObjLand(int mdlIndex, Vec2f* pos, float rot, int motio
         addGround(platform);
         platform->setStageData(m_stageData);
         platform->setMotionPathData(motionPathIndex, rot >= 360);
-        platform->startup(this->m_fileData,0,0);
+        platform->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         platform->initializeEntity();
         platform->startEntity();
         platform->setupLanding(maxLandings, respawnTime);
@@ -1073,7 +1075,7 @@ void stTargetSmash::createObjElevator(int mdlIndex, Vec2f* pos, Vec2f* range, in
     {
         addGround(elevator);
         elevator->prepareElevatorData(pos, range, speed, deltaSpeed, posIndex);
-        elevator->startup(m_fileData, 0, 0);
+        elevator->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         createCollision(m_fileData, collIndex, elevator);
     }
 }
@@ -1084,7 +1086,7 @@ void stTargetSmash::createObjPunchSlider(int mdlIndex, int sliderPathIndex, int 
         addGround(slider);
         slider->setStageData(m_stageData);
         slider->prepareSliderData(motionPathIndex, sliderPathIndex, unk1, unk2, unk3, unk4, unk5, unk6);
-        slider->startup(m_fileData, 0, 0);
+        slider->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
     }
 }
 
@@ -1102,7 +1104,7 @@ void stTargetSmash::createObjSpring(int mdlIndex, int collIndex, Vec2f* pos, flo
                 range);
         spring->setMotionPathData(motionPathIndex, rot >= 360);
         spring->setGimmickData(&springData); // Note: gimmickData will only apply in next function since was allocated on the stack
-        spring->startup(this->m_fileData,0,0);
+        spring->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         this->createGimmickCollision(collIndex, spring, this->m_fileData);
     }
 }
@@ -1115,7 +1117,7 @@ void stTargetSmash::createObjCannon(int mdlIndex, Vec2f* pos, float rot, float r
         addGround(cannon);
         cannon->setStageData(m_stageData);
         cannon->prepareCannonData(pos, rot, rotSpeed, maxRot, motionPathIndex, alwaysRotate, fullRotate, autoFireFrames);
-        cannon->startup(m_fileData, 0, 0);
+        cannon->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
     }
 }
 
@@ -1130,7 +1132,7 @@ void stTargetSmash::createObjLadder(int mdlIndex, Vec2f* pos, int motionPathInde
                 mdlIndex, 0, restrictUpExit, unk2, "",
                 &areaPos, &araeRange);
         ladder->setMotionPathData(motionPathIndex);
-        ladder->startupLadder(this->m_fileData,0,0,&ladderData);
+        ladder->startupLadder(this->m_fileData,0,gfSceneRoot::Layer_Ground ,&ladderData);
         ladder->setPos(pos->m_x, pos->m_y, 0.0);
     }
 }
@@ -1140,7 +1142,7 @@ void stTargetSmash::createObjCatapult(int mdlIndex, float vector, float motionRa
     if (catapult != NULL) {
         addGround(catapult);
         catapult->prepareCatapultData(vector, motionRatio, motionPathIndex, framesBeforeStartMove, unk1, unk2);
-        catapult->startup(m_fileData, 0, 0);
+        catapult->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
     }
 }
 
@@ -1158,7 +1160,7 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
         Vec3f warpDestPos = Vec3f(warpDest->m_x, warpDest->m_y, 0.0);
         warpZone->setWarpAttrData(&warpDestPos, warpType, isNotAuto);
         warpZone->setGimmickData(&warpData); // Note: gimmickData will only apply in next function since was allocated on the stack
-        warpZone->startup(m_fileData, 0, 0);
+        warpZone->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         warpZone->setRot(0, 0, rot);
         warpZone->setScale(scale, scale, scale);
         if (connectedMdlIndex > 0) {
@@ -1171,7 +1173,7 @@ void stTargetSmash::createObjWarpZone(int mdlIndex, Vec2f* pos, float rot, float
                 warpDestPos = Vec3f(pos->m_x, pos->m_y, 0.0);
                 toWarpZone->setWarpAttrData(&warpDestPos, warpType, isNotAuto);
                 toWarpZone->setGimmickData(&warpData); // Note: gimmickData will only apply in next function since was allocated on the stack
-                toWarpZone->startup(m_fileData, 0, 0);
+                toWarpZone->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
                 toWarpZone->setRot(0, 0, rot);
                 toWarpZone->setScale(scale, scale, scale);
 
@@ -1203,7 +1205,7 @@ void stTargetSmash::createTriggerHitPointEffect(Vec2f* posSW, Vec2f* posNE, floa
             ground->setTrigger(trigger);
             ground->setMotionPathData(motionPathIndex, rot >= 360);
             ground->setStageData(m_stageData);
-            ground->startup(this->m_fileData,0,0);
+            ground->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
             ground->setPos(pos.m_x, pos.m_y, 0.0);
             ground->setRot(0.0, 0.0, rot);
             ground->setScale(scale);
@@ -1237,7 +1239,7 @@ void stTargetSmash::createTriggerConveyor(Vec2f* posSW, Vec2f* posNE, float spee
             ground->setTrigger(trigger);
             ground->setMotionPathData(motionPathIndex, rot >= 360);
             ground->setStageData(m_stageData);
-            ground->startup(this->m_fileData,0,0);
+            ground->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
             ground->setPos(pos.m_x, pos.m_y, 0.0);
             ground->setRot(0.0, 0.0, rot);
             ground->setScale(scale);
@@ -1270,7 +1272,7 @@ void stTargetSmash::createTriggerWater(Vec2f* posSW, Vec2f* posNE, float speed, 
             ground->setTrigger(trigger);
             ground->setMotionPathData(motionPathIndex, rot >= 360);
             ground->setStageData(m_stageData);
-            ground->startup(this->m_fileData,0,0);
+            ground->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
             ground->setPos(pos.m_x, pos.m_y, 0.0);
             ground->setRot(0.0, 0.0, rot);
             ground->setScale(scale);
@@ -1303,7 +1305,7 @@ void stTargetSmash::createTriggerWind(Vec2f* posSW, Vec2f* posNE, float strength
             ground->setTrigger(trigger);
             ground->setMotionPathData(motionPathIndex, rot >= 360);
             ground->setStageData(m_stageData);
-            ground->startup(this->m_fileData,0,0);
+            ground->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
             ground->setPos(pos.m_x, pos.m_y, 0.0);
             ground->setRot(0.0, 0.0, rot);
             ground->setScale(scale);
@@ -1329,7 +1331,7 @@ void stTargetSmash::putItem(int itemID, u32 variantID, int startStatus, Vec2f* p
             grItem* ground = grItem::create(motionPathIndex, "MoveNode", "grItem", item->m_instanceId);
             if (ground != NULL) {
                 addGround(ground);
-                ground->startup(m_fileData, 0, 0);
+                ground->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
                 ground->startMove();
             }
         }
@@ -1360,7 +1362,7 @@ void stTargetSmash::putEnemy(int enemyId, int difficulty, int startStatus, Vec2f
         grMotionPath* ground = grMotionPath::create(motionPathIndex, "MoveNode", "grMotionPath");
         if (ground != NULL) {
             addGround(ground);
-            ground->startup(m_fileData, 0, 0);
+            ground->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         }
         create.m_motionPath = ground;
     }
