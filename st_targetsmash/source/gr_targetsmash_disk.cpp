@@ -31,6 +31,7 @@ void grTargetSmashDisk::startup(gfArchive* archive, u32 unk1, gfSceneRoot::Layer
 
     this->initializeEntity();
     this->startEntity();
+    this->setMotion(0);
 }
 
 void grTargetSmashDisk::setTargetInfo(int motionPathIndex, int effectIndex, u32* targetsHitWork, u32* targetsLeftWork,
