@@ -59,6 +59,10 @@ Nodes must be in the first mdl0 of Model Data 0 with the following order and nam
 
 **Scale Y** - Respawn Time
 
+_Special Respawn Time Settings_
+* -1 - Motion path toggle forward/stopped upon break
+* -2 - Motion path toggle forward/reverse upon break
+
 **Translation Z** - Motion Path ModelData Index (overrides position, needs to be >= 10) (node to follow must be called "MovePlatformNode", this cannot be the root node)
 
 Hurtbox Parameters: In the target ModelData, node to follow must be called "HurtNode", start and end offset positions are called "HurtOffsetStart" and "HurtOffsetEnd"
@@ -68,6 +72,12 @@ Hurtbox Parameters: In the target ModelData, node to follow must be called "Hurt
 **Scale X** - Max Landings
 
 **Scale Y** - Respawn Time
+
+_Special Respawn Time Settings_
+* -1 - Motion path moves forward, stops upon landing, moves forward again after exiting, will loop
+* -2 - Motion path moves forward, moves backwards upon landing, moves forward again after, will loop
+* -3 - Motion path moves forward, moves backwards upon landing, moves forward again after, won't loop
+* -4 - Motion path starts frozen, moves forward upon landing, moves backwards after exiting, won't loop
 
 **Translation Z** - Motion Path ModelData Index (overrides position) (needs to be >= 10) (node to follow must be called "MovePlatformNode")
 

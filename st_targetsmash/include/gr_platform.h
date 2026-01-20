@@ -38,7 +38,7 @@ class grPlatform : public grMadein
         virtual void onInflictEach(soCollisionLog* collisionLog, float power);
         virtual void onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId);
 
-        virtual void setMotionPathData(int mdlIndex, bool isRotateMotionPath);
+        virtual void setMotionPathData(int mdlIndex, bool isRotateMotionPath, grGimmickMotionPathData::PathMode pathMode);
         virtual void setupHitPoint(float maxDamage, float respawnFrame);
         virtual void setupAttack(AttackData* attackData);
         virtual void setupLanding(float maxLandings, float respawnFrame);

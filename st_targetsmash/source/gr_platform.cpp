@@ -75,9 +75,20 @@ void grPlatform::update(float deltaFrame)
             this->isLandActivated = false;
             if (this->respawnFrames <= -1) {
                 this->setMotion(0);
-            }
-            if (this->m_gimmickMotionPath != NULL) {
-                this->m_gimmickMotionPath->setFrameUpdate(1.0);
+                if (this->m_gimmickMotionPath != NULL) {
+                    switch (int(this->respawnFrames)) {
+                    case -1:
+                    case -2:
+                    case -3:
+                        this->m_gimmickMotionPath->startMove(1.0);
+                        break;
+                    case -4:
+                        this->m_gimmickMotionPath->startMove(-1.0);
+                        break;
+                    default:
+                        break;
+                    }
+                }
             }
         }
     }
@@ -147,11 +158,16 @@ void grPlatform::onDamage(int index, soDamage* damage, soDamageAttackerInfo* att
         }
         this->setMotion(1);
         if (this->m_gimmickMotionPath != NULL) {
-            if (this->respawnFrames < -1) {
-                this->m_gimmickMotionPath->setFrameUpdate(-1.0);
-            }
-            else if (this->respawnFrames == -1) {
-                this->m_gimmickMotionPath->setFrameUpdate(0);
+            switch (int(this->respawnFrames))
+            {
+                case -1:
+                    this->m_gimmickMotionPath->setFrameUpdate(0);
+                    break;
+                case -2:
+                    this->m_gimmickMotionPath->startMove(-1.0);
+                    break;
+                default:
+                    break;
             }
         }
     }
@@ -171,11 +187,21 @@ void grPlatform::receiveCollMsg_Landing(grCollStatus* collStatus, grCollisionJoi
             }
             this->setMotion(1);
             if (this->m_gimmickMotionPath != NULL) {
-                if (this->respawnFrames < -1) {
-                    this->m_gimmickMotionPath->setFrameUpdate(-1.0);
-                }
-                else if (this->respawnFrames == -1) {
-                    this->m_gimmickMotionPath->setFrameUpdate(0);
+                switch (int(this->respawnFrames))
+                {
+                    case -1:
+                        this->m_gimmickMotionPath->setFrameUpdate(0);
+                        break;
+                    case -2:
+                    case -3:
+                        this->m_gimmickMotionPath->startMove(-1.0);
+                        break;
+                    case -4:
+                        this->m_gimmickMotionPath->startMove(1.0);
+                        break;
+                    default:
+                        break;
+
                 }
             }
         }
@@ -198,8 +224,8 @@ void grPlatform::onGimmickEvent(soGimmickEventArgs* eventInfo, int* taskId) {
     this->setMotion(2);
 }
 
-void grPlatform::setMotionPathData(int mdlIndex, bool isRotateMotionPath) {
-    this->motionPathData.set(1.0, 0, grGimmickMotionPathData::Path_Loop, mdlIndex, 0);
+void grPlatform::setMotionPathData(int mdlIndex, bool isRotateMotionPath, grGimmickMotionPathData::PathMode pathMode) {
+    this->motionPathData.set(1.0, 0, pathMode, mdlIndex, 0);
 
     this->isRotateMotionPath = isRotateMotionPath;
 }
@@ -230,6 +256,12 @@ void grPlatform::setupAttack(AttackData* attackData) {
 void grPlatform::setupLanding(float maxLandings, float respawnFrames) {
     this->maxLandings = maxLandings;
     this->respawnFrames = respawnFrames;
+
+    if (this->m_gimmickMotionPath != NULL) {
+        if (this->respawnFrames == -4) {
+            this->m_gimmickMotionPath->setFrameUpdate(0.0);
+        }
+    }
 }
 
 void grPlatform::initializeEntity() {

@@ -1010,7 +1010,7 @@ void stTargetSmash::createObjPlatform(int mdlIndex, Vec2f* pos, float rot, float
     if(platform != NULL){
         addGround(platform);
         platform->setStageData(m_stageData);
-        platform->setMotionPathData(motionPathIndex, rot >= 360);
+        platform->setMotionPathData(motionPathIndex, rot >= 360, grGimmickMotionPathData::Path_Loop);
         platform->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         platform->initializeEntity();
         platform->startEntity();
@@ -1035,7 +1035,7 @@ void stTargetSmash::createObjBreak(int mdlIndex, Vec2f* pos, float rot, int moti
     if(platform != NULL){
         addGround(platform);
         platform->setStageData(m_stageData);
-        platform->setMotionPathData(motionPathIndex, rot >= 360);
+        platform->setMotionPathData(motionPathIndex, rot >= 360, grGimmickMotionPathData::Path_Loop);
         platform->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         platform->setupHitPoint(maxDamage, respawnTime);
         if (collIndex < 0) {
@@ -1057,7 +1057,7 @@ void stTargetSmash::createObjLand(int mdlIndex, Vec2f* pos, float rot, int motio
     if(platform != NULL){
         addGround(platform);
         platform->setStageData(m_stageData);
-        platform->setMotionPathData(motionPathIndex, rot >= 360);
+        platform->setMotionPathData(motionPathIndex, rot >= 360, respawnTime == -3 || respawnTime == -4 ? grGimmickMotionPathData::Path_Once : grGimmickMotionPathData::Path_Loop);
         platform->startup(this->m_fileData,0,gfSceneRoot::Layer_Ground);
         platform->initializeEntity();
         platform->startEntity();
