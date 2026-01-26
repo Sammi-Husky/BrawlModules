@@ -29,9 +29,17 @@ const float UNK_FLOAT1 = 0.0f;
 
 class stTargetSmash : public stMelee {
 protected:
+    class PlayerFlags {
+        public:
+            u32 : 31;
+            bool m_chargeEveryFrame : 1;
+
+            PlayerFlags() : m_chargeEveryFrame(false) {};
+    };
+
     gfArchive* itemPacs[NUM_ITEM_PACS];
-    char _476[848 - 728];
-    // gfArchive* enemyPacs[NUM_ENEMY_TYPES*2];
+    char _476[820 - 728];
+    PlayerFlags playerFlags[NUM_PLAYERS];
     u32 level; // 848 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsLeft; // 856 (Required offset for stOperatorRuleTargetBreak!)
@@ -113,6 +121,7 @@ public:
     void initializeGhost();
     void applyNameCheatsStart();
     void applyNameCheats();
+    void applyCharge(u32 playerIndex, bool useCheatCharge);
     void applySeed();
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(enemyPacs))

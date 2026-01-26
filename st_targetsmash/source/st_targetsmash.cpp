@@ -43,10 +43,10 @@ void stTargetSmash::update(float deltaFrame)
     itManager* itemManager = itManager::getInstance();
     if (!this->isItemsInitialized && itemManager->isCompItemKindArchive(Item_Hammer, 0, true)) {
         Ground* ground = this->getGround(0);
-        u32 itemsIndex = ground->getNodeIndex(0, "Items");
-        u32 endIndex = ground->getNodeIndex(0, "Enemies");
+        u32 itemsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Items");
+        u32 endIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Enemies");
         for (int i = itemsIndex + 1; i < endIndex; i++) {
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             this->putItem(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z,  resNodeData->m_translation.xy(), resNodeData->m_translation.m_z);
         }
         this->isItemsInitialized = true;
@@ -57,10 +57,10 @@ void stTargetSmash::update(float deltaFrame)
         emManager *enemyManager = emManager::getInstance();
         if (!this->isEnemiesInitialized && enemyManager->isCompArchiveAll()) {
             Ground* ground = this->getGround(0);
-            u32 itemsIndex = ground->getNodeIndex(0, "Enemies");
-            u32 endIndex = ground->getNodeIndex(0, "End");
+            u32 itemsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Enemies");
+            u32 endIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "End");
             for (int i = itemsIndex + 1; i < endIndex; i++) {
-                nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+                nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
                 if (resNodeData->m_scale.m_x >= 0) {
                     this->putEnemy(resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z, resNodeData->m_translation.xy(), resNodeData->m_translation.m_z, resNodeData->m_rotation.m_z);
                 }
@@ -108,7 +108,7 @@ void stTargetSmash::update(float deltaFrame)
             bool isNewRecord = this->calcHighScore();
 
             this->isEndProcessed = true;
-            nw4r::g3d::ResNodeData* resNodeData = this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResNode("End").ptr();
+            nw4r::g3d::ResNodeData* resNodeData = this->getGround(0)->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode("End").ptr();
             if (resNodeData->m_rotation.m_x > 0) {
                 this->playSeBasic((SndID)resNodeData->m_rotation.m_x, 0);
             }
@@ -124,7 +124,7 @@ void stTargetSmash::update(float deltaFrame)
         else if (g_GameGlobal->m_resultInfo->m_decisionKind == gmResultInfo::Decision_Failure) {
             this->calcHighScore();
             this->isEndProcessed = true;
-            nw4r::g3d::ResNodeData* resNodeData = this->getGround(0)->m_sceneModels[0]->m_resMdl.GetResNode("End").ptr();
+            nw4r::g3d::ResNodeData* resNodeData = this->getGround(0)->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode("End").ptr();
             if (resNodeData->m_rotation.m_y > 0) {
                 this->playSeBasic((SndID)resNodeData->m_rotation.m_y, 0);
             }
@@ -139,6 +139,12 @@ void stTargetSmash::update(float deltaFrame)
 
     if (this->ghost != NULL) {
         this->ghost->update(deltaFrame);
+    }
+
+    for (u32 i = 0; i < NUM_PLAYERS; i++) {
+        if (this->playerFlags[i].m_chargeEveryFrame) {
+            applyCharge(i, false);
+        }
     }
 }
 void stTargetSmash::createObj()
@@ -182,10 +188,10 @@ void stTargetSmash::createObj()
         emManager *enemyManager = emManager::getInstance();
 
         Ground* ground = this->getGround(0);
-        u32 itemsIndex = ground->getNodeIndex(0, "Enemies");
-        u32 endIndex = ground->getNodeIndex(0, "End");
+        u32 itemsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Enemies");
+        u32 endIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "End");
         for (int i = itemsIndex + 1; i < endIndex; i++) {
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             gfArchive* brres;
             gfArchive* param;
             gfArchive* enmCommon;
@@ -248,10 +254,10 @@ void stTargetSmash::createEnemyPac(u32 index) {
 
 void stTargetSmash::getItemPac(gfArchive** brres, gfArchive** param, itKind itemID, int variantID, gfArchive** commonParam, itCustomizerInterface** customizer) {
     Ground* ground = this->getGround(0);
-    u32 itemsIndex = ground->getNodeIndex(0, "Items");
-    u32 endIndex = ground->getNodeIndex(0, "Enemies");
+    u32 itemsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Items");
+    u32 endIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Enemies");
     for (int i = itemsIndex + 1; i < endIndex; i++) {
-        nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+        nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
         if (itemID == resNodeData->m_scale.m_x && variantID == resNodeData->m_scale.m_y) {
             int index = resNodeData->m_rotation.m_x - 1;
             if (index >= 0) {
@@ -376,13 +382,13 @@ void stTargetSmash::applyNameCheatsStart() {
 void stTargetSmash::applyNameCheats() {
     itManager* itemManager = itManager::getInstance();
 
-    for (int i = 0; i < NUM_PLAYERS; i++) {
-        int entryId = g_ftManager->getEntryId(i);
+    for (int playerIndex = 0; playerIndex < NUM_PLAYERS; playerIndex++) {
+        int entryId = g_ftManager->getEntryId(playerIndex);
         if (g_ftManager->isFighterActivate(entryId, -1)) {
             Fighter *fighter = g_ftManager->getFighter(entryId, -1);
             ftOwner *owner = g_ftManager->getOwner(entryId);
 
-            gmPlayerInitData* playerInitData = &g_GameGlobal->m_modeMelee->m_playersInitData[i];
+            gmPlayerInitData* playerInitData = &g_GameGlobal->m_modeMelee->m_playersInitData[playerIndex];
             char name[32];
             Message::utf16to8(name, playerInitData->m_name);
 
@@ -623,7 +629,7 @@ void stTargetSmash::applyNameCheats() {
             } else if (strcmp(name, "８１１ＮＤ") == 0) { // "811ND"
                 g_efScreen->requestFill(6.0, 7, 0, &(GXColor){0, 0, 0, 0xFF});
                 scMelee* scene = static_cast<scMelee*>(gfSceneManager::getInstance()->searchScene("scMelee"));
-                scene->m_operatorInfo->setPlayerCursorClear(i);
+                scene->m_operatorInfo->setPlayerCursorClear(playerIndex);
             } else if (strcmp(name, "６Ｕ５７→") == 0) { // "6U57->"
                 Rect2D* range = &this->m_deadRange;
                 Vec2f posSW = Vec2f(range->m_left, range->m_down);
@@ -675,21 +681,32 @@ void stTargetSmash::applyNameCheats() {
                 gfCamera* camera = gfCameraManager::getManager()->getCamera(0);
                 camera->m_rot.m_z = mtConvDegToRad(180.0);
             } else if (strcmp(name, "５Ｈ４Ｄ３") == 0) { // "5H4D3"
-                if (g_GameGlobal->m_modeMelee->m_meleeInitData.m_numPlayers < 2 && i < 2) {
+                if (g_GameGlobal->m_modeMelee->m_meleeInitData.m_numPlayers < 2 && playerIndex < 2) {
                     //this->shades[i] = new (Heaps::StageInstance) stTargetSmashShade<SHADE_FRAME_LENGTH>(i + 2, i);
                     //this->shades[i]->initialize(playerInitData->m_characterKind, playerInitData->m_colorNo, playerInitData->m_colorFileNo, i, i + 2);
-                    if (this->shades[i] != NULL) {
-                        this->shades[i]->startRecord();
+                    if (this->shades[playerIndex] != NULL) {
+                        this->shades[playerIndex]->startRecord();
                     }
                 }
             }
             fighter->setupEquipment();
+
+            if (strcmp(name, "ＪＵ１Ｃ３") == 0) { // "JU1C3"
+                this->applyCharge(playerIndex, true);
+            }
+            else if (strcmp(name, "Ｐ０Ｗ３Ｒ") == 0) { // "P0W3R"
+                this->playerFlags->m_chargeEveryFrame = true;
+                this->applyCharge(playerIndex, true);
+            } else {
+                this->applyCharge(playerIndex, false);
+            }
+
         }
     }
 }
 
 void stTargetSmash::startGhost() {
-    this->ghost = new (Heaps::StageInstance) stTargetSmashGhost<GHOST_FRAME_LENGTH>(2, 0);
+    //this->ghost = new (Heaps::StageInstance) stTargetSmashGhost<GHOST_FRAME_LENGTH>(2, 0);
 }
 
 void stTargetSmash::initializeGhost() {
@@ -701,7 +718,7 @@ void stTargetSmash::initializeGhost() {
 }
 
 
-// TODO: Potential effects: targets explode, beat block, reverse control, zoom in on player/other camera stuff like quake, warp back to spawn after every target, swap fighter every target, randomizer (could be switching the position of every object or could be randomly placing targets), switch targets with board platforms, Helirin, infinite jumps/single jump, targets grant jumps, rotate entire stage, pinball (have to hit with soccer ball/custom bouncy item), endless/get (versus between players -> increment coin score), random effect
+// TODO: Potential effects: targets explode, beat block, reverse control, zoom in on player/other camera stuff like quake, warp back to spawn after every target, swap fighter every target, randomizer (could be switching the position of every object or could be randomly placing targets, also random start), switch targets with board platforms, Helirin, infinite jumps/single jump, targets grant jumps, rotate entire stage, pinball (have to hit with soccer ball/custom bouncy item), endless/get (versus between players -> increment coin score), random effect
 // TODO: Signify cheat tag somehow (maybe with colour?)
 
 // TODO: Setup alt itmparam with no bounce limit?
@@ -713,6 +730,44 @@ void stTargetSmash::applySeed() {
             srandi(((name[1] & 0xFF) << 24) + ((name[2] & 0xFF) << 16) + ((name[3] & 0xFF) << 8) + ((name[4] & 0xFF)));
         }
     }
+}
+
+void stTargetSmash::applyCharge(u32 playerIndex, bool useCheatCharge)
+{
+    Ground* ground = this->getGround(0);
+    u32 chargeIndex = ground->getNodeIndex(grFinal::Scene_Model_Charge, "Charges");
+    u32 endIndex = ground->getNodeIndex(grFinal::Scene_Model_Charge, "End");
+
+    int entryId = g_ftManager->getEntryId(playerIndex);
+    if (g_ftManager->isFighterActivate(entryId, -1)) {
+        Fighter *fighter = g_ftManager->getFighter(entryId, -1);
+
+        gmPlayerInitData* playerInitData = &g_GameGlobal->m_modeMelee->m_playersInitData[playerIndex];
+        char name[32];
+        Message::utf16to8(name, playerInitData->m_name);
+
+        for (u32 nodeIndex = chargeIndex + 1; nodeIndex < endIndex; nodeIndex++) {
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Charge]->m_resMdl.GetResNode(nodeIndex).ptr();
+            if (fighter->getFtKind() == resNodeData->m_scale.m_x && (resNodeData->m_scale.m_z == 0 || useCheatCharge)) {
+                switch (int(resNodeData->m_rotation.m_x))
+                {
+                case 0:
+                    fighter->m_moduleAccesser->getWorkManageModule().setInt(resNodeData->m_rotation.m_z, 0x10000000 + int(resNodeData->m_rotation.m_y));
+                    break;
+                case 1:
+                    fighter->m_moduleAccesser->getWorkManageModule().setFloat(resNodeData->m_rotation.m_z, 0x11000000 + int(resNodeData->m_rotation.m_y));
+                    break;
+                case 2:
+                    fighter->m_moduleAccesser->getWorkManageModule().setFlag(resNodeData->m_rotation.m_z, 0x12000000 + int(resNodeData->m_rotation.m_y));
+                    break;
+                default:
+                    break;
+                }
+            }
+
+        }
+    }
+
 }
 
 bool stTargetSmash::calcHighScore() {
@@ -831,37 +886,37 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
         ground->startup(m_fileData, 0, gfSceneRoot::Layer_Ground);
         ground->setStageData(m_stageData);
         createCollision(m_fileData, collIndex, ground);
-        u32 targetsIndex = ground->getNodeIndex(0, "Targets");
-        u32 disksIndex = ground->getNodeIndex(0, "Disks");
-        u32 platformsIndex = ground->getNodeIndex(0, "Platforms");
-        u32 slidersIndex = ground->getNodeIndex(0, "Sliders");
-        u32 springsIndex = ground->getNodeIndex(0, "Springs");
-        u32 cannonsIndex = ground->getNodeIndex(0, "Cannons");
-        u32 laddersIndex = ground->getNodeIndex(0, "Ladders");
-        u32 catapultsIndex = ground->getNodeIndex(0, "Catapults");
-        u32 warpsIndex = ground->getNodeIndex(0, "Warps");
-        u32 toxinsIndex = ground->getNodeIndex(0, "Toxins");
-        u32 conveyorsIndex = ground->getNodeIndex(0, "Conveyors");
-        u32 watersIndex = ground->getNodeIndex(0, "Waters");
-        u32 windsIndex = ground->getNodeIndex(0, "Winds");
-        u32 itemsIndex = ground->getNodeIndex(0, "Items");
+        u32 targetsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Targets");
+        u32 disksIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Disks");
+        u32 platformsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Platforms");
+        u32 slidersIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Sliders");
+        u32 springsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Springs");
+        u32 cannonsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Cannons");
+        u32 laddersIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Ladders");
+        u32 catapultsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Catapults");
+        u32 warpsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Warps");
+        u32 toxinsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Toxins");
+        u32 conveyorsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Conveyors");
+        u32 watersIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Waters");
+        u32 windsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Winds");
+        u32 itemsIndex = ground->getNodeIndex(grFinal::Scene_Model_Hazard, "Items");
 
         // TODO: Optional targets (can select max targets in STDT)
         for (int i = targetsIndex + 1; i < disksIndex; i++) {
             this->targetsLeft++;
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             this->createObjTarget(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(), &resNodeData->m_scale,
                                   resNodeData->m_translation.m_z, resNodeData->m_rotation.m_z, resNodeData->m_rotation.m_y);
         }
         for (int i = disksIndex + 1; i < platformsIndex; i++) {
             this->targetsLeft++;
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             this->createObjDisk(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(),
                                 resNodeData->m_rotation.m_z, resNodeData->m_scale.m_x, resNodeData->m_scale.m_y,
                                 resNodeData->m_translation.m_z, resNodeData->m_rotation.m_y, resNodeData->m_scale.m_z);
         }
         for (int i = platformsIndex + 1; i < slidersIndex; i++) {
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
 
             switch (int(resNodeData->m_scale.m_z)) {
                 case 2:
@@ -893,19 +948,19 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
 
         }
         for (int i = slidersIndex + 1; i < springsIndex; i++) {
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             this->createObjPunchSlider(resNodeData->m_rotation.m_x, resNodeData->m_rotation.m_y, resNodeData->m_translation.m_z,
                                        resNodeData->m_translation.m_x, resNodeData->m_translation.m_y, resNodeData->m_rotation.m_z,
                                        resNodeData->m_scale.m_x, resNodeData->m_scale.m_y, resNodeData->m_scale.m_z);
         }
         for (int i = springsIndex + 1; i < cannonsIndex; i++) {
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             this->createObjSpring(resNodeData->m_rotation.m_x, resNodeData->m_rotation.m_y, resNodeData->m_translation.xy(),
                                   resNodeData->m_rotation.m_z, resNodeData->m_scale.xy(), resNodeData->m_scale.m_z,
                                   resNodeData->m_translation.m_z);
         }
         for (int i = cannonsIndex + 1; i < laddersIndex; i++) {
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             u32 rotateFlags = resNodeData->m_scale.m_y;
             bool alwaysRotate = rotateFlags & 1;
             bool fullRotate = rotateFlags & 2;
@@ -914,19 +969,19 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
                                   resNodeData->m_translation.m_z, alwaysRotate, fullRotate, resNodeData->m_scale.m_x);
         }
         for (int i = laddersIndex + 1; i < catapultsIndex; i++) {
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             this->createObjLadder(resNodeData->m_rotation.m_x, resNodeData->m_translation.xy(), resNodeData->m_translation.m_z,
                                   resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z);
         }
         for (int i = catapultsIndex + 1; i < warpsIndex; i++) {
-            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
             this->createObjCatapult(resNodeData->m_rotation.m_x, resNodeData->m_translation.m_x,
                                     resNodeData->m_translation.m_y, resNodeData->m_translation.m_z, resNodeData->m_scale.m_z,
                                     resNodeData->m_rotation.m_y, resNodeData->m_rotation.m_z);
         }
         for (int i = warpsIndex + 1; i < toxinsIndex; i += 2) {
-            nw4r::g3d::ResNodeData* resNodeDataFrom = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            nw4r::g3d::ResNodeData* resNodeDataTo = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataFrom = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataTo = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i + 1).ptr();
             this->createObjWarpZone(resNodeDataFrom->m_rotation.m_x, resNodeDataFrom->m_translation.xy(),
                                     resNodeDataFrom->m_rotation.m_z, resNodeDataFrom->m_scale.m_z,
                                     resNodeDataFrom->m_scale.xy(), resNodeDataFrom->m_translation.m_z,
@@ -935,8 +990,8 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
                                     resNodeDataTo->m_rotation.m_x, resNodeDataTo->m_translation.m_z);
         }
         for (int i = toxinsIndex + 1; i < conveyorsIndex; i += 2) {
-            nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i + 1).ptr();
             this->createTriggerHitPointEffect(resNodeDataSW->m_translation.xy(), resNodeDataNE->m_translation.xy(),
                                               resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
                                               resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
@@ -944,24 +999,24 @@ void stTargetSmash::createObjAshiba(int mdlIndex, int collIndex) {
         }
 
         for (int i = conveyorsIndex + 1; i < watersIndex; i += 2) {
-            nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i + 1).ptr();
             this->createTriggerConveyor(resNodeDataSW->m_translation.xy(), resNodeDataNE->m_translation.xy(),
                                         resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
                                         resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
                                         resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
         }
         for (int i = watersIndex + 1; i < windsIndex; i += 2) {
-            nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i + 1).ptr();
             this->createTriggerWater(resNodeDataSW->m_translation.xy(), resNodeDataNE->m_translation.xy(),
                                      resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
                                      resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
                                      resNodeDataNE->m_translation.m_z, resNodeDataNE->m_rotation.m_y);
         }
         for (int i = windsIndex + 1; i < itemsIndex; i += 2) {
-            nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[0]->m_resMdl.GetResNode(i).ptr();
-            nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[0]->m_resMdl.GetResNode(i + 1).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataSW = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i).ptr();
+            nw4r::g3d::ResNodeData* resNodeDataNE = ground->m_sceneModels[grFinal::Scene_Model_Hazard]->m_resMdl.GetResNode(i + 1).ptr();
             this->createTriggerWind(resNodeDataSW->m_translation.xy(), resNodeDataNE->m_translation.xy(),
                                     resNodeDataNE->m_scale.m_x, resNodeDataNE->m_scale.m_y,
                                     resNodeDataNE->m_rotation.m_x, resNodeDataNE->m_rotation.m_z, &resNodeDataSW->m_scale,
