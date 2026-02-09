@@ -141,7 +141,7 @@ void stTargetSmash::update(float deltaFrame)
         this->ghost->update(deltaFrame);
     }
 
-    for (u32 i = 0; i < NUM_PLAYERS; i++) {
+    for (u32 i = 0; i < MAX_PLAYERS; i++) {
         if (this->playerFlags[i].m_chargeEveryFrame) {
             applyCharge(i, false);
         }
@@ -382,7 +382,7 @@ void stTargetSmash::applyNameCheatsStart() {
 void stTargetSmash::applyNameCheats() {
     itManager* itemManager = itManager::getInstance();
 
-    for (int playerIndex = 0; playerIndex < NUM_PLAYERS; playerIndex++) {
+    for (int playerIndex = 0; playerIndex < MAX_PLAYERS; playerIndex++) {
         int entryId = g_ftManager->getEntryId(playerIndex);
         if (g_ftManager->isFighterActivate(entryId, -1)) {
             Fighter *fighter = g_ftManager->getFighter(entryId, -1);

@@ -4,6 +4,7 @@
 #include <gr/gr_gimmick_motion_path.h>
 #include <st/st_trigger.h>
 #include <snd/snd_system.h>
+#include <gm/gm_lib.h>
 #include "st_targetsmash_data.h"
 
 enum BarrelCannonKind {
@@ -79,7 +80,7 @@ protected:
     char _spacer3;
     float cooldownTimer;
     float autoFireTimer;
-    PlayerInfo cannonPlayerInfos[NUM_PLAYERS];
+    PlayerInfo cannonPlayerInfos[MAX_PLAYERS];
     State cannonState : 8;
     char _spacer4[3];
     float animFrame;
@@ -101,7 +102,7 @@ public:
         this->isInCooldown = false;
         this->cooldownTimer = 0.0;
         this->autoFireTimer = 0.0;
-        for (int i = 0; i < NUM_PLAYERS; i++) {
+        for (int i = 0; i < MAX_PLAYERS; i++) {
             this->cannonPlayerInfos[i].isActive = false;
             this->cannonPlayerInfos[i].state = PlayerState_Invalid;
             this->cannonPlayerInfos[i].playerNumber = 0;

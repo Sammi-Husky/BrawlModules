@@ -39,7 +39,7 @@ protected:
 
     gfArchive* itemPacs[NUM_ITEM_PACS];
     char _476[820 - 728];
-    PlayerFlags playerFlags[NUM_PLAYERS];
+    PlayerFlags playerFlags[MAX_PLAYERS];
     u32 level; // 848 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsHit; // 852 (Required offset for stOperatorRuleTargetBreak!)
     u32 targetsLeft; // 856 (Required offset for stOperatorRuleTargetBreak!)
@@ -55,7 +55,7 @@ protected:
     stTargetSmashGhost<GHOST_FRAME_LENGTH>* ghost;
     grPokeTrainer* pokeTrainerGround;
     float totalDamage; // 912 (Required offset for stOperatorRuleTargetBreak!)
-    u32 numTargetsHitPerPlayer[NUM_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
+    u32 numTargetsHitPerPlayer[MAX_PLAYERS]; // 916 (Required offset for stOperatorRuleTargetBreak!)
     gfArchive* enemyPacs[NUM_ENEMY_TYPES*2];
 
 
@@ -124,5 +124,5 @@ public:
     void applyCharge(u32 playerIndex, bool useCheatCharge);
     void applySeed();
 
-    STATIC_CHECK(sizeof(stTargetSmash) == 916 + NUM_PLAYERS*4 + sizeof(enemyPacs))
+    STATIC_CHECK(sizeof(stTargetSmash) == 916 + MAX_PLAYERS*4 + sizeof(enemyPacs))
 };
