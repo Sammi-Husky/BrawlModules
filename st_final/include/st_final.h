@@ -24,5 +24,7 @@ public:
     virtual bool isBamperVector();
     virtual ~stFinal() { this->releaseArchive(); };
 
-    //STATIC_CHECK(sizeof(stFinal) == 0x1D8)
+    virtual void notifyEventInfoGo();
+
 };
+//static_assert(sizeof(stFinal) == 0x1D8, "Class is wrong size!");

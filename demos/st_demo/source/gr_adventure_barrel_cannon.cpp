@@ -143,7 +143,7 @@ void grAdventureBarrelCannon::createMotionPath()
 
 void grAdventureBarrelCannon::processFixPosition() {
     Vec3f rot;
-    for (int i = 0; i < NUM_PLAYERS; i++) {
+    for (int i = 0; i < MAX_PLAYERS; i++) {
         if (this->cannonPlayerInfos[i].isActive) {
             switch(this->cannonPlayerInfos[i].state) {
                 case PlayerState_Enter:
@@ -288,7 +288,7 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventArgs* eventInfo, int*
     switch (cannonEventInfo->m_kind) {
         case 0x2:
             this->isRotate = true;
-            for (int i = 0; i < NUM_PLAYERS; i++) {
+            for (int i = 0; i < MAX_PLAYERS; i++) {
                 if (this->cannonPlayerInfos[i].isActive) {
                     newPlayerIndex++;
                 }
@@ -296,8 +296,8 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventArgs* eventInfo, int*
                     break;
                 }
             }
-            if (newPlayerIndex >= NUM_PLAYERS) {
-                newPlayerIndex = NUM_PLAYERS - 1;
+            if (newPlayerIndex >= MAX_PLAYERS) {
+                newPlayerIndex = MAX_PLAYERS - 1;
             }
             this->cannonPlayerInfos[newPlayerIndex] = (PlayerInfo){true, PlayerState_Enter, playerNumber, cannonEventInfo->m_sendID, 0.0};
             if (this->isMainPlayerIn) {
@@ -320,7 +320,7 @@ void grAdventureBarrelCannon::onGimmickEvent(soGimmickEventArgs* eventInfo, int*
             break;
         case 0x3:
             this->isRotate = this->cannonData->alwaysRotate;
-            for (int i = 0; i < NUM_PLAYERS; i++) {
+            for (int i = 0; i < MAX_PLAYERS; i++) {
                 if (this->cannonPlayerInfos[i].isActive && this->cannonPlayerInfos[i].state != PlayerState_Path) {
                     this->cannonPlayerInfos[i].state = PlayerState_Fire;
                 }
@@ -403,7 +403,7 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
 void grAdventureBarrelCannon::eraseSendID(int sendID)
 {
     bool isNoPlayersIn = true;
-    for (int i = 0; i < NUM_PLAYERS; i++) {
+    for (int i = 0; i < MAX_PLAYERS; i++) {
         if (sendID == this->cannonPlayerInfos[i].sendID) {
             this->cannonPlayerInfos[i].isActive = false;
         }
