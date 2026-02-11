@@ -172,7 +172,7 @@ void grAdventureElevator::getFloorData()
     nw4r::g3d::ResMdl resMdl = this->elevatorPosGround->m_sceneModels[0]->m_resMdl;
     int numEntries = resMdl.GetResNodeNumEntries();
     this->numFloors = numEntries - 1;
-    nw4r::g3d::ResNode resNode = resMdl.GetResNode((u64)0);
+    nw4r::g3d::ResNode resNode = resMdl.GetResNode(0);
     this->prevFloor = resNode.ptr()->m_rotation.m_y; // Get starting floor index from y rotation of first node
 
     //this->floorPositions = new (Heaps::StageInstance) Vec3f[this->numFloors];
