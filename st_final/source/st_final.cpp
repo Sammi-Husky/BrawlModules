@@ -2,18 +2,6 @@
 #include "gr_final.h"
 #include <memory.h>
 #include <st/st_class_info.h>
-#include <ft/ft_manager.h>
-#include <mu/mu_msg.h>
-#include <OS/OSError.h>
-#include <gf/gf_heap_manager.h>
-#include <ft/ft_entry.h>
-#include <ft/ft_create.h>
-#include <so/so_external_value_accesser.h>
-#include <gf/gf_memory_pool.h>
-#include <gm/gm_global.h>
-#include <it/it_manager.h>
-#include <cm/cm_controller_ai.h>
-#include <st/st_enemy_id_manager.h>
 
 static stClassInfoImpl<Stages::Final, stFinal> classInfo = stClassInfoImpl<Stages::Final, stFinal>();
 
