@@ -604,7 +604,7 @@ void stTargetSmash::applyNameCheats() {
                 if (ground->m_collision != NULL) {
                     for (u32 i = 0; i < ground->m_collision->m_lineLen; i++) {
                         grCollisionLine *collisionLine = ground->m_collision->getLine(i);
-                        collisionLine->m_isTargetAll = false;
+                        collisionLine->m_isTargetFighter = false;
                         collisionLine->m_isTargetItem = false;
                         collisionLine->m_isTargetOther = false;
                     }

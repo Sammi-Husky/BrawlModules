@@ -54,7 +54,7 @@ void grPlatform::startup(gfArchive* archive, u32 unk1, gfSceneRoot::LayerType la
         }
     }
 
-    this->m_category = grMadein::Category_Enemy;
+    this->m_hitCategory = grMadein::Hit_Category_Enemy;
 }
 
 void grPlatform::update(float deltaFrame)

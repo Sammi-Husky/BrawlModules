@@ -442,9 +442,9 @@ void grAdventureBarrelCannon::presentShootEvent(int playerCannonIndex)
     attackData.m_slipChance = 1.0;
     attackData.m_hitStopDelay = 1.0;
     attackData.m_nodeIndex = 0x0;
-    attackData.m_targetCategory = COLLISION_CATEGORY_MASK_ALL;
+    attackData.m_targetCategory = soCollision::CATEGORY_MASK_ALL;
     attackData.m_targetLr = false;
-    attackData.m_targetPart = COLLISION_PART_MASK_ALL;
+    attackData.m_targetPart = soCollision::PART_MASK_ALL;
     attackData.m_attribute = soCollisionAttackData::Attribute_Cutup;
     attackData.m_soundLevel = soCollisionAttackData::Sound_Level_Small;
     attackData.m_soundAttribute = soCollisionAttackData::Sound_Attribute_Cutup;

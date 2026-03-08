@@ -74,7 +74,7 @@ void grTargetSmashDisk::update(float deltaFrame) {
 
 void grTargetSmashDisk::receiveCollMsg(int direction, grCollStatus* collStatus, grCollisionJoint* collisionJoint) {
     Ground::receiveCollMsg(direction, collStatus, collisionJoint);
-    CategoryFlag categoryFlag(GROUND_COLL_STATUS_OWNER_TASK_CATEGORY_MASK_FIGHTER);
+    CollCategoryFlag categoryFlag(COLL_CATEGORY_MASK_FIGHTER);
     if (this->isCollisionStatusOwnerTask(collStatus, &categoryFlag) || this->mode >= 2) {
         if (!this->isLandedOn && !this->prevIsLandedOn) {
             int entryId = g_ftManager->getEntryIdFromTaskId(collStatus->m_taskId, NULL);

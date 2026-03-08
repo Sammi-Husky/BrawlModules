@@ -65,7 +65,7 @@ void grTargetSmashTarget::startup(gfArchive* archive, u32 unk1, gfSceneRoot::Lay
     this->m_soundEffects[0].m_endFrame = 0;
     this->m_soundEffects[0].m_offsetPos = Vec2f(0.0, 0.0);
 
-    this->m_category = grMadein::Category_Enemy;
+    this->m_hitCategory = grMadein::Hit_Category_Enemy;
 
     this->initializeEntity();
     this->startEntity();
