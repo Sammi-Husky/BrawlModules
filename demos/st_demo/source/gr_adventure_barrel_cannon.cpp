@@ -54,7 +54,7 @@ void grAdventureBarrelCannon::startup(gfArchive* archive, u32 unk1, gfSceneRoot:
     {
         (this->m_modelAnims[0])->unbindNodeAnim(this->m_sceneModels[0]);
     }
-    this->areaData.set(gfArea::Shape_Rectangle, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, 0, this->cannonData->areaOffsetPos, this->cannonData->areaRange);
+    this->areaData.set(soAreaInstance::Shape_Rectangle, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, 0, this->cannonData->areaOffsetPos, this->cannonData->areaRange);
     this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, false);
     stTrigger* trigger;
     switch (this->kind) {

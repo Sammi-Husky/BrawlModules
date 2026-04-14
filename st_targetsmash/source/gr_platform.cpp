@@ -271,7 +271,7 @@ void grPlatform::initializeEntity() {
         Vec3f areaPosNE;
         this->getNodePosition(&areaPosSW, 0, "AreaSW");
         this->getNodePosition(&areaPosNE, 0, "AreaNE");
-        this->areaData.set(gfArea::Shape_Rectangle, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, nodeIndex, *(areaPosSW + areaPosNE).xy() / 2, *(areaPosSW - areaPosNE).xy());
+        this->areaData.set(soAreaInstance::Shape_Rectangle, gfArea::Stage_Group_Gimmick_Normal, 0, 0, 0, nodeIndex, *(areaPosSW + areaPosNE).xy() / 2, *(areaPosSW - areaPosNE).xy());
 
         this->setAreaGimmick(&this->areaData, &this->areaInit, &this->areaInfo, true);
         stTrigger* trigger = g_stTriggerMng->createTrigger(Gimmick::Area_Common,-1);
