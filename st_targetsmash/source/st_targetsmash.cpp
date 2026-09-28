@@ -763,7 +763,7 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex) {
         //if (fighter->getOwner()->) {
 
         nw4r::ut::Color subColor = fighter->m_moduleAccesser->getColorBlendModule().getSubColor();
-        if (subColor.r == 0x1) {
+        if (subColor.g == 0x1) {
             Vec3f offsetPos(0.0, 0.0, 0.0);
             soCollisionAttackData attackData(0x23, &offsetPos, 9.6, 0x169, 0x0, 0x0, 0x78, 0.0, 1.0, 1.0, 0x0,
                 soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
@@ -775,7 +775,7 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex) {
             if (fighter->m_moduleAccesser->getStatusModule().getStatusKind() != Fighter::Status::Damage_Fly)
             {
                 fighter->m_moduleAccesser->getCollisionAttackModule().clearAll();
-                //fighter->m_moduleAccesser->getCollisionAttackModule().sleep(true);
+                subColor.r = 0x1;
             }
 
             subColor.a -= 5;
@@ -787,8 +787,16 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex) {
                 subColor.a = 0x0;
             }
         }
-        else if (subColor.r == 0xFF || subColor.r == 0x0)
+        else if (subColor.g == 0xFF || subColor.g == 0x0)
         {
+            if (subColor.g == 0xFF)
+            {
+                if (fighter->m_moduleAccesser->getStatusModule().getStatusKind() != Fighter::Status::Damage_Fly)
+                {
+                    fighter->m_moduleAccesser->getCollisionAttackModule().clearAll();
+                    subColor.r = 0xFF;
+                }
+            }
             if (subColor.a % 2 == 0)
             {
                 if (button.m_special)
@@ -812,7 +820,7 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex) {
                 }
             }
             if (subColor.a >= 0xF0) {
-                subColor.r = 0x1;
+                subColor.r = 0xFE;
                 subColor.g = 0x1;
                 subColor.b = 0x1;
 
