@@ -145,8 +145,8 @@ void stTargetSmash::update(float deltaFrame)
         if (this->playerFlags[i].m_chargeEveryFrame) {
             applyCharge(i, false);
         }
-        if (this->playerFlags[i].m_smashbreaker) {
-            updateSmashbreaker(i);
+        if (this->playerFlags[i].m_smashbreakerInstant || this->playerFlags[i].m_smashbreaker) {
+            updateSmashbreaker(i, this->playerFlags[i].m_smashbreakerInstant);
         }
 
     }
@@ -694,6 +694,10 @@ void stTargetSmash::applyNameCheats() {
                 }
             }
             else if (strcmp(name, "ＣＲ４５Ｈ") == 0) { // "CR45H"
+                this->playerFlags->m_smashbreakerInstant = true;
+                this->startSmashbreaker(playerIndex);
+            }
+            else if (strcmp(name, "８ＵＲＮ") == 0) { // "8URN"
                 this->playerFlags->m_smashbreaker = true;
                 this->startSmashbreaker(playerIndex);
             }
@@ -751,10 +755,12 @@ void stTargetSmash::startSmashbreaker(u32 playerIndex) {
             statusKind = Fighter::Status::Down_Spot;
         }
         moduleAccesser->getStatusModule().changeStatusRequest(statusKind, moduleAccesser);
+        nw4r::ut::Color subColor(0xFF, 0xFF, 0xFF, 0x0);
+        fighter->m_moduleAccesser->getColorBlendModule().setSubColor(subColor, true);
     }
 }
 
-void stTargetSmash::updateSmashbreaker(u32 playerIndex) {
+void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
     int entryId = g_ftManager->getEntryId(playerIndex);
     if (g_ftManager->isFighterActivate(entryId, -1))
     {
@@ -778,7 +784,7 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex) {
                 subColor.r = 0x1;
             }
 
-            subColor.a -= 5;
+            subColor.a -= isInstant ? 0x5 : 0x1;
             if (subColor.a <= 0x5)
             {
                 subColor.r = 0xFF;
@@ -787,21 +793,19 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex) {
                 subColor.a = 0x0;
             }
         }
-        else if (subColor.g == 0xFF || subColor.g == 0x0)
+        else if (subColor.g == 0xFF)
         {
-            if (subColor.g == 0xFF)
+            if (fighter->m_moduleAccesser->getStatusModule().getStatusKind() != Fighter::Status::Damage_Fly)
             {
-                if (fighter->m_moduleAccesser->getStatusModule().getStatusKind() != Fighter::Status::Damage_Fly)
-                {
-                    fighter->m_moduleAccesser->getCollisionAttackModule().clearAll();
-                    subColor.r = 0xFF;
-                }
+                fighter->m_moduleAccesser->getCollisionAttackModule().clearAll();
+                subColor.r = 0xFF;
             }
+
             if (subColor.a % 2 == 0)
             {
                 if (button.m_special)
                 {
-                    subColor.a += 0xF1;
+                    subColor.a += isInstant ? 0xF1 : 0x9;
                 }
                 else
                 {
