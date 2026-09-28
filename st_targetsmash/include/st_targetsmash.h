@@ -31,10 +31,11 @@ class stTargetSmash : public stMelee {
 protected:
     class PlayerFlags {
         public:
-            u32 : 31;
+            u32 : 30;
+            bool m_smashbreaker : 1;
             bool m_chargeEveryFrame : 1;
 
-            PlayerFlags() : m_chargeEveryFrame(false) {};
+            PlayerFlags() : m_smashbreaker(false), m_chargeEveryFrame(false) {};
     };
 
     gfArchive* itemPacs[NUM_ITEM_PACS];
@@ -119,10 +120,12 @@ public:
     bool calcHighScore();
     void startGhost();
     void initializeGhost();
+    void startSmashbreaker(u32 playerIndex);
     void applyNameCheatsStart();
     void applyNameCheats();
     void applyCharge(u32 playerIndex, bool useCheatCharge);
     void applySeed();
+    void updateSmashbreaker(u32 playerIndex);
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + MAX_PLAYERS*4 + sizeof(enemyPacs))
 };

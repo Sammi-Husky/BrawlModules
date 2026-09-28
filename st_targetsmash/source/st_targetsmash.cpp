@@ -145,6 +145,10 @@ void stTargetSmash::update(float deltaFrame)
         if (this->playerFlags[i].m_chargeEveryFrame) {
             applyCharge(i, false);
         }
+        if (this->playerFlags[i].m_smashbreaker) {
+            updateSmashbreaker(i);
+        }
+
     }
 }
 void stTargetSmash::createObj()
@@ -689,6 +693,10 @@ void stTargetSmash::applyNameCheats() {
                     }
                 }
             }
+            else if (strcmp(name, "ＣＲ４５Ｈ") == 0) { // "CR45H"
+                this->playerFlags->m_smashbreaker = true;
+                this->startSmashbreaker(playerIndex);
+            }
             fighter->setupEquipment();
 
             if (strcmp(name, "ＪＵ１Ｃ３") == 0) { // "JU1C3"
@@ -717,6 +725,117 @@ void stTargetSmash::initializeGhost() {
     }
 }
 
+void stTargetSmash::startSmashbreaker(u32 playerIndex) {
+    int entryId = g_ftManager->getEntryId(playerIndex);
+    if (g_ftManager->isFighterActivate(entryId, -1))
+    {
+        Fighter *fighter = g_ftManager->getFighter(entryId, -1);
+        soModuleAccesser* moduleAccesser = fighter->m_moduleAccesser;
+        soDamageAttackerInfo attackerInfo;
+        if (!fighter->getOwner()->isSubOwner()) {
+            if (g_ftManager->isProcessHeartSwap(fighter->m_entryId)) {
+                moduleAccesser->getDamageModule().getAttackerInfo(&attackerInfo);
+                g_ftManager->toKnockOutHeartSwapOpposite(fighter->m_entryId, &attackerInfo);
+                return;
+            }
+            moduleAccesser->getEffectModule().reqCommon(0.0, 0x28);
+            soSoundModule::SoundIdData* soundData = moduleAccesser->getSoundModule().getSoundIdData();
+            moduleAccesser->getSoundModule().playSE(soundData->soundIdLists[3].sndIDs[2], 1, 1, 0);
+        }
+        fighter->setCurry(false, -1);
+        moduleAccesser->getCollisionHitModule().setCheckCatch(0,0);
+        moduleAccesser->getWorkManageModule().onFlag(Fighter::Instance::Work::Flag_KnockOut);
+        moduleAccesser->getControllerModule().setOff(true);
+        Fighter::Status::Kind statusKind = Fighter::Status::Damage_Fall;
+        if (moduleAccesser->getSituationModule().getKind() == Situation_Ground) {
+            statusKind = Fighter::Status::Down_Spot;
+        }
+        moduleAccesser->getStatusModule().changeStatusRequest(statusKind, moduleAccesser);
+    }
+}
+
+void stTargetSmash::updateSmashbreaker(u32 playerIndex) {
+    int entryId = g_ftManager->getEntryId(playerIndex);
+    if (g_ftManager->isFighterActivate(entryId, -1))
+    {
+        Fighter *fighter = g_ftManager->getFighter(entryId, -1);
+        ipPadButton button = fighter->getInput()->getButton();
+        //if (fighter->getOwner()->) {
+
+        nw4r::ut::Color subColor = fighter->m_moduleAccesser->getColorBlendModule().getSubColor();
+        if (subColor.r == 0x1) {
+            Vec3f offsetPos(0.0, 0.0, 0.0);
+            soCollisionAttackData attackData(0x23, &offsetPos, 9.6, 0x169, 0x0, 0x0, 0x78, 0.0, 1.0, 1.0, 0x0,
+                soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
+                soCollisionAttackData::Attribute_Fire, soCollisionAttackData::Sound_Level_Large, soCollisionAttackData::Sound_Attribute_Bomb,
+                soCollisionAttackData::SetOff_On, false, false, false, false, 0x50, 0x10, false, false, false, soCollisionAttackData::Lr_Check_Forward,
+                false, true, false, false, false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
+            fighter->m_moduleAccesser->getCollisionAttackModule().set(1, 0, &attackData);
+
+            if (fighter->m_moduleAccesser->getStatusModule().getStatusKind() != Fighter::Status::Damage_Fly)
+            {
+                fighter->m_moduleAccesser->getCollisionAttackModule().clearAll();
+                //fighter->m_moduleAccesser->getCollisionAttackModule().sleep(true);
+            }
+
+            subColor.a -= 5;
+            if (subColor.a <= 0x5)
+            {
+                subColor.r = 0xFF;
+                subColor.g = 0xFF;
+                subColor.b = 0xFF;
+                subColor.a = 0x0;
+            }
+        }
+        else if (subColor.r == 0xFF || subColor.r == 0x0)
+        {
+            if (subColor.a % 2 == 0)
+            {
+                if (button.m_special)
+                {
+                    subColor.a += 0xF1;
+                }
+                else
+                {
+                    subColor.a -= subColor.a >= 0x2 ? 0x2 : 0x0;
+                }
+            }
+            else
+            {
+                if (!button.m_special)
+                {
+                    subColor.a += 0x9;
+                }
+                else
+                {
+                    subColor.a -= subColor.a >= 0x2 ? 0x2 : 0x0;
+                }
+            }
+            if (subColor.a >= 0xF0) {
+                subColor.r = 0x1;
+                subColor.g = 0x1;
+                subColor.b = 0x1;
+
+                Vec3f offsetPos(0.0, 0.0, 0.0);
+                Vec2f stickDir = fighter->getInput()->getStickMain();
+                soCollisionAttackData attackData(0x23, &offsetPos, 9.6, mtConvRadToDeg(atan2(stickDir.m_y, stickDir.m_x)), 0x0, 0x0, 200, 0.0, 1.0, 1.0, 0x0,
+                    soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
+                    soCollisionAttackData::Attribute_Fire, soCollisionAttackData::Sound_Level_Large, soCollisionAttackData::Sound_Attribute_Bomb,
+                    soCollisionAttackData::SetOff_On, false, false, false, false, 0x50, 0x10, false, false, false, soCollisionAttackData::Lr_Check_Forward,
+                    false, true, false, false, false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
+                fighter->m_moduleAccesser->getKineticModule().getEnergy(Fighter::Kinetic::Energy::Id_Damage)->clearSpeed();
+                soDamageModuleImpl& damageModule = dynamic_cast<soDamageModuleImpl&>(fighter->m_moduleAccesser->getDamageModule());
+                damageModule.setGroundDamage(grCollStatus::TOUCH_MASK_RIGHT, &attackData);
+                fighter->m_moduleAccesser->getCollisionAttackModule().set(0, 0, &attackData);
+                fighter->m_moduleAccesser->getCollisionAttackModule().sleep(false);
+            }
+        }
+        fighter->m_moduleAccesser->getColorBlendModule().setSubColor(subColor, true);
+
+        //}
+    }
+}
+
 
 // TODO: Potential effects: targets explode, beat block, reverse control, zoom in on player/other camera stuff like quake, warp back to spawn after every target, swap fighter every target, randomizer (could be switching the position of every object or could be randomly placing targets, also random start), switch targets with board platforms, Helirin, infinite jumps/single jump, targets grant jumps, rotate entire stage, pinball (have to hit with soccer ball/custom bouncy item), endless/get (versus between players -> increment coin score), random effect
 // TODO: Signify cheat tag somehow (maybe with colour?)
@@ -741,10 +860,6 @@ void stTargetSmash::applyCharge(u32 playerIndex, bool useCheatCharge)
     int entryId = g_ftManager->getEntryId(playerIndex);
     if (g_ftManager->isFighterActivate(entryId, -1)) {
         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
-
-        gmPlayerInitData* playerInitData = &g_GameGlobal->m_modeMelee->m_playersInitData[playerIndex];
-        char name[32];
-        Message::utf16to8(name, playerInitData->m_name);
 
         for (u32 nodeIndex = chargeIndex + 1; nodeIndex < endIndex; nodeIndex++) {
             nw4r::g3d::ResNodeData* resNodeData = ground->m_sceneModels[grFinal::Scene_Model_Charge]->m_resMdl.GetResNode(nodeIndex).ptr();

@@ -142,7 +142,7 @@ public:
         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
 
         fighter->m_moduleAccesser->getVisibilityModule().setWhole(1);
-        fighter->m_moduleAccesser->getColorBlendModule().setSubColor((GXColor) {0, 0, 0, 0xff}, true);
+        fighter->m_moduleAccesser->getColorBlendModule().setSubColor(nw4r::ut::Color(0, 0, 0, 0xff), true);
 
         Vec3f pos = Vec3f(soValueAccesser::getConstantFloat(fighter->m_moduleAccesser,
                                                                                      ftValueAccesser::Customize_Param_Float_Barrel_Attack_Offset_X,
@@ -258,7 +258,7 @@ public:
                     this->isRecord = false;
                     if (g_ftManager->isFighterActivate(entryId, -1)) {
                         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
-                        fighter->m_moduleAccesser->getColorBlendModule().setSubColor((GXColor) {0xff, 0x00, 0x00, 0xff}, true);
+                        fighter->m_moduleAccesser->getColorBlendModule().setSubColor(nw4r::ut::Color(0xff, 0x00, 0x00, 0xff), true);
                         g_sndSystem->playSE(snd_se_Audience_Zannen, -1, 0, 0, -1);
                     }
 
@@ -351,7 +351,7 @@ public:
         Fighter *fighter = g_ftManager->getFighter(entryId, -1);
 
         fighter->m_moduleAccesser->getVisibilityModule().setWhole(1);
-        fighter->m_moduleAccesser->getColorBlendModule().setSubColor((GXColor) {0xff, 0xff, 0xff, 0xff}, true);
+        fighter->m_moduleAccesser->getColorBlendModule().setSubColor(nw4r::ut::Color(0xff, 0xff, 0xff, 0xff), true);
     }
 
     virtual void initialize() {
