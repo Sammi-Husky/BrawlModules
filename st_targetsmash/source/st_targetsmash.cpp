@@ -145,8 +145,8 @@ void stTargetSmash::update(float deltaFrame)
         if (this->playerFlags[i].m_chargeEveryFrame) {
             applyCharge(i, false);
         }
-        if (this->playerFlags[i].m_smashbreakerInstant || this->playerFlags[i].m_smashbreaker) {
-            updateSmashbreaker(i, this->playerFlags[i].m_smashbreakerInstant);
+        if (this->playerFlags[i].m_pinball || this->playerFlags[i].m_golf) {
+            updateSmashbreaker(i, this->playerFlags[i].m_pinball);
         }
 
     }
@@ -694,11 +694,11 @@ void stTargetSmash::applyNameCheats() {
                 }
             }
             else if (strcmp(name, "ＣＲ４５Ｈ") == 0) { // "CR45H"
-                this->playerFlags->m_smashbreakerInstant = true;
+                this->playerFlags->m_pinball = true;
                 this->startSmashbreaker(playerIndex);
             }
             else if (strcmp(name, "８ＵＲＮ") == 0) { // "8URN"
-                this->playerFlags->m_smashbreaker = true;
+                this->playerFlags->m_golf = true;
                 this->startSmashbreaker(playerIndex);
             }
             fighter->setupEquipment();
@@ -769,7 +769,14 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
         //if (fighter->getOwner()->) {
 
         nw4r::ut::Color subColor = fighter->m_moduleAccesser->getColorBlendModule().getSubColor();
-        if (subColor.g == 0x1) {
+
+        if (isSmashbreakerDamageActive(fighter))
+        {
+            if (!fighter->m_moduleAccesser->getEffectModule().isExistCommon(4))
+            {
+                fighter->m_moduleAccesser->getEffectModule().reqCommon(5.0, 4);
+            }
+
             Vec3f offsetPos(0.0, 0.0, 0.0);
             soCollisionAttackData attackData(0x23, &offsetPos, 9.6, 0x169, 0x0, 0x0, 0x78, 0.0, 1.0, 1.0, 0x0,
                 soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
@@ -777,12 +784,14 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
                 soCollisionAttackData::SetOff_On, false, false, false, false, 0x50, 0x10, false, false, false, soCollisionAttackData::Lr_Check_Forward,
                 false, true, false, false, false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
             fighter->m_moduleAccesser->getCollisionAttackModule().set(1, 0, &attackData);
+        }
+        else
+        {
+            fighter->m_moduleAccesser->getCollisionAttackModule().clearAll();
+            fighter->m_moduleAccesser->getEffectModule().removeCommon(4);
+        }
 
-            if (fighter->m_moduleAccesser->getStatusModule().getStatusKind() != Fighter::Status::Damage_Fly)
-            {
-                fighter->m_moduleAccesser->getCollisionAttackModule().clearAll();
-                subColor.r = 0x1;
-            }
+        if (subColor.g == 0x1) {
 
             subColor.a -= isInstant ? 0x5 : 0x1;
             if (subColor.a <= 0x5)
@@ -795,12 +804,6 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
         }
         else if (subColor.g == 0xFF)
         {
-            if (fighter->m_moduleAccesser->getStatusModule().getStatusKind() != Fighter::Status::Damage_Fly)
-            {
-                fighter->m_moduleAccesser->getCollisionAttackModule().clearAll();
-                subColor.r = 0xFF;
-            }
-
             if (subColor.a % 2 == 0)
             {
                 if (button.m_special)
@@ -832,7 +835,7 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
                 Vec2f stickDir = fighter->getInput()->getStickMain();
                 soCollisionAttackData attackData(0x23, &offsetPos, 9.6, mtConvRadToDeg(atan2(stickDir.m_y, stickDir.m_x)), 0x0, 0x0, 200, 0.0, 1.0, 1.0, 0x0,
                     soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
-                    soCollisionAttackData::Attribute_Fire, soCollisionAttackData::Sound_Level_Large, soCollisionAttackData::Sound_Attribute_Bomb,
+                    soCollisionAttackData::Attribute_Normal, soCollisionAttackData::Sound_Level_Large, soCollisionAttackData::Sound_Attribute_Bomb,
                     soCollisionAttackData::SetOff_On, false, false, false, false, 0x50, 0x10, false, false, false, soCollisionAttackData::Lr_Check_Forward,
                     false, true, false, false, false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
                 fighter->m_moduleAccesser->getKineticModule().getEnergy(Fighter::Kinetic::Energy::Id_Damage)->clearSpeed();
@@ -840,12 +843,19 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
                 damageModule.setGroundDamage(grCollStatus::TOUCH_MASK_RIGHT, &attackData);
                 fighter->m_moduleAccesser->getCollisionAttackModule().set(0, 0, &attackData);
                 fighter->m_moduleAccesser->getCollisionAttackModule().sleep(false);
+                fighter->m_moduleAccesser->getEffectModule().reqEmit(ef_ptc_common_flame, 0);
+                fighter->m_moduleAccesser->getEffectModule().reqCommon(5.0, 4);
             }
         }
         fighter->m_moduleAccesser->getColorBlendModule().setSubColor(subColor, true);
 
         //}
     }
+}
+
+bool stTargetSmash::isSmashbreakerDamageActive(Fighter* fighter)
+{
+    return fighter->m_moduleAccesser->getKineticModule().getSumSpeed(soKineticEnergy::ATTRIBUTE_MASK_ALL).length() >= PINBALL_DAMAGE_SPEED;
 }
 
 
