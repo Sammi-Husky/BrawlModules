@@ -12,7 +12,9 @@
 #define SHADE_FRAME_LENGTH 60
 #define SHADE_SIZE_MULTIPLIER 0.5
 #define GHOST_FRAME_LENGTH 1800
-#define PINBALL_DAMAGE_SPEED 0.01
+#define PINBALL_DAMAGE_SPEED_MULTIPLIER 5
+#define PINBALL_DAMAGE_MIN_SPEED 0.01
+#define GOLF_REACTION_MULTIPLIER 1.5
 
 struct stTargetSmashData {
     grGimmick::AttackData sliderAttackData;

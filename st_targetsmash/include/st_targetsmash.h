@@ -126,8 +126,9 @@ public:
     void applyNameCheats();
     void applyCharge(u32 playerIndex, bool useCheatCharge);
     void applySeed();
-    void updateSmashbreaker(u32 playerIndex, bool isInstant);
+    void updateSmashbreaker(u32 playerIndex, bool isPinball);
     static bool isSmashbreakerDamageActive(Fighter* fighter);
+    static bool isGolfSwingReady(Fighter* fighter);
 
     STATIC_CHECK(sizeof(stTargetSmash) == 916 + MAX_PLAYERS*4 + sizeof(enemyPacs))
 };

@@ -697,7 +697,7 @@ void stTargetSmash::applyNameCheats() {
                 this->playerFlags->m_pinball = true;
                 this->startSmashbreaker(playerIndex);
             }
-            else if (strcmp(name, "８ＵＲＮ") == 0) { // "8URN"
+            else if (strcmp(name, "８０６３Ｙ") == 0) { // "8063Y"
                 this->playerFlags->m_golf = true;
                 this->startSmashbreaker(playerIndex);
             }
@@ -760,7 +760,7 @@ void stTargetSmash::startSmashbreaker(u32 playerIndex) {
     }
 }
 
-void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
+void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isPinball) {
     int entryId = g_ftManager->getEntryId(playerIndex);
     if (g_ftManager->isFighterActivate(entryId, -1))
     {
@@ -778,7 +778,8 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
             }
 
             Vec3f offsetPos(0.0, 0.0, 0.0);
-            soCollisionAttackData attackData(0x23, &offsetPos, 9.6, 0x169, 0x0, 0x0, 0x78, 0.0, 1.0, 1.0, 0x0,
+            soCollisionAttackData attackData(fighter->m_moduleAccesser->getKineticModule().getSumSpeed(soKineticEnergy::ATTRIBUTE_MASK_ALL).length()*PINBALL_DAMAGE_SPEED_MULTIPLIER,
+                &offsetPos, 9.6, 0x169, 0x0, 0x0, 0x78, 0.0, 1.0, 1.0, 0x0,
                 soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
                 soCollisionAttackData::Attribute_Fire, soCollisionAttackData::Sound_Level_Large, soCollisionAttackData::Sound_Attribute_Bomb,
                 soCollisionAttackData::SetOff_On, false, false, false, false, 0x50, 0x10, false, false, false, soCollisionAttackData::Lr_Check_Forward,
@@ -791,62 +792,109 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
             fighter->m_moduleAccesser->getEffectModule().removeCommon(4);
         }
 
-        if (subColor.g == 0x1) {
-
-            subColor.a -= isInstant ? 0x5 : 0x1;
-            if (subColor.a <= 0x5)
-            {
-                subColor.r = 0xFF;
-                subColor.g = 0xFF;
-                subColor.b = 0xFF;
-                subColor.a = 0x0;
-            }
-        }
-        else if (subColor.g == 0xFF)
+        if (isPinball)
         {
-            if (subColor.a % 2 == 0)
-            {
-                if (button.m_special)
+            if (subColor.g == 0x1) {
+
+                subColor.a -= 0x5;
+                if (subColor.a <= 0x5)
                 {
-                    subColor.a += isInstant ? 0xF1 : 0x9;
+                    subColor.r = 0xFF;
+                    subColor.g = 0xFF;
+                    subColor.b = 0xFF;
+                    subColor.a = 0x0;
+                }
+            }
+            else if (subColor.g == 0xFF)
+            {
+                if (subColor.a % 2 == 0)
+                {
+                    if (button.m_special)
+                    {
+                        subColor.a += 0xF1;;
+                    }
+                    else
+                    {
+                        subColor.a -= subColor.a >= 0x2 ? 0x2 : 0x0;
+                    }
                 }
                 else
                 {
-                    subColor.a -= subColor.a >= 0x2 ? 0x2 : 0x0;
+                    if (!button.m_special)
+                    {
+                        subColor.a += 0x9;
+                    }
+                    else
+                    {
+                        subColor.a -= subColor.a >= 0x2 ? 0x2 : 0x0;
+                    }
+                }
+                if (subColor.a >= 0xF0) {
+                    subColor.r = 0xFE;
+                    subColor.g = 0x1;
+                    subColor.b = 0x1;
+
+                    Vec3f offsetPos(0.0, 0.0, 0.0);
+                    Vec2f stickDir = fighter->getInput()->getStickMain();
+                    float angle = stickDir.m_x == 0.0f && stickDir.m_y == 0.0f ? 90 : mtConvRadToDeg(atan2(stickDir.m_y, stickDir.m_x));
+                    soCollisionAttackData attackData(0x23, &offsetPos, 9.6, angle, 0x0, 0x0, 200, 0.0, 1.0, 1.0, 0x0,
+                        soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
+                        soCollisionAttackData::Attribute_Normal, soCollisionAttackData::Sound_Level_Large, soCollisionAttackData::Sound_Attribute_Bomb,
+                        soCollisionAttackData::SetOff_On, false, false, false, false, 0x50, 0x10, false, false, false, soCollisionAttackData::Lr_Check_Forward,
+                        false, true, false, false, false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
+                    fighter->m_moduleAccesser->getKineticModule().getEnergy(Fighter::Kinetic::Energy::Id_Damage)->clearSpeed();
+                    soDamageModuleImpl& damageModule = dynamic_cast<soDamageModuleImpl&>(fighter->m_moduleAccesser->getDamageModule());
+                    damageModule.setGroundDamage(grCollStatus::TOUCH_MASK_RIGHT, &attackData);
+                    fighter->m_moduleAccesser->getCollisionAttackModule().set(0, 0, &attackData);
+                    fighter->m_moduleAccesser->getCollisionAttackModule().sleep(false);
+                    fighter->m_moduleAccesser->getEffectModule().reqEmit(ef_ptc_common_flame, 0);
+                    fighter->m_moduleAccesser->getEffectModule().reqCommon(5.0, 4);
+                }
+            }
+
+        }
+        else
+        {
+            if (isGolfSwingReady(fighter))
+            {
+                if (subColor.a > 0x0 && !button.m_special)
+                {
+                    Vec3f offsetPos(0.0, 0.0, 0.0);
+                    Vec2f stickDir = fighter->getInput()->getStickMain();
+                    float angle = stickDir.m_x == 0.0f && stickDir.m_y == 0.0f ? 90 : mtConvRadToDeg(atan2(stickDir.m_y, stickDir.m_x));
+
+                    soCollisionAttackData attackData(0x23, &offsetPos, 9.6, angle, 0x0, 0x0, subColor.a*GOLF_REACTION_MULTIPLIER, 0.0, 1.0, 1.0, 0x0,
+                        soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
+                        soCollisionAttackData::Attribute_Normal, soCollisionAttackData::Sound_Level_Large, soCollisionAttackData::Sound_Attribute_Bomb,
+                        soCollisionAttackData::SetOff_On, false, false, false, false, 0x50, 0x10, false, false, false, soCollisionAttackData::Lr_Check_Forward,
+                        false, true, false, false, false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
+                    fighter->m_moduleAccesser->getKineticModule().getEnergy(Fighter::Kinetic::Energy::Id_Damage)->clearSpeed();
+                    soDamageModuleImpl& damageModule = dynamic_cast<soDamageModuleImpl&>(fighter->m_moduleAccesser->getDamageModule());
+                    damageModule.setGroundDamage(grCollStatus::TOUCH_MASK_RIGHT, &attackData);
+                    fighter->m_moduleAccesser->getCollisionAttackModule().set(0, 0, &attackData);
+                    fighter->m_moduleAccesser->getCollisionAttackModule().sleep(false);
+                    fighter->m_moduleAccesser->getEffectModule().reqEmit(ef_ptc_common_flame, 0);
+                    fighter->m_moduleAccesser->getEffectModule().reqCommon(5.0, 4);
+                    subColor.r = 0x1;
+                    subColor.g = 0xFE;
+                    subColor.b = 0x1;
+                    subColor.a = 0x0;
+                }
+                else if (subColor.a < 0xF0 && button.m_special)
+                {
+                    subColor.a += 0x1;
                 }
             }
             else
             {
-                if (!button.m_special)
-                {
-                    subColor.a += 0x9;
-                }
-                else
-                {
-                    subColor.a -= subColor.a >= 0x2 ? 0x2 : 0x0;
-                }
-            }
-            if (subColor.a >= 0xF0) {
-                subColor.r = 0xFE;
-                subColor.g = 0x1;
+                subColor.r = 0x1;
+                subColor.g = 0xFE;
                 subColor.b = 0x1;
-
-                Vec3f offsetPos(0.0, 0.0, 0.0);
-                Vec2f stickDir = fighter->getInput()->getStickMain();
-                soCollisionAttackData attackData(0x23, &offsetPos, 9.6, mtConvRadToDeg(atan2(stickDir.m_y, stickDir.m_x)), 0x0, 0x0, 200, 0.0, 1.0, 1.0, 0x0,
-                    soCollision::CATEGORY_MASK_ALL, soCollision::SITUATION_MASK_ALL, false, soCollision::PART_MASK_ALL,
-                    soCollisionAttackData::Attribute_Normal, soCollisionAttackData::Sound_Level_Large, soCollisionAttackData::Sound_Attribute_Bomb,
-                    soCollisionAttackData::SetOff_On, false, false, false, false, 0x50, 0x10, false, false, false, soCollisionAttackData::Lr_Check_Forward,
-                    false, true, false, false, false, soCollisionAttackData::Region_None, soCollision::Shape_Sphere);
-                fighter->m_moduleAccesser->getKineticModule().getEnergy(Fighter::Kinetic::Energy::Id_Damage)->clearSpeed();
-                soDamageModuleImpl& damageModule = dynamic_cast<soDamageModuleImpl&>(fighter->m_moduleAccesser->getDamageModule());
-                damageModule.setGroundDamage(grCollStatus::TOUCH_MASK_RIGHT, &attackData);
-                fighter->m_moduleAccesser->getCollisionAttackModule().set(0, 0, &attackData);
-                fighter->m_moduleAccesser->getCollisionAttackModule().sleep(false);
-                fighter->m_moduleAccesser->getEffectModule().reqEmit(ef_ptc_common_flame, 0);
-                fighter->m_moduleAccesser->getEffectModule().reqCommon(5.0, 4);
+                subColor.a = 0x0;
             }
         }
+
+
         fighter->m_moduleAccesser->getColorBlendModule().setSubColor(subColor, true);
 
         //}
@@ -855,7 +903,12 @@ void stTargetSmash::updateSmashbreaker(u32 playerIndex, bool isInstant) {
 
 bool stTargetSmash::isSmashbreakerDamageActive(Fighter* fighter)
 {
-    return fighter->m_moduleAccesser->getKineticModule().getSumSpeed(soKineticEnergy::ATTRIBUTE_MASK_ALL).length() >= PINBALL_DAMAGE_SPEED;
+    return fighter->m_moduleAccesser->getKineticModule().getSumSpeed(soKineticEnergy::ATTRIBUTE_MASK_ALL).length() >= PINBALL_DAMAGE_MIN_SPEED;
+}
+
+bool stTargetSmash::isGolfSwingReady(Fighter* fighter)
+{
+    return fighter->m_moduleAccesser->getStatusModule().getStatusKind() == Fighter::Status::Down_Wait;
 }
 
 
